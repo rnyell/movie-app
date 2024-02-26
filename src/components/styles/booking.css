@@ -1,0 +1,168 @@
+.booking {
+  padding: var(--space-5);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.booking header {
+  --btn-size: 1.5rem;
+
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  color: var(--color-neutral-200);
+
+  & .movie-title {
+    /* adjusting title to be center, based on btn size */
+    margin-right: var(--btn-size);
+    flex: 1;
+    text-align: center;
+  }
+
+  & .back-btn {
+    width: var(--btn-size);
+    height: var(--btn-size);
+    border-radius: var(--rounded-full);
+  }
+}
+
+.seats {
+  margin-top: var(--space-4);
+  margin-inline: auto;
+  padding: 1.5rem 0;
+  width: min(100%, 900px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #2a2c2f;
+  border-radius: 2rem;
+
+  & .screen {
+    width: 100%;
+    height: 100px;
+    overflow: hidden;
+  }
+
+  & svg {
+    width: 100%;
+    height: 100%;
+    scale: 2.5 1.5;
+    translate: 0 -1rem;
+    fill: #efefef;
+
+    & path {
+      stroke: #efefef;
+      stroke-width: 2px;
+      stroke-linecap: round;
+      filter: drop-shadow(0 0.5rem 1.6rem #fff);
+    }
+
+    @media (width > 480px) {
+      scale: 2.75 1.75;
+    }
+
+    @media (width > 720px) {
+      scale: 3 2;
+    }
+  }
+}
+
+.rows {
+  width: 80%;
+  display: grid;
+  place-items: center;
+  row-gap: 0.5rem;
+}
+
+.row {
+  --row-width: 300px; /* the default, it will be overrideed by React */
+  --seat-counts: 8; /* it will be overrideed by React */
+  --seat-width: 1.875rem;
+  --const-x: calc(var(--seat-width) * 1.5);
+  --left-dist: calc(var(--const-x) * var(--dx));
+  --offset-top: 1.125rem;
+  --offset-left: calc(
+    (
+        var(--row-width) -
+          (((var(--seat-counts) - 1) * var(--const-x)) + var(--seat-width))
+      ) / 2
+  );
+
+  width: 100%;
+  height: 2rem;
+  position: relative;
+}
+
+.seat {
+  width: var(--seat-width);
+  aspect-ratio: 1.25;
+
+  position: absolute;
+  left: calc(var(--const-x) * var(--dx));
+  top: calc((1 - sin(calc(180deg + var(--dy)))) * var(--offset-top));
+  translate: var(--offset-left) calc(-1 * var(--offset-top));
+
+  background-color: #ecd6e6;
+  border-radius: 2px 2px 1rem 1rem;
+  transition: 200ms;
+  cursor: pointer;
+
+  &:not(.reserved):hover {
+    scale: 1.1;
+  }
+
+  &.selected {
+    background-color: var(--color-accent-100);
+  }
+
+  &.reserved {
+    background-color: rgba(196, 54, 113, 0.35);
+  }
+}
+
+.seats-states {
+  margin-top: 3rem;
+  width: min(80%, 400px);
+  display: flex;
+  font-size: 0.875rem;
+  color: var(--color-neutral-400);
+
+  & > div {
+    flex: 1;
+    display: inline-grid;
+    align-items: center;
+    grid-auto-flow: column;
+
+    &:first-child {
+      margin-left: 0.25rem;
+    }
+
+    &:last-child {
+      margin-right: 0.25rem;
+    }
+  }
+
+  & .seat-color {
+    width: 0.725rem;
+    height: 0.725rem;
+    justify-self: end;
+    border-radius: 9999px;
+  }
+
+  & .reserved .seat-color {
+    background-color: rgba(196, 54, 113, 0.35);
+  }
+
+  & .available .seat-color {
+    background-color: #ecd6e6;
+  }
+
+  & .selected .seat-color {
+    background-color: var(--color-accent-100);
+  }
+
+  & p {
+    margin-left: 0.5rem;
+  }
+}

@@ -1,0 +1,40 @@
+.results-page {
+  padding: var(--space-5);
+  display: grid;
+  justify-items: center;
+  row-gap: 1rem;
+}
+
+.results-page header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  & .icon {
+    margin-inline: var(--space-2);
+    width: var(--icon-size-20);
+  }
+}
+
+.results-page h3 {
+
+  & span {
+    margin-inline: var(--space-2);
+    color: var(--color-accent-100);
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    letter-spacing: 0.0225em;
+  }
+}
+
+.movies-container {
+  width: 100%;
+  max-width: 990px;
+}
+
+.movies-grid {
+  padding: var(--space-2);
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
+  gap: 1.5rem 2rem;
+}

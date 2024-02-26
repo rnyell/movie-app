@@ -1,0 +1,152 @@
+.datetime {
+  margin-top: 2rem;
+  margin-inline: auto;
+  padding: 1.5rem 0;
+  width: min(100%, 900px);
+  color: #d9e6ed;
+  background-color: #2a2c2f;
+  border-radius: 2rem;
+
+  & h2 {
+    text-align: center;
+  }
+
+  & .dates {
+    width: 80%;
+  }
+
+  & .times {
+    width: 80%;
+  }
+}
+
+form {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+
+  & [type="radio"] {
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+}
+
+.dates {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  & h4 {
+    align-self: flex-start;
+  }
+}
+
+.days {
+  padding: 0.5rem;
+  width: 100%;
+  display: grid;
+  grid-auto-flow: column;
+  /* grid-template-rows: auto 1fr; */
+  grid-template-columns: repeat(7, minmax(min(50px, 100%), 1fr));
+  gap: 1rem;
+  overflow-x: scroll;
+}
+
+.day {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  aspect-ratio: 5 / 6;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  position: relative;
+  background-color: rgb(57, 60, 64);
+  border-radius: 1.2rem;
+  cursor: pointer;
+  transition: var(--duration-1) ease-in;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: calc(50% - 0.25rem);
+    top: 12%;
+    background-color: #1e2022;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: var(--rounded-full);
+  }
+
+  & .day-name {
+    margin-top: 1rem;
+  }
+
+  & .day-number {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  &:has([type="radio"]:checked) {
+    background-color: var(--color-accent-100);
+  }
+}
+
+.times {
+  padding: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  & label {
+    padding: 0.5rem 1rem;
+    outline: 0.125rem solid var(--color-accent-100);
+    outline: 0.125rem solid var(--color-neutral-500);
+    border-radius: var(--rounded-full);
+    cursor: pointer;
+    transition: var(--duration-1) ease-in;
+
+    &:has([type="radio"]:checked) {
+      background-color: var(--color-accent-100);
+      outline-color: transparent;
+    }
+  }
+}
+
+.cta {
+  margin-top: 0.5rem;
+  width: 80%;
+  display: flex;
+  align-items: center;
+
+  & div {
+    margin-right: 1rem;
+    padding: 1.25rem 2rem;
+    text-align: center;
+
+    & .price {
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: 0.075em;
+    }
+
+    & .count {
+      margin-top: 0.25rem;
+      min-width: 5rem;
+      color: var(--color-neutral-400);
+    }
+  }
+
+  & .buy-ticket-btn {
+    margin-left: auto;
+    padding: 1.25rem 3.75rem;
+    white-space: nowrap;
+    font-size: 1.25rem;
+    font-weight: 600;
+    background-color: var(--color-accent-100);
+    border-radius: var(--rounded-full);
+    cursor: pointer;
+  }
+}
