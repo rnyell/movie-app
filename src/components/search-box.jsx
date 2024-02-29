@@ -1,14 +1,10 @@
 import { useEffect, useRef, useState } from "react"
 import { useSearchParams, useNavigate, useLocation } from "react-router-dom"
 
-import { searchMovies } from "../../utils/apis"
-import { useSearch } from "../../store/app-context"
-
-import "../styles/searchbox.css"
+import "./styles/searchbox.css"
 
 
 export default function SearchBox({ onHomePage }) {
-  const [searchResults, setSearchResults] = useSearch()
   const [params, setParams] = useSearchParams()
   const [userInput, setUserInput] = useState("")
   const navigate = useNavigate()
@@ -33,7 +29,6 @@ export default function SearchBox({ onHomePage }) {
   }, [location])
 
   function handleInput({target}) {
-    //* TODO: add debouncing
     setUserInput(target.value)
   }
   
@@ -47,9 +42,6 @@ export default function SearchBox({ onHomePage }) {
     } else {
       setParams({query: ""})
     }
-    
-    searchMovies(userInput).then(data => setSearchResults(data.results))
-    //? how to listen to `Enter` key?
   }
 
   function handleClick() {
@@ -82,12 +74,19 @@ export default function SearchBox({ onHomePage }) {
     }
   }
 
+  function keyPressHandler(e) {
+    if (e.key === "Enter" || e.code === 13) {
+      handleClick()
+    }
+  }
 
   return (
     <div 
       className={`search-box ${isExpanded ? "expanded" : ""}`} 
       data-location={onHomePage ? "on-home-page" : "on-result-page"}
       ref={boxRef}
+      onKeyDown={keyPressHandler}
+      tabIndex={0}
     >
       <div className="icon-wrapper" onClick={handleClick}>
         <i className="search-icon">
@@ -101,6 +100,7 @@ export default function SearchBox({ onHomePage }) {
           type="text"
           id="search-input"
           className="search-input"
+          placeholder="Find a movie or series..."
           ref={inputRef}
           value={userInput}
           onChange={handleInput}

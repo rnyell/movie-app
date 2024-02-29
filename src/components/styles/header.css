@@ -1,0 +1,11 @@
+header.main-header {
+  padding: var(--space-5);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  & .icon {
+    margin-inline: var(--space-2);
+    width: var(--icon-size-20);
+  }
+}

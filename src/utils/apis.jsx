@@ -1,6 +1,6 @@
 import { extendedFetch } from "./utils"
 
-const BASE_URL = "https://api.themoviedb.org/3"
+const BASE_URL = "https://api.themoviedb.org"
 const API_KEY = "9f1ffd64abd4bde18614fd9087d87d71"
 
 export const GENRES_IDS = {
@@ -27,7 +27,7 @@ export const GENRES_IDS = {
 
 
 export async function getTrendingMovies() {
-  let data = await extendedFetch("3/trending/all/day", {
+  let data = await extendedFetch(BASE_URL, "3/trending/all/day", {
     api_key: API_KEY
   })
 
@@ -39,7 +39,7 @@ export async function getTrendingMovies() {
 
 export async function discoverMovies() {
   // let page = 1
-  let data = await extendedFetch("3/discover/movie", {
+  let data = await extendedFetch(BASE_URL, "3/discover/movie", {
     include_adult: true,
     sort_by: "popularity.desc",
     // page: `${page}`,
@@ -53,7 +53,7 @@ export async function discoverMovies() {
 }
 
 export async function popularMovies() {
-  let data = await extendedFetch("3/movie/popular", {
+  let data = await extendedFetch(BASE_URL, "3/movie/popular", {
     include_video: true,
     language: "en-US",
     api_key: API_KEY
@@ -62,10 +62,11 @@ export async function popularMovies() {
   console.log(data)
 }
 
-export async function searchMovies(title = '') {
+export async function searchMovies(title = '', page = 1) {
   let formattedTitle = title.split(' ').join("+")
-  let data = await extendedFetch("3/search/movie", {
+  let data = await extendedFetch(BASE_URL, "3/search/movie", {
     query: formattedTitle,
+    page: 1,
     api_key: API_KEY
   })
 
@@ -74,19 +75,29 @@ export async function searchMovies(title = '') {
 }
 
 export async function getMovieDetails(movieId) {
-  let data = await extendedFetch(`3/movie/${movieId}`, {
+  let data = await extendedFetch(BASE_URL, `3/movie/${movieId}`, {
     api_key: API_KEY,
-    append_to_response: "credits"
+    append_to_response: "credits,videos",
   })
   return data
 }
 
-export async function getIMDBRate(title) {
-  const url = `https://www.omdbapi.com/?t=${title}&apikey=4109da8f`
-  const response = await fetch(url)
-  const data = await response.json()
-  // console.log(data.imdbRating)
+export async function getMovieTrailer(movieId) {
+  let data = await extendedFetch(BASE_URL, `3/movie/${movieId}/videos`, {
+    api_key: API_KEY,
+  })
+
+  let officialTrailers = data.results.filter(res => 
+    res.type === "Trailer" && 
+    res.official === true
+  )
+
+  let latestTrailer = officialTrailers[0].key
+  let trailerUrl = `https://www.youtube.com/watch?v=${latestTrailer}`
+  console.log(trailerUrl)
+  return trailerUrl
 }
+
 
 /*
 `

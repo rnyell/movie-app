@@ -1,4 +1,84 @@
-@layer reset, global;
+@layer reset, global, typo;
+
+@font-face {
+  font-family: Montserrat;
+  font-weight: 400;
+  font-style: normal;
+  src: local("Montserrat"),
+    url("/fonts/Montserrat-400.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Montserrat;
+  font-weight: 400;
+  font-style: italic;
+  src: url("/fonts/Montserrat-400-italic.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Montserrat;
+  font-weight: 500;
+  font-style: normal;
+  src: local("Montserrat"),
+    url("/fonts/Montserrat-500.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Montserrat;
+  font-weight: 600;
+  font-style: normal;
+  src: local("Montserrat"),
+    url("/fonts/Montserrat-600.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Montserrat;
+  font-weight: 600;
+  font-style: italic;
+  src: local("Montserrat"),
+    url("/fonts/Montserrat-600-italic.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Montserrat;
+  font-weight: 700;
+  font-style: normal;
+  src: local("Montserrat"),
+    url("/fonts/Montserrat-700.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Pridi;
+  font-weight: 400;
+  font-style: normal;
+  src: local("Pridi"),
+    url("/fonts/Pridi-400.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Pridi;
+  font-weight: 500;
+  font-style: normal;
+  src: local("Pridi"),
+    url("/fonts/Pridi-500.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Pridi;
+  font-weight: 600;
+  font-style: normal;
+  src: local("Pridi"),
+    url("/fonts/Pridi-600.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Pridi;
+  font-weight: 700;
+  font-style: normal;
+  src: local("Pridi"),
+    url("/fonts/Pridi-700.ttf") format("truetype");
+}
+
 
 :root {
   --base-size: 1rem;
@@ -21,8 +101,8 @@
   --shadow-200: 0 0.1rem 0.75rem rgb(0 0 0 / 50%);
   --duration-1: 150ms;
   --duration-2: 220ms;
-  --z-neg-10: -10;
-  --z-neg-5: -5;
+  --z-neg10: -10;
+  --z-neg5: -5;
   --z-0: 0;
   --z-5: 5;
   --z-10: 10;
@@ -30,24 +110,34 @@
   --z-50: 50;
   --z-100: 100;
 
+  --icon-size-5: 0.75rem;
   --icon-size-10: 1rem;
   --icon-size-15: 1.5rem;
   --icon-size-20: 2rem;
   --icon-size-25: 2.5rem;
   --icon-size-30: 3rem;
 
-  --color-accent-100: rgb(57, 168, 185);
-  --color-accent-100: rgb(196 54 113);
-  --color-accent-100: rgb(197, 65, 100);
-  --color-accent-100: rgb(186, 58, 92);
-
-  --color-neutral-200: #d9e6ed;
-  --color-neutral-300: #b7c0c4;
-  --color-neutral-400: #8c949b;
-  --color-neutral-500: #3e4245;
-  --color-neutral-600: #2f3234;
-  --color-neutral-700: #2a2c2f;
+  --color-neutral-100: #eaeff3;
+  --color-neutral-200: #dde5eb;
+  --color-neutral-300: #c3cedb;
+  --color-neutral-400: #838c94;
+  --color-neutral-500: #42474b;
+  --color-neutral-600: #323739;
+  --color-neutral-700: #25282a;
   --color-neutral-800: #1e2022;
+  --color-neutral-900: #131416;
+  --color-orange-300: #f5c518;
+
+  /* --color-accent-100: rgb(57, 168, 185);
+  --color-accent-100: rgb(197, 65, 100);
+  --color-accent-100: rgb(186, 58, 92); */
+
+  --color-accent-100: #E48A94;
+  --color-accent-200: #DA697A;
+  --color-accent-300: #D3546A;
+  --color-accent-400: #C74361;
+  --color-accent-500: #BA3A5C;
+  --color-accent-600: #A72A4B;
 
   --color-neutral-200-opaque: rgb(217 230 237 / 50%);
   --color-neutral-300-opaque: rgb(183 192 196 / 50%);
@@ -57,47 +147,80 @@
   --color-neutral-700-opaque: rgb(42 44 47 / 50%);
   --color-neutral-800-opaque: rgb(30 32 34 / 50%);
 
+  --black-gradient: rgb(10 13 15 / 25%);
+
 
   @media (width < 500px) {
     --base-size: 0.95rem;
   }
 }
 
-
-@layer global {
+@layer typo {
   html {
     font-size: clamp(0.75rem, 55% + 0.75vw, 1.5rem);
-    font-family: Cambria, Cochin, Georgia, serif;
+    font-family: Montserrat, sans-serif;
   }
 
   body {
-    line-height: 1.2;
+    line-height: 1.375;
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    color: var(--color-neutral-200);
+  h1, h2, h3, h4, h5, h6 {
+    /* font-family: Cambria, Cochin, Georgia, serif; */
+    font-family: Pridi, Georgia, serif;
+    letter-spacing: 0.3px;
+    line-height: 1.15;
   }
 
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+    font-weight: 600;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+
+  h4 {
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
+
+  h5, h6 {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+}
+
+
+@layer global {
   #root {
     height: 100%;
     color: var(--color-neutral-200); /* default color */
     background-color: var(--color-neutral-800);
   }
 
+  i,
   a,
-  i, .icon, 
-  label {
+  label,
+  svg {
     display: inline-block;
   }
 
   .icon {
+    display: inline-grid;
+    place-items: center;
     aspect-ratio: 1 / 1;
-    max-width: 35px;
+
+    & svg {
+      max-width: 36.25px;
+    }
   }
 }
 
@@ -113,10 +236,6 @@
   html {
     min-height: 100%;
     display: grid;
-    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-      "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
-      "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
-      "Noto Color Emoji";
     text-rendering: optimizeLegibility;
     scroll-behavior: smooth;
   }
@@ -129,7 +248,6 @@
   a {
     color: inherit;
     text-decoration: none;
-    text-align: center;
   }
 
   i {

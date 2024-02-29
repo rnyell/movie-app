@@ -1,8 +1,8 @@
 import "./styles/skeletons.css"
 
-export function MovieLoader() {
+export function SelectedMovieSkeleton() {
   return (
-    <div className="movie-loader">
+    <div className="movie-skeleton">
       <div className="l-poster"></div>
       <div className="l-attr">
         <span></span>
@@ -19,6 +19,19 @@ export function MovieLoader() {
         <div className="l-img"></div>
         <div className="l-img"></div>
         <div className="l-img"></div>
+      </div>
+    </div>
+  )
+}
+
+export function SearchResultsSkeleton() {
+  return (
+    <div className="search-results-skeleton">
+      <div className="l-movies-grid">
+        <div className="l-movie-card">
+          <div className="l-poster"></div>
+          <div className="l-title"></div>
+        </div>
       </div>
     </div>
   )

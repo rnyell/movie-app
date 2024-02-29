@@ -1,0 +1,5 @@
+footer.main-footer {
+  padding: var(--space-5);
+  height: 35vh;
+  background-color: var(--color-neutral-700);
+}

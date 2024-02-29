@@ -13,16 +13,28 @@ export const SearchContext = createContext([])
 
 export const SelectedMovieContext = createContext({})
 
+const initial = {
+  results: [],
+  currentPage: 1,
+  totalPages: 1,
+}
+
+function searchReducer(state, action) {
+  switch (action.type) {
+    case "set_search": {
+      return {
+        results: state
+      }
+    }
+  }
+}
+
 
 export function MovieProvider({ children }) {
-  // const [trends, setTrends] = useState([])
-  //! const [searchResults, setSearchResults] = useState(null)  cause error why???????????
+  // const [searchResults, searchDispatch] = useReducer(searchReducer, initial)
+  // const [searchResults, setSearchResults] = useState(null) -> cause error why!?
   const [searchResults, setSearchResults] = useState([])
   const [selectedMovie, setSelectedMovie] = useState({})
-
-  // useEffect(() => {
-  //   discoverMovies().then((movies) => setTrends(movies))
-  // }, [])
 
   return (
     <MovieContext.Provider value={0}>

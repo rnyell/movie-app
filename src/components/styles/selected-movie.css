@@ -1,27 +1,133 @@
-.info {
+.selected-movie {
+  min-height: 100dvh;
+  
+  & .poster-wrapper {
+    position: relative;
+    isolation: isolate;
+  }
+
+  & .gradient {
+    position: absolute;
+    z-index: var(--z-10);
+    inset: 0;
+    background-image: linear-gradient(
+      180deg, rgb(10 13 15 / 15%) -10%, rgb(10 13 15 / 75%) 55%
+    );
+  }
+
+  & figure {
+    width: 100%;
+
+    & .poster {
+      width: 100%;
+    }
+  }
+  
+  & .details {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--color-neutral-400);
+    font-size: 0.875rem;
+
+    & .dot {
+      font-size: 1.5rem;
+    }
+  }
+
+  & .icons {
+    margin-left: auto;
+
+    & .icon {
+      margin-inline: var(--space-2);
+      width: var(--icon-size-15);
+    }
+  }
+
+  & .description {
+    margin-top: var(--space-4);
+    padding: var(--space-5);
+  }
+  
+  & .title {
+    color: var(--color-neutral-100);
+  }
+
+  & .plot {
+    color: var(--color-neutral-300);
+  }
+
+  & .casts-wrapper {
+    margin-top: var(--space-6);
+    padding-inline: var(--space-2);
+    max-width: 80%;
+    overflow-x: scroll;
+
+    & h4 {
+      margin-bottom: var(--space-4);
+    }
+  }
+
+  & .casts {
+    display: flex;
+    justify-content: flex-start;
+    align-items: start;
+    gap: 0.75rem;
+
+    & li {
+      flex-shrink: 0;
+      width: 25%;
+      text-align: center; /* it centers imgs cuz they're inline/inline-block items */
+    }
+
+    & .cast-img {
+      width: 5rem;
+      aspect-ratio: 1;
+      object-position: 0 15%;
+      border-radius: var(--rounded-full);
+      /* outline: var(--outline-size-2) solid whitesmoke; */
+    }
+
+    & .cast-name {
+      margin-top: var(--space-2);
+      font-size: 0.75rem;
+      /* width: fit-content; */
+      text-align: center;
+    }
+  }
+}
+
+
+.selected-movie .cta {
   padding: var(--space-5);
-}
 
-.movie-attr {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  gap: var(--space-2);
-  color: var(--color-neutral-400);
-  font-size: 0.875rem;
-}
+  & > button {
+    padding: var(--space-4) var(--space-6);
+    font-weight: 500;
+    border-radius: var(--rounded-full);
+    cursor: pointer;
+  }
+  
+  & .trailer-btn {
+    display: flex;
+    align-items: center;
+    color: var(--color-neutral-200);
+    outline: var(--outline-size-2) solid var(--color-accent-500);
 
-.movie-title {
-  margin-block: 1rem 0.5rem;
-}
+    & .icon {
+      margin-left: var(--space-2);
+      width: var(--icon-size-15);
 
-
-
-.cta {
-
+      & svg {
+        stroke: var(--color-accent-500);
+        fill: var(--color-accent-500);
+      }
+    }
+  }
 
   & .book-btn {
-    padding: var(--space-4) var(--space-6);
-    border: 1px solid cornflowerblue;
+    background-color: var(--color-accent-500);
+    outline: var(--outline-size-2) solid var(--color-accent-500);
   }
 }

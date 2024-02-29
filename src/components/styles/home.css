@@ -1,14 +1,1 @@
-.home {
-  padding: var(--space-5);
-}
 
-.home header {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-
-  & .icon {
-    margin-inline: var(--space-2);
-    width: var(--icon-size-20);
-  }
-}

@@ -1,23 +1,10 @@
 .results-page {
-  padding: var(--space-5);
   display: grid;
   justify-items: center;
   row-gap: 1rem;
 }
 
-.results-page header {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-
-  & .icon {
-    margin-inline: var(--space-2);
-    width: var(--icon-size-20);
-  }
-}
-
-.results-page h3 {
-
+.results-page .heading {
   & span {
     margin-inline: var(--space-2);
     color: var(--color-accent-100);
@@ -27,14 +14,18 @@
 }
 
 .movies-container {
+  padding-inline: var(--space-6);
   width: 100%;
-  max-width: 990px;
+  max-width: 1200px;
 }
 
 .movies-grid {
-  padding: var(--space-2);
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
-  gap: 1.5rem 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 150px), 1fr));
+  gap: 1.25rem 1.75rem;
+  
+  & .movie-grid-item {
+    min-width: 0; /*! MF... */
+  }
 }

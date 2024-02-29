@@ -1,10 +1,11 @@
-.movie-loader {
+.movie-skeleton {
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
 
   & .l-poster {
+    margin-inline: auto;
     width: 80%;
     aspect-ratio: 16 / 9;
     border-radius: 2rem;
@@ -62,5 +63,21 @@
 
   100% {
     background-color: var(--color-neutral-700);
+  }
+}
+
+
+.search-results-skeleton {
+
+  & .l-movies-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 200px);
+    grid-template-rows: repeat(3, 200px);
+    gap: 1rem 1.25rem;
+  }
+
+  & .l-movie-card {
+    width: 100%;
+    background-color: var(--color-neutral-500);
   }
 }
