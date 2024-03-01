@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 
-import { useSelectedMovie } from '../store/app-context'
-import { getMovieDetails, getMovieTrailer } from '../utils/apis'
-import { formatRuntime, getMovieGenres } from '../utils/utils'
-import { SelectedMovieSkeleton } from '../components/skeletons'
+import { useSelectedMovie } from '@src/store/app-context'
+import { getMovieDetails, getMovieTrailer } from "@src/utils/apis"
+import { formatRuntime, getMovieGenres } from '@src/utils/utils'
+import { SelectedMovieSkeleton } from '@src/components/skeletons'
 
-import "../components/styles/selected-movie.css"
+import "@styles/selected-movie.css"
 
 
 export default function SelectedMovie() {

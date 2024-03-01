@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { useSearchParams, useNavigate, useLocation } from "react-router-dom"
 
-import "./styles/searchbox.css"
+import "@styles/searchbox.css"
 
 
 export default function SearchBox({ onHomePage }) {

@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react"
 import { Link, useSearchParams, useLocation } from "react-router-dom"
 
-import { searchMovies } from "../utils/apis"
-import { generatePagination } from "../utils/utils"
-import { useSearch } from "../store/app-context"
-import SearchBox from "../components/search-box"
-import MovieCard from "../components/movie/movie-card"
-import Header from "../components/header"
-import { SearchResultsSkeleton } from "../components/skeletons"
+import { searchMovies } from "@src/utils/apis"
+import { generatePagination } from "@src/utils/utils"
+import { useSearch } from "@src/store/app-context"
+import SearchBox from "@src/components/search-box"
+import MovieCard from "@src/components/movie/movie-card"
+import Header from "@src/components/header"
+import { SearchResultsSkeleton } from "@src/components/skeletons"
+import Pagination from "@src/components/pagination"
 
-import "../components/styles/search-results.css"
-import Pagination from "../components/pagination"
+import "@styles/search-results.css"
 
 
 export default function SearchResults() {

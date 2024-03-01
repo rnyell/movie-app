@@ -1,14 +1,16 @@
 import { useNavigate } from "react-router-dom"
 
 import Day from "./day"
-import "../styles/date-time.css"
+
+import "@styles/date-time.css"
+
 
 export default function DateTime({ ticketsCount }) {
-  const date = new Date();
-  let month = date.getMonth();
-  let dayOfWeek = date.getDay();
-  let dayOfMonth = date.getDate();
-  let daysArray = [];
+  const date = new Date()
+  let month = date.getMonth()
+  let dayOfWeek = date.getDay()
+  let dayOfMonth = date.getDate()
+  let daysArray = []
   const weekObj = {
     0: "Mon",
     1: "Tue",
@@ -17,7 +19,7 @@ export default function DateTime({ ticketsCount }) {
     4: "Fri",
     5: "Sat",
     6: "Sun",
-  };
+  }
   const monthObj = {
     0: "January",
     1: "February",
@@ -31,20 +33,17 @@ export default function DateTime({ ticketsCount }) {
     9: "October",
     10: "November",
     11: "December",
-  };
-
-  for (let i = 0; i <= 6; i++) {
-    daysArray.push(weekObj[(dayOfWeek + i) % 7]);
   }
 
-  //! any issue any dates?
-  // console.log(daysArray);
+  for (let i = 0; i <= 6; i++) {
+    daysArray.push(weekObj[(dayOfWeek + i) % 7])
+  }
 
   function submitHandler(e) {
-    e.preventDefault();
-    const data = new FormData(e.target);
-    console.log(ticketsCount);
-    console.log(Object.fromEntries(data));
+    e.preventDefault()
+    const data = new FormData(e.target)
+    console.log(ticketsCount)
+    console.log(Object.fromEntries(data))
   }
 
   return (
@@ -97,5 +96,5 @@ export default function DateTime({ ticketsCount }) {
         </div>
       </form>
     </div>
-  );
+  )
 }

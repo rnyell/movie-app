@@ -1,6 +1,6 @@
 import { Link, useLocation, useSearchParams } from "react-router-dom"
-import { useSearch } from "../store/app-context"
-import "./styles/pagination.css"
+import { useSearch } from "@src/store/app-context"
+import "@styles/pagination.css"
 
 
 export default function Pagination({

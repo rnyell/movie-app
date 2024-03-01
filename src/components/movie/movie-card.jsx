@@ -1,7 +1,7 @@
 // import { getIMDBRate } from "../../utils/apis"
-import { getMovieGenresBaseOnIds } from "../../utils/utils"
+import { getMovieGenresBaseOnIds } from "@src/utils/utils"
 
-import "../styles/movie-card.css"
+import "@styles/movie-card.css"
 
 
 export default function MovieCard({ result }) {

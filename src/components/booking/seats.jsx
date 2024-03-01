@@ -5,7 +5,7 @@ import {
   updatedSeats,
   reservedSeatsNumbers,
   validSeatSeletion
-} from "../../store/placeholder-data"
+} from "@src/store/placeholder-data"
 
 import Row from "./row"
 import Seat from "./seat"

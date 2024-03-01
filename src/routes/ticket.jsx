@@ -1,6 +1,6 @@
 import { useNavigation } from 'react-router-dom'
 
-import "../components/styles/ticket.css"
+import "@styles/ticket.css"
 
 
 export default function Ticket({

@@ -1,11 +1,11 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
 
-import { useSelectedMovie } from '../store/app-context'
-import Seats from "../components/booking/seats"
-import DateTime from "../components/booking/date-time"
+import { useSelectedMovie } from '@src/store/app-context'
+import Seats from "@src/components/booking/seats"
+import DateTime from "@src/components/booking/date-time"
 
-import "../components/styles/booking.css"
+import "@styles/booking.css"
 
 
 export default function Booking() {

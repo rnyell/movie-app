@@ -1,4 +1,4 @@
-import "../components/styles/404.css"
+import "@styles/error-page.css"
 
 export default function ErrorPage() {
   return (

@@ -1,9 +1,9 @@
-import { getTrendingMovies, discoverMovies } from "../utils/apis"
-import SearchBox from "../components/search-box"
+import { getTrendingMovies, discoverMovies } from "@src/utils/apis"
+import SearchBox from "@src/components/search-box"
+import Header from "@src/components/header"
+import Footer from "@src/components/footer"
 
-import "../components/styles/home.css"
-import Header from "../components/header"
-import Footer from "../components/footer"
+import "@styles/home.css"
 
 
 export default function Home() {

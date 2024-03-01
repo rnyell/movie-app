@@ -1,4 +1,4 @@
-import "./styles/skeletons.css"
+import "@styles/skeletons.css"
 
 export function SelectedMovieSkeleton() {
   return (
