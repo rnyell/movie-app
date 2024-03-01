@@ -148,20 +148,16 @@
   --color-neutral-800-opaque: rgb(30 32 34 / 50%);
 
   --black-gradient: rgb(10 13 15 / 25%);
-
-
-  @media (width < 500px) {
-    --base-size: 0.95rem;
-  }
 }
 
 @layer typo {
   html {
-    font-size: clamp(0.75rem, 55% + 0.75vw, 1.5rem);
+    font-size: clamp(0.775rem, 55% + 0.75vw, 1.5rem);
     font-family: Montserrat, sans-serif;
   }
 
   body {
+    color: var(--color-neutral-200); /* default color */
     line-height: 1.375;
   }
 
@@ -178,17 +174,17 @@
   }
 
   h2 {
-    font-size: 1.75rem;
+    font-size: 1.75725rem;
     font-weight: 600;
   }
 
   h3 {
-    font-size: 1.5rem;
+    font-size: 1.575rem;
     font-weight: 500;
   }
 
   h4 {
-    font-size: 1.25rem;
+    font-size: 1.375rem;
     font-weight: 500;
   }
 
@@ -196,13 +192,15 @@
     font-size: 1rem;
     font-weight: 500;
   }
-}
 
+  a {
+    text-decoration-skip-ink: auto;
+  }
+}
 
 @layer global {
   #root {
     height: 100%;
-    color: var(--color-neutral-200); /* default color */
     background-color: var(--color-neutral-800);
   }
 

@@ -28,8 +28,9 @@ export default function MovieCard({ result }) {
         </i>
         <span className="genres">
           {
-            getMovieGenresBaseOnIds(result.genre_ids)
-              .map(genre => <span className="genre">{genre}</span>)
+            getMovieGenresBaseOnIds(result.genre_ids).map(genre => 
+              <span key={genre} className="genre">{genre}</span>
+            )
           }
         </span>
           <span className="vote">

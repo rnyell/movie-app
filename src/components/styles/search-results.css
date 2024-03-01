@@ -14,6 +14,7 @@
 }
 
 .movies-container {
+  margin-block: var(--space-4);
   padding-inline: var(--space-6);
   width: 100%;
   max-width: 1200px;
@@ -23,9 +24,44 @@
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 150px), 1fr));
+  /* justify-items: center; */ /*? why images&layout brokes with this */
   gap: 1.25rem 1.75rem;
   
   & .movie-grid-item {
     min-width: 0; /*! MF... */
+  }
+}
+
+.not-found-result {
+  display: flex;
+  justify-content: center;
+
+  & aside {
+    & > * {
+      margin-block: var(--space-4);
+    }
+
+    & p {
+      margin-top: var(--space-6);
+    }
+
+    & a {
+      padding: var(--space-4);
+      color: var(--color-accent-100);
+      text-underline-offset: 4px;
+      border-radius: 0.5rem;
+      border: 2px solid var(--color-neutral-700);
+
+      &:hover {
+        text-decoration: underline 0.15rem;
+        background-color: var(--color-neutral-700);
+      }
+    }
+  }
+  
+  & .gif {
+    margin-right: var(--space-4);
+    width: 50%;
+    max-width: 400px;
   }
 }

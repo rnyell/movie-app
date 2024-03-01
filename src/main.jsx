@@ -7,7 +7,7 @@ import RootLayout from "./routes/layout"
 import ErrorPage from "./routes/404"
 import Home from "./routes/home"
 import SearchResults from "./routes/search-results"
-import Movie from "./routes/movie"
+import SelectedMovie from "./routes/selected-movie"
 import Booking from "./routes/booking"
 import Ticket from "./routes/ticket"
 
@@ -22,7 +22,7 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <Home />, },
       { path: "/search", element: <SearchResults /> },
-      { path: "/movies/:id", element: <Movie /> },
+      { path: "/movies/:id", element: <SelectedMovie /> },
       { path: "/booking", element: <Booking /> },
       { path: "/ticket", element: <Ticket /> }
     ]
@@ -30,9 +30,9 @@ const router = createBrowserRouter([
 ])
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
     <MovieProvider>
       <RouterProvider router={router} />
     </MovieProvider>
-  </React.StrictMode>
+  // <React.StrictMode>
+  // </React.StrictMode>
 )

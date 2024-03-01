@@ -33,14 +33,13 @@ export default function SearchBox({ onHomePage }) {
   }
   
   function handleSearchMovie(title) {
-    if (onHomePage) {
+    if (onHomePage && title) {
       navigate("/search")
-    }
-
-    if (title) {
-      setParams({query: title})
-    } else {
-      setParams({query: ""})
+      setParams({query: title, page: 1})
+      return
+    } else if (!onHomePage && title) {
+      setParams({query: title, page: 1})
+      return
     }
   }
 

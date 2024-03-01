@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { Link, useSearchParams, useLocation } from "react-router-dom"
 
 import { searchMovies } from "../utils/apis"
+import { generatePagination } from "../utils/utils"
 import { useSearch } from "../store/app-context"
 import SearchBox from "../components/search-box"
 import MovieCard from "../components/movie/movie-card"
@@ -9,23 +10,26 @@ import Header from "../components/header"
 import { SearchResultsSkeleton } from "../components/skeletons"
 
 import "../components/styles/search-results.css"
+import Pagination from "../components/pagination"
 
 
 export default function SearchResults() {
   const [isLoading, setIsLoading] = useState(true)
-  // const [currentPage, setCurrentPage] = useState(1)
-  const [searchResults, setSearchResults] = useSearch()
-  const [params, setParams] = useSearchParams()
+  const [searchState, searchDispatch] = useSearch()
+  const [searchParams, setSearchParams] = useSearchParams()
   const location = useLocation()
-  // let totalPage = 1
+  let currentPage = Number(searchParams.get("page")) || 1
 
   useEffect(() => {
     const loadResults = async () => {
       setIsLoading(true)
-      searchMovies(params.get("query")).then(data => setSearchResults(data.results))
-      // const data = await searchMovies(params.get("query"))
-      // setSearchResults(data.results)
-      // totalPage = data.totalPages
+      const data = await searchMovies(searchParams.get("query"))
+      searchDispatch({
+        type: "set_search",
+        results: data.results,
+        totalPages: data.totalPages
+      })
+
       setIsLoading(false)
     }
 
@@ -33,11 +37,22 @@ export default function SearchResults() {
   }, [])
 
   useEffect(() => {
-    if (params.get("query")) {
+    if (searchParams.get("query")) {
       setIsLoading(true)
       const loadResults = async () => {
-        searchMovies(params.get("query"))
-          .then(data => setSearchResults(data.results))
+        const data = await searchMovies(searchParams.get("query"), searchParams.get("page"))
+        
+        if (data.totalResults === 0) {
+          searchDispatch({ type: "set_error" })
+          setIsLoading(false)
+          throw new Error("not found...")
+        }
+
+        searchDispatch({
+          type: "set_search",
+          results: data.results,
+          totalPages: data.totalPages
+        })
         setIsLoading(false)
       }
   
@@ -45,35 +60,44 @@ export default function SearchResults() {
     }
   }, [location])
 
-  function handlePagination(page) {
+  const allPagesArray = generatePagination(currentPage, searchState.totalPages)
+  // console.log(searchState)
 
-  }
+  const result = searchState.totalPages === 0 ? 
+    <div className="not-found-result">
+      <aside>
+        <h3>No results found...</h3>
+        <p>Try another one</p>
+        <Link>See trend movies</Link>
+      </aside>
+      <img className="gif" src="../../public/gifs/jt.gif" />
+    </div> : 
+    <div className="movies-grid">
+      {searchState.results.map(movie => 
+        <Link 
+          to={`/movies/${movie.title.trim().toLowerCase().replaceAll(" ", "-")}`} 
+          state={{ id: movie.id }} 
+          key={movie.id}
+          className="movie-grid-item"
+        >
+          <MovieCard result={movie} />
+        </Link>
+      )}
+    </div>
 
   return (
     <div className="results-page">
       <Header />
       <SearchBox onHomePage={false} />
-      <h2 className="heading">Search results for: <span>{params.get("query")}</span></h2>
+      <h2 className="heading">Search results for: <span>{searchParams.get("query")}</span></h2>
 
       { 
         isLoading ? 
         <SearchResultsSkeleton /> : 
-        <div className="movies-container">
-          <div className="movies-grid">
-            {searchResults.map(movie => 
-              <Link 
-                to={`/movies/${movie.title.trim().toLowerCase().replaceAll(" ", "-")}`} 
-                state={{ id: movie.id }} 
-                key={movie.id}
-                className="movie-grid-item"
-              >
-                <MovieCard result={movie} />
-              </Link>
-            )}
-          </div>
-        </div>
+        <div className="movies-container">{result}</div>
       }
 
+      <Pagination currentPage={currentPage} allPagesArray={allPagesArray} />
     </div>
   )
 }
