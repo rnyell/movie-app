@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react"
 import { Link, useSearchParams, useLocation } from "react-router-dom"
 
-import { searchMovies } from "@src/utils/apis"
+import { getSearchedMovies } from "@src/utils/apis"
 import { generatePagination } from "@src/utils/utils"
 import { useSearch } from "@src/store/app-context"
-import SearchBox from "@src/components/search-box"
-import MovieCard from "@src/components/movie/movie-card"
-import Header from "@src/components/header"
-import { SearchResultsSkeleton } from "@src/components/skeletons"
-import Pagination from "@src/components/pagination"
+import SearchBox from "@components/search-box"
+import MovieCard from "@components/movie/movie-card"
+import Header from "@components/header"
+import { SearchResultsSkeleton } from "@components/skeletons"
+import Pagination from "@components/pagination"
 
 import "@styles/search-results.css"
 
@@ -23,13 +23,12 @@ export default function SearchResults() {
   useEffect(() => {
     const loadResults = async () => {
       setIsLoading(true)
-      const data = await searchMovies(searchParams.get("query"))
+      const data = await getSearchedMovies(searchParams.get("query"))
       searchDispatch({
         type: "set_search",
         results: data.results,
         totalPages: data.totalPages
       })
-
       setIsLoading(false)
     }
 
@@ -40,7 +39,7 @@ export default function SearchResults() {
     if (searchParams.get("query")) {
       setIsLoading(true)
       const loadResults = async () => {
-        const data = await searchMovies(searchParams.get("query"), searchParams.get("page"))
+        const data = await getSearchedMovies(searchParams.get("query"), searchParams.get("page"))
         
         if (data.totalResults === 0) {
           searchDispatch({ type: "set_error" })
@@ -61,7 +60,7 @@ export default function SearchResults() {
   }, [location])
 
   const allPagesArray = generatePagination(currentPage, searchState.totalPages)
-  // console.log(searchState)
+
 
   const result = searchState.totalPages === 0 ? 
     <div className="not-found-result">
@@ -76,7 +75,10 @@ export default function SearchResults() {
       {searchState.results.map(movie => 
         <Link 
           to={`/movies/${movie.title.trim().toLowerCase().replaceAll(" ", "-")}`} 
-          state={{ id: movie.id }} 
+          state={{
+            id: movie.id, 
+            prevUrl: (location.pathname + location.search)
+          }} 
           key={movie.id}
           className="movie-grid-item"
         >
@@ -89,14 +91,14 @@ export default function SearchResults() {
     <div className="results-page">
       <Header />
       <SearchBox onHomePage={false} />
-      <h2 className="heading">Search results for: <span>{searchParams.get("query")}</span></h2>
-
+      <h2 className="heading">
+        Search results for: <span>{searchParams.get("query")}</span>
+      </h2>
       { 
         isLoading ? 
         <SearchResultsSkeleton /> : 
         <div className="movies-container">{result}</div>
       }
-
       <Pagination currentPage={currentPage} allPagesArray={allPagesArray} />
     </div>
   )

@@ -1,5 +1,10 @@
 import { GENRES_IDS } from "./apis";
 
+
+interface FetchParams {
+  
+}
+
 interface Genres {
   id: number;
   name: string;
@@ -39,6 +44,15 @@ export function formatRuntime(runtime: number): string {
 }
 
 
+export function formatRate(rate: number) {
+  let rounded = Math.round(rate * 10) / 10;
+  if (String(rounded).length === 1) {
+    return `${rounded}.0`;
+  }
+  return rounded;
+}
+
+
 export function getMovieGenres(genres: Genres[]): string {
   let returnValue = "";
 
@@ -51,6 +65,15 @@ export function getMovieGenres(genres: Genres[]): string {
   });
 
   return returnValue.slice(0, -2);
+}
+
+export function getMovieDirector(crew: []) {
+  // @ts-ignore //!
+  return crew.filter(({ job }) => job === "Director")[0].name
+}
+
+export function getMovieCasts() {
+  
 }
 
 

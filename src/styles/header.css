@@ -1,11 +1,43 @@
 header.main-header {
-  padding: var(--space-5);
+  padding-inline: var(--space-5);
   width: 100%;
+  height: calc(8.5vh + 0.15vw);
+  height: calc(8.5dvh + 0.15vw);
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+  z-index: var(--z-50);
 
-  & .icon {
+  & a > .icon {
     margin-inline: var(--space-2);
-    width: var(--icon-size-20);
+    width: var(--icon-size-8);
+  }
+
+  & a:has( .user-icon) {
+    margin-left: auto;
+
+    & > .user-icon {
+      scale: 1.075;  /* - */
+    }
+  }
+
+  & .logo-wrapper {
+    width: 1.875rem;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+  /*     
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -10;
+      background-color: var(--color-accent-300);
+    }
+
+    & .logo {
+      mix-blend-mode: exclusion;
+    } */
   }
 }

@@ -21,7 +21,7 @@
     }
   
     & .icon {
-      width: var(--icon-size-10);
+      width: var(--icon-size-4);
     }
 
     &:is(.first-page-link, .last-page-link) {

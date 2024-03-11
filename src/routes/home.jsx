@@ -1,24 +1,21 @@
-import { getTrendingMovies, discoverMovies } from "@src/utils/apis"
-import SearchBox from "@src/components/search-box"
-import Header from "@src/components/header"
-import Footer from "@src/components/footer"
+import SearchBox from "@components/search-box"
+import Header from "@components/header"
+import HeroSection from "@components/home/hero-section"
+import Footer from "@components/footer"
 
 import "@styles/home.css"
 
 
 export default function Home() {
 
-  // getTrendingMovies()
-  // discoverMovies()
-
   return (
-    <main className="home">
-      <Header />
+    <main className="home-page">
+      <Header onHomePage={true}>
+        <SearchBox onHomePage={true} />
+      </Header>
+      <HeroSection />
 
-      <SearchBox onHomePage={true} />
-
-      <Footer />
-
+      {/* <Footer /> */}
     </main>
   )
 }

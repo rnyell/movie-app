@@ -22,7 +22,7 @@
     transition: opacity var(--duration-1), translate var(--duration-2);
 
     & svg {
-      width: var(--icon-size-15);
+      width: var(--icon-size-6);
       stroke: var(--color-neutral-200);
     }
 
@@ -31,7 +31,7 @@
       height: 2rem;
 
       & svg {
-        width: var(--icon-size-10);
+        width: var(--icon-size-4);
         width: 1.25rem;
       }
     }
@@ -133,7 +133,7 @@
     transition: translate var(--duration-2), opacity var(--duration-1);
 
     & svg {
-      width: var(--icon-size-15);
+      width: var(--icon-size-6);
       stroke: var(--color-neutral-300);
     }
 
@@ -142,7 +142,7 @@
       height: 2rem;
 
       & svg {
-        width: var(--icon-size-10);
+        width: var(--icon-size-4);
       }
     }
   }
@@ -185,7 +185,7 @@
     }
 
     & .icon > svg {
-      width: var(--icon-size-10);
+      width: var(--icon-size-4);
       fill: var(--color-orange-300);
 
       @media (width > 900px) {

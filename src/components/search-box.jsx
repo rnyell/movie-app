@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { useSearchParams, useNavigate, useLocation } from "react-router-dom"
+import { MagnifyingGlassIcon } from "@heroicons"
 
 import "@styles/searchbox.css"
 
@@ -88,10 +89,8 @@ export default function SearchBox({ onHomePage }) {
       tabIndex={0}
     >
       <div className="icon-wrapper" onClick={handleClick}>
-        <i className="search-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-            <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-          </svg>
+        <i className="icon search-icon">
+          <MagnifyingGlassIcon />
         </i>
       </div>
       <label htmlFor="search-input">
@@ -99,7 +98,7 @@ export default function SearchBox({ onHomePage }) {
           type="text"
           id="search-input"
           className="search-input"
-          placeholder="Find a movie or series..."
+          placeholder="Find movie or series..."
           ref={inputRef}
           value={userInput}
           onChange={handleInput}

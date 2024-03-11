@@ -56,21 +56,56 @@ export async function discoverMovies() {
   return { results }
 }
 
-export async function popularMovies() {
+//// 3/search/movie?include_adult=false&language=en-US&page=1
+// ~'/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc'
+// ~'3/discover/tv?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc'
+
+/*
+~ 3/search/multi
+https://developer.themoviedb.org/reference/search-multi
++Use multi search when you want to search for movies, TV shows and people in a single request.
+filter results by:
+   "media_type === movie || tv"
+   original_language
+ret value: { results[], total_pages: number, total_results: number }
+*/
+
+// movie details -> images
+//~ /3/movie/{movie_id}/similar
+//* 3/movie/{movie_id}/images  //--> append to response --> getMovieDetails()
+
+export async function getPopularMovies() {
   let data = await extendedFetch(BASE_URL, "3/movie/popular", {
-    include_video: true,
+    page: 1,
     language: "en-US",
     api_key: API_KEY
   })
 
-  console.log(data)
+  const { results } = data
+  return results
 }
 
-export async function searchMovies(title = "", page = 1): Promise<MovieSearchResult> {
+
+export async function test() {
+  let data = await extendedFetch(BASE_URL, "3/search/multi", {
+    query: "office",
+    api_key: API_KEY
+  })
+
+  console.log(data);
+}
+
+
+export async function getSearchedMovies(
+  title = "",
+  page = 1,
+  // lang = "en-US"
+): Promise<MovieSearchResult> {
   let formattedTitle = title.split(' ').join("+")
   let data = await extendedFetch(BASE_URL, "3/search/movie", {
     query: formattedTitle,
     page: page,
+    // language: lang,
     api_key: API_KEY
   })
 
@@ -86,7 +121,7 @@ export async function searchMovies(title = "", page = 1): Promise<MovieSearchRes
 export async function getMovieDetails(movieId: number) {
   let data = await extendedFetch(BASE_URL, `3/movie/${movieId}`, {
     api_key: API_KEY,
-    append_to_response: "credits,videos",
+    append_to_response: "credits,videos,images",
   })
 
   return data
@@ -135,128 +170,46 @@ export async function getMovieTrailer(movieId: number): Promise<string> {
   vote_average: 6.884
   vote_count: 593
 `
+`
+series genres
+id: 10759, name: "Action & Adventure"
+id: 16, name: "Animation"
+id: 35, name: "Comedy"
+id: 80, name: "Crime"
+id: 99, name: "Documentary"
+id: 18, name: "Drama"
+id: 10751, name: "Family"
+id: 10762, name: "Kids"
+id: 9648, name: "Mystery"
+id: 10763, name: "News"
+id: 10764, name: "Reality"
+id: 10765, name: "Sci-Fi & Fantasy"
+id: 10766, name: "Soap"
+id: 10767, name: "Talk"
+id: 10768, name: "War & Politics"
+id: 37, name: "Western" }
+`
 
-// const HOME_LIST_TYPE = [
-//   {
-//     id: 14,
-//     title: "Slider",
-//     path: "movie/popular?",
-//     mode: "slider",
-//     type: "movie",
-//     page: 1,
-//   },
-//   {
-//     id: 1,
-//     title: "Top Rated",
-//     path: "movie/top_rated?",
-//     mode: "horizontal",
-//     type: "movie",
-//     page: 1,
-//   },
-//   {
-//     id: 2,
-//     title: "Popular",
-//     path: "movie/popular?",
-//     mode: "vertical",
-//     type: "movie",
-//     page: 2,
-//   },
-//   {
-//     id: 3,
-//     title: "Up Coming",
-//     path: "movie/upcoming?",
-//     mode: "vertical",
-//     type: "movie",
-//     page: 1,
-//   },
-//   {
-//     id: 4,
-//     title: "Animation",
-//     path: "discover/movie?",
-//     mode: "vertical",
-//     genre: 16,
-//     type: "movie",
-//     page: 1,
-//   },
-//   {
-//     id: 5,
-//     title: "Action",
-//     path: "discover/movie?",
-//     mode: "vertical",
-//     genre: GENRES_ID.action,
-//     type: "movie",
-//     page: 1,
-//   },
-//   {
-//     id: 6,
-//     title: "Romance",
-//     path: "discover/movie?",
-//     mode: "vertical",
-//     genre: GENRES_ID.romance,
-//     type: "movie",
-//     page: 1,
-//   },
-//   {
-//     id: 7,
-//     title: "Fantasy",
-//     path: "discover/movie?",
-//     mode: "vertical",
-//     genre: GENRES_ID.fantasy,
-//     type: "movie",
-//     page: 1,
-//   },
-//   {
-//     id: 8,
-//     title: "War",
-//     path: "discover/movie?",
-//     mode: "horizontal",
-//     genre: GENRES_ID.war,
-//     type: "movie",
-//     page: 25,
-//   },
-//   {
-//     id: 9,
-//     title: "History",
-//     path: "discover/movie?",
-//     mode: "vertical",
-//     genre: GENRES_ID.history,
-//     type: "movie",
-//     page: 1,
-//   },
-//   {
-//     id: 10,
-//     title: "Horror",
-//     path: "discover/movie?",
-//     mode: "horizontal",
-//     genre: GENRES_ID.horror,
-//     type: "movie",
-//     page: 1,
-//   },
-//   {
-//     id: 11,
-//     title: "Spider Man Collection",
-//     path: "search/multi?",
-//     mode: "vertical",
-//     query: "Spider Man",
-//     type: "movie",
-//     page: 1,
-//   },
-//   {
-//     id: 12,
-//     title: "Persian Series",
-//     path: "discover/tv?",
-//     mode: "vertical",
-//     originalLanguage: "fa",
-//     type: "tv",
-//     page: 1,
-//   },
-//   {
-//     id: 13,
-//     title: "Popular Series",
-//     path: "discover/tv?sort_by=popularity.desc&",
-//     mode: "horizontal",
-//     page: 11,
-//     type: "tv",
-//   },
-// ]
+`
+movies genres
+id: 28, name: "Action"
+id: 12, name: "Adventure"
+id: 16, name: "Animation"
+id: 35, name: "Comedy"
+id: 80, name: "Crime"
+id: 99, name: "Documentary"
+id: 18, name: "Drama"
+id: 10751, name: "Family"
+id: 14, name: "Fantasy"
+id: 36, name: "History"
+id: 27, name: "Horror"
+id: 10402, name: "Music"
+id: 9648, name: "Mystery"
+id: 10749, name: "Romance"
+id: 878, name: "Science Fiction"
+id: 10770, name: "TV Movie"
+id: 53, name: "Thriller"
+id: 10752, name: "War"
+id: 37, name: "Western" 
+`
 */

@@ -1,6 +1,7 @@
 // import path from "path"
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from "vite"
+import react from "@vitejs/plugin-react"
+import autoprefixer from "autoprefixer"
 
 export default defineConfig({
   server: {
@@ -9,22 +10,27 @@ export default defineConfig({
 
   resolve: {
     alias: {
-      // "@src": path.resolve(__dirname, './src')
-      '@src': '/src',
-      '@styles': '/src/styles',
+      // "@src": path.resolve(__dirname, "./src")
+      "@src": "/src",
+      "@components": "/src/components",
+      "@styles": "/src/styles",
+      "@heroicons": "@heroicons/react/24/outline"
     }
   },
 
-  // css: {
-  //   postcss: {
-  //     plugins: [require('autoprefixer')]
-  //   }
-  // },
-
-  build: {
-    outDir: 'dist',
-    assetsDir: 'assets',
+  css: {
+    postcss: {
+      plugins: [autoprefixer]
+    }
   },
 
-  plugins: [react()],
+  build: {
+    outDir: "dist",
+    assetsDir: "assets",
+    cssMinify: false,
+  },
+
+  plugins: [
+    react()
+  ],
 })

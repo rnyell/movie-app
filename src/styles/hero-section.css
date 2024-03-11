@@ -1,0 +1,347 @@
+/* basically the base approach is mobile-first but here we first design larger screen and then mobile */
+.hero-section {
+  width: 100%;
+  display: flow-root; /* why it doesn't work? */
+  display: flex;
+}
+
+.hero-movie {
+  height: 100%;
+  width: 100%;
+}
+
+/* layout */
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr max-content;
+  grid-template-rows: repeat(4, 1fr);
+
+  & .port-poster {
+    grid-column: 3 / 4;
+    grid-row: 2 / 4;
+    justify-self: center;
+    padding-right: 2cqw;
+  }
+
+  & .main-details {
+    grid-column: 2 / 3;
+    grid-row: 2 / 4;
+  
+    & .title {
+      margin-top: 2cqw;
+    }
+  }
+
+  & .tagline {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    align-self: start;
+  }
+
+  & .runtime {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    align-self: end;
+    margin-bottom: 2cqw;
+    padding-left: 2cqw;
+  }
+
+  & .rate {
+    grid-column: 1 / 2;
+    grid-row: 3 / 4;
+    align-self: center;
+    padding-left: 2cqw;
+    margin-bottom: 10cqw;
+  }
+
+  & .director {
+    grid-column: 1 / 2;
+    grid-row: 3 / 4;
+    align-self: end;
+    margin-bottom: 2cqw;
+    padding-left: 2cqw;
+  }
+
+  & .casts {
+    grid-column: 1 / 2;
+    grid-row: 4 / 5;
+    align-self: end;
+    margin-bottom: 2cqw;
+    padding-left: 2cqw;
+  }
+
+  & .btns {
+    grid-column: 3 / 4;
+    grid-row: 4 / 5;
+    align-self: end;
+    margin-bottom: 2cqw;
+    padding-right: 2cqw;
+  }
+}
+
+/* others */
+.grid-container {
+  container: grid-container / inline-size;
+  margin-top: 0.5rem;
+  margin-left: 1.5rem;
+  padding: var(--space-5);
+  width: 80%;
+  height: 90dvh;
+  max-width: 1100px;
+  max-height: 700px;
+  position: relative;
+  isolation: isolate;
+  z-index: var(--z-0);
+
+  & .bg-poster {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: var(--z-neg10);
+    inset: 0;
+    background-size: cover;
+    background-position: 50% 0;
+    border-radius: 2.75rem;
+    box-shadow: 0 2px 0.75rem rgb(20 23 26 / 55%);
+
+    &::after {
+      content: "";
+      position: absolute;
+      z-index: var(--z-10);
+      inset: 0;
+      background-image: linear-gradient(
+        190deg,
+        rgb(20 23 26 / 45%) 10%,
+        rgb(20 23 26 / 90%) 95%
+      );
+      border-radius: 2.75rem;
+    }
+  }
+
+  & .ambient {
+    position: absolute;
+    z-index: var(--z-neg10);
+    inset: -0.5rem;
+    opacity: 0.625;
+    filter: blur(1.5rem) grayscale(0.3);
+
+    & img {
+      width: 100%;
+      height: 100%;
+      object-position: center;
+      border-radius: 2.75rem;
+    }
+  }
+
+  & .port-poster {
+    & .poster-xs {
+      width: max(12cqw + 2rem, 100px);
+      border-radius: 1rem;
+    }
+  }
+
+  & .title {
+    width: fit-content;
+    font-size: min(60px, 2.875rem);
+    letter-spacing: 1.2px;
+    line-height: 0.9;
+    color: var(--color-neutral-200);
+    /* background-image: linear-gradient(var(--color-neutral-800), var(--color-neutral-800));
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    background-size: 100% 40%; */
+  }
+  
+  & .release-date {
+    margin-top: 1.5cqw;
+    padding: 0.25rem 0.5rem;
+    display: inline-block;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-neutral-800);
+    background-color: var(--color-neutral-200);
+  }
+
+  & .genres {
+    margin-top: 1.5cqw;
+    font-size: 0.75rem;
+    color: var(--color-neutral-300);
+  }
+
+  & .tagline {
+    padding-inline: 1cqw;
+    width: fit-content;
+    font-size: 0.9rem;
+    color: var(--color-neutral-300);
+  }
+
+  & .runtime {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--color-neutral-300);
+  }
+
+  & .rate .helper-div {
+    display: inline-flex;
+    /* `.rate` is a grid-item & flex-container at the same time, so "align-items" clashes... we need a helper-div */
+    align-items: center;
+    flex-flow: row-reverse;
+    gap: 0.5rem;
+    color: var(--color-neutral-200);
+
+    & .icon {
+      width: 2cqw;
+      font-size: 0.75rem;
+
+      & svg {
+        stroke: var(--color-neutral-200);
+        fill: var(--color-neutral-200);
+      }
+    }
+  }
+
+  & .director {
+    & p:first-child {
+      font-size: 0.675rem;
+      color: color-mix(in srgb, var(--color-neutral-300), var(--color-neutral-400));
+    }
+
+    & .director-name {
+      font-weight: 500;
+      color: var(--color-neutral-200);
+    }
+  }
+
+  & .casts {
+    & h5 {
+      margin-bottom: 2cqw;
+      font-size: 1rem;
+    }
+  }
+
+  & .casts-list {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 0.5rem;
+
+    & > * {
+      flex-shrink: 0;
+    }
+
+    & .cast {
+      text-align: center;
+      border-radius: var(--rounded-full);
+      /* outline: 2px solid var(--color-neutral-700);
+      outline-offset: 0; */
+
+      &:first-child {
+        /** to override framer-motion inline style */
+        margin-left: 0 !important;
+      }
+    }
+
+    & .cast-img {
+      width: max(4cqw + 1rem, 40px);
+      aspect-ratio: 1;
+      object-position: 0 15%;
+      border-radius: var(--rounded-full);
+      outline: 2px solid var(--color-neutral-700);
+      outline-offset: 0;
+    }
+
+    & .cast-name {
+      /* display: none; */
+      width: fit-content;
+      font-size: 0.5rem;
+    }
+
+    & button {
+      width: max(4cqw + 1rem, 40px);
+      aspect-ratio: 1;
+      display: inline-grid;
+      place-items: center;
+      font-size: 1rem;
+      background-color: rgb(20 23 26 / 35%);
+      backdrop-filter: blur(2px);
+      border-radius: var(--rounded-full);
+      outline: 2px solid var(--color-neutral-700);
+      outline-offset: 0;
+
+      & .icon {
+        width: var(--icon-size-3);
+        color: var(--color-neutral-300);
+      }
+    }
+  }
+
+  & .btns {
+    height: max-content;
+    display: inline-flex;
+    gap: 1rem;
+
+    & button {
+      padding: 0 var(--space-6);
+      background-color: rgb(20 23 26 / 15%);
+      backdrop-filter: blur(3px);
+      border: var(--outline-size-1) solid var(--color-neutral-300);
+      /* border-radius: 0.5rem; */
+      transition: background-color var(--duration-1) ease-in;
+
+      & svg {
+        width: var(--icon-size-8);
+        stroke-width: 1.225px;
+        transition: color var(--duration-1) ease-in;
+      }
+
+      &:hover {
+        background-color: var(--color-neutral-300);
+
+        & svg {
+          color: var(--color-neutral-800);
+        }
+      }
+    }
+    /* btns scope */
+  }
+}
+
+
+
+
+
+
+
+
+
+/* .carousel {
+  padding: var(--space-4);
+  width: 100%;
+  position: absolute;
+  z-index: var(--z-50);
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  border: 2px solid coral;
+
+  & .images-container {
+    overflow: hidden;
+    display: flex;
+    gap: 2rem;
+    border: 2px solid green;
+  }
+
+  & .hero-image {
+    flex-shrink: 0;
+    width: 10rem;
+
+    & img {
+      border-radius: var(--space-6);
+      user-select: none;
+    }
+
+    &.isActive {
+
+    }
+  }
+} */

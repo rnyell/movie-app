@@ -1,5 +1,5 @@
 .booking {
-  padding: var(--space-5);
+  padding-inline: var(--space-5);
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -8,22 +8,32 @@
 .booking header {
   --btn-size: 1.5rem;
 
-  padding: 1rem;
+  /* padding-inline: var(--space-5); */
+  height: calc(8.5vh + 0.15vw);
+  height: calc(8.5dvh + 0.15vw);
   display: flex;
   align-items: center;
   color: var(--color-neutral-200);
 
   & .movie-title {
-    /* adjusting title to be center, based on btn size */
-    margin-right: var(--btn-size);
+    /* adjusting title to be center, based on btn total size */
+    /* .btn's padding + .icon's size */
+    margin-right: calc(var(--icon-size-6) + var(--space-3));
     flex: 1;
     text-align: center;
   }
 
   & .back-btn {
-    width: var(--btn-size);
-    height: var(--btn-size);
-    border-radius: var(--rounded-full);
+    padding: var(--space-3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1rem;
+    background-color: var(--color-neutral-600);
+
+    & .icon {
+      width: var(--icon-size-6);
+    }
   }
 }
 

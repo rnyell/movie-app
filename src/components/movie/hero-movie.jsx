@@ -1,0 +1,114 @@
+import { useEffect, useState } from "react"
+import { motion } from "framer-motion"
+import { ArrowLongRightIcon, ArrowLongLeftIcon, StarIcon } from "@heroicons"
+
+import { getMovieDetails } from "@src/utils/apis"
+import {
+  formatRuntime, 
+  getMovieGenres, 
+  getMovieDirector, 
+  formatRate
+} from "@src/utils/utils"
+import Casts from "./casts"
+
+
+export default function HeroMovie({ movie }) {
+  const [isLoading, setIsLoading] = useState(true)
+  const [movieDetails, setMovieDetails] = useState("")
+
+  useEffect(() => {
+    console.log("mounted")
+  }, [])
+
+  useEffect(() => {
+    const loadData = async () => {
+      const data = await getMovieDetails(movie.id)
+      setMovieDetails(data)
+      setIsLoading(false)
+    }
+    loadData()
+  }, [movie.id])
+
+  const {
+    title,
+    release_date,
+    runtime,
+    genres,
+    vote_average: rate,
+    overview: plot,
+    tagline,
+    poster_path,
+    backdrop_path: bg_path,
+    credits,
+    videos,
+    images, // Obj[] => e.file_path
+    // budget,
+    // revenue
+  } = movieDetails
+
+  // console.log(movieDetails)
+
+  const poster_variants = {
+    init: {
+      opacity: 0.5,
+      transition: { duration: 0.2 }
+    },
+    anime: {
+      opacity: 1,
+      transition: { duration: 0.2 }
+    }
+  }
+
+  return (
+    isLoading ? <p>loading...</p> :
+    <div className="hero-movie">
+      <div className="grid-container">
+        <div className="ambient">
+          <img src={`https://image.tmdb.org/t/p/original${bg_path}`} />
+        </div>
+        <motion.div 
+          className="bg-poster" 
+          style={{backgroundImage: `url("https://image.tmdb.org/t/p/original${bg_path}")`}}
+          variants={poster_variants}
+          // key={movie.id} //**
+          initial="init"
+          animate="anime"
+        />
+        <motion.figure className="port-poster"
+          variants={poster_variants}
+          // key={movie.id} //**
+          initial="init"
+          animate="anime"
+        >
+          <img src={`https://image.tmdb.org/t/p/w500/${poster_path}`} className="poster-xs" />
+        </motion.figure>
+        
+        <div className="main-details">
+          <h2 className="title">{title}</h2>
+          <span className="release-date">{release_date.slice(0, 4)}</span>
+          <p className="genres">{getMovieGenres(genres)}</p>
+        </div>
+
+        <span className="runtime">{formatRuntime(runtime)}</span>
+        <div className="rate">
+          <div className="helper-div">
+            <i className="icon"><StarIcon /></i>
+            <p>{formatRate(rate)}</p>
+          </div>
+        </div>
+        <p className="tagline">{tagline}</p>
+
+        <div className="director">
+          <p>Directed by</p>
+          <p className="director-name">{getMovieDirector(credits.crew)}</p>
+        </div>
+        <Casts casts={credits.cast} />
+        
+        <div className="btns">
+          <button><ArrowLongLeftIcon /></button>
+          <button><ArrowLongRightIcon /></button>
+        </div>
+      </div>
+    </div>
+  )
+}

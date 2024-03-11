@@ -32,4 +32,4 @@ dist-ssr
 .DS_Store
 
 # Custom
-temp.js
+z.temp.*

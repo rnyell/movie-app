@@ -1,9 +1,10 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
+import { ChevronLeftIcon } from "@heroicons"
 
 import { useSelectedMovie } from '@src/store/app-context'
-import Seats from "@src/components/booking/seats"
-import DateTime from "@src/components/booking/date-time"
+import Seats from "@components/booking/seats"
+import DateTime from "@components/booking/date-time"
 
 import "@styles/booking.css"
 
@@ -17,19 +18,9 @@ export default function Booking() {
     <div className="booking">
       <header>
         <Link to="/" className="back-btn">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="2.5"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M15.75 19.5 8.25 12l7.5-7.5"
-            />
-          </svg>
+          <i className="icon">
+            <ChevronLeftIcon />
+          </i>
         </Link>
         <h1 className="movie-title">{selectMovie.title}</h1>
       </header>
