@@ -23,9 +23,9 @@ export function useSelectedMovie() {
 
 
 const initial = {
+  title: "",
   results: [],
-  currentPage: 1,
-  totalPages: 1,
+  pages: 1,
 }
 
 function searchReducer(state, action) {
@@ -34,21 +34,19 @@ function searchReducer(state, action) {
       return {
         ...state,
         results: action.results,
-        totalPages: action.totalPages
+        pages: action.pages
       }
     }
     case "page_changed": {
       return {
         ...state,
         results: action.results,
-        currentPage: action.currentPage,
       }
     }
     case "set_error": {
       return {
         results: [],
-        currentPage: 0,
-        totalPages: 0
+        pages: 0
       }
     }
   }

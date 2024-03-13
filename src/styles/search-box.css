@@ -17,12 +17,9 @@
     outline-offset: 1px;
   }
 
-  &.expanded {
-    width: 14rem;
-  }
-
-  /* to preserve the outline when it is expanded but not focued  */
   &.expanded[data-location="on-home-page"] {
+    width: 14rem;
+    /* to preserve the outline when it is expanded but not focued  */
     outline: var(--outline-size-2) solid var(--color-accent-300);
     outline-offset: 1px;
   }
@@ -46,8 +43,8 @@
 
   &[data-location="on-result-page"] {
     width: max(300px, 60%);
-    height: calc(var(--box-width) + 0.1vw);
-    /* box-shadow: 0 0.2rem 1rem rgb(0 0 0 / 20%); */
+    height: calc(var(--box-width) + 1vw);
+    max-height: 60px;
 
     & .icon-wrapper {
       height: 100%;

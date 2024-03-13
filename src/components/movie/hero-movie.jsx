@@ -12,7 +12,7 @@ import {
 import Casts from "./casts"
 
 
-export default function HeroMovie({ movie }) {
+export default function HeroMovie({ movie, nextMovieBtn, prevMovieBtn }) {
   const [isLoading, setIsLoading] = useState(true)
   const [movieDetails, setMovieDetails] = useState("")
 
@@ -59,6 +59,17 @@ export default function HeroMovie({ movie }) {
     }
   }
 
+  const title_variants = {
+    init: {
+      x: -25,
+      transition: { duration: 0.2 }
+    },
+    anime: {
+      x: 0,
+      transition: { duration: 0.2 }
+    }
+  }
+
   return (
     isLoading ? <p>loading...</p> :
     <div className="hero-movie">
@@ -70,13 +81,12 @@ export default function HeroMovie({ movie }) {
           className="bg-poster" 
           style={{backgroundImage: `url("https://image.tmdb.org/t/p/original${bg_path}")`}}
           variants={poster_variants}
-          // key={movie.id} //**
           initial="init"
           animate="anime"
         />
-        <motion.figure className="port-poster"
+        <motion.figure 
+          className="port-poster"
           variants={poster_variants}
-          // key={movie.id} //**
           initial="init"
           animate="anime"
         >
@@ -105,8 +115,8 @@ export default function HeroMovie({ movie }) {
         <Casts casts={credits.cast} />
         
         <div className="btns">
-          <button><ArrowLongLeftIcon /></button>
-          <button><ArrowLongRightIcon /></button>
+          <button onClick={prevMovieBtn}><ArrowLongLeftIcon /></button>
+          <button onClick={nextMovieBtn}><ArrowLongRightIcon /></button>
         </div>
       </div>
     </div>

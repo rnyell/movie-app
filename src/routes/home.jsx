@@ -1,12 +1,16 @@
+import { useEffect } from "react"
 import SearchBox from "@components/search-box"
 import Header from "@components/header"
 import HeroSection from "@components/home/hero-section"
-import Footer from "@components/footer"
+// import Footer from "@components/footer"
 
 import "@styles/home.css"
-
+import { getAllResults } from "../utils/apis"
 
 export default function Home() {
+  useEffect(() => {
+    
+  }, [])
 
   return (
     <main className="home-page">

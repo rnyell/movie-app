@@ -4,10 +4,7 @@ import { useSearch } from "@src/store/app-context"
 import "@styles/pagination.css"
 
 
-export default function Pagination({
-  currentPage, allPagesArray
-}) {
-
+export default function Pagination({ currentPage, allPagesArray }) {
   const [searchState] = useSearch()
   const [searchParams] = useSearchParams()
   const location = useLocation()

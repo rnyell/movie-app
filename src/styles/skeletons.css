@@ -1,3 +1,37 @@
+.not-found-result {
+  display: flex;
+  justify-content: center;
+
+  & aside {
+    & > * {
+      margin-block: var(--space-4);
+    }
+
+    & p {
+      margin-top: var(--space-6);
+    }
+
+    & a {
+      padding: var(--space-4);
+      color: var(--color-accent-100);
+      text-underline-offset: 4px;
+      border-radius: 0.5rem;
+      border: 2px solid var(--color-neutral-700);
+
+      &:hover {
+        text-decoration: underline 0.15rem;
+        background-color: var(--color-neutral-700);
+      }
+    }
+  }
+  
+  & .gif {
+    margin-right: var(--space-4);
+    width: 50%;
+    max-width: 400px;
+  }
+}
+
 .movie-skeleton {
   padding: 1.5rem;
   display: flex;

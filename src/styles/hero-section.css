@@ -66,7 +66,6 @@
     grid-column: 1 / 2;
     grid-row: 4 / 5;
     align-self: end;
-    margin-bottom: 2cqw;
     padding-left: 2cqw;
   }
 
@@ -83,12 +82,13 @@
 .grid-container {
   container: grid-container / inline-size;
   margin-top: 0.5rem;
-  margin-left: 1.5rem;
+  /* margin-left: 1.5rem; */
+  margin-inline: auto;
   padding: var(--space-5);
-  width: 80%;
+  width: 95%;
   height: 90dvh;
-  max-width: 1100px;
-  max-height: 700px;
+  /* max-width: 1100px; */
+  /* max-height: 700px; */
   position: relative;
   isolation: isolate;
   z-index: var(--z-0);
@@ -100,7 +100,7 @@
     z-index: var(--z-neg10);
     inset: 0;
     background-size: cover;
-    background-position: 50% 0;
+    background-position: 50% 50%;
     border-radius: 2.75rem;
     box-shadow: 0 2px 0.75rem rgb(20 23 26 / 55%);
 
@@ -111,7 +111,7 @@
       inset: 0;
       background-image: linear-gradient(
         190deg,
-        rgb(20 23 26 / 45%) 10%,
+        rgb(20 23 26 / 55%) 10%,
         rgb(20 23 26 / 90%) 95%
       );
       border-radius: 2.75rem;
@@ -220,16 +220,25 @@
   }
 
   & .casts-list {
+    width: 200px; /*! hacky fix */
+    /* now, basically this defines the col-track's width of its parent's grid-container */
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
     gap: 0.5rem;
+
+    &.show-more .cast-name {
+      visibility: visible;
+    }
 
     & > * {
       flex-shrink: 0;
     }
 
     & .cast {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       text-align: center;
       border-radius: var(--rounded-full);
       /* outline: 2px solid var(--color-neutral-700);
@@ -242,7 +251,7 @@
     }
 
     & .cast-img {
-      width: max(4cqw + 1rem, 40px);
+      width: max(3.5cqw + 1rem, 40px);
       aspect-ratio: 1;
       object-position: 0 15%;
       border-radius: var(--rounded-full);
@@ -251,13 +260,15 @@
     }
 
     & .cast-name {
-      /* display: none; */
+      visibility: hidden;
+      max-width: 70px;
       width: fit-content;
+      max-height: 1.25rem;
       font-size: 0.5rem;
     }
 
     & button {
-      width: max(4cqw + 1rem, 40px);
+      width: max(3.5cqw + 1rem, 40px); /* same as cast-img */
       aspect-ratio: 1;
       display: inline-grid;
       place-items: center;

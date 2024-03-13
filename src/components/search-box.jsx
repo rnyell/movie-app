@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { useSearchParams, useNavigate, useLocation } from "react-router-dom"
 import { MagnifyingGlassIcon } from "@heroicons"
 
-import "@styles/searchbox.css"
+import "@styles/search-box.css"
 
 
 export default function SearchBox({ onHomePage }) {
@@ -95,13 +95,14 @@ export default function SearchBox({ onHomePage }) {
       </div>
       <label htmlFor="search-input">
         <input
+          ref={inputRef}
+          onChange={handleInput}
+          value={userInput}
           type="text"
           id="search-input"
           className="search-input"
           placeholder="Find movie or series..."
-          ref={inputRef}
-          value={userInput}
-          onChange={handleInput}
+          spellCheck={true}
         />
       </label>
     </div>

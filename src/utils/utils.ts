@@ -1,4 +1,4 @@
-import { GENRES_IDS } from "./apis";
+import { MOVIE_GENRES, TV_GENRES } from "./apis";
 
 
 interface FetchParams {
@@ -67,6 +67,16 @@ export function getMovieGenres(genres: Genres[]): string {
   return returnValue.slice(0, -2);
 }
 
+
+export function getMovieGenresBaseOnIds(type: "tv" | "movie", ids: []): string[] {
+  if (type === "movie") {
+    return ids.map((id) => MOVIE_GENRES[id]);
+  } else {
+    return ids.map((id) => TV_GENRES[id]);
+  }
+}
+
+
 export function getMovieDirector(crew: []) {
   // @ts-ignore //!
   return crew.filter(({ job }) => job === "Director")[0].name
@@ -74,11 +84,6 @@ export function getMovieDirector(crew: []) {
 
 export function getMovieCasts() {
   
-}
-
-
-export function getMovieGenresBaseOnIds(ids: []): string[] {
-  return ids.map((id) => GENRES_IDS[id]);
 }
 
 
@@ -104,4 +109,24 @@ export function generatePagination(currentPage: number, totalPages: number) {
     "...",
     totalPages,
   ];
+}
+
+export function sortResults(arr: any[]) {
+  if (arr.length <= 1) {
+    return arr;
+  }
+
+  const pivot = arr[arr.length - 1].vote_average;
+  const left: any[] = [];
+  const right: any[] = [];
+
+  for (let i = 0; i < arr.length - 1; i++) {
+    if (arr[i].vote_average < pivot) {
+      left.push(arr[i]);
+    } else {
+      right.push(arr[i]);
+    }
+  }
+
+  return [...sortResults(left), pivot, ...sortResults(right)];
 }

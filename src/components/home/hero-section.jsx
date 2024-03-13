@@ -21,18 +21,35 @@ export default function HeroSection() {
   }, [])
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      // popularMovies.length = 20
-      setCurrIndex((currIndex + 1) % 20)
-    }, 2750)
+    // const interval = setInterval(() => {
+    //   // popularMovies.length = 20
+    //   setCurrIndex((currIndex + 1) % 20)
+    // }, 5000)
   
-    return () => clearInterval(interval)
+    // return () => clearInterval(interval)
   }, [currIndex])
+
+  function nextMovieBtn() {
+    setCurrIndex((currIndex + 1) % 20)
+  }
+
+  function prevMovieBtn() {
+    if ((currIndex - 1) === -1) {
+      setCurrIndex(20 - 1)
+      return
+    }
+    // setCurrIndex(currIndex - 1 % 20)
+    setCurrIndex(currIndex - 1)
+  }
 
   return (
     isLoading ? <h2>loading...</h2> : 
     <section className="hero-section">
-      <HeroMovie movie={popularMovies[currIndex]} />
+      <HeroMovie 
+        movie={popularMovies[currIndex]} 
+        nextMovieBtn={nextMovieBtn} 
+        prevMovieBtn={prevMovieBtn}
+      />
     </section>
   )
 }
