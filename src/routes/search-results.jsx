@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Link, useSearchParams, useLocation } from "react-router-dom"
 
-import { getSearchedMovies, getAllResults } from "@src/utils/apis"
+import { getAllResults } from "@src/utils/apis"
 import { generatePagination } from "@src/utils/utils"
 import { useSearch } from "@src/store/app-context"
 import SearchBox from "@components/search-box"
@@ -38,7 +38,7 @@ export default function SearchResults() {
     const data = await getAllResults(title)
     searchDispatch({
       type: "set_search",
-      title,
+      title: title,  /* JFYI: i know the conscies property naming syntax, but this is more expressive */
       results: data.results,
       pages: data.pages
     })
@@ -48,24 +48,23 @@ export default function SearchResults() {
 
   async function loadResultsOnUpdate() {
     setIsLoading(true)
-    let data
     let title = searchParams.get("query")
     if (searchState.title !== title) {
-      data = await getAllResults(title)
+      const data = await getAllResults(title)
       searchDispatch({
         type: "set_search",
-        title,
+        title: title,
         results: data.results,
         pages: data.pages
       })
-    }
-    
-    if (data.totalResults === 0) {
-      searchDispatch({ type: "set_error" })
-      setIsLoading(false)
-      throw new Error("not found...")
-    }
+      setSearchStateCopy(data.results)
 
+      if (data.totalResults === 0) {
+        searchDispatch({ type: "set_error" })
+        setIsLoading(false)
+        throw new Error("not found...")
+      }
+    }
     setIsLoading(false)
   }
 

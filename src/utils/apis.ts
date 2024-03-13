@@ -71,7 +71,6 @@ export async function discoverMovies() {
   return { results }
 }
 
-//// 3/search/movie?include_adult=false&language=en-US&page=1
 // ~'/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc'
 // ~'3/discover/tv?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc'
 /*
@@ -83,7 +82,6 @@ filter results by:
    original_language
 ret value: { results[], total_pages: number, total_results: number }
 */
-
 //~ https://api.themoviedb.org/3/trending/all/week?language=en-US"
 //~ https://api.themoviedb.org/3/tv/{series_id}
 //~ /3/movie/{movie_id}/similar
@@ -100,75 +98,46 @@ export async function getPopularMovies() {
 }
 
 
-export async function getSearchedMovies(title = "", page = 1) {
-  let formattedTitle = title.split(' ').join("+")
-  let data = await extendedFetch(BASE_URL, "3/search/movie", {
-    query: formattedTitle,
-    language: "en-US",
-    page: page,
-    api_key: API_KEY
-  })
+// export async function getSearchedMovies(title = "", page = 1) {
+//   let formattedTitle = title.split(' ').join("+")
+//   let data = await extendedFetch(BASE_URL, "3/search/movie", {
+//     query: formattedTitle,
+//     language: "en-US",
+//     page: page,
+//     api_key: API_KEY
+//   })
 
-  const { 
-    results, 
-    total_results: totalResults, 
-    total_pages: totalPages
-  } = data
+//   const { 
+//     results, 
+//     total_results: totalResults, 
+//     total_pages: totalPages
+//   } = data
 
-  return { results, totalResults, totalPages }
-}
+//   return { results, totalResults, totalPages }
+// }
 
-
-export async function getMovies(title = "", lang?: string) {
-  const formattedTitle = title.split(' ').join("+");
-  const path = "3/search/movie";
-  const params = {
-    query: formattedTitle,
-    language: lang,
-    api_key: API_KEY
-  };
-  const movies: any[] = [];
-  const data = await extendedFetch(BASE_URL, path, params);
-  const { total_pages: totalPages } = data;
-  
-  for (let i = 1; i <= totalPages; i++) {
-    let data = await extendedFetch(BASE_URL, path, { ...params, page: i });
-    movies.push(...data.results);
-  }
-
-  const results = movies.filter(movie => movie.vote_count > 50);
-  return results
-}
-
-export async function getSeries(title = "", lang?: string) {
-  const formattedTitle = title.split(' ').join("+");
-  const path = "3/search/tv";
-  const params = {
-    query: formattedTitle,
-    language: lang,
-    api_key: API_KEY
-  };
-  const series: any[] = [];
-  const data = await extendedFetch(BASE_URL, path, params);
-  const { total_pages: totalPages } = data
-  
-  for (let i = 1; i <= totalPages; i++) {
-    let data = await extendedFetch(BASE_URL, path, { ...params, page: i })
-    series.push(...data.results)
-  }
-
-  const results = series.filter(s => s.vote_count > 50);
-  return results
-}
 
 const ITEMS_PER_PAGE = 15
 export async function getAllResults(title = "", lang = "en-US") {
-  const moveis = await getMovies(title, lang)
-  const series = await getSeries(title, lang)
-  const results: any[] = [...series, ...moveis]
-  const pages = Math.ceil(results.length / ITEMS_PER_PAGE)
-  // console.log(results)
-  return { results, pages }
+  let results: any[] = [];
+  const formattedTitle = title.split(' ').join("+");
+  const path = "3/search/multi";
+  const params = {
+    query: formattedTitle,
+    language: lang,
+    api_key: API_KEY
+  };
+  // this call is for fetching total_pages to get iterate count
+  const data = await extendedFetch(BASE_URL, path, params);
+
+  for (let i = 1; i <= data.total_pages; i++) {
+    let data = await extendedFetch(BASE_URL, path, {...params, page: i});
+    results.push(...data.results);
+  }
+
+  results = results.filter(res => res.media_type !== "person" && res.vote_count > 50);
+  const pages = Math.ceil(results.length / ITEMS_PER_PAGE);
+  return { results, pages };
 }
 
 
@@ -184,9 +153,9 @@ export async function getSearchedSeries(title = "", lang = "en-US") {
     results, 
     total_results: totalResults, 
     total_pages: totalPages 
-  } = data
+  } = data;
   // console.log(results)
-  return { results, totalResults, totalPages }
+  return { results, totalResults, totalPages };
 }
 
 
@@ -214,68 +183,54 @@ export async function getMovieTrailer(movieId: number): Promise<string> {
   return trailerUrl
 }
 
-
 /*
 * Trending is another type of "popularity" score on TMDB but unlike popularity, trending's time windows are much shorter (daily, weekly). This helps us surface the relevant content of today (the new stuff) much easier.
-
 `${BASE_URL}/search/movie?language=en-US&query=${query}&include_adult=false&year=${currentYear}&page=${currentPage}&api_key=${API_KEY}`
 `${BASE_URL}/discover/tv?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&page=1&timezone=America%2FNew_York`
-`
-  id: 1072790
-  imdb_id: "tt26047818"
-  original_language: "en"
-  original_title: "Anyone But You"
-  popularity: 2086.66
-  production_companies: Array(7) [ {…}, {…}, {…}, … ]
-  production_countries: Array [ {…}, {…} ]
-  revenue: 189321912
-  spoken_languages: Array [ {…} ]
-  tagline: "They only look like the perfect couple."
-  video: false
-  vote_average: 6.884
-  vote_count: 593
-`
-
-`
-series genres
-id: 10759, name: "Action & Adventure"
-id: 16, name: "Animation"
-id: 35, name: "Comedy"
-id: 80, name: "Crime"
-id: 99, name: "Documentary"
-id: 18, name: "Drama"
-id: 10751, name: "Family"
-id: 10762, name: "Kids"
-id: 9648, name: "Mystery"
-id: 10763, name: "News"
-id: 10764, name: "Reality"
-id: 10765, name: "Sci-Fi & Fantasy"
-id: 10766, name: "Soap"
-id: 10767, name: "Talk"
-id: 10768, name: "War & Politics"
-id: 37, name: "Western" }
-`
-
-`
-movies genres
-id: 28, name: "Action"
-id: 12, name: "Adventure"
-id: 16, name: "Animation"
-id: 35, name: "Comedy"
-id: 80, name: "Crime"
-id: 99, name: "Documentary"
-id: 18, name: "Drama"
-id: 10751, name: "Family"
-id: 14, name: "Fantasy"
-id: 36, name: "History"
-id: 27, name: "Horror"
-id: 10402, name: "Music"
-id: 9648, name: "Mystery"
-id: 10749, name: "Romance"
-id: 878, name: "Science Fiction"
-id: 10770, name: "TV Movie"
-id: 53, name: "Thriller"
-id: 10752, name: "War"
-id: 37, name: "Western" 
-`
+//// 3/search/movie?include_adult=false&language=en-US&page=1
 */
+// export async function getMovies(title = "", lang?: string) {
+//   const formattedTitle = title.split(' ').join("+");
+//   const path = "3/search/movie";
+//   const params = {
+//     query: formattedTitle,
+//     language: lang,
+//     api_key: API_KEY
+//   };
+//   const movies: any[] = [];
+//   const data = await extendedFetch(BASE_URL, path, params);
+//   const { total_pages: totalPages } = data;
+//   for (let i = 1; i <= totalPages; i++) {
+//     let data = await extendedFetch(BASE_URL, path, { ...params, page: i });
+//     movies.push(...data.results);
+//   }
+//   const results = movies.filter(movie => movie.vote_count > 50);
+//   return results
+// }
+
+// export async function getSeries(title = "", lang?: string) {
+//   const formattedTitle = title.split(' ').join("+");
+//   const path = "3/search/tv";
+//   const params = {
+//     query: formattedTitle,
+//     language: lang,
+//     api_key: API_KEY
+//   };
+//   const series: any[] = [];
+//   const data = await extendedFetch(BASE_URL, path, params);
+//   const { total_pages: totalPages } = data;
+//   for (let i = 1; i <= totalPages; i++) {
+//     let data = await extendedFetch(BASE_URL, path, { ...params, page: i });
+//     series.push(...data.results);
+//   }
+//   const results = series.filter(s => s.vote_count > 50);
+//   return results;
+// }
+// export async function getAllResults(title = "", lang = "en-US") {
+//   const moveis = await getMovies(title, lang);
+//   const series = await getSeries(title, lang);
+//   const results: any[] = [...series, ...moveis];
+//   const pages = Math.ceil(results.length / ITEMS_PER_PAGE);
+//   console.log(results);
+//   return { results, pages };
+// }

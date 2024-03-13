@@ -1,7 +1,5 @@
-import { StarIcon, 	BookmarkIcon } from "@heroicons"
-import { getMovieGenresBaseOnIds, formatRate } from "@src/utils/utils"
-
-import "@styles/movie-card.css"
+import { StarIcon, BookmarkIcon, FilmIcon, TvIcon } from "@heroicons"
+import { getGenresBaseOnIds, formatRate } from "@src/utils/utils"
 
 
 export default function MovieCard({ result }) {
@@ -9,10 +7,8 @@ export default function MovieCard({ result }) {
   return (
     <div className="movie-card">
       <div className="subset-details">
-        <i className="icon play-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
-          </svg>
+        <i className="icon media-icon">
+          {result.media_type === "movie" ? <FilmIcon /> : <TvIcon />}
         </i>
         <figure>
           <img 
@@ -26,7 +22,7 @@ export default function MovieCard({ result }) {
         </i>
         <span className="genres">
           {
-            getMovieGenresBaseOnIds(result.media_type, result.genre_ids).map(genre =>
+            getGenresBaseOnIds(result.media_type, result.genre_ids).map(genre =>
               <span key={genre} className="genre">{genre}</span>
             )
           }
@@ -35,7 +31,7 @@ export default function MovieCard({ result }) {
             <i className="icon star-icon">
               <StarIcon />
             </i>
-            <span>{formatRate(result.vote_average)}</span>
+            <span className="vote-number">{formatRate(result.vote_average)}</span>
           </span>
         </div>
       </div>

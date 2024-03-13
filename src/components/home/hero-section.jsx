@@ -3,8 +3,6 @@ import { useEffect, useState } from "react"
 import { getPopularMovies } from "@src/utils/apis"
 import HeroMovie from "@components/movie/hero-movie"
 
-import "@styles/hero-section.css"
-
 
 export default function HeroSection() {
   const [popularMovies, setPopularMovies] = useState(null)

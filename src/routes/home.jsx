@@ -5,7 +5,7 @@ import HeroSection from "@components/home/hero-section"
 // import Footer from "@components/footer"
 
 import "@styles/home.css"
-import { getAllResults } from "../utils/apis"
+
 
 export default function Home() {
   useEffect(() => {

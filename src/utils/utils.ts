@@ -68,7 +68,7 @@ export function getMovieGenres(genres: Genres[]): string {
 }
 
 
-export function getMovieGenresBaseOnIds(type: "tv" | "movie", ids: []): string[] {
+export function getGenresBaseOnIds(type: "tv" | "movie", ids: []): string[] {
   if (type === "movie") {
     return ids.map((id) => MOVIE_GENRES[id]);
   } else {
