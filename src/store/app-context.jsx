@@ -1,17 +1,24 @@
 import {
   createContext,
   useContext,
+  useEffect,
   useReducer,
   useState,
 } from "react"
 
+import {
+  getPopularMovies,
+  getComingMovies, 
+  getOnScreenMovies
+} from "@src/utils/apis"
 
-export const MovieContext = createContext(null)
+const AppContext = createContext()
+const SearchContext = createContext([])
+const SelectedMovieContext = createContext({})
 
-export const SearchContext = createContext([])
-
-export const SelectedMovieContext = createContext({})
-
+export function useAppState() {
+  return useContext(AppContext)
+}
 
 export function useSearch() {
   return useContext(SearchContext)
@@ -22,7 +29,7 @@ export function useSelectedMovie() {
 }
 
 
-const initial = {
+const searchInitial = {
   title: "",
   results: [],
   pages: 1,
@@ -53,18 +60,36 @@ function searchReducer(state, action) {
 }
 
 export function MovieProvider({ children }) {
-  const [searchState, searchDispatch] = useReducer(searchReducer, initial)
-  // const [searchResults, setSearchResults] = useState(null) -> cause error why!?
-  // const [searchResults, setSearchResults] = useState([])
+  const [appState, setAppState] = useState({
+    popular: [],
+    screen: []
+  })
+  const [searchState, searchDispatch] = useReducer(searchReducer, searchInitial)
   const [selectedMovie, setSelectedMovie] = useState({})
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    loadData()
+  }, [])
+
+  async function loadData() {
+    const popularMovies = await getPopularMovies()
+    const screenMovies = await getOnScreenMovies()
+    setAppState({
+      popular: popularMovies,
+      screen: screenMovies
+    })
+    setIsLoading(false)
+  }
 
   return (
-    <MovieContext.Provider value={0}>
+    isLoading ? <h1>loading app...</h1> :
+    <AppContext.Provider value={[appState]}>
       <SelectedMovieContext.Provider value={[selectedMovie, setSelectedMovie]}>
         <SearchContext.Provider value={[searchState, searchDispatch]}>
           {children}
         </SearchContext.Provider>
       </SelectedMovieContext.Provider>
-    </MovieContext.Provider>
+    </AppContext.Provider>
   )
 }

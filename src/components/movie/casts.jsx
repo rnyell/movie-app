@@ -19,7 +19,7 @@ export default function Casts({ casts }) {
 
   const variants_1 = {
     init: {
-      marginLeft: "-1.5rem",
+      marginLeft: "-4cqw",
       transition: { duration: 0.35 }
     },
     anime: {

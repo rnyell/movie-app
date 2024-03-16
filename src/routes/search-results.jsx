@@ -16,7 +16,7 @@ import "@styles/search-results.css"
 export default function SearchResults() {
   const [isLoading, setIsLoading] = useState(true)
   const [searchState, searchDispatch] = useSearch()
-  const [searchStateCopy, setSearchStateCopy] = useState()
+  const [searchStateCopy, setSearchStateCopy] = useState([])
   const [searchParams, setSearchParams] = useSearchParams()
   const location = useLocation()
   // how does it work? this is a simple variable not a state...
@@ -68,18 +68,19 @@ export default function SearchResults() {
     setIsLoading(false)
   }
 
+  const ITEMS_PER_PAGE = 18
   function devideResultsIntoPages(page) {
-    let arg1 = 0 + ((page - 1) * 15)
-    let arg2 = 15 * page
-    return searchState.results.slice(arg1, arg2)
+    let arg1 = 0 + ((page - 1) * ITEMS_PER_PAGE)
+    let arg2 = ITEMS_PER_PAGE * page
+    return searchStateCopy.slice(arg1, arg2)
   }
 
   const allPagesArray = generatePagination(currentPage, searchState.pages)
 
   const results = searchState.pages === 0 ? 
     <NotFoundResult /> : 
-    <div className="movies-container">
-      <div className="movies-grid">
+    <div className="results-container">
+      <div className="results-grid">
         {devideResultsIntoPages(currentPage).map(movie => 
           <Link 
             to={`/movies/${(movie.title || movie.name).trim().toLowerCase().replaceAll(" ", "-")}`} 
@@ -90,7 +91,7 @@ export default function SearchResults() {
             key={movie.id}
             className="movie-grid-item"
           >
-            <MovieCard result={movie} />
+            <MovieCard result={movie} type="result" />
           </Link>
         )}
       </div>
@@ -99,7 +100,10 @@ export default function SearchResults() {
   return (
     <div className="results-page">
       <Header />
-      <SearchBox onHomePage={false} />
+      <div className="search-area">
+        <SearchBox isHomePage={false} />
+      </div>
+
       <h2 className="heading">
         Search results for: <span>{searchParams.get("query")}</span>
       </h2>

@@ -14,7 +14,8 @@
     "framer-motion": "^11.0.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.22.0"
+    "react-router-dom": "^6.22.0",
+    "swiper": "^11.0.7"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
@@ -25,7 +26,6 @@
     "eslint": "^8.45.0",
     "eslint-plugin-react": "^7.32.2",
     "postcss": "^8.4.35",
-    "typescript": "^5.3.3",
     "vite": "^5.1.4"
   },
   "browserslist": [

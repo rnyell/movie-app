@@ -82,7 +82,6 @@
 
 :root {
   --base-size: 1rem;
-
   --space-1: calc(0.25 * var(--base-size));
   --space-2: calc(0.5 * var(--base-size));
   --space-3: calc(0.75 * var(--base-size));
@@ -93,7 +92,6 @@
   --space-8: calc(2 * var(--base-size));
   --space-9: calc(2.5 * var(--base-size));
   --space-10: calc(3 * var(--base-size));
-
   --outline-size-1: 0.07525rem;
   --outline-size-2: 0.1375rem;
   --outline-size-3: 0.1825rem;
@@ -143,7 +141,6 @@
   --color-accent-500: #BA3A5C;
   --color-accent-600: #A72A4B;
 
-  /* opaque colors */
   /* TODO: use color-mix() */
   --color-neutral-200-opaque: rgb(217 230 237 / 50%);
   --color-neutral-300-opaque: rgb(183 192 196 / 50%);
@@ -153,6 +150,12 @@
   --color-neutral-700-opaque: rgb(42 44 47 / 50%);
   --color-neutral-800-opaque: rgb(30 32 34 / 50%);
   --black-gradient: rgb(10 13 15 / 25%);
+  
+  /* calculate the true vw unit, without scrollbar */
+  --scrollbar-width: 0;
+  --viewport-width: calc(100vw - var(--scrollbar-width));
+
+  --base-poster-ratio: 1.75;
 }
 
 @layer typo {
@@ -163,7 +166,7 @@
   
   body {
     font-family: Montserrat, Calibri, Tahoma, sans-serif;
-    color: var(--color-neutral-200); /* default */
+    color: var(--color-neutral-200);
     line-height: 1.375;
   }
 
@@ -205,7 +208,40 @@
 }
 
 @layer global {
+  /*
+  ::-webkit-scrollbar {
+    width: 1px;
+  }
+  */
+  
+  ::-webkit-scrollbar-track {
+    background-color: var(--color-neutral-700);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--color-neutral-500);
+  }
+
+  ::-webkit-scrollbar-button {
+    display: none;
+  }
+
+  ::-webkit-scrollbar-corner {
+    display: none;
+  }
+
+  html {
+    scrollbar-width: none;
+    scrollbar-color: var(--color-neutral-500) var(--color-neutral-700);
+  }
+  
+  body {
+    background-color: var(--color-neutral-800);
+  }
+
   #root {
+    margin-inline: auto;
+    max-width: 1800px;
     height: 100%;
     background-color: var(--color-neutral-800);
   }
@@ -276,7 +312,6 @@
   select,
   textarea {
     font-family: inherit;
-    font-size: 100%;
     font-weight: inherit;
     line-height: inherit;
     color: inherit;
@@ -319,50 +354,4 @@
   :where(:focus, :active) {
     outline: none;
   }
-
-  /* ::-webkit-scrollbar {
-    width: 1px;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background-color: var(--color-neutral-500);
-  }
-
-  ::-webkit-scrollbar-track {
-    background-color: var(--color-neutral-700);
-  }
-
-  .* {
-    scrollbar-width: thin;
-    scrollbar-color: var(--color-neutral-700) var(--color-neutral-500);
-  } */
 }
-
-/*
-CSS props order:
-.element {
-  grid-col|grid-row
-  align|justify-self
-  flex-shrink|grow
-  margin
-  padding
-  width/max-width
-  height
-  aspect-ratio
-  display
-  grid-temp-cols|rows
-  grid-auto-flow | flex-flow
-  justify|align-content
-  justify|align-items
-  position
-  overflow
-  font
-  color
-  bg
-  border
-  opacity
-  transform
-  transition
-  animation
-}
-*/

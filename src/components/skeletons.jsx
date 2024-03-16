@@ -28,7 +28,7 @@ export function SelectedMovieSkeleton() {
 export function SearchResultsSkeleton() {
   return (
     <div className="search-results-skeleton">
-      <div className="l-movies-grid">
+      <div className="l-results-grid">
         {
           [...Array(10).keys()].map(_ => (
             <div className="l-movie-card">

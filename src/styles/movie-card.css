@@ -1,12 +1,38 @@
-@layer main, queries;
-
-@layer main {
+@layer general {
   .movie-card {
     container: movie-card / inline-size;
     display: flex;
     flex-direction: column;
     align-items: center;
     
+    & .title {
+      margin-top: 1cqh;
+      width: 75%;
+      text-align: center;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    & .vote {
+      display: flex;
+      align-items: center;
+      color: var(--color-orange-300);
+
+      & .vote-number {
+        margin-inline: 2cqw;
+      }
+  
+      & .star-icon svg {
+        fill: var(--color-orange-300);
+      }
+    }
+
+  }
+}
+
+@layer {
+  .movie-card[data-type="result"] { 
     & .subset-details {
       position: relative;
       isolation: isolate;
@@ -71,13 +97,9 @@
     }
 
     & .title {
-      margin-top: 1cqh;
-      width: 75%;
-      text-align: center;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      transition: translate 250ms cubic-bezier(0.92, 0.15, 0.5, 1.5), width var(--duration-2);
+      transition: 
+        translate 250ms cubic-bezier(0.92, 0.15, 0.5, 1.5), 
+        width var(--duration-2) ease-out;
     }
 
     & .release-date {
@@ -131,11 +153,8 @@
     
     & .vote {
       position: absolute;
-      display: flex;
-      align-items: center;
       right: 0.75rem;
       top: 0.75rem;
-      color: var(--color-orange-300);
 
       & .vote-number {
         margin-inline: 2cqw;
@@ -144,15 +163,11 @@
 
       & .star-icon {
         width: 9cqw;
-
-        & svg {
-          fill: var(--color-orange-300);  
-        }
       }
     }
   }
 
-  .movie-card:hover {
+  .movie-card[data-type="result"]:hover {
     & .media-icon {
       translate: 5cqw 5cqw;
       opacity: 0;
@@ -192,15 +207,96 @@
   }
 }
 
-@layer queries {
-  @media (width > 900px) {
-    .title {
+@layer {
+  .movie-card[data-type="screen"] {
+    --radius: 1.25rem;
+    --padding: var(--space-3);
+    --card-width: 15vw;
+    --poster-width: calc(var(--card-width) - 2 * var(--padding));
+
+    padding: var(--padding) var(--padding) var(--space-4);
+    width: var(--card-width);
+    position: relative;
+    background-color: var(--color-neutral-700);
+    background-color: color-mix(in srgb, var(--color-neutral-700) 80%, transparent);
+    border-radius: calc(var(--space-4) + var(--radius));
+    box-shadow: 0 3px 0.75rem rgb(10 15 17 / 50%);
+    
+    & .poster {
+      width: var(--poster-width);
+      aspect-ratio: var(--base-poster-ratio);
+      border-radius: var(--radius);
+    }
+
+    & .title {
+      align-self: start;
+      margin-left: 2cqw;
+      width: 75%;
+      text-align: start;
+      font-size: 0.9rem;
+      font-weight: 400;
+    }
+
+    & .genres {
+      align-self: start;
+      margin-left: 2cqw;
+      margin-top: 2cqw;
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 2cqw;
+      font-size: min(0.5rem + 0.75cqw, 0.525rem);
+      color: var(--color-neutral-400);
+
+      & > span:last-child > span {
+        display: none;
+      }
+    }
+
+    & .vote {
+      width: 30cqw;
+      height: 30cqw;
+      max-width: 50px;
+      max-height: 50px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      top: calc(var(--padding) + var(--poster-width) / var(--base-poster-ratio));
+      right: var(--padding);
+      translate: 0 -50%;
+      border-radius: var(--rounded-full);
+      backdrop-filter: blur(5px);
+      background-color: color-mix(in srgb, var(--color-neutral-500), transparent);
+
+      & .vote-number {
+        font-size: 0.675rem;
+      }
+
+      & .star-icon {
+        width: 5cqw;
+      }
+    }
+  }
+}
+
+@media (width < 1200px) {
+  .movie-card[data-type="screen"] {
+    --card-width: 25vw;
+  }
+}
+
+
+@media (width > 900px) {
+  .movie-card[data-type="result"] {
+    & .title {
       font-size: 1.2rem;
     }
   }
+}
 
-  @container movie-card (width > 165px) {
-    .title {
+@container movie-card (width > 165px) {
+  .movie-card[data-type="result"] {
+    & .title {
       font-size: calc(1rem + 4cqw);
     }
 
@@ -216,28 +312,32 @@
       font-size: calc(0.5rem + 2cqw);
     }
   }
-  
-  @container movie-card (width > 250px) {
-    :is(.media-icon, .bookmark-icon) {
+}
+
+@container movie-card (width > 250px) {
+  .movie-card[data-type="result"] {
+    & .media-icon {
       width: 13cqw;
       height: 13cqw;
-    }
-
-    .media-icon {
       top: 6cqw;
       left: 6cqw;
     }
 
-    .star-icon {
+    & .bookmark-icon {
+      width: 13cqw;
+      height: 13cqw;
+    }
+
+    & .star-icon {
       width: 6cqw;
       height: 6cqw;
     }
 
-    .genres {
+    & .genres {
       gap: 2cqw;
     }
 
-    .genre {
+    & .genre {
       padding: 2cqw;
       font-size: 0.875rem;
     }

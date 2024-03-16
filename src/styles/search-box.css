@@ -19,7 +19,7 @@
 
   &.expanded[data-location="on-home-page"] {
     width: 14rem;
-    /* to preserve the outline when it is expanded but not focued  */
+    /* to preserve the "focus-state" when it is expanded but is semi-blured  */
     outline: var(--outline-size-2) solid var(--color-accent-300);
     outline-offset: 1px;
   }

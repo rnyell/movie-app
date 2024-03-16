@@ -17,17 +17,14 @@ export default function HeroMovie({ movie, nextMovieBtn, prevMovieBtn }) {
   const [movieDetails, setMovieDetails] = useState("")
 
   useEffect(() => {
-    console.log("mounted")
-  }, [])
-
-  useEffect(() => {
-    const loadData = async () => {
-      const data = await getMovieDetails(movie.id)
-      setMovieDetails(data)
-      setIsLoading(false)
-    }
     loadData()
   }, [movie.id])
+
+  async function loadData() {
+    const data = await getMovieDetails(movie.id)
+    setMovieDetails(data)
+    setIsLoading(false)
+  }
 
   const {
     title,

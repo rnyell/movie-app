@@ -11,7 +11,7 @@ import "@styles/booking.css"
 
 export default function Booking() {
   const [ticketsCount, setTicketsCount] = useState(0)
-  const [selectMovie, setSelectMovie] = useSelectedMovie()
+  const [selectMovie] = useSelectedMovie()
   // console.log('re-render') //+ unnecessary renders after selecting seats
 
   return (

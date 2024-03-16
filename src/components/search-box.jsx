@@ -5,12 +5,12 @@ import { MagnifyingGlassIcon } from "@heroicons"
 import "@styles/search-box.css"
 
 
-export default function SearchBox({ onHomePage }) {
+export default function SearchBox({ isHomePage }) {
   const [params, setParams] = useSearchParams()
   const [userInput, setUserInput] = useState("")
   const navigate = useNavigate()
   const location = useLocation()
-  const [isExpanded, setIsExpanded] = useState(onHomePage ? false : true)
+  const [isExpanded, setIsExpanded] = useState(isHomePage ? false : true)
   const boxRef = useRef(null)
   const inputRef = useRef(null)
 
@@ -34,11 +34,11 @@ export default function SearchBox({ onHomePage }) {
   }
   
   function handleSearchMovie(title) {
-    if (onHomePage && title) {
+    if (isHomePage && title) {
       navigate("/search")
       setParams({query: title, page: 1})
       return
-    } else if (!onHomePage && title) {
+    } else if (!isHomePage && title) {
       setParams({query: title, page: 1})
       return
     }
@@ -51,11 +51,11 @@ export default function SearchBox({ onHomePage }) {
 
     if (isExpanded && !formattedInput) {
       return
-    } else if (onHomePage && !formattedInput) {
+    } else if (isHomePage && !formattedInput) {
       setIsExpanded(!isExpanded)
       inputRef.current.focus()
       return
-    } else if (onHomePage && formattedInput) {
+    } else if (isHomePage && formattedInput) {
       handleSearchMovie(formattedInput)
       return
     }
@@ -67,7 +67,7 @@ export default function SearchBox({ onHomePage }) {
     if (
       boxRef.current && 
       !boxRef.current.contains(target) && 
-      onHomePage
+      isHomePage
     ) {
       setUserInput("")
       setIsExpanded(false)
@@ -83,7 +83,7 @@ export default function SearchBox({ onHomePage }) {
   return (
     <div 
       className={`search-box ${isExpanded ? "expanded" : ""}`} 
-      data-location={onHomePage ? "on-home-page" : "on-result-page"}
+      data-location={isHomePage ? "on-home-page" : "on-result-page"}
       ref={boxRef}
       onKeyDown={keyPressHandler}
       tabIndex={0}
