@@ -1,5 +1,7 @@
-import { useReducer, useRef } from "react"
+import { useEffect, useReducer, useRef, useState } from "react"
+import { motion } from "framer-motion"
 import { ArrowUpRightIcon } from "@heroicons"
+
 import { useAppState } from "@src/store/app-context"
 import MovieCard from "./movie-card"
 
@@ -51,70 +53,78 @@ const reducer = (state, action) => {
 export default function ScreenSection() {
   const [appState] = useAppState()
   const [pointer, dispatch] = useReducer(reducer, init)
+  const [constrainsWidth, setConstrainsWidth] = useState(400)
+  const sectionRef = useRef(null)
   const wrapRef = useRef(null)
   const cursorRef = useRef(null)
+
+  useEffect(() => {
+    let offset = 30
+    setConstrainsWidth(wrapRef.current.scrollWidth - window.innerWidth + offset)
+  }, [constrainsWidth])
   
   const styles = {
     "--scale": pointer.scale,
-    "--opacity": pointer.opacity
+    "--opacity": pointer.opacity,
   }
 
   function handlePointerMove(event) {
     const { clientX, clientY } = event
-    const { top, left } = wrapRef.current.getBoundingClientRect()
+    const { top, left } = sectionRef.current.getBoundingClientRect()
     let scrolledFromLeft = wrapRef.current.scrollLeft
+    // this "cursorRef.current.offsetWidth / 2" is for matching the center of the circle to noke-peikan-e cursor
     let x = (clientX - cursorRef.current.offsetWidth / 2) - left + scrolledFromLeft
     let y = (clientY - cursorRef.current.offsetHeight / 2) - top
     let frames = {
       translate: `${pointer.x}px ${pointer.y}px`,
       scale: pointer.scale
     }
+    let transition = { duration: 150, fill: "forwards" }
 
-    if (event.target === wrapRef.current) {
+    if (!event.target.closest(".movie-card")) {
       dispatch({ type: "move", x, y })
-      cursorRef.current.animate(frames, {
-        duration: 150,
-        fill: "forwards"
-      })
+      cursorRef.current.animate(frames, transition)
     } else {
       dispatch({ type: "hover", x, y })
-      cursorRef.current.animate(frames, {
-        duration: 150,
-        fill: "forwards"
-      })
+      cursorRef.current.animate(frames, transition)
     }
   }
 
   function handleEntering() {
+    wrapRef.current.style.willChange = "transform"
     dispatch({type: "enter"})
   }
 
   function handleLeaving() {
+    wrapRef.current.style.willChange = "auto"
     dispatch({type: "leave"})
   }
   
 
   return (
-    <section className="screen-section">
+    <section
+      ref={sectionRef} 
+      style={styles}
+      onMouseEnter={handleEntering}
+      onPointerMove={handlePointerMove}
+      onMouseLeave={handleLeaving}
+      className="screen-section"
+    >
       <h3 className="heading">On Screen Movies</h3>
       <p>Reserve some tickets!</p>
-      <div
-        className="screen-movies-container" 
-        style={styles}
+      <motion.div
         ref={wrapRef}
-        onMouseEnter={handleEntering}
-        onPointerMove={handlePointerMove}
-        onMouseLeave={handleLeaving}
+        drag="x"
+        dragConstraints={{ left: -constrainsWidth, right: 0 }}
+        className="screen-movies-wrapper" 
       >
-        <div className="pointer" ref={cursorRef}>
-          {
-           <div className={`${pointer.hover ? "is-hover" : ""}`}>
-            <ArrowUpRightIcon />
-            <span>Buy Ticket</span>
-          </div>
-          }
-        </div>
         {appState.screen.slice(10).map(movie => <MovieCard result={movie} type="screen" />)}
+      </motion.div>
+      <div ref={cursorRef} className="pointer">
+        <div className={`${pointer.hover ? "is-hover" : ""}`}>
+          <ArrowUpRightIcon />
+          <span>Buy Ticket</span>
+        </div>
       </div>
     </section>
   )

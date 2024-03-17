@@ -208,18 +208,8 @@
 }
 
 @layer global {
-  /*
   ::-webkit-scrollbar {
-    width: 1px;
-  }
-  */
-  
-  ::-webkit-scrollbar-track {
-    background-color: var(--color-neutral-700);
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background-color: var(--color-neutral-500);
+    /* width: 1px; */
   }
 
   ::-webkit-scrollbar-button {
@@ -229,14 +219,18 @@
   ::-webkit-scrollbar-corner {
     display: none;
   }
+ 
+  ::-webkit-scrollbar-track {
+    background-color: var(--color-neutral-700);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--color-neutral-500);
+  }
 
   html {
     scrollbar-width: none;
     scrollbar-color: var(--color-neutral-500) var(--color-neutral-700);
-  }
-  
-  body {
-    background-color: var(--color-neutral-800);
   }
 
   #root {

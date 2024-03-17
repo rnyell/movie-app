@@ -7,11 +7,12 @@ export default function MovieCard({ result, type }) {
   switch (type) {
     case "screen": {
       return (
-        <div className="movie-card" data-type={type}>
+        <div data-type={type} className="movie-card">
           <figure>
               <img
                 src={`https://image.tmdb.org/t/p/original${result.backdrop_path}`}
                 alt="poster" className="poster"
+                draggable="false" /* imp */
               />
             </figure>
             <h5 className="title">{result.title}</h5>

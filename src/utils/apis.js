@@ -64,7 +64,6 @@ export async function getComingMovies() {
   })
 
   const { results } = data
-  console.log(data)
   return results
 }
 

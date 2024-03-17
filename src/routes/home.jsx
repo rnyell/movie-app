@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 
-import { getComingMovies, getOnScreenMovies } from "@src/utils/apis"
 import SearchBox from "@components/search-box"
 import Header from "@components/header"
 import HeroSection from "@components/home/hero-section"
@@ -24,6 +23,7 @@ export default function Home() {
       <HeroSection />
       <ScreenSection />
 
+      {/* TODO move it to rootlayout */}
       <div className="background-effect"></div>
     </main>
   )

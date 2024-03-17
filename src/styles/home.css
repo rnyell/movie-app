@@ -33,29 +33,20 @@
 }
 
 .screen-section {
-  margin-top: 2rem;
-  padding-inline: var(--space-4);
-  width: var(--viewport-width);
-
-  & .heading {
-    color: var(--color-accent-300);
-  }
-}
-
-.screen-movies-container {
   --opacity: 0;
   --scale: 1;
   
   cursor: none;
-  padding: var(--space-4);
+  margin-top: 2rem;
+  padding-inline: var(--space-4);
+  width: var(--viewport-width);
   position: relative;
   isolation: isolate;
-  overflow-y: hidden;
-  display: grid;
-  grid-auto-flow: column;
-  align-items: start;
-  column-gap: 1.75rem;
-  overflow-x: scroll;
+  overflow: hidden;
+
+  & .heading {
+    color: var(--color-accent-300);
+  }
 
   & .pointer {
     pointer-events: none;
@@ -64,6 +55,8 @@
     position: absolute;
     z-index: var(--z-100);
     border-radius: 50%;
+    top: 0;
+    left: 0;
     background-color: color-mix(in srgb, var(--color-accent-300) 95%, transparent);
     opacity: var(--opacity);
     transition: var(--duration-1);
@@ -98,5 +91,17 @@
       color: var(--color-neutral-200);
     }
   }
+}
+
+.screen-movies-wrapper {
+  width: max-content; /* imp */
+  padding: var(--space-4);
+  /* position: relative;
+  isolation: isolate; */
+  /* overflow: hidden; */
+  display: grid;
+  grid-auto-flow: column;
+  align-items: start;
+  column-gap: 1.75rem;
 }
 
