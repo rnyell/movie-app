@@ -2,6 +2,7 @@
 
 @layer layout {
   .hero-section {
+    padding-inline: var(--space-8);
     width: 100%;
     /* display: flow-root; */
     display: flex;
@@ -15,7 +16,6 @@
   .grid-container {
     container: grid-container / inline-size;
     margin-top: 0.5rem;
-    margin-left: 1.5rem;
     padding: var(--space-5);
     width: 75%;
     aspect-ratio: var(--base-poster-ratio);
@@ -218,6 +218,7 @@
 
       & .cast-img {
         object-position: 0 15%;
+        user-select: none;
       }
 
       & .cast-name {
@@ -316,7 +317,7 @@
           rgb(20 23 26 / 60%) 10%,
           rgb(20 23 26 / 90%) 95%
         );
-        border-radius: 2.75rem;
+        border-radius: inherit;
       }
     }
 

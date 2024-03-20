@@ -30,8 +30,8 @@ export function SearchResultsSkeleton() {
     <div className="search-results-skeleton">
       <div className="l-results-grid">
         {
-          [...Array(10).keys()].map(_ => (
-            <div className="l-movie-card">
+          [...Array(10).keys()].map((_, i) => (
+            <div className="l-movie-card" key={i}>
               <div className="l-poster"></div>
               <div className="l-title"></div>
               <div className="l-release-date"></div>

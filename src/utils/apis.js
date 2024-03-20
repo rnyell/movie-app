@@ -48,21 +48,24 @@ export const TV_GENRES = {
 // ~'/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc'
 // ~'3/discover/tv?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc'
 //~ https://api.themoviedb.org/3/trending/all/week?language=en-US"
-//~ https://api.themoviedb.org/3/tv/{series_id}
 
 //* https://api.themoviedb.org/3/movie/upcoming
 //* https://api.themoviedb.org/3/movie/now_playing
 
 //~ /3/movie/{movie_id}/similar
 
+//+ series
+//+ https://developer.themoviedb.org/reference/tv-series-on-the-air-list
+//+ https://api.themoviedb.org/3/tv/{series_id}
+
 export async function getComingMovies() {
   const path = "3/movie/upcoming"
-  let data = await request(BASE_URL, path, {
+  const params = {
     page: 1,
     language: "en-US",
     api_key: API_KEY
-  })
-
+  }
+  let data = await request(BASE_URL, path, params)
   const { results } = data
   return results
 }
@@ -70,29 +73,48 @@ export async function getComingMovies() {
 
 export async function getOnScreenMovies() {
   const path = "3/movie/now_playing"
-  let data = await request(BASE_URL, path, {
+  const params = {
     page: 1,
     language: "en-US",
+    region: "US",
     api_key: API_KEY
-  })
-
+  }
+  let data = await request(BASE_URL, path, params)
   const { results } = data
-  console.log(data)
   return results
 }
 
 
 export async function getPopularMovies() {
   const path = "3/movie/popular"
-  let data = await request(BASE_URL, path, {
+  const params = {
     page: 1,
     language: "en-US",
     api_key: API_KEY
-  })
-
+  }
+  let data = await request(BASE_URL, path, params)
   const { results } = data
   return results
 }
+
+export async function getTrendingSeries() {
+  // const path = "3/trending/tv/week"
+  const path = "3/discover/tv"
+  const params = {
+    page: 1,
+    language: "en-US",
+    include_adult: false,
+    sort_by: "popularity.desc",
+    "vote_count.gte": 200,
+    include_null_first_air_dates: false,
+    without_genres: "99,10762,10763,10764,10766,10767",
+    api_key: API_KEY
+  }
+  let data = await request(BASE_URL, path, params)
+  const { results } = data
+  return results
+}
+
 
 
 export async function getAllResults(title = "", lang = "en-US") {
@@ -119,40 +141,42 @@ export async function getAllResults(title = "", lang = "en-US") {
 }
 
 
-export async function getSearchedSeries(title = "", lang = "en-US") {
-  let formattedTitle = title.split(' ').join("+")
-  const path = "3/search/tv"
-  let data = await request(BASE_URL, path, {
-    query: formattedTitle,
-    language: lang,
-    api_key: API_KEY
-  })
+// export async function getSearchedSeries(title = "", lang = "en-US") {
+//   let formattedTitle = title.split(' ').join("+")
+//   const path = "3/search/tv"
+//   let data = await request(BASE_URL, path, {
+//     query: formattedTitle,
+//     language: lang,
+//     api_key: API_KEY
+//   })
 
-  const { 
-    results, 
-    total_results: totalResults, 
-    total_pages: totalPages 
-  } = data
-  return { results, totalResults, totalPages }
-}
+//   const { 
+//     results, 
+//     total_results: totalResults, 
+//     total_pages: totalPages 
+//   } = data
+//   return { results, totalResults, totalPages }
+// }
 
 
 export async function getMovieDetails(movieId) {
   const path = `3/movie/${movieId}`
-  let data = await request(BASE_URL, path, {
-    api_key: API_KEY,
-    append_to_response: "credits,videos,images",
-  })
-
+  const params = { api_key: API_KEY, append_to_response: "credits,videos,images" }
+  let data = await request(BASE_URL, path, params)
   return data
+}
+
+export async function getMovieRuntime(movieId) {
+  const path = `3/movie/${movieId}`
+  const params = { api_key: API_KEY }
+  let data = await request(BASE_URL, path, params)
+  return data.runtime
 }
 
 export async function getMovieTrailer(movieId) {
   const path = `3/movie/${movieId}/videos`
-  let data = await request(BASE_URL, path, {
-    api_key: API_KEY,
-  })
-
+  const params = { api_key: API_KEY }
+  let data = await request(BASE_URL, path, params)
   let officialTrailers = data.results.filter(res => 
     res.type === "Trailer" && 
     res.official === true
@@ -163,12 +187,6 @@ export async function getMovieTrailer(movieId) {
   return trailerUrl
 }
 
-/*
-* Trending is another type of "popularity" score on TMDB but unlike popularity, trending's time windows are much shorter (daily, weekly). This helps us surface the relevant content of today (the new stuff) much easier.
-`${BASE_URL}/search/movie?language=en-US&query=${query}&include_adult=false&year=${currentYear}&page=${currentPage}&api_key=${API_KEY}`
-`${BASE_URL}/discover/tv?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&page=1&timezone=America%2FNew_York`
-//// 3/search/movie?include_adult=false&language=en-US&page=1
-*/
 // export async function getMovies(title = "", lang?: string) {
 //   const formattedTitle = title.split(' ').join("+");
 //   const path = "3/search/movie";
@@ -206,14 +224,6 @@ export async function getMovieTrailer(movieId) {
 //   const results = series.filter(s => s.vote_count > 50);
 //   return results;
 // }
-// export async function getAllResults(title = "", lang = "en-US") {
-//   const moveis = await getMovies(title, lang);
-//   const series = await getSeries(title, lang);
-//   const results: any[] = [...series, ...moveis];
-//   const pages = Math.ceil(results.length / ITEMS_PER_PAGE);
-//   console.log(results);
-//   return { results, pages };
-// }
 
 // export async function getSearchedMovies(title = "", page = 1) {
 //   let formattedTitle = title.split(' ').join("+")
@@ -223,12 +233,10 @@ export async function getMovieTrailer(movieId) {
 //     page: page,
 //     api_key: API_KEY
 //   })
-
 //   const { 
 //     results, 
 //     total_results: totalResults, 
 //     total_pages: totalPages
 //   } = data
-
 //   return { results, totalResults, totalPages }
 // }

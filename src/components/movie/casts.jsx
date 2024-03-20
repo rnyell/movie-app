@@ -63,7 +63,7 @@ export default function Casts({ casts }) {
             animate={isOpen ? "anime" : "init"}
             exit="exit"
           >
-            <img className='cast-img' src={`https://image.tmdb.org/t/p/w154/${cast.profile_path}`} />
+            <img className='cast-img' src={`https://image.tmdb.org/t/p/w154/${cast.profile_path}`} draggable="false" />
             <p className="cast-name">{cast.name}</p>
           </motion.li>
           )}

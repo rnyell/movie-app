@@ -35,11 +35,10 @@
   .movie-card[data-type="screen"] {
     --radius: 1.25rem;
     --padding: var(--space-3);
-    --card-width: 15vw;
+    --card-width: 16.25vw;
     --poster-width: calc(var(--card-width) - 2 * var(--padding) - 0.2rem);
 
     padding: var(--padding) var(--padding) var(--space-4);
-    width: var(--card-width);
     position: relative;
     background-color: var(--color-neutral-700);
     background-color: color-mix(in srgb, var(--color-neutral-700) 80%, transparent);
@@ -47,23 +46,22 @@
     box-shadow: 0 3px 0.75rem rgb(10 15 17 / 50%);
     
     & .poster {
-      width: var(--poster-width);
+      width: 100%;
       aspect-ratio: var(--base-poster-ratio);
       border-radius: var(--radius);
-      filter: grayscale(15%);
-      transition: scale var(--duration-2);
+      filter: grayscale(20%);
+      transition: scale var(--duration-2), filter var(--duration-1);
     }
 
     & .title {
-      align-self: start;
+      align-self: flex-start;
       margin-left: 2cqw;
-      width: 75%;
       text-align: start;
       font-size: 0.9rem;
       font-weight: 400;
     }
 
-    & .genres {
+    /* & .genres {
       align-self: start;
       margin-left: 2cqw;
       margin-top: 2cqw;
@@ -76,23 +74,23 @@
       & > span:last-child > span {
         display: none;
       }
+    }*/
+
+    & .details {
+      align-self: flex-start;
+      margin-top: 2cqw;
+      margin-inline: 2cqw;
+      width: 100%;
+      display: flex;
+      align-items: center;
     }
 
     & .vote {
-      width: 30cqw;
-      height: 30cqw;
-      max-width: 50px;
-      max-height: 50px;
+      margin-left: auto;
+      margin-right: 2cqw;
       display: inline-flex;
       justify-content: center;
       align-items: center;
-      position: absolute;
-      top: calc(var(--padding) + var(--poster-width) / var(--base-poster-ratio));
-      right: var(--padding);
-      translate: 0 -50%;
-      border-radius: var(--rounded-full);
-      backdrop-filter: blur(5px);
-      background-color: color-mix(in srgb, var(--color-neutral-500), transparent);
 
       & .vote-number {
         font-size: 0.675rem;
@@ -101,6 +99,12 @@
       & .star-icon {
         width: 5cqw;
       }
+    }
+
+    & .runtime {
+      font-size: 0.675rem;
+      font-size: min(0.5rem + 0.75cqw, 0.525rem);
+      color: var(--color-neutral-400);
     }
   }
 
@@ -112,9 +116,18 @@
   }
 }
 
-@media (width < 1200px) {
-  .movie-card[data-type="screen"] {
-    --card-width: 25vw;
+
+@layer {
+  .movie-card[data-type="series"] {
+    .poster {
+      border-radius: 1.5rem;
+    }
+
+    .title {
+      margin-left: 2cqw;
+      text-align: start;
+      font-size: 0.9rem;
+    }
   }
 }
 

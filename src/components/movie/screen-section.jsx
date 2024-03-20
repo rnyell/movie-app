@@ -1,6 +1,7 @@
 import { useEffect, useReducer, useRef, useState } from "react"
+import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
-import { ArrowUpRightIcon } from "@heroicons"
+import { ArrowUpRightIcon, ChevronRightIcon } from "@heroicons"
 
 import { useAppState } from "@src/store/app-context"
 import MovieCard from "./movie-card"
@@ -37,7 +38,7 @@ const reducer = (state, action) => {
         hover: true,
         x: action.x,
         y: action.y,
-        scale: 5
+        scale: 4
       }
     }
     case "leave": {
@@ -55,23 +56,31 @@ export default function ScreenSection() {
   const [pointer, dispatch] = useReducer(reducer, init)
   const [constrainsWidth, setConstrainsWidth] = useState(400)
   const sectionRef = useRef(null)
-  const wrapRef = useRef(null)
+  const draggableRef = useRef(null)
   const cursorRef = useRef(null)
 
   useEffect(() => {
-    let offset = 30
-    setConstrainsWidth(wrapRef.current.scrollWidth - window.innerWidth + offset)
-  }, [constrainsWidth])
+    handleResize()
+    window.addEventListener("resize", handleResize)
+    return () => window.removeEventListener("resize", handleResize)
+  }, [])
+
+  function handleResize() {
+    let offset = 85
+    setConstrainsWidth(
+      draggableRef.current.scrollWidth - window.innerWidth + offset
+    )
+  }
   
   const styles = {
     "--scale": pointer.scale,
-    "--opacity": pointer.opacity,
+    "--opacity": pointer.opacity
   }
 
   function handlePointerMove(event) {
     const { clientX, clientY } = event
     const { top, left } = sectionRef.current.getBoundingClientRect()
-    let scrolledFromLeft = wrapRef.current.scrollLeft
+    let scrolledFromLeft = draggableRef.current.scrollLeft
     // this "cursorRef.current.offsetWidth / 2" is for matching the center of the circle to noke-peikan-e cursor
     let x = (clientX - cursorRef.current.offsetWidth / 2) - left + scrolledFromLeft
     let y = (clientY - cursorRef.current.offsetHeight / 2) - top
@@ -90,40 +99,46 @@ export default function ScreenSection() {
     }
   }
 
-  function handleEntering() {
-    wrapRef.current.style.willChange = "transform"
+  function handlePointerEnter() {
+    draggableRef.current.style.willChange = "transform"
     dispatch({type: "enter"})
   }
 
-  function handleLeaving() {
-    wrapRef.current.style.willChange = "auto"
+  function handlePointerLeave() {
+    draggableRef.current.style.willChange = "auto"
     dispatch({type: "leave"})
   }
   
 
   return (
     <section
-      ref={sectionRef} 
+      ref={sectionRef}
       style={styles}
-      onMouseEnter={handleEntering}
+      onMouseEnter={handlePointerEnter}
       onPointerMove={handlePointerMove}
-      onMouseLeave={handleLeaving}
+      onMouseLeave={handlePointerLeave}
       className="screen-section"
     >
-      <h3 className="heading">On Screen Movies</h3>
-      <p>Reserve some tickets!</p>
-      <motion.div
-        ref={wrapRef}
-        drag="x"
-        dragConstraints={{ left: -constrainsWidth, right: 0 }}
-        className="screen-movies-wrapper" 
-      >
-        {appState.screen.slice(10).map(movie => <MovieCard result={movie} type="screen" />)}
-      </motion.div>
+      <header>
+        <div>
+          <h3 className="heading">Now Playing</h3>
+          <Link to="/">Explore more<ChevronRightIcon /></Link>
+        </div>
+        <p>Grab Your Popcorn!🍿</p>
+      </header>
+      <div className="screen-movies-wrapper">
+        <motion.div
+          ref={draggableRef}
+          drag="x"
+          dragConstraints={{ left: -constrainsWidth, right: 0 }}
+          className="draggable"
+        >
+          {appState.screen.slice(0, 10).map(movie => <MovieCard result={movie} type="screen" />)}
+        </motion.div>
+      </div>
       <div ref={cursorRef} className="pointer">
         <div className={`${pointer.hover ? "is-hover" : ""}`}>
-          <ArrowUpRightIcon />
-          <span>Buy Ticket</span>
+          <ArrowUpRightIcon /><span>Buy Ticket</span>
         </div>
       </div>
     </section>

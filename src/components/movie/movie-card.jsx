@@ -1,37 +1,62 @@
+import { useEffect, useState } from "react"
 import { StarIcon, BookmarkIcon, FilmIcon, TvIcon } from "@heroicons"
-import { getGenresBaseOnIds, formatRate } from "@src/utils/utils"
+import { getGenresBaseOnIds, formatRate, formatRuntime } from "@src/utils/utils"
+import { getMovieRuntime } from "@src/utils/apis"
 
 
 export default function MovieCard({ result, type }) {
+  const [runtime, setRuntime] = useState(null)
 
+  useEffect(() => {
+    /* when type="screen" */
+    getMovieRuntime(result.id).then(d => setRuntime(d))
+  }, [])
+
+  // console.log(result)
   switch (type) {
+    case "series": {
+      return (
+        <div data-type={type} className="movie-card">
+          <figure>
+            <img
+              src={`https://image.tmdb.org/t/p/original${result.poster_path}`}
+              alt="poster" className="poster"
+              draggable="false" /* imp */
+            />
+          </figure>
+          <h5 className="title">{result.name}</h5>
+          <div className="details">
+            <span className="vote">
+              <i className="icon star-icon"><StarIcon /></i>
+              <span className="vote-number">{formatRate(result.vote_average)}</span>
+            </span>
+          </div>
+        </div>
+      )
+    }
+
     case "screen": {
       return (
         <div data-type={type} className="movie-card">
           <figure>
-              <img
-                src={`https://image.tmdb.org/t/p/original${result.backdrop_path}`}
-                alt="poster" className="poster"
-                draggable="false" /* imp */
-              />
-            </figure>
-            <h5 className="title">{result.title}</h5>
+            <img
+              src={`https://image.tmdb.org/t/p/original${result.backdrop_path}`}
+              alt="poster" className="poster"
+              draggable="false" /* imp */
+            />
+          </figure>
+          <h5 className="title">{result.title}</h5>
+          <div className="details">
+            <span className="runtime">{formatRuntime(runtime)}</span>
             <span className="vote">
-              <i className="icon star-icon">
-                <StarIcon />
-              </i>
+              <i className="icon star-icon"><StarIcon /></i>
               <span className="vote-number">{formatRate(result.vote_average)}</span>
             </span>
-            <span className="genres">
-              {getGenresBaseOnIds("movie", result.genre_ids.slice(0, 4))
-                .map(genre => 
-                  <span key={genre} className="genre">{genre}<span>,</span></span>
-                )
-              }
-            </span>
+          </div>
         </div>
       )
     }
+
     case "result": {
       return (
         <div className="movie-card" data-type={type}>
@@ -40,8 +65,8 @@ export default function MovieCard({ result, type }) {
               {result.media_type === "movie" ? <FilmIcon /> : <TvIcon />}
             </i>
             <figure>
-              <img 
-                src={`https://image.tmdb.org/t/p/w300${result.poster_path}`}
+              <img
+                src={`https://image.tmdb.org/t/p/w500${result.poster_path}`}
                 alt="poster" 
                 className="poster"
               />
@@ -73,4 +98,5 @@ export default function MovieCard({ result, type }) {
       )
     }
   }
+  
 }

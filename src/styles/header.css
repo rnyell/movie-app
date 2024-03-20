@@ -1,5 +1,5 @@
 header.main-header {
-  padding-inline: var(--space-5);
+  padding-inline: var(--space-8);
   width: 100%;
   height: calc(8.5vh + 0.15vw);
   height: calc(8.5dvh + 0.15vw);

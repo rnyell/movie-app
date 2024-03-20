@@ -16,7 +16,6 @@ export async function request(base, path = "", params = {}) {
   }
 }
 
-
 export function formatRuntime(runtime) {
   const hours = Math.trunc(runtime / 60)
   const mins = runtime % 60
@@ -28,7 +27,6 @@ export function formatRuntime(runtime) {
       : `${hours} h ${mins} m`
   return formatted
 }
-
 
 export function formatRate(rate) {
   let rounded = Math.round(rate * 10) / 10
@@ -65,10 +63,6 @@ export function getGenresBaseOnIds(type = "movie", ids = []) {
 
 export function getMovieDirector(crew = []) {
   return crew.filter(({ job }) => job === "Director")[0].name
-}
-
-export function getMovieCasts() {
-  
 }
 
 

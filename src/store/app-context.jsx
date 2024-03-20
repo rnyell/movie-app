@@ -9,8 +9,10 @@ import {
 import {
   getPopularMovies,
   getComingMovies, 
-  getOnScreenMovies
+  getOnScreenMovies,
+  getTrendingSeries
 } from "@src/utils/apis"
+
 
 const AppContext = createContext()
 const SearchContext = createContext([])
@@ -62,7 +64,9 @@ function searchReducer(state, action) {
 export function MovieProvider({ children }) {
   const [appState, setAppState] = useState({
     popular: [],
-    screen: []
+    coming: [],
+    screen: [],
+    series: []
   })
   const [searchState, searchDispatch] = useReducer(searchReducer, searchInitial)
   const [selectedMovie, setSelectedMovie] = useState({})
@@ -73,11 +77,16 @@ export function MovieProvider({ children }) {
   }, [])
 
   async function loadData() {
-    const popularMovies = await getPopularMovies()
+    // TODO: Promise.all
+    const populargMovies = await getPopularMovies()
+    const comingMovies = await getComingMovies()
     const screenMovies = await getOnScreenMovies()
+    const trendingSeries = await getTrendingSeries()
     setAppState({
-      popular: popularMovies,
-      screen: screenMovies
+      popular: populargMovies,
+      coming: comingMovies,
+      screen: screenMovies,
+      series: trendingSeries
     })
     setIsLoading(false)
   }
