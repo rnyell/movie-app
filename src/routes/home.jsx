@@ -22,8 +22,8 @@ export default function Home() {
         <SearchBox isHomePage={true} />
       </Header>
       <HeroSection />
-      <ScreenSection />
-      <SeriesSection />
+      {/* <ScreenSection />
+      <SeriesSection /> */}
       {/* TODO move it to rootlayout */}
       <div className="background-effect"></div>
     </main>

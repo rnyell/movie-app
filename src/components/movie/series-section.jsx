@@ -25,7 +25,7 @@ export default function SeriesSection() {
     )
   }
   
-  console.log(appState.series)
+  // console.log(appState.series)
 
   return (
     <div className="series-section">
@@ -43,7 +43,7 @@ export default function SeriesSection() {
           dragConstraints={{ left: -constrainsWidth, right: 0 }}
           className="draggable"
         >
-          {appState.series.map(movie => <MovieCard result={movie} type="series" />)}
+          {appState.series.map(movie => <MovieCard key={movie.id} result={movie} type="series" />)}
         </motion.div>
       </div>
     </div>

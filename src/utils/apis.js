@@ -49,9 +49,6 @@ export const TV_GENRES = {
 // ~'3/discover/tv?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc'
 //~ https://api.themoviedb.org/3/trending/all/week?language=en-US"
 
-//* https://api.themoviedb.org/3/movie/upcoming
-//* https://api.themoviedb.org/3/movie/now_playing
-
 //~ /3/movie/{movie_id}/similar
 
 //+ series
@@ -65,7 +62,7 @@ export async function getComingMovies() {
     language: "en-US",
     api_key: API_KEY
   }
-  let data = await request(BASE_URL, path, params)
+  let data = await request(path, params)
   const { results } = data
   return results
 }
@@ -79,7 +76,7 @@ export async function getOnScreenMovies() {
     region: "US",
     api_key: API_KEY
   }
-  let data = await request(BASE_URL, path, params)
+  let data = await request(path, params)
   const { results } = data
   return results
 }
@@ -92,7 +89,7 @@ export async function getPopularMovies() {
     language: "en-US",
     api_key: API_KEY
   }
-  let data = await request(BASE_URL, path, params)
+  let data = await request(path, params)
   const { results } = data
   return results
 }
@@ -110,7 +107,7 @@ export async function getTrendingSeries() {
     without_genres: "99,10762,10763,10764,10766,10767",
     api_key: API_KEY
   }
-  let data = await request(BASE_URL, path, params)
+  let data = await request(path, params)
   const { results } = data
   return results
 }
@@ -127,10 +124,10 @@ export async function getAllResults(title = "", lang = "en-US") {
     api_key: API_KEY
   }
   // this call is to fetch total_pages for getting iterate count
-  const data = await request(BASE_URL, path, params)
+  const data = await request(path, params)
 
   for (let i = 1; i <= data.total_pages; i++) {
-    let data = await request(BASE_URL, path, {...params, page: i})
+    let data = await request(path, {...params, page: i})
     results.push(...data.results)
   }
 
@@ -144,7 +141,7 @@ export async function getAllResults(title = "", lang = "en-US") {
 // export async function getSearchedSeries(title = "", lang = "en-US") {
 //   let formattedTitle = title.split(' ').join("+")
 //   const path = "3/search/tv"
-//   let data = await request(BASE_URL, path, {
+//   let data = await request(path, {
 //     query: formattedTitle,
 //     language: lang,
 //     api_key: API_KEY
@@ -162,21 +159,21 @@ export async function getAllResults(title = "", lang = "en-US") {
 export async function getMovieDetails(movieId) {
   const path = `3/movie/${movieId}`
   const params = { api_key: API_KEY, append_to_response: "credits,videos,images" }
-  let data = await request(BASE_URL, path, params)
+  let data = await request(path, params)
   return data
 }
 
 export async function getMovieRuntime(movieId) {
   const path = `3/movie/${movieId}`
   const params = { api_key: API_KEY }
-  let data = await request(BASE_URL, path, params)
+  let data = await request(path, params)
   return data.runtime
 }
 
 export async function getMovieTrailer(movieId) {
   const path = `3/movie/${movieId}/videos`
   const params = { api_key: API_KEY }
-  let data = await request(BASE_URL, path, params)
+  let data = await request(path, params)
   let officialTrailers = data.results.filter(res => 
     res.type === "Trailer" && 
     res.official === true
@@ -196,10 +193,10 @@ export async function getMovieTrailer(movieId) {
 //     api_key: API_KEY
 //   };
 //   const movies: any[] = [];
-//   const data = await request(BASE_URL, path, params);
+//   const data = await request(path, params);
 //   const { total_pages: totalPages } = data;
 //   for (let i = 1; i <= totalPages; i++) {
-//     let data = await request(BASE_URL, path, { ...params, page: i });
+//     let data = await request(path, { ...params, page: i });
 //     movies.push(...data.results);
 //   }
 //   const results = movies.filter(movie => movie.vote_count > 50);
@@ -215,10 +212,10 @@ export async function getMovieTrailer(movieId) {
 //     api_key: API_KEY
 //   };
 //   const series: any[] = [];
-//   const data = await request(BASE_URL, path, params);
+//   const data = await request(path, params);
 //   const { total_pages: totalPages } = data;
 //   for (let i = 1; i <= totalPages; i++) {
-//     let data = await request(BASE_URL, path, { ...params, page: i });
+//     let data = await request(path, { ...params, page: i });
 //     series.push(...data.results);
 //   }
 //   const results = series.filter(s => s.vote_count > 50);
@@ -227,7 +224,7 @@ export async function getMovieTrailer(movieId) {
 
 // export async function getSearchedMovies(title = "", page = 1) {
 //   let formattedTitle = title.split(' ').join("+")
-//   let data = await request(BASE_URL, "3/search/movie", {
+//   let data = await request("3/search/movie", {
 //     query: formattedTitle,
 //     language: "en-US",
 //     page: page,

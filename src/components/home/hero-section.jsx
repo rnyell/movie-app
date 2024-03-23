@@ -2,11 +2,13 @@ import { useEffect, useState } from "react"
 
 import HeroMovie from "@components/movie/hero-movie"
 import { useAppState } from "../../store/app-context"
+import Carousel from "../movie/carousel"
 
 
 export default function HeroSection() {
   const [appState] = useAppState()
   const [currIndex, setCurrIndex] = useState(0)
+  const popularMoviesNumber = appState.popular.length
 
   useEffect(() => {
     // const interval = setInterval(() => {
@@ -16,24 +18,32 @@ export default function HeroSection() {
     // return () => clearInterval(interval)
   }, [currIndex])
 
-  function nextMovieBtn() {
-    setCurrIndex((currIndex + 1) % 20)
+  function showNextMovie(num) {
+    setCurrIndex((currIndex + num) % popularMoviesNumber)
   }
 
-  function prevMovieBtn() {
-    if ((currIndex - 1) === -1) {
-      setCurrIndex(20 - 1)
+  function showPrevMovie(num) {
+    if ((currIndex - num) === -1) {
+      setCurrIndex(popularMoviesNumber - 1)
       return
     }
-    setCurrIndex(currIndex - 1)
+    setCurrIndex(currIndex - num)
   }
+
+  const images = appState.popular.map(obj => obj.poster_path)
 
   return (
     <section className="hero-section">
       <HeroMovie 
         movie={appState.popular[currIndex]} 
-        nextMovieBtn={nextMovieBtn} 
-        prevMovieBtn={prevMovieBtn}
+        showNextMovie={showNextMovie}
+        showPrevMovie={showPrevMovie}
+      />
+      <Carousel 
+        images={images}
+        currIndex={currIndex}
+        showNextMovie={showNextMovie}
+        showPrevMovie={showPrevMovie}
       />
     </section>
   )

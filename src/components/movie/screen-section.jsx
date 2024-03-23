@@ -133,7 +133,7 @@ export default function ScreenSection() {
           dragConstraints={{ left: -constrainsWidth, right: 0 }}
           className="draggable"
         >
-          {appState.screen.slice(0, 10).map(movie => <MovieCard result={movie} type="screen" />)}
+          {appState.screen.slice(0, 10).map(movie => <MovieCard key={movie.id} result={movie} type="screen" />)}
         </motion.div>
       </div>
       <div ref={cursorRef} className="pointer">

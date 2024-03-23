@@ -12,7 +12,7 @@ import {
 import Casts from "./casts"
 
 
-export default function HeroMovie({ movie, nextMovieBtn, prevMovieBtn }) {
+export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
   const [isLoading, setIsLoading] = useState(true)
   const [movieDetails, setMovieDetails] = useState("")
 
@@ -112,8 +112,8 @@ export default function HeroMovie({ movie, nextMovieBtn, prevMovieBtn }) {
         <Casts casts={credits.cast} />
         
         <div className="btns">
-          <button onClick={prevMovieBtn}><ArrowLongLeftIcon /></button>
-          <button onClick={nextMovieBtn}><ArrowLongRightIcon /></button>
+          <button onClick={() => showPrevMovie(1)}><ArrowLongLeftIcon /></button>
+          <button onClick={() => showNextMovie(1)}><ArrowLongRightIcon /></button>
         </div>
       </div>
     </div>

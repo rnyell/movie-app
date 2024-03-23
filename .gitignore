@@ -33,3 +33,4 @@ dist-ssr
 
 # Custom
 z.temp.*
+z.bin.*
