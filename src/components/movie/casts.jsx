@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from "@heroicons"
+import { ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from "@heroicons/outline"
 
 export default function Casts({ casts }) {
   let initialCastsNumber = 4

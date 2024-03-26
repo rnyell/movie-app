@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react"
 import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
-import { ArrowUpRightIcon, ChevronRightIcon } from "@heroicons"
+import { ArrowUpRightIcon, ChevronRightIcon } from "@heroicons/outline"
 
-import { useAppState } from "../../store/app-context"
-import MovieCard from "./movie-card"
+import { useAppState } from "@src/store/app-context"
+import MovieCard from "@components/movie/movie-card"
 
 
 export default function SeriesSection() {

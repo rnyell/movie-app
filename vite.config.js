@@ -14,7 +14,8 @@ export default defineConfig({
       "@src": "/src",
       "@components": "/src/components",
       "@styles": "/src/styles",
-      "@heroicons": "@heroicons/react/24/outline"
+      "@heroicons/outline": "@heroicons/react/24/outline",
+      "@heroicons/solid": "@heroicons/react/24/solid"
     }
   },
 

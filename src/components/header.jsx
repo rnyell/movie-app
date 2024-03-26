@@ -1,27 +1,16 @@
 import { Link } from "react-router-dom"
-import { UserCircleIcon, HomeIcon } from "@heroicons"
-
-import icon from "@src/assets/logo.png"
-
+import { UserCircleIcon } from "@heroicons/outline"
 import "@styles/header.css"
-
 
 export default function Header({ children, isHomePage }) {
   return (
     <header className="main-header">
-      <Link to="/">
-        <i className="icon home-icon">
-          {
-            isHomePage ? 
-            <span className="logo-wrapper">
-              <img src={icon} className="logo" />
-            </span> :
-            <HomeIcon />
-          }
-        </i>
-      </Link>
+      {/* <h4 style={{
+        marginInlineStart: "1rem",
+        color: "var(--color-accent-300)"
+      }}>Popular Movies</h4> */}
       {children}
-      <Link to="">
+      <Link to="/login">
         <i className="icon user-icon">
           <UserCircleIcon />
         </i>

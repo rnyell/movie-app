@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
-import { ArrowLongRightIcon, ArrowLongLeftIcon, StarIcon } from "@heroicons"
+import { ArrowLongRightIcon, ArrowLongLeftIcon, StarIcon } from "@heroicons/outline"
 
 import { getMovieDetails } from "@src/utils/apis"
 import {
@@ -9,6 +9,7 @@ import {
   getMovieDirector, 
   formatRate
 } from "@src/utils/utils"
+import { HeroMovieLoadingSkeleton } from "@components/skeletons"
 import Casts from "./casts"
 
 
@@ -68,8 +69,9 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
   }
 
   return (
-    isLoading ? <p>loading...</p> :
+    isLoading ? <HeroMovieLoadingSkeleton /> :
     <div className="hero-movie">
+      {/* <h2>Popular Movies</h2> */}
       <div className="grid-container">
         <div className="ambient">
           <img src={`https://image.tmdb.org/t/p/original${bg_path}`} />
@@ -81,14 +83,9 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
           initial="init"
           animate="anime"
         />
-        <motion.figure 
-          className="port-poster"
-          variants={poster_variants}
-          initial="init"
-          animate="anime"
-        >
+        <figure className="port-poster">
           <img src={`https://image.tmdb.org/t/p/w500/${poster_path}`} className="poster-xs" />
-        </motion.figure>
+        </figure>
         
         <div className="main-details">
           <h2 className="title">{title}</h2>

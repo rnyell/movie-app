@@ -1,6 +1,42 @@
 import { Link } from "react-router-dom"
 import "@styles/skeletons.css"
 
+export function MainAppLoadingSkeleton() {
+  return (
+    <div className="app-skeleton">
+      <div className="l-sidenav">
+        <div className="l-sidenav-item"></div>
+        <div className="l-sidenav-item"></div>
+        <div className="l-sidenav-item"></div>
+        <div className="l-sidenav-item"></div>
+      </div>
+      <div className="l-main">
+        <div className="l-hero">
+          <div className="l-hero-poster"></div>
+          <div className="l-hero-carousel">
+          <div className="l-hero-carousel-img"></div>
+          <div className="l-hero-carousel-img"></div>
+          <div className="l-hero-carousel-img"></div>
+          </div>
+        </div>
+        <div className="l-section">
+          <div className="l-section-movie"></div>
+          <div className="l-section-movie"></div>
+          <div className="l-section-movie"></div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export function HeroMovieLoadingSkeleton() {
+  return (
+    <div className="hero-movie-skeleton">
+      
+    </div>
+  )
+}
+
 export function SelectedMovieSkeleton() {
   return (
     <div className="movie-skeleton">
@@ -51,7 +87,7 @@ export function NotFoundResult() {
         <p>Try another one</p>
         <Link>See trend movies</Link>
       </aside>
-      <img className="gif" src="/public/gifs/jt.gif" />
+      <img className="gif" src="/gifs/jt.gif" />
     </div>
   )
 }

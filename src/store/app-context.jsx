@@ -12,6 +12,7 @@ import {
   getOnScreenMovies,
   getTrendingSeries
 } from "@src/utils/apis"
+import { MainAppLoadingSkeleton } from "@components/skeletons"
 
 
 const AppContext = createContext()
@@ -92,7 +93,7 @@ export function MovieProvider({ children }) {
   }
 
   return (
-    isLoading ? <h1>loading app...</h1> :
+    isLoading ? <MainAppLoadingSkeleton /> :
     <AppContext.Provider value={[appState]}>
       <SelectedMovieContext.Provider value={[selectedMovie, setSelectedMovie]}>
         <SearchContext.Provider value={[searchState, searchDispatch]}>

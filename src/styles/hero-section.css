@@ -2,11 +2,13 @@
 
 @layer layout {
   .hero-section {
-    padding-inline: var(--space-8);
+    margin-top: var(--space-5);
+    padding-inline: var(--space-7);
     width: 100%;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(3, auto);
+    gap: 1rem;
   }
 
   .hero-movie {
@@ -17,14 +19,12 @@
   .carousel {
     align-self: center;
     grid-column: 4 / 5;
-    grid-row: 2 / 3;
-    margin-top: 1rem;
-    margin-left: -10rem;
+    grid-row: 1 / 4;
+    /* margin-left: 0.5rem; */
   }
 
   .grid-container {
     container: grid-container / inline-size;
-    margin-top: 0.5rem;
     padding: var(--space-5);
     width: 100%;
     aspect-ratio: var(--base-poster-ratio);
@@ -255,21 +255,24 @@
     & .btns {
       display: inline-flex;
       gap: 1.75cqw;
-    }
 
-    & .btns button {
-      padding: 0.25cqw 4cqw;
-      background-color: rgb(20 23 26 / 15%);
-      backdrop-filter: blur(3px);
-      border: var(--outline-size-1) solid var(--color-neutral-300);
-      transition: background-color var(--duration-1) ease-in;
-      & svg {
-        width: var(--icon-size-8);
-        stroke-width: 1.225;
-        transition: color var(--duration-1) ease-in;
+      & button {
+        padding: 0.25cqw 4cqw;
+        background-color: rgb(20 23 26 / 15%);
+        backdrop-filter: blur(3px);
+        border: var(--outline-size-1) solid var(--color-neutral-300);
+        transition: background-color var(--duration-1) ease-in;
+  
+        & svg {
+          width: var(--icon-size-8);
+          stroke-width: 1.225;
+          transition: color var(--duration-1) ease-in;
+        }
       }
-      &:hover {
+  
+      & button:hover {
         background-color: var(--color-neutral-300);
+  
         & svg {
           color: var(--color-neutral-800);
         }
@@ -282,24 +285,26 @@
 @layer queries {
   @media (width < 1000px) {
     .hero-movie {
-      grid-column: 1 / 5;
+      grid-column: 1 / 4;
     }
 
     .carousel {
       grid-column: 4 / 5;
-      margin-top: 0;
-      margin-left: -4rem;
     }
-  }
-
-  @media (width < 600px) {
-    
   }
   
   @container grid-container (width < 800px) {
     .cast-name {
       font-size: 0.5rem;
-    }    
+    }
+
+    .btns button {
+      padding: 0.25cqw 2cqw;
+
+      & svg {
+        stroke-width: 1;
+      }
+    }
   }
 }
 
@@ -315,7 +320,7 @@
       background-size: cover;
       background-position: 50% 50%;
       border-radius: 2.75rem;
-      outline: 1px solid rgba(120, 77, 240, 0.15);
+      outline: 1.25px solid rgba(120, 77, 240, 0.15);
       outline-offset: 0;
       box-shadow: 0 2px 0.75rem rgb(20 23 26 / 55%);
 
@@ -337,8 +342,8 @@
       position: absolute;
       z-index: var(--z-neg10);
       inset: -0.65rem;
-      opacity: 0.525;
-      filter: blur(1.5rem) grayscale(0.3);
+      opacity: 0.6;
+      filter: blur(30px) grayscale(0.3);
     }
 
     & .ambient img {
@@ -351,28 +356,41 @@
 }
 
 .carousel {
-  padding-block: 1rem;
-  padding-left: 1rem;
+  --img-width: 10rem;
+  --gap: 1rem;
+
   position: relative;
   overflow: hidden;
+  /* background-image: linear-gradient(
+    180deg, transparent, rgb(249 252 253 / 5%), transparent
+  ); */
 
   & .images-wrapper {
-    width: 9rem;
+    height: calc((9rem / var(--base-poster-ratio) + var(--gap)) * 4);
   }
 
   & .images-list {
     display: flex;
-    gap: 1rem;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--gap);
   }
 
   & figure {
     flex-shrink: 0;
-    width: 7rem;
+    width: var(--img-width);
+    aspect-ratio: var(--base-poster-ratio);
     opacity: 0.375;
-    transition: opacity var(--duration-1);
-
+    scale: 0.925;
+    transition: opacity var(--duration-1), scale var(--duration-1);
+    cursor: pointer;
+    
     &[data-view="true"] {
       opacity: 1;
+      scale: 1;
+      outline: var(--outline-size-2) var(--color-accent-300) solid;
+      outline-offset: 5px;
+      border-radius: 1.5rem;
     }
 
     img.poster {

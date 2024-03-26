@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { useSearchParams, useNavigate, useLocation } from "react-router-dom"
-import { MagnifyingGlassIcon } from "@heroicons"
+import { MagnifyingGlassIcon } from "@heroicons/outline"
 
 import "@styles/search-box.css"
 
@@ -82,7 +82,8 @@ export default function SearchBox({ isHomePage }) {
 
   return (
     <div 
-      className={`search-box ${isExpanded ? "expanded" : ""}`} 
+      // className={`search-box ${isExpanded ? "expanded" : ""}`} 
+      className="search-box"
       data-location={isHomePage ? "on-home-page" : "on-result-page"}
       ref={boxRef}
       onKeyDown={keyPressHandler}
@@ -101,7 +102,7 @@ export default function SearchBox({ isHomePage }) {
           type="text"
           id="search-input"
           className="search-input"
-          placeholder="Find movie or series..."
+          placeholder="Search . . ."
           spellCheck={true}
         />
       </label>

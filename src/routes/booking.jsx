@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
-import { ChevronLeftIcon } from "@heroicons"
+import { ChevronLeftIcon } from "@heroicons/outline"
 
 import { useSelectedMovie } from '@src/store/app-context'
 import Seats from "@components/booking/seats"

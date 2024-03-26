@@ -1,5 +1,6 @@
 footer.main-footer {
+  margin-top: var(--space-10);
   padding: var(--space-5);
-  height: 35vh;
+  height: 30vh;
   background-color: var(--color-neutral-700);
 }

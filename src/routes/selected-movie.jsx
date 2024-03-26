@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useLocation, Link } from 'react-router-dom'
 import { motion } from "framer-motion"
-import { ChevronLeftIcon, BookmarkIcon, StarIcon, PlayIcon } from "@heroicons"
+import { ChevronLeftIcon, BookmarkIcon, StarIcon, PlayIcon } from "@heroicons/outline"
 
 import { useSelectedMovie } from '@src/store/app-context'
 import { getMovieDetails, getMovieTrailer } from "@src/utils/apis"

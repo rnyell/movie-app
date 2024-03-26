@@ -1,10 +1,10 @@
 import { useEffect, useReducer, useRef, useState } from "react"
 import { Link } from "react-router-dom"
-import { motion } from "framer-motion"
-import { ArrowUpRightIcon, ChevronRightIcon } from "@heroicons"
+import { motion, useScroll, animate } from "framer-motion"
+import { ArrowUpRightIcon, ChevronRightIcon } from "@heroicons/outline"
 
 import { useAppState } from "@src/store/app-context"
-import MovieCard from "./movie-card"
+import MovieCard from "../movie/movie-card"
 
 
 const init = { 
@@ -59,11 +59,12 @@ export default function ScreenSection() {
   const draggableRef = useRef(null)
   const cursorRef = useRef(null)
 
+  
   useEffect(() => {
     handleResize()
     window.addEventListener("resize", handleResize)
     return () => window.removeEventListener("resize", handleResize)
-  }, [])
+  }, [constrainsWidth])
 
   function handleResize() {
     let offset = 85
@@ -114,9 +115,9 @@ export default function ScreenSection() {
     <section
       ref={sectionRef}
       style={styles}
-      onMouseEnter={handlePointerEnter}
-      onPointerMove={handlePointerMove}
-      onMouseLeave={handlePointerLeave}
+      // onMouseEnter={handlePointerEnter}
+      // onPointerMove={handlePointerMove}
+      // onMouseLeave={handlePointerLeave}
       className="screen-section"
     >
       <header>

@@ -1,5 +1,5 @@
 import { Link, useLocation, useSearchParams } from "react-router-dom"
-import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons"
+import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/outline"
 import { useSearch } from "@src/store/app-context"
 import "@styles/pagination.css"
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { StarIcon, BookmarkIcon, FilmIcon, TvIcon } from "@heroicons"
+import { StarIcon, BookmarkIcon, FilmIcon, TvIcon } from "@heroicons/outline"
 import { getGenresBaseOnIds, formatRate, formatRuntime } from "@src/utils/utils"
 import { getMovieRuntime } from "@src/utils/apis"
 

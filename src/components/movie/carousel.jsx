@@ -1,58 +1,54 @@
 import { useEffect, useRef, useState } from "react"
 import { motion, useMotionValue, animate } from "framer-motion"
-import useMeasure from 'react-use-measure'
-
-// import { Swiper, SwiperSlide } from 'swiper/react'
-// import { Autoplay } from 'swiper/modules'
-// import "swiper/css/autoplay"
 
 
 export default function Carousel({ 
   images,
   currIndex,
+  setCurrIndex,
   showNextMovie,
   showPrevMovie
 }) {
   const [constraints, setConstraints] = useState(500)
+  const carouselOffsetTop = 200  // an adjustment, used in `animate` to center active image (kinda "magic" number).
   const [imgIndex, setImgIndex] = useState(0)
-  const [imgWidth, setImgWidth] = useState(100)
-  const [wrapWidth, setWrapWidth] = useState(1000)
+  const [imgHeight, setImgHeight] = useState(100)
+  const [wrapHeight, setWrapHeight] = useState(1000)
   const [gap, setGap] = useState(20)
-  const [translatedX, setTranslatedX] = useState(0)
+  const [translatedY, setTranslatedY] = useState(0)
   const wrapRef = useRef(null)
   const imgRef = useRef(null)
 
-  const xTranslate = useMotionValue(0)
+  const yTranslate = useMotionValue(0)
   
   function handleResize() {
     let offset = 85  // arbitrary number
     let postersCount = 20
     let gapsCount = postersCount - 1
 
-    setWrapWidth(wrapRef.current.scrollWidth)
-    setImgWidth(imgRef.current.offsetWidth)
-    setGap((wrapRef.current.scrollWidth - imgWidth * postersCount) / gapsCount)
-    setConstraints(wrapWidth - window.innerWidth + offset)
-    // console.log(imgWidth, gap)
+    setWrapHeight(wrapRef.current.scrollHeight)
+    setImgHeight(imgRef.current.offsetHeight)
+    setGap((wrapRef.current.scrollHeight - imgHeight * postersCount) / gapsCount)
+    setConstraints(wrapHeight - window.innerWidth + offset)
   }
 
   useEffect(() => {
     handleResize()
     window.addEventListener("resize", handleResize)
     return () => window.removeEventListener("resize", handleResize)
-  }, [imgWidth])
+  }, [imgHeight])
 
   useEffect(() => {
     setImgIndex(currIndex)
   }, [currIndex])
 
   useEffect(() => {
-    // console.log(xTranslate.get())
-  }, [translatedX])
+    // console.log(yTranslate.get())
+  }, [translatedY])
 
   function handleDragEnd(dragInfo) {
     const imagesCount = images.length
-    let dragged = dragInfo.offset.x
+    let dragged = dragInfo.offset.y
     let threshold = 100
     let draggedImageCount = Math.floor(Math.abs(dragged) / threshold)
     
@@ -68,15 +64,20 @@ export default function Carousel({
       setImgIndex(prev => (prev + draggedImageCount) % imagesCount)
     }
 
-    setTranslatedX(prev => prev + xTranslate.get())
-    console.log(xTranslate.get(), dragged, draggedImageCount * imgWidth + gap)
+    setTranslatedY(prev => prev + yTranslate.get())
+    console.log(yTranslate.get(), dragged, draggedImageCount * imgHeight + gap)
   }
 
   function handleDrag(e) {
-    console.log("ondrag", translatedX, xTranslate.get())
-    if (translatedX <= -wrapWidth) {
-      console.log('----------------------')
-    }
+    // console.log("ondrag", translatedY, yTranslate.get())
+    // if (translatedY <= -wrapHeight) {
+    //   console.log('----------------------')
+    // }
+  }
+
+  function handleCarouselItemClick(idx) {
+    setImgIndex(idx)
+    setCurrIndex(idx)
   }
 
 
@@ -84,16 +85,16 @@ export default function Carousel({
     <div className="carousel">
       <motion.div
         ref={wrapRef}
-        drag="x"
-        dragConstraints={{ left: -constraints, right: constraints }}
+        drag="y"
+        dragConstraints={{ top: -constraints, bottom: constraints }}
         dragSnapToOrigin={true}
         dragMomentum={false}
         dragElastic={0.2}
         onDragEnd={(_, dragInfo) => handleDragEnd(dragInfo)}
         onDrag={handleDrag}
-        style={{ x: xTranslate }}
+        style={{ y: yTranslate }}
         animate={{
-          translateX: `${-imgIndex * (imgWidth + gap)}px`
+          translateY: `${-imgIndex * (imgHeight + gap) + carouselOffsetTop}px`
         }}
         transition={{ type: "tween" }}
         className="images-wrapper"
@@ -102,6 +103,7 @@ export default function Carousel({
           {images.map((url, idx) =>
             <motion.figure 
               key={Math.random()}
+              onClick={() => handleCarouselItemClick(idx)}
               data-view={`${idx === imgIndex ? "true" : null}`}
               // initial={false}
               // animate={idx === imgIndex && { scale: 1.15 }}
