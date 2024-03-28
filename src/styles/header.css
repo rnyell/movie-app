@@ -1,5 +1,5 @@
 header.main-header {
-  padding: var(--space-3) var(--space-8); /* the `padding-block` matches the `padding-block` of <SideNav /> */
+  padding: var(--space-4) var(--space-8); /* the `padding-block` matches the `padding-block` of <SideNav /> */
   width: 100%;
   display: flex;
   justify-content: flex-start;

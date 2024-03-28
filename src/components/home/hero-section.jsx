@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react"
+import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion"
 
 import { useAppState } from "@src/store/app-context"
 import HeroMovie from "@components/movie/hero-movie"
-import Carousel from "@components/movie/carousel"
+import Carousel from "@components/home/carousel"
 
 
 export default function HeroSection() {

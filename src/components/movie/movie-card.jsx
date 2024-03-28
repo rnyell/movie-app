@@ -19,7 +19,7 @@ export default function MovieCard({ result, type }) {
         <div data-type={type} className="movie-card">
           <figure>
             <img
-              src={`https://image.tmdb.org/t/p/original${result.poster_path}`}
+              src={`https://image.tmdb.org/t/p/original${result.backdrop_path}`}
               alt="poster" className="poster"
               draggable="false" /* imp */
             />

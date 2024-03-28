@@ -12,7 +12,7 @@ import {
   getOnScreenMovies,
   getTrendingSeries
 } from "@src/utils/apis"
-import { MainAppLoadingSkeleton } from "@components/skeletons"
+import { AppLoadingSkeleton } from "@components/skeletons"
 
 
 const AppContext = createContext()
@@ -65,7 +65,7 @@ function searchReducer(state, action) {
 export function MovieProvider({ children }) {
   const [appState, setAppState] = useState({
     popular: [],
-    coming: [],
+    // coming: [],
     screen: [],
     series: []
   })
@@ -80,12 +80,12 @@ export function MovieProvider({ children }) {
   async function loadData() {
     // TODO: Promise.all
     const populargMovies = await getPopularMovies()
-    const comingMovies = await getComingMovies()
+    // const comingMovies = await getComingMovies()
     const screenMovies = await getOnScreenMovies()
     const trendingSeries = await getTrendingSeries()
     setAppState({
       popular: populargMovies,
-      coming: comingMovies,
+      // coming: comingMovies,
       screen: screenMovies,
       series: trendingSeries
     })
@@ -93,7 +93,7 @@ export function MovieProvider({ children }) {
   }
 
   return (
-    isLoading ? <MainAppLoadingSkeleton /> :
+    isLoading ? <AppLoadingSkeleton /> :
     <AppContext.Provider value={[appState]}>
       <SelectedMovieContext.Provider value={[selectedMovie, setSelectedMovie]}>
         <SearchContext.Provider value={[searchState, searchDispatch]}>

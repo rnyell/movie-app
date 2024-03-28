@@ -19,7 +19,9 @@
   }
 }
 
-.home-page .background-effect {
+.home-page .bg-effect {
+  pointer-events: none;
+  user-select: none;
   display: none;
   position: absolute;
   z-index: var(--z-neg10);
@@ -49,13 +51,32 @@
   }
 }
 
+.home-page main {
+  & .main-header {
+    position: sticky;
+    top: 0;
+  }
+
+  & .hero-container {
+    position: sticky;
+    top: 0;
+  }
+
+  & .sections-container {
+    position: sticky;
+    top: 0;
+  }
+}
+
 .home-page .sections-container {
   margin-top: var(--space-10);
-  position: sticky;
-  top: 10px;
+  position: relative;
+  z-index: var(--z-20);
   transform-origin: 0%;
-  background-color: color-mix(in srgb, var(--color-neutral-800) 75%, transparent);
-  backdrop-filter: blur(5px);
+
+  @media (width < 1300px) {
+    margin-top: var(--space-8);
+  }
 }
 
 .home-page :where(
@@ -101,9 +122,9 @@
       .screen-movies-wrapper,
       .trending-series-wrapper
     ) {
+    padding: var(--space-4);
     position: relative;
     overflow: hidden;
-    padding: var(--space-4);
   
     &::before,
     &::after {
@@ -156,9 +177,9 @@
     aspect-ratio: 1;
     position: absolute;
     z-index: var(--z-100);
-    border-radius: 50%;
     top: 0;
     left: 0;
+    border-radius: 50%;
     background-color: color-mix(in srgb, var(--color-accent-300) 95%, transparent);
     opacity: var(--opacity);
     transition: var(--duration-1);

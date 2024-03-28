@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { motion, useMotionValue, animate } from "framer-motion"
-
+import { ChevronUpIcon, ChevronDownIcon } from "@heroicons/outline"
 
 export default function Carousel({ 
   images,
@@ -134,6 +134,16 @@ export default function Carousel({
           )}
         </div> */}
       </motion.div>
+      <button className="up-btn" onClick={() => showPrevMovie(1)}>
+        <i className="icon">
+          <ChevronUpIcon />
+        </i>
+      </button>
+      <button className="down-btn" onClick={() => showNextMovie(1)}>
+        <i className="icon">
+          <ChevronDownIcon />
+        </i>
+      </button>
     </div>
   )
 }

@@ -1,10 +1,10 @@
 import { useEffect, useReducer, useRef, useState } from "react"
 import { Link } from "react-router-dom"
-import { motion, useScroll, animate } from "framer-motion"
+import { motion, useScroll, animate, useInView, useTransform, useMotionValueEvent } from "framer-motion"
 import { ArrowUpRightIcon, ChevronRightIcon } from "@heroicons/outline"
 
 import { useAppState } from "@src/store/app-context"
-import MovieCard from "../movie/movie-card"
+import MovieCard from "@components/movie/movie-card"
 
 
 const init = { 
@@ -115,6 +115,7 @@ export default function ScreenSection() {
     <section
       ref={sectionRef}
       style={styles}
+      // style={{ opacity: scrollYProgress }}
       // onMouseEnter={handlePointerEnter}
       // onPointerMove={handlePointerMove}
       // onMouseLeave={handlePointerLeave}

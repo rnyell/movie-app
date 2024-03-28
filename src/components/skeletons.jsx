@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import "@styles/skeletons.css"
 
-export function MainAppLoadingSkeleton() {
+export function AppLoadingSkeleton() {
   return (
     <div className="app-skeleton">
       <div className="l-sidenav">
