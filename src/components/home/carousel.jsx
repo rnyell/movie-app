@@ -101,13 +101,10 @@ export default function Carousel({
       >
         <div className="images-list">
           {images.map((url, idx) =>
-            <motion.figure 
+            <figure 
               key={Math.random()}
               onClick={() => handleCarouselItemClick(idx)}
               data-view={`${idx === imgIndex ? "true" : null}`}
-              // initial={false}
-              // animate={idx === imgIndex && { scale: 1.15 }}
-              // transition={{ duration: 2000 }}
             >
               <img 
                 draggable={false}
@@ -115,7 +112,7 @@ export default function Carousel({
                 src={`https://image.tmdb.org/t/p/original${url}`}
                 className="poster"
               />
-            </motion.figure>
+            </figure>
           )}
         </div>
         {/* <div className="images-list-cloned">

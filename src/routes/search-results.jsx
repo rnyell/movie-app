@@ -7,10 +7,9 @@ import { useSearch } from "@src/store/app-context"
 import SearchBox from "@components/search-box"
 import MovieCard from "@components/movie/movie-card"
 import Header from "@components/header"
-import { SearchResultsSkeleton, NotFoundResult } from "@components/skeletons"
 import Pagination from "@components/pagination"
-
-import "@styles/search-results.css"
+import { SearchResultsSkeleton } from "@components/skeletons"
+import { NotFoundResult } from "@components/errors"
 
 
 export default function SearchResults() {

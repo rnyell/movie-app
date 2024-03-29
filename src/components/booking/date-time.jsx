@@ -1,9 +1,5 @@
 import { useNavigate } from "react-router-dom"
-
 import Day from "./day"
-
-import "@styles/date-time.css"
-
 
 export default function DateTime({ ticketsCount }) {
   const date = new Date()

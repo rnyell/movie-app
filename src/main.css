@@ -1,4 +1,24 @@
 @import "@src/base.css" layer(base);
 
-@import "@styles/hero-section.css";
-@import "@styles/movie-card.css";
+/* routes */
+@import "@styles/home-page.css" layer;
+@import "@styles/search-results.css" layer;
+@import "@styles/booking.css" layer;
+@import "@styles/ticket.css" layer;
+@import "@styles/errors.css" layer;
+
+/* components */
+@import "@styles/hero-section.css" layer;
+@import "@styles/date-time.css" layer;
+@import "@styles/selected-movie.css" layer;
+@import "@styles/sidenav.css" layer;
+@import "@styles/movie-card.css" layer;
+@import "@styles/search-box.css" layer;
+@import "@styles/pagination.css" layer;
+@import "@styles/header.css" layer;
+@import "@styles/footer.css" layer;
+@import "@styles/skeletons.css" layer;
+
+/* media/conrainer queries */
+@import "@src/queries.css";
+

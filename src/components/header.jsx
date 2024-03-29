@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom"
 import { UserCircleIcon } from "@heroicons/outline"
-import "@styles/header.css"
 
 export default function Header({ children, isHomePage }) {
   return (

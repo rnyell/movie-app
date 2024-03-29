@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion"
 
 import { useAppState } from "@src/store/app-context"
 import HeroMovie from "@components/movie/hero-movie"

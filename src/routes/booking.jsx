@@ -6,8 +6,6 @@ import { useSelectedMovie } from '@src/store/app-context'
 import Seats from "@components/booking/seats"
 import DateTime from "@components/booking/date-time"
 
-import "@styles/booking.css"
-
 
 export default function Booking() {
   const [ticketsCount, setTicketsCount] = useState(0)

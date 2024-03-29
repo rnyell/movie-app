@@ -93,7 +93,6 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
           <p className="genres">{getMovieGenres(genres)}</p>
         </div>
 
-        <span className="runtime">{formatRuntime(runtime)}</span>
         <div className="rate">
           <div className="helper-div">
             <i className="icon"><StarIcon /></i>

@@ -50,6 +50,7 @@
     display: grid;
     grid-template-columns: max-content 1fr;
     justify-items: start;
+    align-items: center;
     gap: var(--space-3);
     border-radius: 0.5rem;
     transition: background-color var(--duration-2);
@@ -71,5 +72,4 @@
       width: min(var(--icon-size-5), 18px);
     }
   }
-
 }

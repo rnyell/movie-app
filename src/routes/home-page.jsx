@@ -9,7 +9,8 @@ import HeroSection from "@components/home/hero-section"
 import ScreenSection from "@components/home/screen-section"
 import SeriesSection from "@components/home/series-section"
 
-import "@styles/home-page.css"
+import { ScrollRestoration } from "react-router-dom"
+import Scroller from "../components/animated/scroller"
 
 
 export default function Home() {
@@ -18,19 +19,22 @@ export default function Home() {
   const heroRef = useRef(null)
   const sectionsRef = useRef(null)
   const [heroTop, setHeroTop] = useState(0)
+  const [coords, setCoords] = useState({
+    heroTop: 0,
+    sectionsTop: 0
+  })
   const [autoScrollY, setAutoScrollY] = useState(0)
 
   useEffect(() => {
     // const mainHeight = mainRef.current.scrollHeight
+    sectionsRef.current.style.margin = `0px`
     const mainHeight = window.innerHeight
-    const { top: mainTop } = heroRef.current.getBoundingClientRect()
+    const { top: heroTop, bottom: heroBottom } = heroRef.current.getBoundingClientRect()
     const { top: sectionsTop } = sectionsRef.current.getBoundingClientRect()
-    heroRef.current.style.top = `${mainTop}px`
-    // sectionsRef.current.style.marginTop = `${mainTop}px`
-    setHeroTop(mainTop)
-    setAutoScrollY(sectionsTop - mainTop)
-
-    console.log(mainTop, autoScrollY)
+    heroRef.current.style.top = `${heroTop}px`
+    sectionsRef.current.style.top = `${heroBottom}px`
+    setHeroTop(heroTop)
+    setAutoScrollY(sectionsTop - heroTop)
   }, [heroTop, autoScrollY])
 
   const { scrollYProgress, scrollY } = useScroll({
@@ -77,9 +81,9 @@ export default function Home() {
 
     if (latest > previous && latest > threshold) {
       // sectionsRef.current.scrollTo({
-        //   top: 50, left: 0, behavior: "smooth"
-        // })
-        sectionsRef.current.scrollIntoView(true, { behavior: "smooth", block: "start"  })
+      //   top: 50, left: 0, behavior: "smooth"
+      // })
+      // sectionsRef.current.scrollIntoView(true, { behavior: "smooth", block: "start"  })
       console.log("up", latest)
       // animate(".sections-container", { y: -autoScrollY })
     } else if (previous > latest && previous < threshold) {
@@ -90,16 +94,11 @@ export default function Home() {
     console.log(latest, previous);
   })
 
-  function handleScroll() {
-    // let scrolled = mainRef.current.scrollTop
-  
-  }
-
   
   return (
     <div className="home-page">
       <SideNav />
-      <main ref={mainRef} onScroll={handleScroll}>
+      <main ref={mainRef} className="home-content">
         <Header isHomePage={true}>
           <SearchBox isHomePage={true} />
         </Header>
@@ -107,9 +106,9 @@ export default function Home() {
           className="hero-container"
           ref={heroRef}
           style={{
-            filter: heroBlur,
-            opacity: heroOpacity,
-            scale: heroScale,
+            // filter: heroBlur,
+            // opacity: heroOpacity,
+            // scale: heroScale,
             // y: heroTranslateY
           }}
         >
@@ -119,7 +118,7 @@ export default function Home() {
           className="sections-container"
           ref={sectionsRef}
           style={{
-            opacity: sectionsOpacity,
+            // opacity: sectionsOpacity,
           }}
         >
           <ScreenSection />

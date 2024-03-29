@@ -5,6 +5,7 @@ header.main-header {
   justify-content: flex-start;
   align-items: center;
   position: relative;
+  position: sticky;
   z-index: var(--z-50);
 
   & a > .icon {

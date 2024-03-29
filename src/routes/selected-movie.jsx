@@ -8,8 +8,6 @@ import { getMovieDetails, getMovieTrailer } from "@src/utils/apis"
 import { formatRuntime, getMovieGenres, formatRate } from '@src/utils/utils'
 import { SelectedMovieSkeleton } from '@components/skeletons'
 
-import "@styles/selected-movie.css"
-
 
 export default function SelectedMovie() {
   const [imgUrl, setImgUrl] = useState({

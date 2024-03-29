@@ -2,8 +2,6 @@ import { useEffect, useRef, useState } from "react"
 import { useSearchParams, useNavigate, useLocation } from "react-router-dom"
 import { MagnifyingGlassIcon } from "@heroicons/outline"
 
-import "@styles/search-box.css"
-
 
 export default function SearchBox({ isHomePage }) {
   const [params, setParams] = useSearchParams()
