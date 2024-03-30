@@ -65,7 +65,6 @@ function searchReducer(state, action) {
 export function MovieProvider({ children }) {
   const [appState, setAppState] = useState({
     popular: [],
-    // coming: [],
     screen: [],
     series: []
   })
@@ -80,12 +79,10 @@ export function MovieProvider({ children }) {
   async function loadData() {
     // TODO: Promise.all
     const populargMovies = await getPopularMovies()
-    // const comingMovies = await getComingMovies()
     const screenMovies = await getOnScreenMovies()
     const trendingSeries = await getTrendingSeries()
     setAppState({
       popular: populargMovies,
-      // coming: comingMovies,
       screen: screenMovies,
       series: trendingSeries
     })

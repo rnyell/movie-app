@@ -47,6 +47,7 @@
   & .link {
     padding: 0.625rem var(--space-4);
     width: 100%;
+    position: relative;
     display: grid;
     grid-template-columns: max-content 1fr;
     justify-items: start;

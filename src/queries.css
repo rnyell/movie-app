@@ -32,36 +32,56 @@
       grid-template-columns: 1fr;
       justify-items: center;
 
-      p {
+      .link-tag {
         display: none;
       }
     }
   }
   
-  .home-content {
-    grid-column: 2 / 3;
+  .search-box {
+    --box-height: 2.75rem
   }
 }
 
 @media (width < 520px) {
   .home-page {
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr max-content;
+  }
+
+  .home-content {
+    grid-column: 1 / -1;
+    grid-row: 1 / 2;
+    padding-bottom: 5rem; /* TODO: calc it JS */
   }
 
   .sidenav {
-    grid-column: 1 / -1;
-    grid-row: 2 / 3;
-    width: 100%;
-    max-width: 100%;
+    /* grid-column: 1 / -1;
+    grid-row: 2 / 3; */
+    width: 95%;
+    max-width: 95%;
     height: unset;
-
-    & .logo-wrapper {
+    position: fixed;
+    z-index: var(--z-100);
+    bottom: 0.5rem;
+    left: 50%;
+    translate: -50% 0;
+    border-radius: 3.5rem;
+    /* outline: var(--outline-size-1) color-mix(in srgb, var(--color-neutral-400), transparent) solid;
+    outline-offset: 0; */
+    /*? wierd case... opacit/alpha-channel not working without fixed position */
+    
+    &::after {
       display: none;
     }
 
-    &::after {
-      display: none;
+    &::before {
+      content: "";
+      position: absolute;
+      z-index: var(--z-0);
+      inset: 0;
+      background-color: color-mix(in srgb, var(--color-neutral-700) 85%, transparent);
+      backdrop-filter: blur(30px);
+      border-radius: 3.5rem;
     }
 
     & .nav-links {
@@ -71,16 +91,31 @@
     }
 
     & .link {
-      padding: var(--space-4);
+      padding: var(--space-3);
       width: unset;
       background-color: unset;
+      color: var(--color-neutral-400);
 
       &.is-active {
         color: unset;
+        color: var(--color-neutral-200);
+        /* background-color: var(--color-neutral-600);
+        border-radius: 100%; */
+
+        & .dot {
+          position: absolute;
+          width: 4px;
+          height: 4px;
+          bottom: -1.15px;
+          left: 50%;
+          translate: -50% 0;
+          border-radius: 100%;
+          background-color: var(--color-neutral-300);
+        }
       }
 
       & .icon {
-        width: var(--icon-size-6);
+        width: var(--icon-size-7);
       }
       
       & .icon:hover svg {
@@ -91,12 +126,36 @@
         stroke-dasharray: 400;
         animation: strok 1s reverse ease-out;
       }
-    }  
-  }
-  
-  .home-content {
-    grid-column: 1 / -1;
-    grid-row: 1 / 2;
+    }
+
+    & .submenu {
+      padding: var(--space-2);
+      position: absolute;
+      z-index: var(--z-10);
+      bottom: 115%;
+      right: -1rem;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      background-color: color-mix(in srgb, var(--color-neutral-700) 90%, transparent);
+      backdrop-filter: blur(15px);
+      border-radius: 1rem;
+      
+      &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+      }
+
+      & .sub-link {
+        grid-template-columns: max-content 1fr;
+        justify-items: start;
+      }
+
+      & .link-tag {
+        display: block;
+      }
+    }
   }
 }
 

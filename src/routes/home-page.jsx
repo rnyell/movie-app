@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { motion, useAnimate, useScroll, useTransform, useMotionValueEvent } from "framer-motion"
 
+import { useWindow } from "@src/utils/hooks"
 import Header from "@components/header"
 import SideNav from "@components/sidenav"
 import Footer from "@components/footer"
@@ -8,14 +9,12 @@ import SearchBox from "@components/search-box"
 import HeroSection from "@components/home/hero-section"
 import ScreenSection from "@components/home/screen-section"
 import SeriesSection from "@components/home/series-section"
-
-import { ScrollRestoration } from "react-router-dom"
-import Scroller from "../components/animated/scroller"
+// import Scroller from "@components/animated/scroller"
 
 
-export default function Home() {
+export default function HomePage() {
+  const { windowWidth } = useWindow()
   const [mainRef, animate] = useAnimate(null)
-  // const mainRef = useRef(null)
   const heroRef = useRef(null)
   const sectionsRef = useRef(null)
   const [heroTop, setHeroTop] = useState(0)
@@ -26,7 +25,6 @@ export default function Home() {
   const [autoScrollY, setAutoScrollY] = useState(0)
 
   useEffect(() => {
-    // const mainHeight = mainRef.current.scrollHeight
     sectionsRef.current.style.margin = `0px`
     const mainHeight = window.innerHeight
     const { top: heroTop, bottom: heroBottom } = heroRef.current.getBoundingClientRect()
@@ -84,14 +82,14 @@ export default function Home() {
       //   top: 50, left: 0, behavior: "smooth"
       // })
       // sectionsRef.current.scrollIntoView(true, { behavior: "smooth", block: "start"  })
-      console.log("up", latest)
+      // console.log("up", latest)
       // animate(".sections-container", { y: -autoScrollY })
     } else if (previous > latest && previous < threshold) {
       console.log("down")
       animate(".sections-container", { y: 0 })
     }
 
-    console.log(latest, previous);
+    // console.log(latest, previous)
   })
 
   
@@ -99,11 +97,8 @@ export default function Home() {
     <div className="home-page">
       <SideNav />
       <main ref={mainRef} className="home-content">
-        <Header isHomePage={true}>
-          <SearchBox isHomePage={true} />
-        </Header>
         <motion.div
-          className="hero-container"
+          data-stickyscroll-1
           ref={heroRef}
           style={{
             // filter: heroBlur,
@@ -112,10 +107,14 @@ export default function Home() {
             // y: heroTranslateY
           }}
         >
+          <Header isHomePage={true}>
+            <SearchBox isHomePage={true} />
+          </Header>
           <HeroSection />
         </motion.div>
         <motion.div
           className="sections-container"
+          data-stickyscroll-2
           ref={sectionsRef}
           style={{
             // opacity: sectionsOpacity,

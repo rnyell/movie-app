@@ -7,9 +7,11 @@ import { useSelectedMovie } from '@src/store/app-context'
 import { getMovieDetails, getMovieTrailer } from "@src/utils/apis"
 import { formatRuntime, getMovieGenres, formatRate } from '@src/utils/utils'
 import { SelectedMovieSkeleton } from '@components/skeletons'
+import { useWindow } from '../utils/hooks'
 
 
 export default function SelectedMovie() {
+  const { windowWidth } = useWindow()
   const [imgUrl, setImgUrl] = useState({
     width: "",
     path: "",
@@ -18,7 +20,6 @@ export default function SelectedMovie() {
     }
   })
   const [trailerUrl, setTrailerUrl] = useState("")
-  const [windowWidth, setWindowWidth] = useState(365)
   const [isLoading, setIsLoading] = useState(true)
   const [, setSelectedMovie] = useSelectedMovie()
   const [movie, setMovie] = useState("")
@@ -27,22 +28,12 @@ export default function SelectedMovie() {
   const id = state.id
 
   useEffect(() => {
-    setWindowWidth(window.innerWidth)
-
     const loadMovie = async () => {
     const res = await getMovieDetails(id)
     setMovie(res)
     setIsLoading(false)
   }
     loadMovie()
-
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth)
-    }
-
-    window.addEventListener('resize', handleResize)
-
-    return () => window.removeEventListener('resize', handleResize)
   }, [])
   
   useEffect(() => {

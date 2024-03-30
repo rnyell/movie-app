@@ -22,29 +22,18 @@
   scrollbar-width: none;
   scrollbar-color: var(--color-neutral-500) var(--color-neutral-700);
 
-  & .main-header {
-    position: sticky;
-    top: 0;
-  }
-
-  & .hero-container {
+  & [data-stickyscroll-1] {
     position: sticky;
     top: 0;
     display: flow-root;
   }
 
-  & .sections-container {
-    position: sticky;
-    top: 0;
-  }
-}
-
-.home-page {
-  & .sections-container {
+  & [data-stickyscroll-2] {
     margin-top: var(--space-10);
-    position: relative;
+    position: sticky;
+    /* position: relative; */
     z-index: var(--z-20);
-    transform-origin: 0%;
+    top: 0;
   }
 }
 

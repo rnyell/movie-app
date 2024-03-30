@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { motion, useMotionValue, animate } from "framer-motion"
 import { ChevronUpIcon, ChevronDownIcon } from "@heroicons/outline"
+import { useWindow } from "../../utils/hooks"
 
 export default function Carousel({ 
   images,
@@ -21,7 +22,7 @@ export default function Carousel({
 
   const yTranslate = useMotionValue(0)
   
-  function handleResize() {
+  const handleResize = () => {
     let offset = 85  // arbitrary number
     let postersCount = 20
     let gapsCount = postersCount - 1
@@ -65,7 +66,7 @@ export default function Carousel({
     }
 
     setTranslatedY(prev => prev + yTranslate.get())
-    console.log(yTranslate.get(), dragged, draggedImageCount * imgHeight + gap)
+    // console.log(yTranslate.get(), dragged, draggedImageCount * imgHeight + gap)
   }
 
   function handleDrag(e) {
