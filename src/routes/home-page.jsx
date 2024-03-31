@@ -4,57 +4,53 @@ import { motion, useAnimate, useScroll, useTransform, useMotionValueEvent } from
 import { useWindow } from "@src/utils/hooks"
 import Header from "@components/header"
 import SideNav from "@components/sidenav"
-import Footer from "@components/footer"
 import SearchBox from "@components/search-box"
 import HeroSection from "@components/home/hero-section"
 import ScreenSection from "@components/home/screen-section"
 import SeriesSection from "@components/home/series-section"
+import Footer from "@components/footer"
 // import Scroller from "@components/animated/scroller"
 
 
 export default function HomePage() {
-  const { windowWidth } = useWindow()
+  const { windowWidth, windowHeight } = useWindow()
+  const [fixedHeight, setFixedHeight] = useState()
   const [mainRef, animate] = useAnimate(null)
+  // const mainRef = useRef(null)
+  const fixedRef = useRef(null)
   const heroRef = useRef(null)
   const sectionsRef = useRef(null)
-  const [heroTop, setHeroTop] = useState(0)
-  const [coords, setCoords] = useState({
-    heroTop: 0,
-    sectionsTop: 0
-  })
-  const [autoScrollY, setAutoScrollY] = useState(0)
+  const divRef = useRef(null)
 
   useEffect(() => {
-    sectionsRef.current.style.margin = `0px`
-    const mainHeight = window.innerHeight
-    const { top: heroTop, bottom: heroBottom } = heroRef.current.getBoundingClientRect()
-    const { top: sectionsTop } = sectionsRef.current.getBoundingClientRect()
-    heroRef.current.style.top = `${heroTop}px`
-    sectionsRef.current.style.top = `${heroBottom}px`
-    setHeroTop(heroTop)
-    setAutoScrollY(sectionsTop - heroTop)
-  }, [heroTop, autoScrollY])
+    setFixedHeight(fixedRef.current.scrollHeight)
+    console.log(fixedHeight)
+  }, [windowWidth, windowHeight, fixedHeight])
 
   const { scrollYProgress, scrollY } = useScroll({
     container: mainRef,
     target: sectionsRef,
-    offset: ["25vh end", "start start"]
+    offset: ["0% end", "start start"]
   })
 
+  // const heroBlur = useTransform(
+  //   scrollY, (val) => {
+  //     if (val <= 100) {
+  //       return `blur(0px) grayscale(0)`
+  //     } else if (100 < val <= 220) {
+  //       return `blur(7px) grayscale(0.2)`
+  //     } else if (220 < val <= 300) {
+  //       return `blur(15px) grayscale(0.4)`
+  //     } else if (300 < val <= 400) {
+  //       return `blur(24px) grayscale(0.6)`
+  //     } else if (400 < val) {
+  //       return `blur(35px) grayscale(0.85)`
+  //     }
+  //   }
+  // )
+
   const heroBlur = useTransform(
-    scrollYProgress, (val) => {
-      if (val <= 0.1) {
-        return `blur(0px) grayscale(0)`
-      } else if (0.1 < val <= 0.3) {
-        return `blur(7px) grayscale(0.15)`
-      } else if (0.3 < val <= 0.4) {
-        return `blur(15px) grayscale(0.3)`
-      } else if (0.4 < val <= 0.5) {
-        return `blur(24px) grayscale(0.55)`
-      } else if (0.6 < val) {
-        return `blur(35px) grayscale(0.8)`
-      }
-    }
+    scrollY, val => `blur(${12}) grayscale(${1})`
   )
 
   const heroOpacity = useTransform(
@@ -66,30 +62,34 @@ export default function HomePage() {
   )
 
   const heroTranslateY = useTransform(
-    scrollY, [0, 200, 350, 500], [0, -20, -50, -75]
+    scrollY, [0, 200, 350, 500], [0, 20, 50, 75]
+  )
+
+  const x = useTransform(
+    scrollY, [0, 200, 350, 500], [0, 20, 50, 75]
   )
 
   const sectionsOpacity = useTransform(
     scrollY, [0, 150, 250, 350], [0, 0.45, 0.85, 1]
   )
 
+  const sectionsTranslateY = useTransform(
+    scrollY, [0, 200, 350, 500], [0, -400, -500, -600]
+  )
+
   useMotionValueEvent(scrollY, "change", (latest) => {
     const threshold = 200
     const previous = scrollY.getPrevious()
+    console.log(latest)
 
     if (latest > previous && latest > threshold) {
       // sectionsRef.current.scrollTo({
       //   top: 50, left: 0, behavior: "smooth"
       // })
-      // sectionsRef.current.scrollIntoView(true, { behavior: "smooth", block: "start"  })
-      // console.log("up", latest)
-      // animate(".sections-container", { y: -autoScrollY })
+      // animate(".sections-container", { y: -500 })
     } else if (previous > latest && previous < threshold) {
-      console.log("down")
-      animate(".sections-container", { y: 0 })
+      // animate(".sections-container", { y: 0 })
     }
-
-    // console.log(latest, previous)
   })
 
   
@@ -97,33 +97,35 @@ export default function HomePage() {
     <div className="home-page">
       <SideNav />
       <main ref={mainRef} className="home-content">
-        <motion.div
-          data-stickyscroll-1
-          ref={heroRef}
-          style={{
-            // filter: heroBlur,
-            // opacity: heroOpacity,
-            // scale: heroScale,
-            // y: heroTranslateY
-          }}
-        >
+        <div ref={fixedRef} data-fixed-scroll>
           <Header isHomePage={true}>
             <SearchBox isHomePage={true} />
           </Header>
-          <HeroSection />
-        </motion.div>
-        <motion.div
-          className="sections-container"
-          data-stickyscroll-2
-          ref={sectionsRef}
-          style={{
-            // opacity: sectionsOpacity,
-          }}
-        >
-          <ScreenSection />
-          <SeriesSection />
-        </motion.div>
-        {/* <div className="bg-effect" /> */}
+          <motion.div
+            ref={heroRef}
+            style={{
+              // filter: heroBlur,
+              // opacity: heroOpacity,
+              // scale: heroScale,
+              // y: heroTranslateY
+            }}
+          >
+            <HeroSection />
+          </motion.div>
+          <motion.div
+            className="sections-container"
+            ref={sectionsRef}
+            style={{
+              // y: sectionsTranslateY,
+              // opacity: sectionsOpacity,
+            }}
+          >
+            <ScreenSection />
+            <SeriesSection />
+          </motion.div>
+        </div>
+        <motion.div ref={divRef} data-fake-scroll style={{ height: 2/3 * fixedHeight }} />
+        <div className="bg-effect" />
       </main>
     </div>
   )

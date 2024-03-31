@@ -1,7 +1,6 @@
 .sidenav {
   grid-column: 1 / 2;
   padding: var(--space-3);
-  max-width: 300px;
   height: 100vh;
   position: relative;
   display: flex;
@@ -71,6 +70,35 @@
 
     & .icon {
       width: min(var(--icon-size-5), 18px);
+    }
+  }
+
+  & .submenu {
+    padding: var(--space-2);
+    position: absolute;
+    z-index: var(--z-10);
+    bottom: 115%;
+    right: -1rem;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    background-color: color-mix(in srgb, var(--color-neutral-700) 90%, transparent);
+    backdrop-filter: blur(15px);
+    border-radius: 1rem;
+    
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+    }
+
+    & .sub-link {
+      grid-template-columns: max-content 1fr !important;
+      justify-items: start !important;
+    }
+
+    & .link-tag {
+      display: block !important;
     }
   }
 }

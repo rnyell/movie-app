@@ -123,10 +123,10 @@ export default function ScreenSection() {
     >
       <header>
         <div>
-          <h3 className="heading">Now Playing</h3>
+          <h4 className="heading">Now Playing</h4>
           <Link to="/">Explore more<ChevronRightIcon /></Link>
         </div>
-        <p>Grab Your Popcorn!🍿</p>
+        {/* <p>Grab Your Popcorn!🍿</p> */}
       </header>
       <div className="screen-movies-wrapper">
         <motion.div

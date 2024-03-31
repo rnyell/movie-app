@@ -1,19 +1,26 @@
-header.main-header {
-  padding: var(--space-4) var(--space-8); /* the `padding-block` matches the `padding-block` of <SideNav /> */
+.main-header {
+  padding: var(--space-4) var(--space-6); /* the `padding-block` matches the `padding-block` of <SideNav /> */
   width: 100%;
   display: flex;
-  justify-content: flex-start;
   align-items: center;
-  position: relative;
-  position: sticky;
-  z-index: var(--z-50);
+  /* position: sticky; */
+  /* z-index: var(--z-50); */
+  /* background-image: color-mix(in srgb, var(--color-neutral-700) 85%, transparent);
+  backdrop-filter: blur(20px); */
 
-  & a > .icon {
-    margin-inline: var(--space-2);
-    width: var(--icon-size-8);
+  & .header-content {
+    flex: 1;
   }
 
-  & .user-icon {
-    color: color-mix(in srgb, var(--color-neutral-300), var(--color-neutral-400));
+  & .user-related {
+    & .icon {
+      width: var(--icon-size-6);
+      color: color-mix(in srgb, var(--color-neutral-300), var(--color-neutral-400));
+    }
+  
+    & .bell-icon,
+    & .login-link {
+      margin-inline: var(--space-2);
+    }
   }
 }

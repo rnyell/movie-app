@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 
 import { useAppState } from "@src/store/app-context"
-import HeroMovie from "@components/movie/hero-movie"
+import HeroMovie from "@components/home/hero-movie"
 import Carousel from "@components/home/carousel"
 
 

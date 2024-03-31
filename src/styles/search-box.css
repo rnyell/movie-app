@@ -10,7 +10,7 @@
   transition: var(--duration-1) ease-in, outline var(--duration-1) 120ms;
 
   &:focus-within {
-    outline: var(--outline-size-2) solid var(--color-accent-300);
+    outline: var(--outline-size-3) solid var(--color-accent-300);
     outline-offset: 0;
   }
 
@@ -66,10 +66,10 @@
   }
   
   & .search-icon {
-    width: var(--icon-size-5);
+    width: var(--icon-size-4);
     position: absolute;
-    left: calc(50% - (var(--icon-size-5) / 2));
-    top: calc(50% - (var(--icon-size-5) / 2));
+    left: calc(50% - (var(--icon-size-4) / 2));
+    top: calc(50% - (var(--icon-size-4) / 2));
     border-radius: var(--rounded-full);
   }
   

@@ -4,76 +4,77 @@
   overflow: hidden;
   display: grid;
   grid-template-columns: minmax(auto, 220px) 1fr;
-
-  & .sidenav {
-    grid-column: 1 / 2;
-  }
-
-  & .home-content {
-    grid-column: 2 / 3;
-    position: relative;
-    isolation: isolate;
-  }
 }
 
 .home-page .home-content {
+  grid-column: 2 / 3;
   container: main-container / inline-size;
+  position: relative;
+  isolation: isolate;
   overflow-y: scroll;
-  scrollbar-width: none;
+  /* scrollbar-width: none; */
+  scrollbar-width: thin;
   scrollbar-color: var(--color-neutral-500) var(--color-neutral-700);
 
-  & [data-stickyscroll-1] {
+  & [data-fixed-scroll] {
+    width: 100%;
+    height: 100vh;
     position: sticky;
+    z-index: var(--z-10);
     top: 0;
-    display: flow-root;
+    overflow: hidden;
   }
 
-  & [data-stickyscroll-2] {
-    margin-top: var(--space-10);
-    position: sticky;
-    /* position: relative; */
-    z-index: var(--z-20);
-    top: 0;
+  & [data-fake-scroll] {
+    width: 100%;
   }
 }
 
 .home-page :where(.screen-section, .series-section) {
-  padding-inline: var(--space-6);
+  padding-inline: var(--space-8);
   position: relative;
   isolation: isolate;
   overflow: hidden;
 
-  & header div {
-    display: flex;
-    align-items: center;
-
-    & .heading {
-      color: var(--color-accent-300);
-
-      &::selection {
-        background-color: var(--color-neutral-200);
+  & header {
+    & div {
+      display: flex;
+      align-items: center;
+  
+      & .heading {
+        color: var(--color-accent-300);
+  
+        &::selection {
+          background-color: var(--color-neutral-200);
+        }
+      }
+  
+      & a {
+        margin-left: auto;
+        padding: 1rem;
+        font-size: 0.75rem;
+        transition: background-color var(--duration-2);
+        border-radius: 1rem;
+  
+        &:hover {
+          background-color: var(--color-neutral-700);
+        }
+      }
+  
+      & svg {
+        margin-left: var(--space-2);
+        width: var(--icon-size-4);
       }
     }
 
-    & a {
-      margin-left: auto;
-      padding: 1rem;
-      font-size: 0.75rem;
-      transition: background-color var(--duration-2);
-      border-radius: 1rem;
-
-      &:hover {
-        background-color: var(--color-neutral-700);
-      }
-    }
-
-    & svg {
-      margin-left: var(--space-2);
-      width: var(--icon-size-4);
+    & p {
+      margin-top: var(--space-2);
+      font-size: min(16px, 1rem);
     }
   }
 
   & :where(.screen-movies-wrapper, .trending-series-wrapper) {
+    margin-top: var(--space-4);
     padding: var(--space-4);
     position: relative;
     overflow: hidden;

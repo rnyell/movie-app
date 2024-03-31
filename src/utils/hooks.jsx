@@ -8,8 +8,8 @@ export function useWindow() {
   })
 
   useEffect(() => {
+    handleResizeEvent()
     window.addEventListener("resize", handleResizeEvent)
-
     return () => {
       window.removeEventListener("resize", handleResizeEvent)
     }
@@ -31,9 +31,9 @@ export function useWindow() {
   return {...windowSize}
 }
 
-export function useClickOutside() {
-  
-  useEffect(() => {
+// export function useClickOutside() {
 
-  })
-}
+//   useEffect(() => {
+
+//   })
+// }

@@ -83,56 +83,58 @@ export default function Carousel({
 
 
   return (
-    <div className="carousel">
-      <motion.div
-        ref={wrapRef}
-        drag="y"
-        dragConstraints={{ top: -constraints, bottom: constraints }}
-        dragSnapToOrigin={true}
-        dragMomentum={false}
-        dragElastic={0.2}
-        onDragEnd={(_, dragInfo) => handleDragEnd(dragInfo)}
-        onDrag={handleDrag}
-        style={{ y: yTranslate }}
-        animate={{
-          translateY: `${-imgIndex * (imgHeight + gap) + carouselOffsetTop}px`
-        }}
-        transition={{ type: "tween" }}
-        className="images-wrapper"
-      >
-        <div className="images-list">
-          {images.map((url, idx) =>
-            <figure 
-              key={Math.random()}
-              onClick={() => handleCarouselItemClick(idx)}
-              data-view={`${idx === imgIndex ? "true" : null}`}
-            >
-              <img 
-                draggable={false}
-                ref={imgRef}
-                src={`https://image.tmdb.org/t/p/original${url}`}
-                className="poster"
-              />
-            </figure>
-          )}
-        </div>
-        {/* <div className="images-list-cloned">
-          {images.map((url, idx) =>
-            <motion.figure 
-              key={Math.random()}
-              data-view={`${idx === imgIndex ? "true" : null}`}
-            >
-              <img 
-                draggable={false}
-                ref={imgRef}
-                src={`https://image.tmdb.org/t/p/original${url}`}
-                className="poster"
-              />
-            </motion.figure>
-          )}
-        </div> */}
-      </motion.div>
-      <button className="up-btn" onClick={() => showPrevMovie(1)}>
+    <div className="carousel-container">
+      <div className="carousel">
+        <motion.div
+          ref={wrapRef}
+          drag="y"
+          dragConstraints={{ top: -constraints, bottom: constraints }}
+          dragSnapToOrigin={true}
+          dragMomentum={false}
+          dragElastic={0.2}
+          onDragEnd={(_, dragInfo) => handleDragEnd(dragInfo)}
+          onDrag={handleDrag}
+          style={{ y: yTranslate }}
+          animate={{
+            translateY: `${-imgIndex * (imgHeight + gap) + carouselOffsetTop}px`
+          }}
+          transition={{ type: "tween" }}
+          className="images-wrapper"
+        >
+          <div className="images-list">
+            {images.map((url, idx) =>
+              <figure 
+                key={Math.random()}
+                onClick={() => handleCarouselItemClick(idx)}
+                data-view={`${idx === imgIndex ? "true" : null}`}
+              >
+                <img 
+                  draggable={false}
+                  ref={imgRef}
+                  src={`https://image.tmdb.org/t/p/original${url}`}
+                  className="poster"
+                />
+              </figure>
+            )}
+          </div>
+          {/* <div className="images-list-cloned">
+            {images.map((url, idx) =>
+              <motion.figure 
+                key={Math.random()}
+                data-view={`${idx === imgIndex ? "true" : null}`}
+              >
+                <img 
+                  draggable={false}
+                  ref={imgRef}
+                  src={`https://image.tmdb.org/t/p/original${url}`}
+                  className="poster"
+                />
+              </motion.figure>
+            )}
+          </div> */}
+        </motion.div>
+      </div>
+      {/* <button className="up-btn" onClick={() => showPrevMovie(1)}>
         <i className="icon">
           <ChevronUpIcon />
         </i>
@@ -141,7 +143,7 @@ export default function Carousel({
         <i className="icon">
           <ChevronDownIcon />
         </i>
-      </button>
+      </button> */}
     </div>
   )
 }

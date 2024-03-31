@@ -1,19 +1,20 @@
 import { Link } from "react-router-dom"
-import { UserCircleIcon } from "@heroicons/outline"
+import { UserCircleIcon, BellIcon } from "@heroicons/outline"
 
 export default function Header({ children, isHomePage }) {
   return (
     <header className="main-header">
-      {/* <h4 style={{
-        marginInlineStart: "1rem",
-        color: "var(--color-accent-300)"
-      }}>Popular Movies</h4> */}
       {children}
-      <Link to="/login">
-        <i className="icon user-icon">
-          <UserCircleIcon />
+      <div className="user-related">
+        <i className="icon bell-icon">
+          <BellIcon />
         </i>
-      </Link>
+        <Link to="/login" className="login-link">
+          <i className="icon user-icon">
+            <UserCircleIcon />
+          </i>
+        </Link>
+      </div>
     </header>
   )
 }

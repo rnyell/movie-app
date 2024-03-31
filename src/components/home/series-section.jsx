@@ -25,16 +25,15 @@ export default function SeriesSection() {
     )
   }
   
-  // console.log(appState.series)
 
   return (
     <div className="series-section">
       <header>
         <div>
-          <h3 className="heading">Trending Series</h3>
+          <h4 className="heading">Trending Series</h4>
           <Link to="/">Explore more<ChevronRightIcon /></Link>
         </div>
-        <p>Be a couch potato for a week!</p>
+        {/* <p>Be a couch potato for a week!</p> */}
       </header>
       <div className="trending-series-wrapper">
         <motion.div
