@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Rokkitt:ital,wght@0,100..900;1,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Rokkitt:ital,wght@0,100..900;1,100..900&display=swap'); */
 @layer reset, global, typo;
 
 @font-face {
@@ -47,6 +46,24 @@
   font-style: normal;
   src: local("Montserrat"),
     url("/fonts/Montserrat-700.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Ubuntu;
+  font-weight: 500;
+  font-style: normal;
+  /*? font-display: swap;*/
+  src: local("Montserrat"),
+    url("/fonts/Ubuntu-500.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Ubuntu;
+  font-weight: 700;
+  font-style: normal;
+  /*? font-display: swap;*/
+  src: local("Montserrat"),
+    url("/fonts/Ubuntu-700.ttf") format("truetype");
 }
 
 
@@ -100,6 +117,13 @@
   --color-neutral-800: #1e2022;
   --color-neutral-900: #131416;
   --color-orange-300: #f5c518;
+  /*~
+  --color-neutral-350: color-mix();
+  --color-neutral-450: color-mix();
+  --color-neutral-550: color-mix();
+  --color-neutral-650: color-mix();
+  --color-neutral-750: color-mix();
+  */
   /*
   --color-accent-100: rgb(57, 168, 185);
   --color-accent-100: rgb(197, 65, 100);
@@ -143,7 +167,7 @@
 
   h1, h2, h3, h4, h5, h6 {
     /* font-family: "Rokkitt", Cambria, Cochin, Georgia, serif; */
-    font-family: "Ubuntu", sans-serif;
+    font-family: Ubuntu, sans-serif;
     letter-spacing: 0.325px;
     line-height: 1.15;
   }
@@ -156,7 +180,8 @@
 
   h2 {
     font-size: 1.75725rem;
-    font-weight: 600;
+    font-weight: 700;
+    letter-spacing: 0.4px;
   }
 
   h3 {
