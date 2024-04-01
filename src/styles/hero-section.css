@@ -21,7 +21,7 @@
 
 .grid-container {
   container: grid-container / inline-size;
-  padding: var(--space-5);
+  padding: var(--space-6) var(--space-7);
   width: 100%;
   aspect-ratio: var(--base-poster-ratio);
   display: grid;

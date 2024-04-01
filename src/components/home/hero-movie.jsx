@@ -18,14 +18,12 @@ import {
   getMovieDirector,
   formatRate,
 } from "@src/utils/utils"
-import { useWindow } from "@src/utils/hooks"
 import { HeroMovieLoadingSkeleton } from "@components/skeletons"
 import Casts from "../movie/casts"
 
 export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
   const [isLoading, setIsLoading] = useState(true)
   const [movieDetails, setMovieDetails] = useState("")
-  const { windowWidth } = useWindow()
 
   useEffect(() => {
     loadData()
@@ -59,21 +57,24 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
   const poster_variants = {
     init: {
       opacity: 0.5,
-      transition: { duration: 0.2 }
+      transition: { duration: 0.2 },
     },
     anime: {
       opacity: 1,
-      transition: { duration: 0.2 }
-    }
+      transition: { duration: 0.2 },
+    },
   }
 
   return isLoading ? (
     <HeroMovieLoadingSkeleton />
-  ) : windowWidth > 460 ? (
+  ) : (
     <div className="hero-movie">
       <div className="grid-container">
         <div className="ambient">
-          <img src={`https://image.tmdb.org/t/p/original${bg_path}`} draggable={false} />
+          <img
+            src={`https://image.tmdb.org/t/p/original${bg_path}`}
+            draggable={false}
+          />
         </div>
         <div
           className="bg-poster"
@@ -133,15 +134,6 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
           </button>
         </div>
       </div>
-    </div>
-  ) : (
-    <div className="cards-stack">
-      <figure className="port-poster">
-        <img
-          src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
-          className="poster-xs"
-        />
-      </figure>
     </div>
   )
 }

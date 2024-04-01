@@ -3,12 +3,12 @@ import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
 import { ArrowUpRightIcon, ChevronRightIcon } from "@heroicons/outline"
 
-import { useAppState } from "@src/store/app-context"
+import { useMovieState } from "@src/store/app-context"
 import MovieCard from "@components/movie/movie-card"
 
 
 export default function SeriesSection() {
-  const [appState] = useAppState()
+  const [movieState] = useMovieState()
   const [constrainsWidth, setConstrainsWidth] = useState(400)
   const draggableRef = useRef(null)
 
@@ -42,7 +42,7 @@ export default function SeriesSection() {
           dragConstraints={{ left: -constrainsWidth, right: 0 }}
           className="draggable"
         >
-          {appState.series.map(movie => <MovieCard key={movie.id} result={movie} type="series" />)}
+          {movieState.series.map(movie => <MovieCard key={movie.id} result={movie} type="series" />)}
         </motion.div>
       </div>
     </div>

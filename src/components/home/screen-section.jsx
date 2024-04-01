@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import { motion, useScroll, animate, useInView, useTransform, useMotionValueEvent } from "framer-motion"
 import { ArrowUpRightIcon, ChevronRightIcon } from "@heroicons/outline"
 
-import { useAppState } from "@src/store/app-context"
+import { useMovieState } from "@src/store/app-context"
 import MovieCard from "@components/movie/movie-card"
 
 
@@ -52,7 +52,7 @@ const reducer = (state, action) => {
 }
 
 export default function ScreenSection() {
-  const [appState] = useAppState()
+  const [movieState] = useMovieState()
   const [pointer, dispatch] = useReducer(reducer, init)
   const [constrainsWidth, setConstrainsWidth] = useState(400)
   const sectionRef = useRef(null)
@@ -135,7 +135,7 @@ export default function ScreenSection() {
           dragConstraints={{ left: -constrainsWidth, right: 0 }}
           className="draggable"
         >
-          {appState.screen.slice(0, 10).map(movie => <MovieCard key={movie.id} result={movie} type="screen" />)}
+          {movieState.screen.slice(0, 10).map(movie => <MovieCard key={movie.id} result={movie} type="screen" />)}
         </motion.div>
       </div>
       <div ref={cursorRef} className="pointer">

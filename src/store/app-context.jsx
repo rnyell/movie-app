@@ -19,7 +19,7 @@ const AppContext = createContext()
 const SearchContext = createContext([])
 const SelectedMovieContext = createContext({})
 
-export function useAppState() {
+export function useMovieState() {
   return useContext(AppContext)
 }
 
@@ -63,7 +63,7 @@ function searchReducer(state, action) {
 }
 
 export function MovieProvider({ children }) {
-  const [appState, setAppState] = useState({
+  const [movieState, setMovieState] = useState({
     popular: [],
     screen: [],
     series: []
@@ -81,7 +81,7 @@ export function MovieProvider({ children }) {
     const populargMovies = await getPopularMovies()
     const screenMovies = await getOnScreenMovies()
     const trendingSeries = await getTrendingSeries()
-    setAppState({
+    setMovieState({
       popular: populargMovies,
       screen: screenMovies,
       series: trendingSeries
@@ -91,7 +91,7 @@ export function MovieProvider({ children }) {
 
   return (
     isLoading ? <AppLoadingSkeleton /> :
-    <AppContext.Provider value={[appState]}>
+    <AppContext.Provider value={[movieState]}>
       <SelectedMovieContext.Provider value={[selectedMovie, setSelectedMovie]}>
         <SearchContext.Provider value={[searchState, searchDispatch]}>
           {children}
