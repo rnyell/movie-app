@@ -61,6 +61,8 @@ export default function HeroSection() {
           movie={movieState.popular}
           currIndex={currIndex}
           setCurrIndex={setCurrIndex}
+          showNextMovie={showNextMovie}
+          showPrevMovie={showPrevMovie}
         />
       )}
     </section>

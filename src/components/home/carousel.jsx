@@ -47,7 +47,7 @@ export default function Carousel({
     // console.log(yTranslate.get())
   }, [translatedY])
 
-  function handleDragEnd(dragInfo) {
+  function handleDragEnd(_, dragInfo) {
     const imagesCount = images.length
     let dragged = dragInfo.offset.y
     let threshold = 100
@@ -92,7 +92,7 @@ export default function Carousel({
           dragSnapToOrigin={true}
           dragMomentum={false}
           dragElastic={0.2}
-          onDragEnd={(_, dragInfo) => handleDragEnd(dragInfo)}
+          onDragEnd={handleDragEnd}
           onDrag={handleDrag}
           style={{ y: yTranslate }}
           animate={{

@@ -80,6 +80,7 @@ export default function SideNav() {
   useEffect(() => {
     const handleClickOutside = (e) => {
       const target = e.target
+      console.log(isOpen) //! log true
       if (!submenuLinkRef.current.contains(target)) {
         setIsOpen(false)
       }

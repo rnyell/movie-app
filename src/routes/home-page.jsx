@@ -80,7 +80,7 @@ export default function HomePage() {
   useMotionValueEvent(scrollY, "change", (latest) => {
     const threshold = 200
     const previous = scrollY.getPrevious()
-    console.log(latest)
+    // console.log(latest)
 
     if (latest > previous && latest > threshold) {
       // sectionsRef.current.scrollTo({

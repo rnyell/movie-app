@@ -27,6 +27,7 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
 
   useEffect(() => {
     loadData()
+    console.log("hero movie re-rendered")
   }, [movie.id])
 
   async function loadData() {
@@ -70,42 +71,20 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
   ) : (
     <div className="hero-movie">
       <div className="grid-container">
+
         <div className="ambient">
-          <img
-            src={`https://image.tmdb.org/t/p/original${bg_path}`}
-            draggable={false}
-          />
+          <img src={`https://image.tmdb.org/t/p/original${bg_path}`} draggable={false} />
         </div>
-        <div
-          className="bg-poster"
-          style={{
+        <div className="bg-poster" style={{
             backgroundImage: `url("https://image.tmdb.org/t/p/original${bg_path}")`,
           }}
         />
 
-        <div className="rate">
-          <div className="helper-div">
-            <i className="icon">
-              <StarIcon />
-            </i>
-            <p>{formatRate(rate)}</p>
-          </div>
-        </div>
-        <div className="director">
-          <p>Directed by</p>
-          <p className="director-name">{getMovieDirector(credits.crew)}</p>
-        </div>
-
-        <div className="grid-item-left"></div>
-
         <div className="grid-item-title">
-          <div className="main-details">
-            <h2 className="title">{title}</h2>
-            <span className="release-date">{release_date.slice(0, 4)}</span>
-            <p className="genres">{getMovieGenres(genres)}</p>
-          </div>
+          <h2 className="title">{title}</h2>
+          <span className="release-date">{release_date.slice(0, 4)}</span>
+          <p className="genres">{getMovieGenres(genres)}</p>
         </div>
-
         <div className="cta-btns">
           <button className="btn btn-shared watch-btn">
             <i className="icon">
@@ -124,6 +103,18 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
         </div>
 
         <p className="tagline">{tagline}</p>
+        <div className="rate">
+          <div className="helper-div">
+            <i className="icon">
+              <StarIcon />
+            </i>
+            <p>{formatRate(rate)}</p>
+          </div>
+        </div>
+        <div className="director">
+          <p>Directed by</p>
+          <p className="director-name">{getMovieDirector(credits.crew)}</p>
+        </div>
         <Casts casts={credits.cast} />
         <div className="btns">
           <button className="btn btn-shared" onClick={() => showPrevMovie(1)}>
@@ -133,6 +124,7 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
             <ChevronRightIcon />
           </button>
         </div>
+
       </div>
     </div>
   )
