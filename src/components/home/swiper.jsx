@@ -2,24 +2,17 @@ import { useEffect, useState } from "react"
 import { motion, useMotionValue, useTransform, AnimatePresence } from "framer-motion"
 
 
-const SCALE_FACTOR = 0.04
-const RIGHT_X_STEPS = 20
+const visibleMoviesCount = 5
 
-export default function Swiper({
-  movie,
-  currIndex,
-  setCurrIndex,
-  showNextMovie,
-  showPrevMovie
-}) {
-  const [cloned, reorder] = useState(movie.toReversed().slice(-5))
-  
+export default function Swiper({ movie }) {
+  const [cloned, reorder] = useState(movie)
+
   return (
     <div className="swiper-container">
       <div className="swiper">
-        <AnimatePresence initial={false} mode="popLayout">
-          {cloned.map((film, idx) => {
-            const isFront = idx === cloned.length - 1
+        <AnimatePresence initial={true} mode="sync">
+          {cloned.toReversed().slice(-visibleMoviesCount).map((film, idx) => {
+            const isFront = idx === visibleMoviesCount - 1
             return (
               <SwiperCard
                 key={film.id}
@@ -27,10 +20,6 @@ export default function Swiper({
                 reorder={reorder}
                 isFront={isFront}
                 idx={idx}
-                currIndex={currIndex}
-                setCurrIndex={setCurrIndex}
-                showNextMovie={showNextMovie}
-                showPrevMovie={showPrevMovie}
                 poster_path={film.poster_path}
               />
             )
@@ -46,53 +35,56 @@ function SwiperCard({
   reorder,
   isFront,
   idx,
-  currIndex,
-  setCurrIndex,
-  showNextMovie,
-  showPrevMovie,
   poster_path
 }) {
+  const SCALE_FACTOR = 0.05
+  const OPACITY_FACTOR = 0.175
+  const RIGHT_X_STEPS = 18
+  const RIGHT_X_OFFSET = 42
   const xTranslate = useMotionValue(0)
   const scale = useTransform(xTranslate, [-150, 0, 150], [0.75, 1, 0.75])
   const rotate = useTransform(xTranslate, [-150, 0, 150], [-40, 0, 40], {
     clamp: false
   })
 
-  function doMath(length, i, factor) {
+  function doSomeMath(i, factor, length) {
     return 1 - ((length - i) * factor)
   }
 
   const variantsFrontCard = {
     initial: {
-      x: 5,
+      // x: -50,
     },
     animate: {
+      x: 0,
       scale: 1,
       opacity: 1
     },
-    exit: {
-      x: -1500,
-      scale: 0.75,
-      opacity: 0,
-      transition: { duration: 0.2 }
-    }
+    // exit: {
+    //   x: -1500,
+    //   scale: 0.75,
+    //   opacity: 0,
+    //   transition: { duration: 0.2 }
+    // }
   }
 
   const variantsBackCard = {
     initial: {
-      scale: 0,
+      scale: 0.5,
       opacity: 0
     },
     animate: i => ({
-      scale: doMath(5, i, SCALE_FACTOR),
-      opacity: doMath(5, i, 0.15)
+      x: 3,
+      scale: doSomeMath(i, SCALE_FACTOR, visibleMoviesCount),
+      opacity: doSomeMath(i, OPACITY_FACTOR, visibleMoviesCount)
     })
   }
 
   const frontTransition = {
     type: "spring",
     stiffness: 300,
-    damping: 20
+    damping: 20,
+    mass: 1.2,
   }
 
   const backsTransition = {
@@ -101,16 +93,17 @@ function SwiperCard({
   }
 
   function handleDragEnd(_, info) {
-    if (info.offset.x < -100) {
-      showPrevMovie(currIndex - 1)
+    const draggedX = info.offset.x
+    const speedX = info.velocity.x
+    
+    if (draggedX < -100 || speedX < -500) {
       const frontIdx = cloned.length - 1
       reorder([
         cloned[frontIdx],
         ...cloned.slice(0, frontIdx)
       ])
     }
-    if (info.offset.x > 100) {
-      showNextMovie(currIndex + 1)
+    if (draggedX > 100 || speedX > 500) {
       reorder([
         ...cloned.slice(1, cloned.length),
         cloned[0]
@@ -120,12 +113,16 @@ function SwiperCard({
 
   return (
     <motion.div
-      className="swiper-card"
+      className={
+        `swiper-card ${isFront ? "front-card" : null}`
+      }
       style={{
         x: xTranslate,
         rotate,
-        right: idx * RIGHT_X_STEPS,
-        marginRight: isFront ? 5 : null
+        transformOrigin: "50% 60%",
+        right: (idx * RIGHT_X_STEPS) - RIGHT_X_OFFSET,
+        marginRight: isFront ? 10 : null,
+        cursor: isFront ? "grab" : "auto",
       }}
       drag={isFront ? "x" : false}
       dragConstraints={{ top: 0, right: 0, bottom: 0, left: 0 }}
@@ -135,7 +132,7 @@ function SwiperCard({
       variants={isFront ? variantsFrontCard : variantsBackCard}
       initial="initial"
       animate="animate"
-      exit="exit"
+      // exit="exit"
       transition={isFront ? frontTransition : backsTransition}
     >
       <motion.div className="swiper-card-content" style={{ scale }}>

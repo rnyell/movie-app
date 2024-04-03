@@ -3,10 +3,15 @@
   width: 100%;
   display: flex;
   align-items: center;
-  /* position: sticky; */
-  /* z-index: var(--z-50); */
-  /* background-image: color-mix(in srgb, var(--color-neutral-700) 85%, transparent);
-  backdrop-filter: blur(20px); */
+  position: sticky;
+  z-index: var(--z-50);
+  top: 0;
+  background-color: color-mix(in srgb, var(--color-neutral-700) 75%, transparent);
+  backdrop-filter: blur(20px);
+
+  &[dataLocation="lg-screen"] {
+
+  }
 
   & .header-content {
     flex: 1;

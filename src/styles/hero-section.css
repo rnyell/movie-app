@@ -419,6 +419,7 @@
   grid-row: 1 / 4;
   margin-top: 1rem;
   height: 450px;
+  overflow: hidden;
   
   & .swiper {
     width: 100%;
@@ -429,14 +430,16 @@
       width: max(75%, 280px);
       position: absolute;
       top: 0;
-      translate: 10% 0; /* magic number */
-      cursor: grab;
     }
-  
+
     & .swiper-card-content {
       overflow: hidden;
       border-radius: 3rem;
-      box-shadow: 0 5px 1rem #343b4356;
+    }
+
+    & .front-card > .swiper-card-content {
+      box-shadow: 0 6px 2rem 2px #40245767;
+      /* box-shadow: 0 5px 2rem 2px #69172b72; */
     }
   }
 }

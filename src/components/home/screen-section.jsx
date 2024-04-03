@@ -116,9 +116,9 @@ export default function ScreenSection() {
       ref={sectionRef}
       style={styles}
       // style={{ opacity: scrollYProgress }}
-      // onMouseEnter={handlePointerEnter}
-      // onPointerMove={handlePointerMove}
-      // onMouseLeave={handlePointerLeave}
+      onMouseEnter={handlePointerEnter}
+      onPointerMove={handlePointerMove}
+      onMouseLeave={handlePointerLeave}
       className="screen-section"
     >
       <header>

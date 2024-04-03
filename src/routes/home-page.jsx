@@ -1,5 +1,11 @@
 import { useEffect, useRef, useState } from "react"
-import { motion, useAnimate, useScroll, useTransform, useMotionValueEvent } from "framer-motion"
+import {
+  motion,
+  useAnimate,
+  useScroll,
+  useTransform,
+  useMotionValueEvent,
+} from "framer-motion"
 
 import { useWindow } from "@src/utils/hooks"
 import Header from "@components/header"
@@ -10,7 +16,6 @@ import ScreenSection from "@components/home/screen-section"
 import SeriesSection from "@components/home/series-section"
 import Footer from "@components/footer"
 // import Scroller from "@components/animated/scroller"
-
 
 export default function HomePage() {
   const { windowWidth, windowHeight } = useWindow()
@@ -23,14 +28,16 @@ export default function HomePage() {
   const divRef = useRef(null)
 
   useEffect(() => {
-    setFixedHeight(fixedRef.current.scrollHeight)
-    console.log(fixedHeight)
+    if (windowWidth > 460) {
+      setFixedHeight(fixedRef.current.scrollHeight)
+      console.log(fixedHeight)
+    }
   }, [windowWidth, windowHeight, fixedHeight])
 
   const { scrollYProgress, scrollY } = useScroll({
     container: mainRef,
     target: sectionsRef,
-    offset: ["0% end", "start start"]
+    offset: ["0% end", "start start"],
   })
 
   // const heroBlur = useTransform(
@@ -50,31 +57,40 @@ export default function HomePage() {
   // )
 
   const heroBlur = useTransform(
-    scrollY, val => `blur(${12}) grayscale(${1})`
+    scrollY,
+    (val) => `blur(${12}) grayscale(${1})`
   )
 
   const heroOpacity = useTransform(
-    scrollY, [0, 150, 225, 350], [1, 0.7, 0.6, 0.4]
+    scrollY,
+    [0, 150, 225, 350],
+    [1, 0.7, 0.6, 0.4]
   )
 
   const heroScale = useTransform(
-    scrollY, [0, 200, 350, 500], [1, 0.98, 0.96, 0.94]
+    scrollY,
+    [0, 200, 350, 500],
+    [1, 0.98, 0.96, 0.94]
   )
 
   const heroTranslateY = useTransform(
-    scrollY, [0, 200, 350, 500], [0, 20, 50, 75]
+    scrollY,
+    [0, 200, 350, 500],
+    [0, 20, 50, 75]
   )
 
-  const x = useTransform(
-    scrollY, [0, 200, 350, 500], [0, 20, 50, 75]
-  )
+  const x = useTransform(scrollY, [0, 200, 350, 500], [0, 20, 50, 75])
 
   const sectionsOpacity = useTransform(
-    scrollY, [0, 150, 250, 350], [0, 0.45, 0.85, 1]
+    scrollY,
+    [0, 150, 250, 350],
+    [0, 0.45, 0.85, 1]
   )
 
   const sectionsTranslateY = useTransform(
-    scrollY, [0, 200, 350, 500], [0, -400, -500, -600]
+    scrollY,
+    [0, 200, 350, 500],
+    [0, -400, -500, -600]
   )
 
   useMotionValueEvent(scrollY, "change", (latest) => {
@@ -92,42 +108,66 @@ export default function HomePage() {
     }
   })
 
-  
+  const lg_desktop_styles = {
+    width: "100%",
+    height: "100vh",
+    position: "sticky",
+    "z-index": "10",
+    top: "0",
+    overflow: "hidden",
+  }
+
   return (
     <div className="home-page">
       <SideNav />
       <main ref={mainRef} className="home-content">
-        <div ref={fixedRef} data-fixed-scroll>
-          <Header isHomePage={true}>
-            <SearchBox isHomePage={true} />
-          </Header>
-          <motion.div
-            ref={heroRef}
-            style={{
-              // filter: heroBlur,
-              // opacity: heroOpacity,
-              // scale: heroScale,
-              // y: heroTranslateY
-            }}
-          >
+        {windowWidth > 460 ? (
+          <>
+            <div ref={fixedRef} data-fixed-scroll style={lg_desktop_styles}>
+              <Header dataLocation="lg-screen">
+                <SearchBox isHomePage={true} />
+              </Header>
+              <motion.div
+                ref={heroRef}
+                style={{
+                  filter: heroBlur,
+                  opacity: heroOpacity,
+                  scale: heroScale,
+                  y: heroTranslateY
+                }}
+              >
+                <HeroSection />
+              </motion.div>
+              <motion.div
+                className="sections-container"
+                ref={sectionsRef}
+                style={{
+                  y: sectionsTranslateY,
+                  opacity: sectionsOpacity,
+                }}
+              >
+                <ScreenSection />
+                <SeriesSection />
+              </motion.div>
+            </div>
+            <motion.div
+              ref={divRef}
+              data-fake-scroll
+              style={{ width: "100%", height: (2 / 3) * fixedHeight }}
+            />
+          </>
+        ) : (
+          <>
+            <Header dataLocation="sm-screen">
+              <SearchBox isHomePage={true} />
+            </Header>
             <HeroSection />
-          </motion.div>
-          <motion.div
-            className="sections-container"
-            ref={sectionsRef}
-            style={{
-              // y: sectionsTranslateY,
-              // opacity: sectionsOpacity,
-            }}
-          >
             <ScreenSection />
             <SeriesSection />
-          </motion.div>
-        </div>
-        <motion.div ref={divRef} data-fake-scroll style={{ height: 2/3 * fixedHeight }} />
+          </>
+        )}
         <div className="bg-effect" />
       </main>
     </div>
   )
 }
- 

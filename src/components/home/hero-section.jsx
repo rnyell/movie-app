@@ -10,7 +10,7 @@ import Swiper from "@components/home/swiper"
 export default function HeroSection() {
   const [movieState] = useMovieState()
   const [currIndex, setCurrIndex] = useState(0)
-  const popularMoviesNumber = movieState.popular.length
+  const popularMoviesCount = movieState.popular.length
   const { windowWidth } = useWindow()
 
   useEffect(() => {
@@ -18,7 +18,7 @@ export default function HeroSection() {
 
     if (windowWidth > 460) {
       // interval = setInterval(() => {
-      //   setCurrIndex((currIndex + 1) % popularMoviesNumber)
+      //   setCurrIndex((currIndex + 1) % popularMoviesCount)
       // }, 5000)
     }
 
@@ -26,12 +26,12 @@ export default function HeroSection() {
   }, [currIndex])
 
   function showNextMovie(num) {
-    setCurrIndex((currIndex + num) % popularMoviesNumber)
+    setCurrIndex((currIndex + num) % popularMoviesCount)
   }
 
   function showPrevMovie(num) {
     if (currIndex - num === -1) {
-      setCurrIndex(popularMoviesNumber - 1)
+      setCurrIndex(popularMoviesCount - 1)
       return
     }
     setCurrIndex(currIndex - num)

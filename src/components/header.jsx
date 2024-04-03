@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom"
 import { UserCircleIcon, BellIcon } from "@heroicons/outline"
 
-export default function Header({ children, isHomePage }) {
+export default function Header({ children, dataLocation }) {
   return (
-    <header className="main-header">
+    <header className="main-header" data-location={dataLocation}>
       {children}
       <div className="user-related">
         <i className="icon bell-icon">

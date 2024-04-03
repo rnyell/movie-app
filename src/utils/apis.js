@@ -1,7 +1,5 @@
 import { request, sortResults } from "./utils"
 
-const BASE_URL = "https://api.themoviedb.org"
-const API_KEY = "9f1ffd64abd4bde18614fd9087d87d71"
 
 export const MOVIE_GENRES = {
   28: "Action",
@@ -44,7 +42,6 @@ export const TV_GENRES = {
   37: "Western"
 }
 
-
 // ~'/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc'
 // ~'3/discover/tv?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc'
 //~ https://api.themoviedb.org/3/trending/all/week?language=en-US"
@@ -60,7 +57,7 @@ export async function getComingMovies() {
   const params = {
     page: 1,
     language: "en-US",
-    api_key: API_KEY
+    api_key: import.meta.env.VITE_API_KEY
   }
   let data = await request(path, params)
   const { results } = data
@@ -74,7 +71,7 @@ export async function getOnScreenMovies() {
     page: 1,
     language: "en-US",
     region: "US",
-    api_key: API_KEY
+    api_key: import.meta.env.VITE_API_KEY
   }
   let data = await request(path, params)
   const { results } = data
@@ -87,7 +84,7 @@ export async function getPopularMovies() {
   const params = {
     page: 1,
     language: "en-US",
-    api_key: API_KEY
+    api_key: import.meta.env.VITE_API_KEY
   }
   let data = await request(path, params)
   const { results } = data
@@ -105,7 +102,7 @@ export async function getTrendingSeries() {
     "vote_count.gte": 200,
     include_null_first_air_dates: false,
     without_genres: "99,10762,10763,10764,10766,10767",
-    api_key: API_KEY
+    api_key: import.meta.env.VITE_API_KEY
   }
   let data = await request(path, params)
   const { results } = data
@@ -121,7 +118,7 @@ export async function getAllResults(title = "", lang = "en-US") {
   const params = {
     query: formattedTitle,
     language: lang,
-    api_key: API_KEY
+    api_key: import.meta.env.VITE_API_KEY
   }
   // this call is to fetch total_pages for getting iterate count
   const data = await request(path, params)
@@ -144,7 +141,7 @@ export async function getAllResults(title = "", lang = "en-US") {
 //   let data = await request(path, {
 //     query: formattedTitle,
 //     language: lang,
-//     api_key: API_KEY
+//     api_key: import.meta.env.VITE_API_KEY
 //   })
 
 //   const { 
@@ -158,21 +155,21 @@ export async function getAllResults(title = "", lang = "en-US") {
 
 export async function getMovieDetails(movieId) {
   const path = `3/movie/${movieId}`
-  const params = { api_key: API_KEY, append_to_response: "credits,videos,images" }
+  const params = { api_key: import.meta.env.VITE_API_KEY, append_to_response: "credits,videos,images" }
   let data = await request(path, params)
   return data
 }
 
 export async function getMovieRuntime(movieId) {
   const path = `3/movie/${movieId}`
-  const params = { api_key: API_KEY }
+  const params = { api_key: import.meta.env.VITE_API_KEY }
   let data = await request(path, params)
   return data.runtime
 }
 
 export async function getMovieTrailer(movieId) {
   const path = `3/movie/${movieId}/videos`
-  const params = { api_key: API_KEY }
+  const params = { api_key: import.meta.env.VITE_API_KEY }
   let data = await request(path, params)
   let officialTrailers = data.results.filter(res => 
     res.type === "Trailer" && 
@@ -190,7 +187,7 @@ export async function getMovieTrailer(movieId) {
 //   const params = {
 //     query: formattedTitle,
 //     language: lang,
-//     api_key: API_KEY
+//     api_key: import.meta.env.VITE_API_KEY
 //   };
 //   const movies: any[] = [];
 //   const data = await request(path, params);
@@ -209,7 +206,7 @@ export async function getMovieTrailer(movieId) {
 //   const params = {
 //     query: formattedTitle,
 //     language: lang,
-//     api_key: API_KEY
+//     api_key: import.meta.env.VITE_API_KEY
 //   };
 //   const series: any[] = [];
 //   const data = await request(path, params);
@@ -228,7 +225,7 @@ export async function getMovieTrailer(movieId) {
 //     query: formattedTitle,
 //     language: "en-US",
 //     page: page,
-//     api_key: API_KEY
+//     api_key: import.meta.env.VITE_API_KEY
 //   })
 //   const { 
 //     results, 
