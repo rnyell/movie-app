@@ -1,0 +1,180 @@
+.results-page {
+  display: grid;
+  /* `minmax(auto, min(30vw, 300px))` this should be equal to <aside>'s width */
+  grid-template-columns: minmax(auto, min(30vw, 300px)) 1fr;
+  grid-template-rows: auto auto;
+
+  .sticky {
+    grid-column: 1 / -1;
+    grid-row: 1 / 2;
+  }
+
+  & aside {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    margin-top: var(--space-8);
+  }
+
+  & main {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    margin-top: var(--space-8);
+  }
+
+  & input[type="checkbox"],
+  & input[type="radio"] {
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+}
+
+.results-page .sticky {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-50);
+  background-color: color-mix(in srgb, var(--color-neutral-700) 75%, transparent);
+  backdrop-filter: blur(20px);
+}
+
+.results-page aside {
+  height: 80%;
+  position: fixed;
+  top: 5rem;
+  left: 0;
+  width: min(30vw, 300px);
+}
+
+.filter-box {
+  --outline-width: -1.5px;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background-image: linear-gradient(120deg, var(--color-neutral-700), var(--color-neutral-800));
+  border-radius: 0 3rem 0 0;
+  
+  &::after {
+    content: "";
+    width: calc(100.5% - var(--outline-width));
+    height: 55%;
+    position: absolute;
+    top: var(--outline-width);
+    z-index: var(--z-neg5);
+    border-radius: 0 3rem 0 0;
+    background-image: linear-gradient(120deg, var(--color-accent-600), transparent);
+  }
+  
+  & .filter-card {
+    margin-block: var(--space-4);
+    padding-inline: var(--space-5);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: 0.9rem;
+  }
+
+  & .heading {
+    margin-block: 0 var(--space-5);
+    color: var(--color-accent-100);
+  }
+
+  & .genres-box {
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    gap: var(--space-2) var(--space-1);
+
+    & label {
+      padding: var(--space-2);
+      font-size: 0.625rem;
+      border: 1px solid color-mix(in srgb, var(--color-accent-200), transparent);
+      border-radius: var(--rounded-full);
+      transition: background-color var(--duration-1) ease-in,
+        color var(--duration-1) ease-in;
+    }
+
+    & label:hover,
+    & label:has(:checked) {
+      background-color: var(--color-accent-200);
+      color: var(--color-neutral-900);
+    }
+  }
+}
+
+.results-page main {
+  padding-inline: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+
+  & .heading {
+    align-self: flex-start;
+    font-family: Georgia, serif;
+  
+    & span {
+      margin-inline: var(--space-2);
+      color: var(--color-accent-200);
+      font-family: Ubuntu;
+      letter-spacing: 0.0225em;
+
+      &::selection {
+        background-color: var(--color-neutral-100);
+      }
+    }
+  }
+}
+
+.filter-type {
+  margin-top: var(--space-6);
+  align-self: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 0.9rem;
+  
+  & .type-box {
+    display: flex;
+    gap: var(--space-2);
+
+    & span {
+      min-width: 5.5rem;
+      padding: 0.625rem;
+      text-align: center;
+      font-weight: 500;
+      border: var(--outline-size-2) solid var(--color-neutral-400);
+      border-radius: var(--rounded-full);
+      cursor: pointer;
+      transition: background-color var(--duration-1) ease-in,
+        color var(--duration-1) ease-in;
+
+      &:hover,
+      &.is-active {
+        color: var(--color-neutral-800);
+        background-color: var(--color-neutral-300);
+        border-color: var(--color-neutral-300);
+      }
+    }
+  }
+}
+
+.results-container {
+  margin-block: var(--space-4);
+  width: 100%;
+  max-width: 1200px;
+}
+
+.results-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 150px), 1fr));
+  /* justify-items: center; */ /*? why images&layout brokes with this */
+  gap: 1.25rem 1.75rem;
+  
+  & .movie-grid-item {
+    min-width: 0; /*! MF... */
+  }
+}

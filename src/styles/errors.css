@@ -34,10 +34,11 @@
 
 
 .not-found-result {
+  margin-top: 3rem;
+  width: 100%;
   display: flex;
-  justify-content: center;
 
-  & aside {
+  & div {
     & > * {
       margin-block: var(--space-4);
     }
@@ -61,8 +62,7 @@
   }
   
   & .gif {
-    margin-right: var(--space-4);
-    width: 50%;
-    max-width: 400px;
+    margin-inline: auto 4rem;
+    max-height: 300px;
   }
 }

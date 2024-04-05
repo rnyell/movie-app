@@ -1,8 +1,9 @@
 .search-box {
   --box-width: 2.25rem;
-  --box-height: 2.25rem;
+  --box-height: 2.5rem;
   
   height: var(--box-height);
+  min-height: 38px;
   position: relative;
   overflow: hidden;
   border-radius: var(--rounded-full);
@@ -14,43 +15,41 @@
     outline-offset: 0;
   }
 
-  &[data-location="on-home-page"] {
+  &[data-location~="home-page"] {
     width: 14rem;
   }
-  
-  &[data-location="on-home-page"] {
-    margin-inline: auto var(--space-4);
-    
-    & .search-input {
-      color: var(--color-neutral-200);
-      background-color: color-mix(
-        in srgb, var(--color-neutral-700), transparent
-      );
 
-      &::placeholder {
-        color: var(--color-neutral-200-opaque);
-      }
+  &[data-location~="sm-screen"] {
+    --box-width: 3rem;
+    --box-height: 3.5rem;
+    --icon-size-4: 1.5rem;
+    width: unset;
+    
+    & input {
+      font-size: 1.15rem;
     }
 
-    & .search-icon {
-      color: var(--color-neutral-400);
+    & input::placeholder {
+      font-size: 0.85rem;
     }
   }
 
-  &[data-location="on-result-page"] {
-    width: max(300px, 60%);
-    height: calc(var(--box-width) + 1vw);
-    max-height: 60px;
-
+  &[data-location~="result-page"] {
+    --box-height: 2.75rem;
+    /* height: clamp(38px, var(--box-width) + 2vw, 55px); */
+    /* width: min(300px, 100%); */
+    
     & .icon-wrapper {
+      --icon-size-4: 1.5rem;
       height: 100%;
       aspect-ratio: 1.25;
       right: 0.5rem;
+      top: 0;
     }
 
     & .search-input {
       padding-inline: var(--space-4);
-      color: var(--color-neutral-800);
+      font-size: 0.875rem;
     }
   }
 
@@ -70,6 +69,7 @@
     position: absolute;
     left: calc(50% - (var(--icon-size-4) / 2));
     top: calc(50% - (var(--icon-size-4) / 2));
+    color: var(--color-neutral-400);
     border-radius: var(--rounded-full);
   }
   
@@ -86,12 +86,15 @@
     height: 100%;
     padding-left: calc(var(--box-width) + 0.5vw);
     font-size: 0.75rem;
-    background-color: var(--color-neutral-200);
+    color: var(--color-neutral-200);
+    background-color: color-mix(
+      in srgb, var(--color-neutral-700), transparent
+    );
     transition: var(--duration-1) ease-in;
   
     &::placeholder {
-      font-size: 0.75rem;
-      color: var(--color-neutral-800-opaque);
+      font-size: inherit;
+      color: var(--color-neutral-200-opaque);
       letter-spacing: -0.875px;
     }
   }

@@ -1,5 +1,5 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Rokkitt:ital,wght@0,100..900;1,100..900&display=swap'); */
-@layer reset, global, typo;
+@layer reset, global, typo, utilities;
 
 @font-face {
   font-family: Montserrat;
@@ -153,6 +153,46 @@
   --base-poster-ratio: 1.75;
 }
 
+@layer utilities {
+  .stack-ctx {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .grid-center {
+    display: grid;
+    place-items: center;
+  }
+
+  .flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .flex-y-center {
+    display: flex;
+    align-items: center;
+  }
+
+  .flex-x-center {
+    display: flex;
+    justify-content: center;
+  }
+
+  .flex-col-x-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .flex-col-y-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
 @layer typo {
   html {
     font-size: clamp(0.775rem, 55% + 0.75vw, 1.2rem);
@@ -237,8 +277,10 @@
 
   #root {
     margin-inline: auto;
-    max-width: 1800px;
+    max-width: 1750px;
     height: 100%;
+    position: relative;
+    isolation: isolate;
     background-color: var(--color-neutral-800);
   }
 

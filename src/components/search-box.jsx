@@ -3,12 +3,11 @@ import { useSearchParams, useNavigate, useLocation } from "react-router-dom"
 import { MagnifyingGlassIcon } from "@heroicons/outline"
 
 
-export default function SearchBox({ isHomePage }) {
+export default function SearchBox({ dataLocation }) {
   const [params, setParams] = useSearchParams()
   const [userInput, setUserInput] = useState("")
   const navigate = useNavigate()
   const location = useLocation()
-  const [isExpanded, setIsExpanded] = useState(isHomePage ? false : true)
   const boxRef = useRef(null)
   const inputRef = useRef(null)
 
@@ -32,11 +31,11 @@ export default function SearchBox({ isHomePage }) {
   }
   
   function handleSearchMovie(title) {
-    if (isHomePage && title) {
+    if (title && dataLocation.includes("home-page")) {
       navigate("/search")
       setParams({query: title, page: 1})
       return
-    } else if (!isHomePage && title) {
+    } else if (title && dataLocation.includes("results-page")) {
       setParams({query: title, page: 1})
       return
     }
@@ -47,13 +46,12 @@ export default function SearchBox({ isHomePage }) {
       .trim().toLowerCase()
       .replaceAll("%20", "-");
 
-    if (isExpanded && !formattedInput) {
+    if (!formattedInput) {
       return
-    } else if (isHomePage && !formattedInput) {
-      setIsExpanded(!isExpanded)
+    } else if (!formattedInput && dataLocation.includes("home-page")) {
       inputRef.current.focus()
       return
-    } else if (isHomePage && formattedInput) {
+    } else if (formattedInput && dataLocation.includes("home-page")) {
       handleSearchMovie(formattedInput)
       return
     }
@@ -62,13 +60,10 @@ export default function SearchBox({ isHomePage }) {
   }
 
   function handleClickOutside({target}) {
-    if (
-      boxRef.current && 
-      !boxRef.current.contains(target) && 
-      isHomePage
-    ) {
+    const element = boxRef.current
+    const isOutside = !element.contains(target)
+    if (element && isOutside && dataLocation.includes("home-page")) {
       setUserInput("")
-      setIsExpanded(false)
     }
   }
 
@@ -80,9 +75,8 @@ export default function SearchBox({ isHomePage }) {
 
   return (
     <div 
-      // className={`search-box ${isExpanded ? "expanded" : ""}`} 
       className="search-box"
-      data-location={isHomePage ? "on-home-page" : "on-result-page"}
+      data-location={dataLocation}
       ref={boxRef}
       onKeyDown={keyPressHandler}
       tabIndex={0}

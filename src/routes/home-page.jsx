@@ -124,8 +124,8 @@ export default function HomePage() {
         {windowWidth > 460 ? (
           <>
             <div ref={fixedRef} data-fixed-scroll style={lg_desktop_styles}>
-              <Header dataLocation="lg-screen">
-                <SearchBox isHomePage={true} />
+              <Header dataLocation="home-page lg-screen">
+                <SearchBox dataLocation="home-page lg-screen" />
               </Header>
               <motion.div
                 ref={heroRef}
@@ -158,8 +158,8 @@ export default function HomePage() {
           </>
         ) : (
           <>
-            <Header dataLocation="sm-screen">
-              <SearchBox isHomePage={true} />
+            <Header dataLocation="home-page sm-screen">
+              <SearchBox dataLocation="home-page sm-screen" />
             </Header>
             <HeroSection />
             <ScreenSection />

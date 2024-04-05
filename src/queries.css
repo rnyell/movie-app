@@ -37,10 +37,6 @@
       }
     }
   }
-  
-  .search-box {
-    --box-height: 2.75rem
-  }
 }
 
 @media (width < 520px) {

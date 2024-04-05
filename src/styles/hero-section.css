@@ -1,5 +1,5 @@
 .hero-section {
-  margin-top: var(--space-5);
+  margin-block: var(--space-5);
   padding-inline: var(--space-7);
   width: 100%;
   display: grid;
@@ -255,7 +255,8 @@
       font-weight: 500;
       background-color: var(--color-accent-600);
       border-color: var(--color-accent-600);
-      transition: background-color var(--duration-1) ease-in, border-color var(--duration-1) ease-in;
+      transition: background-color var(--duration-1) ease-in,
+        border-color var(--duration-1) ease-in;
 
       &:hover {
         color: var(--color-neutral-800);
@@ -417,7 +418,7 @@
 .swiper-container {
   grid-column: 1 / 6;
   grid-row: 1 / 4;
-  margin-top: 1rem;
+  padding-block: 1rem;
   height: 450px;
   overflow: hidden;
   
@@ -427,7 +428,7 @@
     position: relative;
   
     & .swiper-card {
-      width: max(75%, 280px);
+      width: min(280px, 75%);
       position: absolute;
       top: 0;
     }

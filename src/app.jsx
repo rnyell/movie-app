@@ -5,7 +5,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom"
 import { MovieProvider } from "@src/store/app-context"
 import RootLayout from "@src/routes/layout"
 import HomePage from "@src/routes/home-page"
-import SearchResults from "@src/routes/search-results"
+import ResultsPage from "@src/routes/results-page"
 import SelectedMovie from "@src/routes/selected-movie"
 import Booking from "@src/routes/booking"
 import Ticket from "@src/routes/ticket"
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       { path: "/", element: <HomePage />, },
-      { path: "/search", element: <SearchResults /> },
+      { path: "/search", element: <ResultsPage /> },
       { path: "/movies/:id", element: <SelectedMovie /> },
       { path: "/booking", element: <Booking /> },
       { path: "/ticket", element: <Ticket /> }

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 import { StarIcon, BookmarkIcon, FilmIcon, TvIcon } from "@heroicons/outline"
 import { getGenresBaseOnIds, formatRate, formatRuntime } from "@src/utils/utils"
 import { getMovieRuntime } from "@src/utils/apis"
@@ -59,7 +60,14 @@ export default function MovieCard({ result, type }) {
 
     case "result": {
       return (
-        <div className="movie-card" data-type={type}>
+        <motion.div 
+          className="movie-card"
+          data-type={type}
+          layout
+          initial={{ opacity: 0.5 }}
+          animate={{ opacity: 1 }}
+          transition={{ opacity: 0.2 }}
+        >
           <div className="subset-details">
             <i className="icon media-icon">
               {result.media_type === "movie" ? <FilmIcon /> : <TvIcon />}
@@ -94,7 +102,7 @@ export default function MovieCard({ result, type }) {
             <h4 className="title">{result?.title || result.name}</h4>
             <p className="release-date">{result?.release_date?.slice(0, 4) || result?.first_air_date?.slice(0, 4)}</p>
           </div>
-        </div>
+        </motion.div>
       )
     }
   }

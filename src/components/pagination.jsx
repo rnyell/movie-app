@@ -1,12 +1,11 @@
 import { Link, useLocation, useSearchParams } from "react-router-dom"
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/outline"
-import { useSearch } from "@src/store/app-context"
 
 
 export default function Pagination({ currentPage, allPagesArray }) {
-  const [searchState] = useSearch()
   const [searchParams] = useSearchParams()
   const location = useLocation()
+  const totalPages = allPagesArray.length
 
   function createLinkUrl(pageNumber) {
     const params = new URLSearchParams(searchParams)
@@ -44,7 +43,7 @@ export default function Pagination({ currentPage, allPagesArray }) {
       
       <Link 
         to={createLinkUrl(currentPage + 1)} 
-        className={`page-link last-page-link ${currentPage > searchState.totalPages - 1 && "disable-link"}`}>
+        className={`page-link last-page-link ${currentPage > totalPages - 1 && "disable-link"}`}>
         <i className="icon arrow-icon">
           <ArrowRightIcon />
         </i>

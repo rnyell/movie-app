@@ -14,13 +14,13 @@ export function ErrorPage() {
 
 export function NotFoundResult() {
   return (
-    <div className="not-found-result">
-      <aside>
+    <section className="not-found-result">
+      <div>
         <h3>No results found...</h3>
         <p>Try another one</p>
         <Link>See trend movies</Link>
-      </aside>
+      </div>
       <img className="gif" src="/gifs/jt.gif" />
-    </div>
+    </section>
   )
 }
