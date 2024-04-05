@@ -17,12 +17,14 @@ export default function Pagination({ currentPage, allPagesArray }) {
     <div className="pagination">
       <Link
         to={createLinkUrl(currentPage - 1)} 
-        className={`page-link last-page-link ${currentPage === 1 && "disable-link"}`}>
+        className={
+          `page-link last-page-link ${currentPage === 1 ? "disable-link" : null}`
+        }
+      >
         <i className="icon arrow-icon">
           <ArrowLeftIcon />
         </i>
       </Link>
-
       {
         allPagesArray.map((page, i) => {
           if (page === "...") {
@@ -32,7 +34,7 @@ export default function Pagination({ currentPage, allPagesArray }) {
               <Link
                 key={i} 
                 to={createLinkUrl(page)}
-                className={`page-link ${currentPage === page && "active"}`}
+                className={`page-link ${currentPage === page ? "active" : null}`}
               >
                 {page}
               </Link>
@@ -40,10 +42,12 @@ export default function Pagination({ currentPage, allPagesArray }) {
           }
         }) 
       }
-      
       <Link 
         to={createLinkUrl(currentPage + 1)} 
-        className={`page-link last-page-link ${currentPage > totalPages - 1 && "disable-link"}`}>
+        className={
+          `page-link last-page-link ${currentPage > totalPages - 1 ? "disable-link" : null}`
+        }
+      >
         <i className="icon arrow-icon">
           <ArrowRightIcon />
         </i>
