@@ -8,19 +8,20 @@ import {
 
 import {
   getPopularMovies,
-  getComingMovies, 
+  getComingMovies,
   getOnScreenMovies,
-  getTrendingSeries
+  getTrendingSeries,
 } from "@src/utils/apis"
+import { useGeoLocation } from "@src/utils/hooks"
 import { AppLoadingSkeleton } from "@components/skeletons"
-
+import { VPNError } from "../components/errors"
 
 const UserContext = createContext()
 const MoviesContext = createContext()
 const SearchContext = createContext([])
 const SelectedMovieContext = createContext({})
 
-export function useUserStae() {
+export function useUserState() {
   return useContext(UserContext)
 }
 
@@ -36,11 +37,10 @@ export function useSelectedMovie() {
   return useContext(SelectedMovieContext)
 }
 
-
 const userInitial = {
   name: "guest",
   reserved: [],
-  bookmarked: []
+  bookmarked: [],
 }
 
 function userReducer(state, action) {
@@ -51,20 +51,31 @@ function userReducer(state, action) {
         reserved: [...state.reserved, action.id],
       }
     }
-    case "bookmarked": {
+    case "add_bookmark": {
       return {
         ...state,
-        bookmarked: [...state.bookmarked, action.id]
+        bookmarked: [...state.bookmarked, action.id],
       }
     }
-    case "remove_bookmarked": {
+    case "remove_bookmark": {
+      const filtered = state.bookmarked.filter((b) => b !== action.id)
       return {
         ...state,
-        bookmarked: []
+        bookmarked: [...filtered],
       }
     }
   }
 }
+
+// TODO mix search & selected
+/*
+const moviesInitial = {
+  title: "",
+  results: [],
+  pages: 1,
+  selected: ""
+}
+*/
 
 const searchInitial = {
   title: "",
@@ -78,7 +89,7 @@ function searchReducer(state, action) {
       return {
         ...state,
         results: action.results,
-        pages: action.pages
+        pages: action.pages,
       }
     }
     case "page_changed": {
@@ -90,18 +101,19 @@ function searchReducer(state, action) {
     case "set_error": {
       return {
         results: [],
-        pages: 0
+        pages: 0,
       }
     }
   }
 }
 
 export function AppProvider({ children }) {
+  const { country } = useGeoLocation()
   const [userState, userDispatch] = useReducer(userReducer, userInitial)
   const [movieState, setMovieState] = useState({
     popular: [],
     screen: [],
-    series: []
+    series: [],
   })
   const [searchState, searchDispatch] = useReducer(searchReducer, searchInitial)
   const [selectedMovie, setSelectedMovie] = useState({})
@@ -119,13 +131,16 @@ export function AppProvider({ children }) {
     setMovieState({
       popular: populargMovies,
       screen: screenMovies,
-      series: trendingSeries
+      series: trendingSeries,
     })
     setIsLoading(false)
   }
-
-  return (
-    isLoading ? <AppLoadingSkeleton /> :
+  
+  return isLoading ? (
+    <AppLoadingSkeleton />
+  ) : country === "IR" ? (
+    <VPNError />
+  ) : (
     <UserContext.Provider value={{userState, userDispatch}}>
       <MoviesContext.Provider value={[movieState]}>
         <SelectedMovieContext.Provider value={[selectedMovie, setSelectedMovie]}>

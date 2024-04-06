@@ -1,19 +1,11 @@
 /** on home page */
 @media (width < 1300px) {
-  .home-page {
-    /* grid-template-columns: minmax(auto, 200px) 1fr; */
-  }
-
   .sidenav {
     width: min(200px, 20vw);
   }
 }
 
-@media (width < 820px) {
-  .home-page {
-    /* grid-template-columns: 75px 1fr; */
-  }
-    
+@media (width < 820px) {  
   .sidenav {
     width: 75px;
 
@@ -97,10 +89,7 @@
       color: var(--color-neutral-400);
 
       &.is-active {
-        color: unset;
         color: var(--color-neutral-200);
-        /* background-color: var(--color-neutral-600);
-        border-radius: 100%; */
 
         & .dot {
           position: absolute;
@@ -124,13 +113,13 @@
         stroke-linecap: round;
         stroke-linejoin: round;
         stroke-dasharray: 400;
-        animation: strok 1s reverse ease-out;
+        animation: stroks 1s reverse ease-out;
       }
     }
   }
 }
 
-@keyframes strok {
+@keyframes stroks {
   100% {
     stroke-dashoffset: 400;
   }
@@ -292,19 +281,11 @@
 }
 
 
-@media (width > 900px) {
-  .movie-card[data-type="result"] {
-    & .title {
-      font-size: 1.2rem;
-    }
-  }
-}
-
 /** on results page */
 @container movie-card (width > 165px) {
   .movie-card[data-type="result"] {
     & .title {
-      font-size: calc(1rem + 4cqw);
+      font-size: calc(1rem + 1cqw);
     }
 
     & .vote-number {

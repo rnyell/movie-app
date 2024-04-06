@@ -1,6 +1,6 @@
 import React from "react"
 import ReactDOM from "react-dom/client"
-import { RouterProvider, createBrowserRouter } from "react-router-dom"
+import { RouterProvider, createBrowserRouter, BrowserRouter } from "react-router-dom"
 
 import { AppProvider } from "@src/store/app-context"
 import RootLayout from "@src/routes/layout"
@@ -15,7 +15,7 @@ import { ErrorPage } from "@components/errors"
 import "./main.css"
 
 
-const router = createBrowserRouter([
+const routes = [
   {
     path: "/",
     element: <RootLayout />,
@@ -30,12 +30,14 @@ const router = createBrowserRouter([
       { path: "/booking", element: <Booking /> },
     ]
   }
-])
+]
+
+const router = createBrowserRouter(routes)
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-    <AppProvider>
-      <RouterProvider router={router} />
-    </AppProvider>
+  <AppProvider>
+    <RouterProvider router={router} />
+  </AppProvider>
   // <React.StrictMode>
   // </React.StrictMode>
 )

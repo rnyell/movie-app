@@ -31,6 +31,29 @@ export function useWindow() {
   return {...windowSize}
 }
 
+
+export function useGeoLocation() {
+  const userGeoScheme = { ip: null, country: null } // FUT: ts
+  const [userGeo, setUserGeo] = useState(userGeoScheme)
+
+  useEffect(() => {
+    getUserCountry()
+  }, [])
+
+  async function getUserCountry() {
+    try {
+      const res = await fetch(`https://api.country.is`)
+      const data = await res.json()
+      setUserGeo(data)
+    } catch (error) {
+      console.error("Error fetching user location:", error)
+    }
+  }
+
+  return userGeo
+}
+
+
 // export function useClickOutside() {
 
 //   useEffect(() => {

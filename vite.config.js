@@ -20,6 +20,7 @@ export default defineConfig({
   },
 
   css: {
+    devSourcemap: true,
     postcss: {
       plugins: [autoprefixer]
     }

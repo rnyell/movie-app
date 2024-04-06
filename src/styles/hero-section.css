@@ -217,11 +217,6 @@
     }
   }
 
-  & .bookmark-btn {
-    padding: 1.5cqw;
-    height: max-content;
-  }
-
   & .btn-shared {
     padding: 1.5cqw;
     background-color: rgb(20 23 26 / 15%);
@@ -279,7 +274,17 @@
       width: 4.5rem;
     }
 
-    & .is-bookmarked {
+    & .bookmark-btn {
+      padding: 1.5cqw;
+      height: max-content;
+
+      & svg {
+        transition: fill var(--duration-1) ease-in,
+          color var(--duration-1) ease-in;
+      }
+    }
+
+    & .bookmark-btn.is-bookmarked {
       color: var(--color-neutral-800);
       background-color: var(--color-neutral-200);
 
