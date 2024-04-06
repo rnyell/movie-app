@@ -278,6 +278,15 @@
     & .trailer-btn {
       width: 4.5rem;
     }
+
+    & .is-bookmarked {
+      color: var(--color-neutral-800);
+      background-color: var(--color-neutral-200);
+
+      & svg {
+        fill: currentColor;
+      }
+    }
   }
 
   & .btns {

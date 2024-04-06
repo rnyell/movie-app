@@ -42,7 +42,7 @@ const lg_links = [
 ]
 
 const lg_solid_icons = [
-  <HomeIconSolid />, 
+  <HomeIconSolid />,
   <CompasIconSolid />,
   <FilmIconSolid />,
   <TvIconSolid />,
@@ -80,8 +80,8 @@ export default function SideNav() {
   useEffect(() => {
     const handleClickOutside = (e) => {
       const target = e.target
-      const element = submenuLinkRef.current
-      if (!element.contains(target)) {
+      const element = submenuLinkRef?.current
+      if (!element?.contains(target)) {
         // console.log(isOpen) //! logs true
         setIsOpen(false)
       }
@@ -141,6 +141,7 @@ export default function SideNav() {
               )
             })}
       </nav>
+      <div className="footer">Dad's best movie app <span>&trade;</span></div>
     </div>
   );
 }
@@ -153,7 +154,7 @@ function SubMenu() {
       animate={{ y: 0, opacity: 1 }}
       exit={{ 
         y: 60, opacity: 0.1,
-        transition: { type: "tween", duration: 0.15 } 
+        transition: { type: "tween", duration: 0.15 }
       }}
     >
       {sub_links.map(link =>

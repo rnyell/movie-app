@@ -3,7 +3,8 @@
   height: 100dvh;
   overflow: hidden;
   display: grid;
-  grid-template-columns: minmax(auto, 220px) 1fr;
+  /* grid-template-columns: minmax(auto, 220px) 1fr; */
+  grid-template-columns: auto 1fr;
 }
 
 .home-page .home-content {

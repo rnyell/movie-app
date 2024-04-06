@@ -8,7 +8,6 @@ import {
   PlayIcon,
   ChevronRightIcon,
   ChevronLeftIcon,
-  ShareIcon,
 } from "@heroicons/outline"
 
 import { getMovieDetails } from "@src/utils/apis"
@@ -18,15 +17,25 @@ import {
   getMovieDirector,
   formatRate,
 } from "@src/utils/utils"
+import { useUserStae } from "@src/store/app-context"
 import { HeroMovieLoadingSkeleton } from "@components/skeletons"
-import Casts from "../movie/casts"
+import Casts from "@components/movie/casts"
+
 
 export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
+  const { userDispatch, userState } = useUserStae()
+  // console.log(userState)
   const [isLoading, setIsLoading] = useState(true)
   const [movieDetails, setMovieDetails] = useState("")
+  const [isBookmarked, setIsBookmarked] = useState(
+    userState.bookmarked.includes(movie.id)
+  )
 
   useEffect(() => {
     loadData()
+    setIsBookmarked(
+      userState.bookmarked.includes(movie.id)
+    )
     console.log("hero movie re-rendered")
   }, [movie.id])
 
@@ -54,6 +63,12 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
   } = movieDetails
 
   // console.log(movieDetails)
+
+  function bookmarkMovie(id) {
+    if (!userState.bookmarked.includes(id)) {
+      userDispatch({ type: "bookmarked", id })
+    }
+  }
 
   const poster_variants = {
     init: {
@@ -95,7 +110,12 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
           <button className="btn btn-shared trailer-btn">
             <span>Trailer</span>
           </button>
-          <button className="btn btn-shared bookmark-btn">
+          <button 
+            className={
+              `btn btn-shared bookmark-btn ${isBookmarked ? "is-bookmarked" : null}`
+            }
+            onClick={() => bookmarkMovie(movie.id)}
+          >
             <i className="icon">
               <BookmarkIcon />
             </i>

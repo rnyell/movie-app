@@ -1,6 +1,7 @@
 .sidenav {
   grid-column: 1 / 2;
   padding: var(--space-3);
+  width: min(225px, 18vw);
   height: 100vh;
   position: relative;
   display: flex;
@@ -100,5 +101,9 @@
     & .link-tag {
       display: block !important;
     }
+  }
+
+  & .footer {
+    font-size: 0.5rem;
   }
 }
