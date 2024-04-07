@@ -1,3 +1,5 @@
+/* search-box styles is affected by `.flex-item` in <Header /> component */
+
 .search-box {
   --box-width: 2.25rem;
   --box-height: 2.5rem;
@@ -15,8 +17,25 @@
     outline-offset: 0;
   }
 
-  &[data-location~="home-page"] {
+  &[data-location~="default"] {
     width: 14rem;
+  }
+
+  &[data-location~="results-page"] {
+    --box-height: 2.75rem;
+    
+    & .icon-wrapper {
+      --icon-size-4: 1.5rem;
+      height: 100%;
+      aspect-ratio: 1.25;
+      right: 0.5rem;
+      top: 0;
+    }
+
+    & .search-input {
+      padding-inline: var(--space-4);
+      font-size: 0.875rem;
+    }
   }
 
   &[data-location~="sm-screen"] {
@@ -31,25 +50,6 @@
 
     & input::placeholder {
       font-size: 0.85rem;
-    }
-  }
-
-  &[data-location~="result-page"] {
-    --box-height: 2.75rem;
-    /* height: clamp(38px, var(--box-width) + 2vw, 55px); */
-    /* width: min(300px, 100%); */
-    
-    & .icon-wrapper {
-      --icon-size-4: 1.5rem;
-      height: 100%;
-      aspect-ratio: 1.25;
-      right: 0.5rem;
-      top: 0;
-    }
-
-    & .search-input {
-      padding-inline: var(--space-4);
-      font-size: 0.875rem;
     }
   }
 

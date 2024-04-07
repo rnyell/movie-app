@@ -2,7 +2,7 @@
 
 /* routes */
 @import "@styles/home-page.css" layer;
-@import "@styles/movies-page.css" layer;
+@import "@styles/discover-page.css" layer;
 @import "@styles/results-page.css" layer;
 @import "@styles/booking.css" layer;
 @import "@styles/ticket.css" layer;

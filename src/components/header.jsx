@@ -1,18 +1,21 @@
 import { Link } from "react-router-dom"
 import { UserCircleIcon, BellIcon, HomeIcon } from "@heroicons/outline"
+import SearchBox from "./search-box"
 
-export default function Header({ children, dataLocation }) {
+
+
+export default function Header({ dataset }) {
   return (
-    <header className="main-header" data-location={dataLocation}>
-      {dataLocation.includes("results-page") && 
+    <header className="main-header" data-location={dataset}>
+      {dataset.includes("results-page") && 
         <Link to="/" className="home-link">
           <i className="icon home-icon">
             <HomeIcon />
           </i>
         </Link>
       }
-      <div className="flex-content">
-        {children}
+      <div className="flex-item">
+        <SearchBox dataset={dataset} />
       </div>
       <div className="user-related">
         <i className="icon bell-icon">

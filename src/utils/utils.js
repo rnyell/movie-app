@@ -37,6 +37,10 @@ export function formatRate(rate) {
   return rounded
 }
 
+export function formatReleaseDate(date) {
+  return date?.substring(0, 4)
+}
+
 
 export function getMovieGenres(genres) {
   let returnValue = ""

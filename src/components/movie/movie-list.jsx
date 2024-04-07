@@ -1,19 +1,18 @@
 import { useEffect, useState } from "react"
-import { getMoviesByGenre } from "../../utils/apis"
+import { getItemsByGenre } from "../../utils/apis"
 import MovieCard from "./movie-card"
 
-
-export default function MovieList({ genreId }) {
+export default function MovieList({ type, genreId }) {
   const [isLoading, setIsLoading] = useState(true)
-  const [movies, setMovies] = useState([])
+  const [results, setResults] = useState([])
 
   useEffect(() => {
     loadData()
   }, [])
 
   async function loadData() {
-    const data = await getMoviesByGenre(genreId)
-    setMovies(data)
+    const data = await getItemsByGenre(type, genreId)
+    setResults(data)
     setIsLoading(false)
   }
 
@@ -22,7 +21,7 @@ export default function MovieList({ genreId }) {
       <p>loading</p>
     ) : (
       <div className="movie-list">
-        {movies.map(movie => <MovieCard key={movie.id} result={movie} type="list" />)}
+        {results.map(result => <MovieCard key={result.id} result={result} type="list" />)}
       </div>
     )
   )

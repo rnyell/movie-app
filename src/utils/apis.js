@@ -2,12 +2,13 @@ import { request, sortResults } from "./utils"
 
 
 export const MOVIE_GENRES = {
-  28: "Action",
-  12: "Adventure",
-  35: "Comedy",
-  80: "Crime",
   18: "Drama",
   53: "Thriller",
+  28: "Action",
+  35: "Comedy",
+  16: "Animation",
+  80: "Crime",
+  12: "Adventure",
   14: "Fantasy",
   10751: "Family",
   9648: "Mystery",
@@ -16,7 +17,6 @@ export const MOVIE_GENRES = {
   10749: "Romance",
   10402: "Music",
   36: "History",
-  16: "Animation",
   10752: "War",
   10770: "TV Movie",
   99: "Documentary",
@@ -24,23 +24,44 @@ export const MOVIE_GENRES = {
 }
 
 export const TV_GENRES = {
-  10759: "Action & Adventure",
-  35: "Comedy",
-  80: "Crime",
   18: "Drama",
   10751: "Family",
-  9648: "Mystery",
+  10759: "Action & Adventure",
   10765: "Sci-Fi & Fantasy",
+  35: "Comedy",
+  80: "Crime",
+  9648: "Mystery",
+  10767: "Talk",
   16: "Animation",
   10768: "War & Politics",
   37: "Western",
   /* 99: "Documentary" ,*/
   /* 10762: "Kids",*/
+  /* 10763: "News",*/
   /* 10764: "Reality",*/
   /* 10766: "Soap",*/
-  /* 10767: "Talk",*/
-  /* 10763: "News",*/
 }
+
+export const movieDisplayedGenres = [
+  { name: "Drama", id: 18 },
+  { name: "Thrillers", id: 53 },
+  { name: "Action", id: 28 },
+  { name: "Crime", id: 80 },
+  { name: "Comedy", id: 35 },
+  { name: "Romance", id: 10749 },
+  { name: "Music", id: 10402 },
+  { name: "Animation", id: 16 },
+]
+
+export const seriesDisplayedGenres = [
+  { name: "Drama", id: 18 },
+  { name: "Action, Adveture", id: 10759 },
+  { name: "Sci-Fi, Fantasy", id: 10765 },
+  { name: "Comedy", id: 35 },
+  { name: "Mystery", id: 9648 },
+  { name: "Crime", id: 80 },
+]
+
 
 // ~'/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc'
 // ~'3/discover/tv?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc'
@@ -134,15 +155,17 @@ export async function getAllResults(title = "", lang = "en-US") {
 }
 
 
-export async function getMoviesByGenre(genreId) {
-  const path = "3/discover/movie"
+export async function getItemsByGenre(type, genreId) {
+  const isAnimation = genreId === 16
+  const isTalkShow = genreId === 10767
+  const path = (type === "movie") ? "3/discover/movie" : "3/discover/tv"
   const params = {
     language: "en-US",
     with_genres: genreId,
+    without_genres: `${isAnimation ? "" : "16"},${isTalkShow ? "" : "10767"},99,10762,10763,10764,10766`,
     api_key: import.meta.env.VITE_API_KEY
   }
   const data = await request(path, params)
-  // console.log(data)
   const { results } = data
   return results
 }

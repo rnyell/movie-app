@@ -9,11 +9,11 @@
     place-items: center;
   }
   
-  & .flex-content {
+  & .flex-item {
     margin-inline: auto var(--space-6);
   }
 
-  &[data-location~="movies-page"] {
+  &[data-location~="discover-page"] {
     position: sticky;
     z-index: var(--z-50);
     top: 0;
@@ -21,7 +21,7 @@
   }
 
   &[data-location~="results-page"] {
-    & .flex-content {
+    & .flex-item {
       margin-inline: var(--space-6) auto;
       width: max(300px, 45%);
     }
@@ -35,7 +35,7 @@
     background-color: color-mix(in srgb, var(--color-neutral-700) 75%, transparent);
     backdrop-filter: blur(20px);
 
-    & .flex-content {
+    & .flex-item {
       flex: 1;
     }
 

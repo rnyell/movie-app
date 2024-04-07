@@ -7,7 +7,7 @@ export default function Discover() {
     <div className="discover">
       <SideNav />
       <main>
-        <Header dataLocation="discover" />
+        <Header dataset="discover" />
         
       </main>
     </div>

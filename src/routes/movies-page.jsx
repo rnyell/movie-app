@@ -1,37 +1,50 @@
+import { Link } from "react-router-dom"
+import { ChevronRightIcon, FireIcon } from "@heroicons/outline"
+import { FireIconSolid } from "../utils/icons"
+import { movieDisplayedGenres } from "@src/utils/apis"
+
 import Header from "@components/header"
 import SideNav from "@components/sidenav"
 import MovieList from "@components/movie/movie-list"
+
 
 export default function MoviesPage() {
   return (
     <div className="movies-page">
       <SideNav />
       <main>
-        <Header dataLocation="movies-page" />
-        <section>
-          <h4>Hot Movies</h4>
-          <MovieList />
+        <Header dataset="discover-page default" />
+        <section className="hot-movies-section">
+          <header>
+            <h4>Hot Movies</h4>
+            <i className="icon fire-icon">
+              <FireIconSolid />
+            </i>
+          </header>
+          <MovieList type="movie" />
         </section>
 
         <section>
           <h4>Recommend for you</h4>
-          <MovieList />
+          <div>
+
+          </div>
         </section>
 
-        <section>
-          <h4>Drama</h4>
-          <MovieList genreId={18} />
-        </section>
-
-        <section>
-          <h4>Thrillers</h4>
-          <MovieList genreId={53} />
-        </section>
-
-        <section>
-          <h4>Animations</h4>
-          <MovieList genreId={16} />
-        </section>
+        {movieDisplayedGenres.map(genreObj => 
+          <section key={genreObj.id}>
+            <header>
+              <h4>{genreObj.name}</h4>
+              <Link to="/">
+                More
+                <i className="icon">
+                  <ChevronRightIcon />
+                </i>
+              </Link>
+            </header>
+            <MovieList type="movie" genreId={genreObj.id} />
+          </section>
+        )}
       </main>
     </div>
   )

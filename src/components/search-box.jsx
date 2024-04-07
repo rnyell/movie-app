@@ -3,7 +3,7 @@ import { useSearchParams, useNavigate, useLocation } from "react-router-dom"
 import { MagnifyingGlassIcon } from "@heroicons/outline"
 
 
-export default function SearchBox({ dataLocation }) {
+export default function SearchBox({ dataset }) {
   const [params, setParams] = useSearchParams()
   const [userInput, setUserInput] = useState("")
   const navigate = useNavigate()
@@ -31,11 +31,11 @@ export default function SearchBox({ dataLocation }) {
   }
   
   function handleSearchMovie(title) {
-    if (title && dataLocation.includes("home-page")) {
+    if (title && dataset.includes("default")) {
       navigate("/search")
       setParams({query: title, page: 1})
       return
-    } else if (title && dataLocation.includes("results-page")) {
+    } else if (title && dataset.includes("results-page")) {
       setParams({query: title, page: 1})
       return
     }
@@ -48,10 +48,10 @@ export default function SearchBox({ dataLocation }) {
 
     if (!formattedInput) {
       return
-    } else if (!formattedInput && dataLocation.includes("home-page")) {
+    } else if (!formattedInput && dataset.includes("default")) {
       inputRef.current.focus()
       return
-    } else if (formattedInput && dataLocation.includes("home-page")) {
+    } else if (formattedInput && dataset.includes("default")) {
       handleSearchMovie(formattedInput)
       return
     }
@@ -62,7 +62,7 @@ export default function SearchBox({ dataLocation }) {
   function handleClickOutside({target}) {
     const element = boxRef.current
     const isOutside = !element.contains(target)
-    if (element && isOutside && dataLocation.includes("home-page")) {
+    if (element && isOutside && dataset.includes("default")) {
       setUserInput("")
     }
   }
@@ -76,7 +76,7 @@ export default function SearchBox({ dataLocation }) {
   return (
     <div 
       className="search-box"
-      data-location={dataLocation}
+      data-location={dataset}
       ref={boxRef}
       onKeyDown={keyPressHandler}
       tabIndex={0}

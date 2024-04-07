@@ -138,9 +138,7 @@ export default function ResultsPage() {
   return (
     <div className="results-page">
       <div className="sticky">
-        <Header dataLocation="results-page">
-          <SearchBox dataLocation="results-page" />
-        </Header>
+        <Header dataset="results-page" />
       </div>
       <aside>
         <FilterBox />
