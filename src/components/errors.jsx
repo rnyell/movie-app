@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
+import { ExclamationCircleIcon} from "@heroicons/outline"
 
 export function ErrorPage() {
   return (
@@ -26,6 +27,9 @@ export function VPNError() {
         <button onClick={() => window.location.reload()}>
           Reload
         </button>
+        <i className="icon">
+          <ExclamationCircleIcon />
+        </i>
       </motion.div>
     </section>
   )

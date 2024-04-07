@@ -9,12 +9,33 @@ export default function MovieCard({ result, type }) {
   const [runtime, setRuntime] = useState(null)
 
   useEffect(() => {
-    /* when type="screen" */
-    getMovieRuntime(result.id).then(d => setRuntime(d))
+    if (type === "screen") {
+      getMovieRuntime(result.id).then(d => setRuntime(d))
+    }
   }, [])
 
-  // console.log(result)
   switch (type) {
+    case "list": {
+      <div data-type={type} className="movie-card">
+        <figure>
+          <img
+            src={`https://image.tmdb.org/t/p/original${result.backdrop_path}`}
+            alt="poster" className="poster"
+            draggable="false"
+          />
+        </figure>
+        {/* {console.log(result.title)} */}
+        <h5 className="title">{result.title}</h5>
+        <div className="details">
+          <span className="runtime">{formatRuntime(runtime)}</span>
+          <span className="vote">
+            <i className="icon star-icon"><StarIcon /></i>
+            <span className="vote-number">{formatRate(result.vote_average)}</span>
+          </span>
+        </div>
+      </div>
+    }
+
     case "series": {
       return (
         <div data-type={type} className="movie-card">

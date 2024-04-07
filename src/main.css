@@ -2,10 +2,10 @@
 
 /* routes */
 @import "@styles/home-page.css" layer;
+@import "@styles/movies-page.css" layer;
 @import "@styles/results-page.css" layer;
 @import "@styles/booking.css" layer;
 @import "@styles/ticket.css" layer;
-@import "@styles/errors.css" layer;
 
 /* components */
 @import "@styles/hero-section.css" layer;
@@ -18,6 +18,7 @@
 @import "@styles/header.css" layer;
 @import "@styles/footer.css" layer;
 @import "@styles/skeletons.css" layer;
+@import "@styles/errors.css" layer;
 
 /* media/conrainer queries */
 @import "@src/queries.css";

@@ -5,13 +5,13 @@ import { motion, AnimatePresence } from "framer-motion"
 import { getAllResults } from "@src/utils/apis"
 import { generatePagination } from "@src/utils/utils"
 import { useSearch } from "@src/store/app-context"
+import Header from "@components/header"
 import SearchBox from "@components/search-box"
 import MovieCard from "@components/movie/movie-card"
-import Header from "@components/header"
+import FilterBox from "@components/filter-box"
 import Pagination from "@components/pagination"
 import { SearchResultsSkeleton } from "@components/skeletons"
 import { NotFoundResult } from "@components/errors"
-import FilterBox from "../components/filter-box"
 
 const results_types = ["all", "movie", "tv"]
 
@@ -24,7 +24,7 @@ export default function ResultsPage() {
     pages: 0
   })
   const [resultsType, setResultsType] = useState("all")
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [searchParams] = useSearchParams()
   const location = useLocation()
   // how does it work? this is a simple variable not a state...
   let currentPage = Number(searchParams.get("page")) || 1

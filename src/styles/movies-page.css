@@ -1,0 +1,38 @@
+.movies-page {
+  height: 100vh;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: auto 1fr;
+
+  & main {
+    padding-inline: var(--space-6);
+    grid-column: 2 / 3;
+    width: 100%;
+    overflow-x: scroll;
+    scrollbar-width: none;
+
+    & section {
+      margin-block: var(--space-6);
+    }
+
+    h4 {
+      margin-bottom: var(--space-4);
+    }
+  }
+}
+
+.movies-page .movie-list {
+  padding: var(--space-2) var(--space-4);
+  width: 100%;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  scroll-snap-type: x proximity;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  & > * {
+    flex-shrink: 0;
+    scroll-snap-align: start;
+  }
+}

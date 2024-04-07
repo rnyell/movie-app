@@ -12,7 +12,6 @@ import {
 
 import { getMovieDetails } from "@src/utils/apis"
 import {
-  formatRuntime,
   getMovieGenres,
   getMovieDirector,
   formatRate,

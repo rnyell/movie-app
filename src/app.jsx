@@ -6,6 +6,8 @@ import { AppProvider } from "@src/store/app-context"
 import RootLayout from "@src/routes/layout"
 import HomePage from "@src/routes/home-page"
 import Discover from "@src/routes/discover"
+import MoviesPage from "@src/routes/movies-page"
+import SeriesPage from "@src/routes/series-page"
 import Reservation from "@src/routes/reservation"
 import ResultsPage from "@src/routes/results-page"
 import SelectedMovie from "@src/routes/selected-movie"
@@ -23,8 +25,10 @@ const routes = [
     children: [
       { path: "/", element: <HomePage />, },
       { path: "/discover", element: <Discover />, children: [
-        { path: "/discover/:id", element: <div /> }
+        // { path: "/discover/:id", element: <div /> }
       ] },
+      { path: "/movies", element: <MoviesPage /> },
+      { path: "/series", element: <SeriesPage /> },
       { path: "/search", element: <ResultsPage /> },
       { path: "/movies/:id", element: <SelectedMovie /> },
       { path: "/booking", element: <Booking /> },

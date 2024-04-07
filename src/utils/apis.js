@@ -110,7 +110,6 @@ export async function getTrendingSeries() {
 }
 
 
-
 export async function getAllResults(title = "", lang = "en-US") {
   let results = []
   const formattedTitle = title.split(' ').join("+")
@@ -135,22 +134,18 @@ export async function getAllResults(title = "", lang = "en-US") {
 }
 
 
-// export async function getSearchedSeries(title = "", lang = "en-US") {
-//   let formattedTitle = title.split(' ').join("+")
-//   const path = "3/search/tv"
-//   let data = await request(path, {
-//     query: formattedTitle,
-//     language: lang,
-//     api_key: import.meta.env.VITE_API_KEY
-//   })
-
-//   const { 
-//     results, 
-//     total_results: totalResults, 
-//     total_pages: totalPages 
-//   } = data
-//   return { results, totalResults, totalPages }
-// }
+export async function getMoviesByGenre(genreId) {
+  const path = "3/discover/movie"
+  const params = {
+    language: "en-US",
+    with_genres: genreId,
+    api_key: import.meta.env.VITE_API_KEY
+  }
+  const data = await request(path, params)
+  // console.log(data)
+  const { results } = data
+  return results
+}
 
 
 export async function getMovieDetails(movieId) {

@@ -13,6 +13,13 @@
     margin-inline: auto var(--space-6);
   }
 
+  &[data-location~="movies-page"] {
+    position: sticky;
+    z-index: var(--z-50);
+    top: 0;
+    background-color: var(--color-neutral-800);
+  }
+
   &[data-location~="results-page"] {
     & .flex-content {
       margin-inline: var(--space-6) auto;
