@@ -16,7 +16,7 @@ export default function MovieList({ type, genreId }) {
     setIsLoading(false)
   }
 
-  console.log(results);
+  // console.log(results)
   return (
     isLoading ? (
       <p>loading</p>

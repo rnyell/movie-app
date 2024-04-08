@@ -1,27 +1,4 @@
-.recommended-section {
-
-  & .movie-list {
-    padding: var(--space-2) var(--space-4);
-    width: 100%;
-    height: 90%;
-    overflow-y: scroll;
-    scrollbar-width: none;
-    scroll-snap-type: x proximity;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-
-    & > * {
-      flex-shrink: 0;
-      scroll-snap-align: start;
-    }
-  }
-}
-
-/*-------------------------------------------------------*/
-.discover-page,
-.movies-page,
-.series-page {
+.discover-page {
   height: 100vh;
   overflow: hidden;
   display: grid;
@@ -72,8 +49,29 @@
   }
 }
 
-:where(.movies-page, .series-page) 
-:where(.hot-movies-section, .hot-series-section) {
+.recommended-section {
+
+  & .movie-list {
+    padding: var(--space-2) var(--space-4);
+    width: 100%;
+    height: 90%;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    scroll-snap-type: x proximity;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    & > * {
+      flex-shrink: 0;
+      scroll-snap-align: start;
+    }
+  }
+}
+
+
+/*----------------------------------------------------------------------------------------------*/
+.discover-page :where(.hot-movies-section, .hot-series-section) {
   & h4 {
     color: rgb(233, 176, 77);
   }
@@ -85,7 +83,7 @@
   }
 }
 
-:where(.movies-page, .series-page) .movie-list {
+.discover-page .movie-list {
   padding: var(--space-2) var(--space-4);
   width: 100%;
   height: 90%;
@@ -102,11 +100,6 @@
   }
 }
 
-
-/*-------------------------------------------------------*/
-.series-page {
-
-}
 
 
 .news-section {

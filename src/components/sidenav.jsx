@@ -25,8 +25,8 @@ import { useWindow } from "@src/utils/hooks"
 const lg_links = [
   { name: "Home", href: "/", icon: <HomeIcon /> },
   { name: "Discover", href: "/discover", icon: <CompasIcon /> },
-  { name: "Movies", href: "/movies", icon: <FilmIcon /> },
-  { name: "Tv Shows", href: "/series", icon: <TvIcon /> },
+  { name: "Movies", href: "/discover/movies", icon: <FilmIcon /> },
+  { name: "TV Shows", href: "/discover/series", icon: <TvIcon /> },
   { name: "Reservation", href: "/reservation", icon: <TicketIcon /> },
   { name: "Your Stuff", href: "/stuff", icon: <BookmarkIcon /> },
 ]
@@ -41,11 +41,11 @@ const lg_solid_icons = [
 ]
 
 const sm_links = [
-  { name: "Tv Shows", href: "/series", icon: <TvIcon /> },
-  { name: "Movies", href: "/movies", icon: <FilmIcon /> },
+  { name: "TV Shows", href: "/discover/series", icon: <TvIcon /> },
+  { name: "Movies", href: "/discover/movies", icon: <FilmIcon /> },
   { name: "Home", href: "/", icon: <HomeIcon /> },
   { name: "Discover", href: "/discover", icon: <CompasIcon /> },
-  { name: "Tv Shows", href: "/#", icon: <Squares2X2Icon /> },
+  { name: "", href: "/#", icon: <Squares2X2Icon /> },
 ]
 
 const sm_solid_icons = [

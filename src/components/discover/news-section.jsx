@@ -63,7 +63,7 @@ export default function NewsSction() {
         </div>
       </div>
 
-      <Link to="/news">
+      <Link to="/discover/news">
         Read more news!
       </Link>
     </section>
