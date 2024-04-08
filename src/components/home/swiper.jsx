@@ -10,7 +10,7 @@ export default function Swiper({ movie }) {
   return (
     <div className="swiper-container">
       <div className="swiper">
-        <AnimatePresence initial={true} mode="sync">
+        <AnimatePresence initial={true} mode="popLayout">
           {cloned.toReversed().slice(-visibleMoviesCount).map((film, idx) => {
             const isFront = idx === visibleMoviesCount - 1
             return (

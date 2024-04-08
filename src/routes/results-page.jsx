@@ -6,7 +6,6 @@ import { getAllResults } from "@src/utils/apis"
 import { generatePagination } from "@src/utils/utils"
 import { useSearch } from "@src/store/app-context"
 import Header from "@components/header"
-import SearchBox from "@components/search-box"
 import MovieCard from "@components/movie/movie-card"
 import FilterBox from "@components/filter-box"
 import Pagination from "@components/pagination"
@@ -19,10 +18,7 @@ export default function ResultsPage() {
   const ITEMS_PER_PAGE = 18
   const [isLoading, setIsLoading] = useState(true)
   const [searchState, searchDispatch] = useSearch()
-  const [searchStateCopy, setSearchStateCopy] = useState({
-    results: [],
-    pages: 0
-  })
+  const [searchStateCopy, setSearchStateCopy] = useState({ results: [], pages: 0 })
   const [resultsType, setResultsType] = useState("all")
   const [searchParams] = useSearchParams()
   const location = useLocation()

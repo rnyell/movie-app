@@ -35,7 +35,7 @@ export const TV_GENRES = {
   16: "Animation",
   10768: "War & Politics",
   37: "Western",
-  /* 99: "Documentary" ,*/
+  99: "Documentary",
   /* 10762: "Kids",*/
   /* 10763: "News",*/
   /* 10764: "Reality",*/
@@ -49,7 +49,7 @@ export const movieDisplayedGenres = [
   { name: "Crime", id: 80 },
   { name: "Comedy", id: 35 },
   { name: "Romance", id: 10749 },
-  { name: "Music", id: 10402 },
+  { name: "Musical", id: 10402 },
   { name: "Animation", id: 16 },
 ]
 
@@ -62,6 +62,17 @@ export const seriesDisplayedGenres = [
   { name: "Crime", id: 80 },
 ]
 
+/*
+recommendations
+Oppenheimer
+872585
+
+Napoleon
+753342
+
+The Batman 2022
+414906
+*/
 
 // ~'/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc'
 // ~'3/discover/tv?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc'
@@ -78,7 +89,7 @@ export async function getComingMovies() {
   const params = {
     page: 1,
     language: "en-US",
-    api_key: import.meta.env.VITE_API_KEY
+    api_key: import.meta.env.VITE_MAIN_API_KEY
   }
   let data = await request(path, params)
   const { results } = data
@@ -92,7 +103,7 @@ export async function getOnScreenMovies() {
     page: 1,
     language: "en-US",
     region: "US",
-    api_key: import.meta.env.VITE_API_KEY
+    api_key: import.meta.env.VITE_MAIN_API_KEY
   }
   let data = await request(path, params)
   const { results } = data
@@ -105,7 +116,7 @@ export async function getPopularMovies() {
   const params = {
     page: 1,
     language: "en-US",
-    api_key: import.meta.env.VITE_API_KEY
+    api_key: import.meta.env.VITE_MAIN_API_KEY
   }
   let data = await request(path, params)
   const { results } = data
@@ -123,7 +134,7 @@ export async function getTrendingSeries() {
     "vote_count.gte": 200,
     include_null_first_air_dates: false,
     without_genres: "99,10762,10763,10764,10766,10767",
-    api_key: import.meta.env.VITE_API_KEY
+    api_key: import.meta.env.VITE_MAIN_API_KEY
   }
   let data = await request(path, params)
   const { results } = data
@@ -138,7 +149,7 @@ export async function getAllResults(title = "", lang = "en-US") {
   const params = {
     query: formattedTitle,
     language: lang,
-    api_key: import.meta.env.VITE_API_KEY
+    api_key: import.meta.env.VITE_MAIN_API_KEY
   }
   // this call is to fetch total_pages for getting iterate count
   const data = await request(path, params)
@@ -163,7 +174,7 @@ export async function getItemsByGenre(type, genreId) {
     language: "en-US",
     with_genres: genreId,
     without_genres: `${isAnimation ? "" : "16"},${isTalkShow ? "" : "10767"},99,10762,10763,10764,10766`,
-    api_key: import.meta.env.VITE_API_KEY
+    api_key: import.meta.env.VITE_MAIN_API_KEY
   }
   const data = await request(path, params)
   const { results } = data
@@ -173,22 +184,43 @@ export async function getItemsByGenre(type, genreId) {
 
 export async function getMovieDetails(movieId) {
   const path = `3/movie/${movieId}`
-  const params = { api_key: import.meta.env.VITE_API_KEY, append_to_response: "credits,videos,images" }
-  let data = await request(path, params)
+  const params = {
+    append_to_response: "credits,videos,images,recommendations",
+    api_key: import.meta.env.VITE_MAIN_API_KEY
+  }
+  const data = await request(path, params)
+  return data
+}
+
+/*
+Note:
+"similar" is built by looking for items based on their keywords and genres. "recommendations" are built by looking at user ratings. Very different approaches. Similar does not tend to yield very good results.
+*/
+export async function getRecommendedMovies(movieId) {
+  const path = `3/movie/${movieId}/recommendations`
+  const params = { language: "en-US", api_key: import.meta.env.VITE_MAIN_API_KEY }
+  const data = await request(path, params)
+  return data.results
+}
+
+export async function getSimilarMovies(movieId) {
+  const path = `3/movie/${movieId}/similar`
+  const params = { language: "en-US", api_key: import.meta.env.VITE_MAIN_API_KEY }
+  const data = await request(path, params)
   return data
 }
 
 export async function getMovieRuntime(movieId) {
   const path = `3/movie/${movieId}`
-  const params = { api_key: import.meta.env.VITE_API_KEY }
-  let data = await request(path, params)
+  const params = { api_key: import.meta.env.VITE_MAIN_API_KEY }
+  const data = await request(path, params)
   return data.runtime
 }
 
 export async function getMovieTrailer(movieId) {
   const path = `3/movie/${movieId}/videos`
-  const params = { api_key: import.meta.env.VITE_API_KEY }
-  let data = await request(path, params)
+  const params = { api_key: import.meta.env.VITE_MAIN_API_KEY }
+  const data = await request(path, params)
   let officialTrailers = data.results.filter(res => 
     res.type === "Trailer" && 
     res.official === true
@@ -199,13 +231,31 @@ export async function getMovieTrailer(movieId) {
   return trailerUrl
 }
 
+export async function getSomeNews() {
+  // const path1 = "https://newsapi.org/v2/top-headlines"
+  const path = "https://newsapi.org/v2/everything"
+  const keywords = "(movie film upcoming cinema oscar drama marvel dune) OR (box AND office) OR (screen AND talk) OR (movie AND 2024) OR (movie AND 2025)"
+  // const keywords = "Ryan Gosling Emma Stone"
+  const params = {
+    q: keywords,
+    sortBy: "popularity",
+    domains: "collider.com,variety.com,comingsoon.net,rottentomatoes.com",
+    from: "2024-03-25",
+    to: "2024-04-07",
+    apiKey: import.meta.env.VITE_NEWS_API_KEY,
+  }
+  const data = await request(path, params)
+  const {articles} = data
+  return articles
+}
+
 // export async function getMovies(title = "", lang?: string) {
 //   const formattedTitle = title.split(' ').join("+");
 //   const path = "3/search/movie";
 //   const params = {
 //     query: formattedTitle,
 //     language: lang,
-//     api_key: import.meta.env.VITE_API_KEY
+//     api_key: import.meta.env.VITE_MAIN_API_KEY
 //   };
 //   const movies: any[] = [];
 //   const data = await request(path, params);
@@ -224,7 +274,7 @@ export async function getMovieTrailer(movieId) {
 //   const params = {
 //     query: formattedTitle,
 //     language: lang,
-//     api_key: import.meta.env.VITE_API_KEY
+//     api_key: import.meta.env.VITE_MAIN_API_KEY
 //   };
 //   const series: any[] = [];
 //   const data = await request(path, params);
@@ -243,7 +293,7 @@ export async function getMovieTrailer(movieId) {
 //     query: formattedTitle,
 //     language: "en-US",
 //     page: page,
-//     api_key: import.meta.env.VITE_API_KEY
+//     api_key: import.meta.env.VITE_MAIN_API_KEY
 //   })
 //   const { 
 //     results, 

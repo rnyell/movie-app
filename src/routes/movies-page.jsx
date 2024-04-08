@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { ChevronRightIcon, FireIcon } from "@heroicons/outline"
+import { ChevronRightIcon } from "@heroicons/outline"
 import { FireIconSolid } from "../utils/icons"
 import { movieDisplayedGenres } from "@src/utils/apis"
 

@@ -6,29 +6,26 @@ import {
   useTransform,
   useMotionValueEvent,
 } from "framer-motion"
-
 import { useWindow } from "@src/utils/hooks"
 import Header from "@components/header"
 import SideNav from "@components/sidenav"
-import SearchBox from "@components/search-box"
 import HeroSection from "@components/home/hero-section"
 import ScreenSection from "@components/home/screen-section"
 import SeriesSection from "@components/home/series-section"
 import Footer from "@components/footer"
-// import Scroller from "@components/animated/scroller"
 
 export default function HomePage() {
   const { windowWidth, windowHeight } = useWindow()
   const [fixedHeight, setFixedHeight] = useState()
-  const [mainRef, animate] = useAnimate(null)
-  // const mainRef = useRef(null)
+  // const [mainRef, animate] = useAnimate(null)
+  const mainRef = useRef(null)
   const fixedRef = useRef(null)
   const heroRef = useRef(null)
   const sectionsRef = useRef(null)
   const divRef = useRef(null)
 
   useEffect(() => {
-    if (windowWidth > 460) {
+    if (fixedRef.current && windowWidth > 460) {
       setFixedHeight(fixedRef.current.scrollHeight)
       console.log(fixedHeight)
     }

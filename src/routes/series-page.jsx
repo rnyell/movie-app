@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
-import { ChevronRightIcon, FireIcon } from "@heroicons/outline"
-import { FireIconSolid } from "../utils/icons"
+import { ChevronRightIcon } from "@heroicons/outline"
+import { FireIconSolid } from "@src/utils/icons"
 import { seriesDisplayedGenres } from "@src/utils/apis"
 
 import Header from "@components/header"

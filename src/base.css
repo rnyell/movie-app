@@ -50,6 +50,15 @@
 
 @font-face {
   font-family: Ubuntu;
+  font-weight: 400;
+  font-style: normal;
+  /*? font-display: swap;*/
+  src: local("Montserrat"),
+    url("/fonts/Ubuntu-400.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Ubuntu;
   font-weight: 500;
   font-style: normal;
   /*? font-display: swap;*/
@@ -109,21 +118,20 @@
 
   --color-neutral-100: #eaeff3;
   --color-neutral-200: #dde5eb;
+  --color-neutral-250: color-mix(in srgb, var(--color-neutral-200), var(--color-neutral-300));
   --color-neutral-300: #c3cedb;
+  --color-neutral-350: color-mix(in srgb, var(--color-neutral-300), var(--color-neutral-400));
   --color-neutral-400: #838c94;
+  --color-neutral-450: color-mix(in srgb, var(--color-neutral-400), var(--color-neutral-500));
   --color-neutral-500: #42474b;
+  --color-neutral-550: color-mix(in srgb, var(--color-neutral-500), var(--color-neutral-600));
   --color-neutral-600: #323739;
+  --color-neutral-650: color-mix(in srgb, var(--color-neutral-600), var(--color-neutral-700));
   --color-neutral-700: #25282a;
+  --color-neutral-750: color-mix(in srgb, var(--color-neutral-700), var(--color-neutral-800));
   --color-neutral-800: #1e2022;
   --color-neutral-900: #131416;
   --color-orange-300: #f5c518;
-  /*~
-  --color-neutral-350: color-mix();
-  --color-neutral-450: color-mix();
-  --color-neutral-550: color-mix();
-  --color-neutral-650: color-mix();
-  --color-neutral-750: color-mix();
-  */
   /*
   --color-accent-100: rgb(57, 168, 185);
   --color-accent-100: rgb(197, 65, 100);
@@ -154,6 +162,13 @@
 }
 
 @layer utilities {
+  .main-layout {
+    /* home-page movie-page discover-page */
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: auto 1fr;
+  }
+
   .stack-ctx {
     position: relative;
     isolation: isolate;

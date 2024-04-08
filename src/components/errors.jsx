@@ -22,7 +22,7 @@ export function VPNError() {
         animate={{ y: 0 }}
         transition={{ ease: "easeOut", duration: 0.5 }}
       >
-        <p>Due to some restrictions in your area, access to some domains has been limited. Unfortunately to access our app, you must use a <b>VPN</b>.</p>
+        <p>Due to some restrictions in your area, accessing some domains has been limited. Unfortunately to access our app, you must use a <b>VPN</b>.</p>
         <p>Once connected, please <u>reload the page</u> or <u>press the button bellow</u> to continue.</p>
         <button onClick={() => window.location.reload()}>
           Reload

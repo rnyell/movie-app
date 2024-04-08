@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getItemsByGenre } from "../../utils/apis"
+import { getItemsByGenre } from "@src/utils/apis"
 import MovieCard from "./movie-card"
 
 export default function MovieList({ type, genreId }) {
@@ -16,6 +16,7 @@ export default function MovieList({ type, genreId }) {
     setIsLoading(false)
   }
 
+  console.log(results);
   return (
     isLoading ? (
       <p>loading</p>

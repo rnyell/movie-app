@@ -2,7 +2,7 @@ import { MOVIE_GENRES, TV_GENRES } from "./apis";
 
 
 export async function request(path = "", params = {}) {
-  const base = import.meta.env.VITE_API_BASE_URL
+  const base = import.meta.env.VITE_MAIN_API_URL
   const url = new URL(path, base)
   Object.keys(params).forEach((param) =>
     url.searchParams.set(param, params[param])
