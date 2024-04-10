@@ -77,7 +77,7 @@
     background-color: #1e2022;
     width: 0.5rem;
     height: 0.5rem;
-    border-radius: var(--rounded-full);
+    border-radius: var(--full-rounded);
   }
 
   & .day-name {
@@ -104,7 +104,7 @@
     padding: 0.5rem 1rem;
     outline: 0.125rem solid var(--color-accent-100);
     outline: 0.125rem solid var(--color-neutral-500);
-    border-radius: var(--rounded-full);
+    border-radius: var(--full-rounded);
     cursor: pointer;
     transition: var(--duration-1) ease-in;
 
@@ -146,7 +146,7 @@
     font-size: 1.25rem;
     font-weight: 600;
     background-color: var(--color-accent-100);
-    border-radius: var(--rounded-full);
+    border-radius: var(--full-rounded);
     cursor: pointer;
   }
 }

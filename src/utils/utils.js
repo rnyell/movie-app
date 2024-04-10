@@ -18,7 +18,7 @@ export async function request(path = "", params = {}) {
 }
 
 export function readLocalStorage(key) {
-  const value = localStorage.getItem(key)
+  const value = localStorage.getItem(key) || null
   return JSON.parse(value)
 }
 

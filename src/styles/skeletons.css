@@ -109,7 +109,7 @@
       width: 4rem;
       height: 0.75rem;
       display: inline-block;
-      border-radius: var(--rounded-full);
+      border-radius: var(--full-rounded);
       animation: loader-2 1.2s infinite ease-in-out;
     }
   }
@@ -117,7 +117,7 @@
   & .l-title {
     width: 5rem;
     height: 1.35rem;
-    border-radius: var(--rounded-full);
+    border-radius: var(--full-rounded);
     animation: loader-1 1.2s infinite ease-in-out;
   }
 
@@ -127,7 +127,7 @@
     & .l-lines {
       margin-block: 1rem;
       height: 1rem;
-      border-radius: var(--rounded-full);
+      border-radius: var(--full-rounded);
       animation: loader-2 1.2s infinite ease-in-out;
 
       &:last-child {
@@ -178,7 +178,7 @@
         top: var(--space-3);
         left: var(--space-3);
         background-color: color-mix(in srgb, var(--color-neutral-400), transparent 90%);
-        border-radius: var(--rounded-full);
+        border-radius: var(--full-rounded);
       }
     }
 
@@ -187,7 +187,7 @@
       width: 56.25%;
       height: calc(1rem + 0.1vw);
       background-color: var(--color-neutral-400);
-      border-radius: var(--rounded-full);
+      border-radius: var(--full-rounded);
       animation: loader-3 1.2s infinite ease-in;
     }
 
@@ -195,7 +195,7 @@
       width: 35%;
       height: 0.675rem;
       background-color: var(--color-neutral-600);
-      border-radius: var(--rounded-full);
+      border-radius: var(--full-rounded);
       animation: loader-4 1.2s infinite ease-in;
     }
   }

@@ -76,7 +76,7 @@ export default function SearchBox({ dataset }) {
   return (
     <div 
       className="search-box"
-      data-location={dataset}
+      data-set={dataset}
       ref={boxRef}
       onKeyDown={keyPressHandler}
       tabIndex={0}

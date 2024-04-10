@@ -6,6 +6,7 @@
 @import "@styles/results-page.css" layer;
 @import "@styles/booking.css" layer;
 @import "@styles/user-stuff.css" layer;
+@import "@styles/reservation.css" layer;
 
 /* components */
 @import "@styles/hero-section.css" layer;

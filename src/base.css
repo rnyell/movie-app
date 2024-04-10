@@ -1,5 +1,10 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Rokkitt:ital,wght@0,100..900;1,100..900&display=swap'); */
-@layer reset, global, typo, utilities;
+/* @import "@src/tailwind.css" layer(framework); */
+@layer reset, framework, global, typo, utilities;
+
+@layer framework {
+
+}
 
 @font-face {
   font-family: Montserrat;
@@ -91,8 +96,8 @@
   --outline-size-1: 1px;
   --outline-size-2: 0.07525rem;
   --outline-size-3: 0.1375rem;
-  --outline-size-4: 0.1825rem;
-  --rounded-full: 9999px;
+  --outline-size-4: 0.185rem;
+  --full-rounded: 9999px;
   --shadow-100: 0 0.15rem 1.15rem rgb(0 0 0 / 20%);
   --shadow-200: 0 0.1rem 0.75rem rgb(0 0 0 / 50%);
   --duration-1: 150ms;
@@ -107,6 +112,55 @@
   --z-50: 50;
   --z-100: 100;
 
+  --color-neutral-100: rgb(234 239 243);
+  --color-neutral-200: rgb(221 229 235);
+  --color-neutral-250: color-mix(
+    in srgb, var(--color-neutral-200), var(--color-neutral-300)
+  );
+  --color-neutral-300: rgb(195 206 219);
+  --color-neutral-350: color-mix(
+    in srgb, var(--color-neutral-300), var(--color-neutral-400)
+  );
+  --color-neutral-400: rgb(131 140 148);
+  --color-neutral-450: color-mix(
+    in srgb, var(--color-neutral-400), var(--color-neutral-500)
+  );
+  --color-neutral-500: rgb(66 71 75);
+  --color-neutral-550: color-mix(
+    in srgb, var(--color-neutral-500), var(--color-neutral-600)
+  );
+  --color-neutral-600: rgb(50 55 57);
+  --color-neutral-650: color-mix(
+    in srgb, var(--color-neutral-600), var(--color-neutral-700)
+  );
+  --color-neutral-700: rgb(37 40 42);
+  --color-neutral-750: color-mix(
+    in srgb, var(--color-neutral-700), var(--color-neutral-800)
+  );
+  --color-neutral-800: rgb(30 32 34);
+  --color-neutral-900: rgb(19 20 22);
+  --color-orange-300: #f5c518;
+
+  --black-gradient: rgb(10 13 15 / 25%);
+
+  /*
+  --color-accent-100: rgb(57 168 185);
+  --color-accent-100: rgb(197 65 100);
+  --color-accent-100: rgb(186 58 92);
+  */
+  --color-accent-100: #E48A94;
+  --color-accent-200: #DA697A;
+  --color-accent-300: #D3546A;
+  --color-accent-400: #C74361;
+  --color-accent-500: #BA3A5C;
+  --color-accent-600: #A72A4B;
+  
+  /* calculate the true vw unit, without scrollbar */
+  /* just in the case of <html> adding the scrollbar */
+  --scrollbar-width: 0;
+  --viewport-width: calc(100vw - var(--scrollbar-width));
+
+  /* specific to project variables */
   --icon-size-1: 0.25rem;
   --icon-size-2: 0.5rem;
   --icon-size-3: 0.75rem;
@@ -115,63 +169,37 @@
   --icon-size-6: 1.5rem;
   --icon-size-7: 1.75rem;
   --icon-size-8: 2rem;
-
-  --color-neutral-100: #eaeff3;
-  --color-neutral-200: #dde5eb;
-  --color-neutral-250: color-mix(in srgb, var(--color-neutral-200), var(--color-neutral-300));
-  --color-neutral-300: #c3cedb;
-  --color-neutral-350: color-mix(in srgb, var(--color-neutral-300), var(--color-neutral-400));
-  --color-neutral-400: #838c94;
-  --color-neutral-450: color-mix(in srgb, var(--color-neutral-400), var(--color-neutral-500));
-  --color-neutral-500: #42474b;
-  --color-neutral-550: color-mix(in srgb, var(--color-neutral-500), var(--color-neutral-600));
-  --color-neutral-600: #323739;
-  --color-neutral-650: color-mix(in srgb, var(--color-neutral-600), var(--color-neutral-700));
-  --color-neutral-700: #25282a;
-  --color-neutral-750: color-mix(in srgb, var(--color-neutral-700), var(--color-neutral-800));
-  --color-neutral-800: #1e2022;
-  --color-neutral-900: #131416;
-  --color-orange-300: #f5c518;
-  /*
-  --color-accent-100: rgb(57, 168, 185);
-  --color-accent-100: rgb(197, 65, 100);
-  --color-accent-100: rgb(186, 58, 92);
-  */
-  --color-accent-100: #E48A94;
-  --color-accent-200: #DA697A;
-  --color-accent-300: #D3546A;
-  --color-accent-400: #C74361;
-  --color-accent-500: #BA3A5C;
-  --color-accent-600: #A72A4B;
-
-  /* TODO: use color-mix() */
-  --color-neutral-200-opaque: rgb(217 230 237 / 50%);
-  --color-neutral-300-opaque: rgb(183 192 196 / 50%);
-  --color-neutral-400-opaque: rgb(140 148 155 / 50%);
-  --color-neutral-500-opaque: rgb(62 66 69 / 50%);
-  --color-neutral-600-opaque: rgb(47 50 52 / 50%);
-  --color-neutral-700-opaque: rgb(42 44 47 / 50%);
-  --color-neutral-800-opaque: rgb(30 32 34 / 50%);
-  --black-gradient: rgb(10 13 15 / 25%);
-  
-  /* calculate the true vw unit, without scrollbar */
-  --scrollbar-width: 0;
-  --viewport-width: calc(100vw - var(--scrollbar-width));
-
-  --base-poster-ratio: 1.75;
+  --poster-landscape-ratio: 1.75;
+  --poster-portrait-ratio: 0.665;
+  --safe-space-to-scroll-bottom-nav: 75px;
 }
 
 @layer utilities {
   .main-layout {
-    /* home-page movie-page discover-page */
+    height: 100vh;
     overflow: hidden;
     display: grid;
     grid-template-columns: auto 1fr;
+
+    & main {
+      grid-column: 2 / 3;
+      padding-bottom: var(--safe-space-to-scroll-bottom-nav);
+      width: 100%;
+      overflow-x: scroll;
+      scrollbar-width: none;
+      display: flex;
+      flex-direction: column;
+
+      & > * {
+        flex-shrink: 0;
+      }
+    }
   }
 
-  .stack-ctx {
-    position: relative;
-    isolation: isolate;
+  .truncate {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   .grid-center {

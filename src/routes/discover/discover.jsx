@@ -25,7 +25,7 @@ export default function Discover() {
   }
   
   return (
-    <div className="discover-page">
+    <div className="discover-page main-layout">
       <SideNav />
       <main>
         <Header dataset="discover default" />

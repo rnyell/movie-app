@@ -1,41 +1,80 @@
 .userstuff-page {
-  height: 100vh;
-  overflow: hidden;
-  display: grid;
-  grid-template-columns: auto 1fr;
+  & section {
+    margin-block: var(--space-8);
+    padding-inline: var(--space-6);
+  }
 
-  & main {
-    grid-column: 2 / 3;
-    width: 100%;
-    overflow-x: scroll;
-    scrollbar-width: none;
-    display: flex;
-    flex-direction: column;
+  & .heading {
+    margin-bottom: var(--space-6);
+  }
 
-    & > * {
-      flex-shrink: 0;
-    }
+  & .container {
+    padding: var(--space-10);
+    background-color: color-mix(in srgb, rgb(37 40 42 / 75%), rgb(47 137 227 / 50%) 10%);
+    border-radius: 2rem;
+  }
 
-    & section {
-      margin-block: var(--space-8);
-      padding-inline: var(--space-6);
+  & .empty-msg {
+    padding: var(--space-4) var(--space-2);
+    line-height: 2;
+
+    & a {
+      text-decoration: underline;
+      color: var(--color-accent-300);
     }
   }
 
-  & .movies-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 160px), 1fr));
-    gap: 1.25rem 1.5rem;
+  & .cta {
+    margin-top: var(--space-6);
+    display: flex;
+
+    & button {
+      margin-inline: auto var(--space-4);
+      padding: var(--space-3) var(--space-4);
+      font-weight: 500;
+      background-color: rgb(217 48 54);
+      background-color: rgb(182, 38, 43);
+      border-radius: 0.5rem;
+      transition: background-color var(--duration-1) ease-in;
+
+      &:hover {
+        background-color: rgb(208, 47, 52);
+      }
+    }
   }
 }
 
-.userstuff-page .bookmarked-movie {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.played-section {
+  &.played-container {
+    
+  }
+}
 
-  & .poster {
-    max-height: 300px;
-    border-radius: 1.5rem;
+.watchlist-section {
+  & .empty-watchlist-msg {
+    & .icon {
+      margin-inline: var(--space-2);
+      padding: var(--space-2);
+      color: var(--color-neutral-200);
+      background-color: rgb(20 23 26 / 15%);
+      backdrop-filter: blur(5px);
+      border-radius: 0.625rem;
+      border: var(--outline-size-1) solid var(--color-neutral-400);
+
+      & svg {
+        width: var(--icon-size-6);
+      }
+    }
+  }
+
+  & .movies-container:has(.grid-item) {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 160px), 1fr));
+    gap: 3rem 1.75rem;
+
+    & .grid-item {
+      min-width: 0;
+    }
   }
 }

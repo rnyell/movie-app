@@ -16,8 +16,7 @@
   scrollbar-width: thin;
   scrollbar-color: var(--color-neutral-500) var(--color-neutral-700);
 
-  /* these comented styles are applies by JS in <HomePage />, but kept to see what's going on */
-  /*
+  /* these comented styles are applies by JS in <HomePage />, but kept to see what's going on.
   & [data-fixed-scroll] {
     width: 100%;
     height: 100vh;

@@ -1,52 +1,33 @@
 .discover-page {
-  height: 100vh;
-  overflow: hidden;
-  display: grid;
-  grid-template-columns: auto 1fr;
+  & section {
+    margin-block: var(--space-8);
+    padding-inline: var(--space-6);
+    height: clamp(250px, 35vh, 400px);
 
-  & main {
-    grid-column: 2 / 3;
-    width: 100%;
-    overflow-x: scroll;
-    scrollbar-width: none;
-    display: flex;
-    flex-direction: column;
-
-    & > * {
-      flex-shrink: 0;
+    & header {
+      margin-bottom: var(--space-4);
+      display: flex;
+      align-items: baseline;
     }
 
-    & section {
-      margin-block: var(--space-8);
-      padding-inline: var(--space-6);
-      height: clamp(250px, 35vh, 400px);
+    & a {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
 
-      & header {
-        margin-bottom: var(--space-4);
-        display: flex;
-        align-items: baseline;
+      & .icon {
+        width: var(--icon-size-4);
       }
-
-      & a {
-        margin-left: auto;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-
-        & .icon {
-          width: var(--icon-size-4);
-        }
-        
-        & svg {
-          stroke-width: 2px;
-        }
+      
+      & svg {
+        stroke-width: 2px;
       }
     }
   }
 }
 
 .recommended-section {
-
   & .movie-list {
     padding: var(--space-2) var(--space-4);
     width: 100%;

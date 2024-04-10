@@ -40,13 +40,20 @@ export function useSelectedMovie() {
 
 
 function userStateInitializer() {
+  const played = readLocalStorage("played") ?? []
   const reserved = readLocalStorage("reserved") ?? []
   const bookmarked = readLocalStorage("bookmarked") ?? []
-  return { name: "guest", reserved, bookmarked }
+  return { name: "guest", played, reserved, bookmarked }
 }
 
 function userStateReducer(state, action) {
   switch (action.type) {
+    case "played": {
+      return {
+        ...state,
+        played: [...state.played, action.id],
+      }
+    }
     case "reserved": {
       return {
         ...state,
@@ -64,6 +71,12 @@ function userStateReducer(state, action) {
       return {
         ...state,
         bookmarked: [...filtered],
+      }
+    }
+    case "remove_all_bookmark": {
+      return {
+        ...state,
+        bookmarked: [],
       }
     }
   }

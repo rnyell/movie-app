@@ -6,7 +6,7 @@ import SearchBox from "./search-box"
 
 export default function Header({ dataset }) {
   return (
-    <header className="main-header" data-location={dataset}>
+    <header className="main-header" data-set={dataset}>
       {dataset.includes("results-page") && 
         <Link to="/" className="home-link">
           <i className="icon home-icon">

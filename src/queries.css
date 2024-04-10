@@ -125,6 +125,27 @@
   }
 }
 
+@media (width < 460px) {
+  .userstuff-page {
+
+    & .heading {
+      font-size: 1.5rem;
+    }
+  }
+
+  .movie-card[data-type="bookmarked"] {
+    & .title-container {
+      align-self: unset;
+      height: 1rem;
+    }
+
+    & .title {
+      font-size: 1.35rem;
+    }
+  }
+}
+
+
 @container main-container (width < 1300px) {
   .hero-section {
     padding-inline: var(--space-6);

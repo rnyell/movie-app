@@ -90,7 +90,7 @@
       padding: var(--space-2);
       font-size: 0.625rem;
       border: 1px solid color-mix(in srgb, var(--color-accent-200), transparent);
-      border-radius: var(--rounded-full);
+      border-radius: var(--full-rounded);
       transition: background-color var(--duration-1) ease-in,
         color var(--duration-1) ease-in;
     }
@@ -146,7 +146,7 @@
       text-align: center;
       font-weight: 500;
       border: var(--outline-size-2) solid var(--color-neutral-400);
-      border-radius: var(--rounded-full);
+      border-radius: var(--full-rounded);
       cursor: pointer;
       transition: background-color var(--duration-1) ease-in,
         color var(--duration-1) ease-in;

@@ -29,7 +29,7 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
   //? useState({}) is fine but useState() caues error!
   const [isBookmarked, setIsBookmarked] = useState()
   console.log(userState)
-  const [bookmarks, setBookmarks] = useLocalStorage("bookmarked", userState.bookmarked)
+  const [, setBookmarks] = useLocalStorage("bookmarked", userState.bookmarked)
 
   useEffect(() => {
     loadData()
