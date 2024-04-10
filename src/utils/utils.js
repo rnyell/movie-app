@@ -17,6 +17,19 @@ export async function request(path = "", params = {}) {
   }
 }
 
+export function readLocalStorage(key) {
+  const value = localStorage.getItem(key)
+  return JSON.parse(value)
+}
+
+export function writeLocalStorage(key, value) {
+  if (typeof key === "string") {
+    localStorage.setItem(key, JSON.stringify(value))
+  } else {
+    throw new Error("key must be string")
+  }
+}
+
 export function formatRuntime(runtime) {
   const hours = Math.trunc(runtime / 60)
   const mins = runtime % 60

@@ -19,17 +19,22 @@ import {
 import { useUserState } from "@src/store/app-context"
 import { HeroMovieLoadingSkeleton } from "@components/skeletons"
 import Casts from "@components/movie/casts"
+import { useLocalStorage } from "@src/utils/hooks"
 
 
 export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
-  const {userDispatch, userState} = useUserState()
+  const {userState, userDispatch} = useUserState()
   const [isLoading, setIsLoading] = useState(true)
-  const [movieDetails, setMovieDetails] = useState("")
+  const [movieDetails, setMovieDetails] = useState({})
+  //? useState({}) is fine but useState() caues error!
   const [isBookmarked, setIsBookmarked] = useState()
+  console.log(userState)
+  const [bookmarks, setBookmarks] = useLocalStorage("bookmarked", userState.bookmarked)
 
   useEffect(() => {
     loadData()
     setIsBookmarked(userState.bookmarked.includes(movie.id))
+    setBookmarks(userState.bookmarked)
     console.log("hero movie re-rendered")
   }, [movie.id, isBookmarked])
 

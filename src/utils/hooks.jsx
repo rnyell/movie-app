@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { readLocalStorage, writeLocalStorage } from "./utils"
 
 export function useWindow() {
   const [windowSize, setWindowSize] = useState({
@@ -31,6 +32,17 @@ export function useWindow() {
   return {...windowSize}
 }
 
+export function useLocalStorage(key, fallbackValue = "") {
+  const [value, setValue] = useState(
+    readLocalStorage(key) ?? fallbackValue
+  )
+
+  useEffect(() => {
+    writeLocalStorage(key, value)
+  }, [key, value])
+
+  return [value, setValue]
+}
 
 export function useGeoLocation() {
   const userGeoScheme = { ip: null, country: null } // FUT: ts

@@ -12,9 +12,10 @@ import {
   getOnScreenMovies,
   getTrendingSeries,
 } from "@src/utils/apis"
+import { readLocalStorage } from "@src/utils/utils"
 import { useGeoLocation } from "@src/utils/hooks"
 import { AppLoadingSkeleton } from "@components/skeletons"
-import { VPNError } from "../components/errors"
+import { VPNError } from "@components/errors"
 
 const UserContext = createContext()
 const MoviesContext = createContext()
@@ -37,13 +38,14 @@ export function useSelectedMovie() {
   return useContext(SelectedMovieContext)
 }
 
-const userInitial = {
-  name: "guest",
-  reserved: [],
-  bookmarked: [],
+
+function userStateInitializer() {
+  const reserved = readLocalStorage("reserved") ?? []
+  const bookmarked = readLocalStorage("bookmarked") ?? []
+  return { name: "guest", reserved, bookmarked }
 }
 
-function userReducer(state, action) {
+function userStateReducer(state, action) {
   switch (action.type) {
     case "reserved": {
       return {
@@ -109,12 +111,8 @@ function searchReducer(state, action) {
 
 export function AppProvider({ children }) {
   const { country } = useGeoLocation()
-  const [userState, userDispatch] = useReducer(userReducer, userInitial)
-  const [movieState, setMovieState] = useState({
-    popular: [],
-    screen: [],
-    series: [],
-  })
+  const [userState, userDispatch] = useReducer(userStateReducer, userStateInitializer())
+  const [movieState, setMovieState] = useState({ popular: [], screen: [], series: [] })
   const [searchState, searchDispatch] = useReducer(searchReducer, searchInitial)
   const [selectedMovie, setSelectedMovie] = useState({})
   const [isLoading, setIsLoading] = useState(true)

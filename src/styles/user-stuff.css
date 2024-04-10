@@ -1,0 +1,41 @@
+.userstuff-page {
+  height: 100vh;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: auto 1fr;
+
+  & main {
+    grid-column: 2 / 3;
+    width: 100%;
+    overflow-x: scroll;
+    scrollbar-width: none;
+    display: flex;
+    flex-direction: column;
+
+    & > * {
+      flex-shrink: 0;
+    }
+
+    & section {
+      margin-block: var(--space-8);
+      padding-inline: var(--space-6);
+    }
+  }
+
+  & .movies-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 160px), 1fr));
+    gap: 1.25rem 1.5rem;
+  }
+}
+
+.userstuff-page .bookmarked-movie {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  & .poster {
+    max-height: 300px;
+    border-radius: 1.5rem;
+  }
+}

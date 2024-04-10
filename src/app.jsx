@@ -11,6 +11,7 @@ import NewsPage from "@src/routes/discover/news-page"
 import Article from "@src/routes/discover/article"
 import ResultsPage from "@src/routes/results-page"
 import Reservation from "@src/routes/reservation"
+import UserStuff from "@src/routes/user-stuff"
 import SelectedMovie from "@src/routes/selected-movie"
 import Booking from "@src/routes/booking"
 
@@ -34,6 +35,8 @@ const routes = [
         { path: "/discover/news/:id", element: <Article /> },
         // { path: "/discover/:id", element: <div /> }
       ] },
+      { path: "/reservation", element: <Reservation /> },
+      { path: "/your-stuff", element: <UserStuff /> },
       { path: "/search", element: <ResultsPage /> },
       { path: "/movies/:id", element: <SelectedMovie /> },
       { path: "/booking", element: <Booking /> },

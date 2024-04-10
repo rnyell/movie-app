@@ -22,15 +22,15 @@ export default function SelectedMovie() {
   const [trailerUrl, setTrailerUrl] = useState("")
   const [isLoading, setIsLoading] = useState(true)
   const [, setSelectedMovie] = useSelectedMovie()
-  const [movie, setMovie] = useState("")
+  const [movieDetails, setMovieDetails] = useState({})
   const navigate = useNavigate()
   const { state } = useLocation()
   const id = state.id
 
   useEffect(() => {
     const loadMovie = async () => {
-    const res = await getMovieDetails(id)
-    setMovie(res)
+    const data = await getMovieDetails(id)
+    setMovieDetails(data)
     setIsLoading(false)
   }
     loadMovie()
@@ -38,7 +38,7 @@ export default function SelectedMovie() {
   
   useEffect(() => {
     handleResize()
-  }, [movie, windowWidth])
+  }, [movieDetails, windowWidth])
 
 
   function handleResize() {
@@ -78,12 +78,12 @@ export default function SelectedMovie() {
     budget,
     revenue,
     belongs_to_collection
-  } = movie
+  } = movieDetails
 
-  //! WTF
+  //!
   // credits is undefined
   // const { cast } = credits
-  // console.log(movie)
+  // console.log(movieDetails)
 
   function showTrailer(data) {
     let officialTrailers = data.results.filter(res => 

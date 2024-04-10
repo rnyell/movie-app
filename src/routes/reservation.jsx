@@ -2,7 +2,7 @@
 
 export default function Reservation() {
   return (
-    <div className="">
+    <div className="reserved-page">
       
     </div>
   )

@@ -48,16 +48,5 @@ export default function Discover() {
         }
       </main>
     </div>
-    // isLoading ? (
-    //   <h2>loading</h2>
-    // ) : (
-    //   <div className="discover-page">
-    //     <SideNav />
-    //     <main>
-    //       <Header dataset="discover" />
-    //       <NewsSction />
-    //     </main>
-    //   </div>
-    // )
   )
 }

@@ -27,7 +27,7 @@ export default function HomePage() {
   useEffect(() => {
     if (fixedRef.current && windowWidth > 460) {
       setFixedHeight(fixedRef.current.scrollHeight)
-      console.log(fixedHeight)
+      // console.log(fixedHeight)
     }
   }, [windowWidth, windowHeight, fixedHeight])
 
@@ -109,7 +109,7 @@ export default function HomePage() {
     width: "100%",
     height: "100vh",
     position: "sticky",
-    "z-index": "10",
+    zIndex: "10",
     top: "0",
     overflow: "hidden",
   }

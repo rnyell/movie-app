@@ -28,7 +28,20 @@ const lg_links = [
   { name: "Movies", href: "/discover/movies", icon: <FilmIcon /> },
   { name: "TV Shows", href: "/discover/series", icon: <TvIcon /> },
   { name: "Reservation", href: "/reservation", icon: <TicketIcon /> },
-  { name: "Your Stuff", href: "/stuff", icon: <BookmarkIcon /> },
+  { name: "Your Stuff", href: "/your-stuff", icon: <BookmarkIcon /> },
+]
+
+const sm_links = [
+  { name: "TV Shows", href: "/discover/series", icon: <TvIcon /> },
+  { name: "Movies", href: "/discover/movies", icon: <FilmIcon /> },
+  { name: "Home", href: "/", icon: <HomeIcon /> },
+  { name: "Discover", href: "/discover", icon: <CompasIcon /> },
+  { name: "", href: "/#", icon: <Squares2X2Icon /> },
+]
+
+const sub_links = [
+  { name: "Reservation", href: "/reservation", icon: <TicketIcon /> },
+  { name: "Your Stuff", href: "/your-stuff", icon: <BookmarkIcon /> }
 ]
 
 const lg_solid_icons = [
@@ -40,14 +53,6 @@ const lg_solid_icons = [
   <BookmarkIconSolid />
 ]
 
-const sm_links = [
-  { name: "TV Shows", href: "/discover/series", icon: <TvIcon /> },
-  { name: "Movies", href: "/discover/movies", icon: <FilmIcon /> },
-  { name: "Home", href: "/", icon: <HomeIcon /> },
-  { name: "Discover", href: "/discover", icon: <CompasIcon /> },
-  { name: "", href: "/#", icon: <Squares2X2Icon /> },
-]
-
 const sm_solid_icons = [
   <TvIconSolid />,
   <FilmIconSolid />,
@@ -56,10 +61,6 @@ const sm_solid_icons = [
   <Squares2X2IconSolid />
 ]
 
-const sub_links = [
-  { name: "Reservation", href: "/reservation", icon: <TicketIcon /> },
-  { name: "Your Stuff", href: "/stuff", icon: <BookmarkIcon /> }
-]
 
 export default function SideNav() {
   const [isOpen, setIsOpen] = useState(false)
