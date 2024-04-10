@@ -80,7 +80,7 @@
   & button {
     margin-top: 2rem;
     margin-left: auto;
-    padding: 1rem;
+    padding: var(--space-4);
     width: 10rem;
     font-weight: 500;
     background-color: var(--color-neutral-600);

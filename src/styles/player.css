@@ -1,0 +1,16 @@
+.player-page {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  & .player {
+    width: 90%;
+    height: 90%;
+
+    & img.placerholder {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}

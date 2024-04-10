@@ -139,8 +139,9 @@
   );
   --color-neutral-800: rgb(30 32 34);
   --color-neutral-900: rgb(19 20 22);
-  --color-orange-300: #f5c518;
-
+  --color-orange-300: rgb(245 197 24);
+  --color-red-300: rgb(182 38 43);
+  --color-red-500: rgb(151 28 32);
   --black-gradient: rgb(10 13 15 / 25%);
 
   /*
@@ -245,7 +246,7 @@
   body {
     font-family: Montserrat, Calibri, sans-serif;
     color: var(--color-neutral-200);
-    line-height: 1.4;
+    line-height: 1.45;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -316,6 +317,7 @@
   html {
     scrollbar-width: none;
     scrollbar-color: var(--color-neutral-500) var(--color-neutral-700);
+    background-color: var(--color-neutral-800);
   }
 
   #root {
@@ -348,6 +350,13 @@
   .btn {
     display: inline-grid;
     place-items: center;
+  }
+
+  hr {
+    width: 80%;
+    max-width: 750px;
+    border-width: 2px;
+    border-color: var(--color-neutral-700);
   }
 }
 

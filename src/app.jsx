@@ -14,6 +14,7 @@ import Reservation from "@src/routes/reservation"
 import UserStuff from "@src/routes/user-stuff"
 import SelectedMovie from "@src/routes/selected-movie"
 import Booking from "@src/routes/booking"
+import Player from "@src/routes/player"
 
 import { ErrorPage } from "@components/errors"
 import { AppProvider } from "@src/store/app-context"
@@ -35,6 +36,7 @@ const routes = [
         { path: "/discover/news/:id", element: <Article /> },
         // { path: "/discover/:id", element: <div /> }
       ] },
+      { path: "/player", element: <Player /> },
       { path: "/reservation", element: <Reservation /> },
       { path: "/your-stuff", element: <UserStuff /> },
       { path: "/search", element: <ResultsPage /> },

@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import {
-  ArrowLongRightIcon,
-  ArrowLongLeftIcon,
   StarIcon,
   BookmarkIcon,
   PlayIcon,
@@ -10,6 +9,7 @@ import {
   ChevronLeftIcon,
 } from "@heroicons/outline"
 
+import { useLocalStorage } from "@src/utils/hooks"
 import { getMovieDetails } from "@src/utils/apis"
 import {
   getMovieGenres,
@@ -19,7 +19,6 @@ import {
 import { useUserState } from "@src/store/app-context"
 import { HeroMovieLoadingSkeleton } from "@components/skeletons"
 import Casts from "@components/movie/casts"
-import { useLocalStorage } from "@src/utils/hooks"
 
 
 export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
@@ -28,7 +27,6 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
   const [movieDetails, setMovieDetails] = useState({})
   //? useState({}) is fine but useState() caues error!
   const [isBookmarked, setIsBookmarked] = useState()
-  console.log(userState)
   const [, setBookmarks] = useLocalStorage("bookmarked", userState.bookmarked)
 
   useEffect(() => {
@@ -103,12 +101,14 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
             <p className="genres">{getMovieGenres(genres)}</p>
           </div>
           <div className="cta-btns">
-            <button className="btn btn-shared watch-btn">
-              <i className="icon">
-                <PlayIcon />
-              </i>
-              <span>Watch</span>
-            </button>
+            <Link to="/player">
+              <button className="btn btn-shared watch-btn">
+                <i className="icon">
+                  <PlayIcon />
+                </i>
+                <span>Watch</span>
+              </button>
+            </Link>
             <button className="btn btn-shared trailer-btn">
               <span>Trailer</span>
             </button>

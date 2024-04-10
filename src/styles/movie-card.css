@@ -177,13 +177,13 @@
     }
 
     & .ambient {
-      width: 102%;
-      height: 102%;
+      width: 103%;
+      height: 103%;
       position: absolute;
-      bottom: -0.5rem;
+      bottom: -1rem;
       z-index: var(--z-neg5);
       background-size: cover;
-      opacity: 0.5;
+      opacity: 0.45;
       filter: blur(20px);
       border-radius: var(--img-radius);
     }
@@ -207,6 +207,43 @@
 
   &:hover .title {
     white-space: wrap;
+  }
+
+  & .details {
+    width: 100%;
+    position: absolute;
+    bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  & .hover-overlay {
+    font-size: 0.8rem;
+    background-image: linear-gradient(
+      180deg, rgb(10 15 17 / 35%), rgb(10 15 17 / 80%)
+    );
+    border-radius: var(--img-radius);
+
+    & .remove-icon {
+      padding: 5cqw;
+      position: absolute;
+      top: 10cqw;
+      left: 10cqw;
+      background-color: rgb(165 165 165 / 35%);
+      backdrop-filter: blur(5px);
+      border-radius: 0.5rem;
+      cursor: pointer;
+
+      & svg {
+        width: var(--icon-size-5);
+      }
+    }
+
+    & .star-icon {
+      width: var(--icon-size-4);
+    }
   }
 }
 

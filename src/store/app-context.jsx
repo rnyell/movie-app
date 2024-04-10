@@ -54,10 +54,23 @@ function userStateReducer(state, action) {
         played: [...state.played, action.id],
       }
     }
+    case "remove_all_played": {
+      return {
+        ...state,
+        played: [],
+      }
+    }
     case "reserved": {
       return {
         ...state,
         reserved: [...state.reserved, action.id],
+      }
+    }
+    case "cancel_reserved": {
+      const filtered = state.reserved.filter(res => res !== action.id)
+      return {
+        ...state,
+        reserved: [...filtered],
       }
     }
     case "add_bookmark": {
@@ -67,7 +80,7 @@ function userStateReducer(state, action) {
       }
     }
     case "remove_bookmark": {
-      const filtered = state.bookmarked.filter((b) => b !== action.id)
+      const filtered = state.bookmarked.filter(b => b !== action.id)
       return {
         ...state,
         bookmarked: [...filtered],
@@ -91,7 +104,6 @@ const moviesInitial = {
   selected: ""
 }
 */
-
 const searchInitial = {
   title: "",
   results: [],

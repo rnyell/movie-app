@@ -219,6 +219,7 @@
 
   & .btn-shared {
     padding: 1.5cqw;
+    font-weight: 500;
     background-color: rgb(20 23 26 / 15%);
     backdrop-filter: blur(5px);
     border-radius: 0.625rem;
@@ -247,7 +248,6 @@
     & .watch-btn {
       width: 6.5rem;
       grid-auto-flow: column;
-      font-weight: 500;
       background-color: var(--color-accent-600);
       border-color: var(--color-accent-600);
       transition: background-color var(--duration-1) ease-in,
@@ -315,35 +315,6 @@
   --img-width: 10rem;
   --gap: 1rem;
   position: relative;
-
-  /* & button {
-    width: 80%;
-    width: 2rem;
-    height: 2rem;
-    position: absolute;
-    left: 50%;
-    translate: -50% 0;
-    display: grid;
-    place-items: center;
-    background-image: radial-gradient(
-      circle, rgb(12 17 20 / 75%), rgb(12 17 20 / 5%) 30%, transparent 100%
-    );
-    background-color: rgb(12 17 20 / 25%);
-    border-radius: 9999px;
-    cursor: pointer;
-    
-    &.up-btn {
-      top: -2rem;
-    }
-
-    &.down-btn {
-      bottom: -2rem;
-    }
-
-    & svg {
-      width: var(--icon-size-5);
-    }
-  } */
 }
 
 & .carousel {
@@ -369,7 +340,7 @@
     scale: 0.925;
     transition: opacity var(--duration-1), scale var(--duration-1);
     cursor: pointer;
-    
+
     &[data-view="true"] {
       opacity: 1;
       scale: 1;
@@ -428,7 +399,6 @@
   }
 }
 
-
 .swiper-container {
   grid-column: 1 / 6;
   grid-row: 1 / 4;
@@ -453,7 +423,7 @@
     }
 
     & .front-card > .swiper-card-content {
-      box-shadow: 0 6px 2rem 2px #40245767;
+      box-shadow: 0 6px 2rem 2px rgb(64 36 87 / 40%);
       /* box-shadow: 0 5px 2rem 2px #69172b72; */
     }
   }

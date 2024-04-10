@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react"
+import { createPortal } from "react-dom"
 import { Link } from "react-router-dom"
+import { motion, AnimatePresence } from "framer-motion"
 import { StarIcon, BookmarkIcon, FilmIcon, TvIcon } from "@heroicons/outline"
 import {
   readLocalStorage,
@@ -14,21 +16,50 @@ import Header from "@components/header"
 import MovieCard from "@components/movie/movie-card"
 
 export default function UserStuff() {
-  const [played, setPlayed] = useState([])
-  const [watchlist, setWatchlist] = useState([])
   const {userState, userDispatch} = useUserState()
-  const [, setBookmarks] = useLocalStorage("bookmarked", userState.bookmarked)
+  const [, setBookmarksOnLS] = useLocalStorage("bookmarked", userState.bookmarked)
+  const [, setPlayedOnLS] = useLocalStorage("played", userState.played)
+  const [showModal, setShowModal] = useState(false)
 
-  useEffect(() => {
-    setWatchlist(readLocalStorage("bookmarked"))
-  }, [])
+  function clearHistory() {
+    userDispatch({ type: "remove_all_played" })
+    setPlayedOnLS(userState.played)
+  }
 
   function clearAllBookmarks() {
     userDispatch({ type: "remove_all_bookmark" })
-    setBookmarks(userState.bookmarked)
-    setWatchlist([])
+    setBookmarksOnLS(userState.bookmarked)
   }
 
+  function clearBookmark(id) {
+    userDispatch({ type: "remove_bookmark", id })
+    setBookmarksOnLS(userState.bookmarked)
+  }
+
+  function hideConfirmationBox() {
+    clearAllBookmarks()
+    setShowModal(false)
+  }
+
+  const ConfirmationBox = () => (
+    <>
+      <div className="bookmark-confirmation-box-backdrop" onClick={() => setShowModal(false)}></div>
+      <motion.div
+        className="bookmark-confirmation-box"
+        initial={{ y: -50, opacity: 0.5 }}
+        animate={{ y: 0, opacity: 1 }}
+        exit={{ y: -80, opacity: 0.5 }}
+        transition={{ duration: 0.2 }}
+      >
+        <p>Are you sure you want to all your watchlist movies?</p>
+        <div className="btns">
+          <button className="btn cancel-btn" onClick={() => setShowModal(false)}>Cancel</button>
+          <button className="btn del-btn" onClick={hideConfirmationBox}>Delete</button>
+        </div>
+      </motion.div>
+    </>
+  )
+  
   return (
     <div className="userstuff-page main-layout">
       <SideNav />
@@ -37,43 +68,52 @@ export default function UserStuff() {
         <section className="played-section">
           <h4 className="heading">Played History</h4>
           <div className="played-container container">
-            {played.length === 0 ? (
+            {userState.played.length === 0 ? (
               <div className="empty-history-msg empty-msg">
                 <p>You haven't watched any movies yet.</p>
                 <p>Let's <Link to="/discover">explore</Link> some movies!</p>
               </div>
             ) : (
               <div>
-
+                {userState.played.map(id =>
+                  <MovieCard key={id} result={id} type="played" />
+                )}
               </div>
             )}
           </div>
-          {played.length !== 0 && (
+          {userState.played.length !== 0 && (
             <div className="cta">
-              <button className="btn">Remove History</button>
+              <button className="btn" onClick={clearHistory}>Remove History</button>
             </div>
           )}
         </section>
+        <hr style={{alignSelf: "center"}} />
         <section className="watchlist-section">
           <h4 className="heading">Your Watchlist</h4>
           <div className="movies-container container">
-            {watchlist.length === 0 ? (
+            {userState.bookmarked.length === 0 ? (
               <div className="empty-watchlist-msg empty-msg">
                 <p>Your watchlist is currently empty.</p>
                 <p>You can add your desired movies or series to watchlist with bookmark button: <i className="icon"><BookmarkIcon /></i></p>
               </div>
-            ) : (watchlist.map(id =>
+            ) : (userState.bookmarked.map(id =>
               <div className="grid-item" key={id}>
-                <MovieCard result={id} type="bookmarked" />
+                <MovieCard result={id} type="bookmarked" clearBookmark={clearBookmark} />
               </div>
             ))}
           </div>
-          {watchlist.length !== 0 && (
+          {userState.bookmarked.length !== 0 && (
             <div className="cta">
-              <button className="btn" onClick={clearAllBookmarks}>Clear All</button>
+              <button className="btn" onClick={() => setShowModal(true)}>Clear All</button>
             </div>
           )}
         </section>
+        {createPortal(
+          <AnimatePresence>
+            {showModal && <ConfirmationBox />}
+          </AnimatePresence>,
+          document.body
+        )}
       </main>
     </div>
   )
