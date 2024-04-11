@@ -51,7 +51,7 @@ function userStateReducer(state, action) {
     case "played": {
       return {
         ...state,
-        played: [...state.played, action.id],
+        played: [...new Set([...state.played, action.id])],
       }
     }
     case "remove_all_played": {

@@ -17,22 +17,21 @@ export default function Casts({ casts }) {
     }
   }
 
-  const variants_1 = {
+  const itemsA = {
     init: {
       marginLeft: "-4.5cqw",
-      transition: { duration: 0.35 }
     },
     anime: {
       marginLeft: "0",
       scale: 1.1,
-      transition: { duration: 0.35 }
+      transition: { duration: 0.3 }
       // transition: { type: 'spring', velocity: 2 }
     }
   }
 
-  const variants_2 = {
+  const itemsB = {
     init: {
-      opacity: 0,
+      opacity: 0.1,
       x: -50,
     },
     anime: {
@@ -44,8 +43,8 @@ export default function Casts({ casts }) {
     exit: {
       opacity: 0,
       scale: 1,
-      x: -75,
-      transition: { duration: 0.2 }
+      x: -120,
+      transition: { duration: 0.25 }
     }
   }
 
@@ -58,7 +57,7 @@ export default function Casts({ casts }) {
           <motion.li 
             className="cast"
             key={i}
-            variants={variants_1}
+            variants={itemsA}
             initial="init"
             animate={isOpen ? "anime" : "init"}
             exit="exit"
@@ -74,7 +73,7 @@ export default function Casts({ casts }) {
             <motion.li 
               key={i}
               className="cast"
-              variants={variants_2}
+              variants={itemsB}
               initial="init"
               animate="anime"
               exit="exit"
@@ -86,7 +85,7 @@ export default function Casts({ casts }) {
         </AnimatePresence>
         <motion.button 
           onClick={showMoreCasts}
-          variants={variants_1}
+          variants={itemsA}
           initial="init"
           animate={isOpen ? "anime" : "init"}
         >

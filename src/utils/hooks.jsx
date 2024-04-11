@@ -1,6 +1,43 @@
 import { useEffect, useState } from "react"
 import { readLocalStorage, writeLocalStorage } from "./utils"
 
+export function useFetch(url, options = {}) {
+  const [data, setData] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState(null)
+  const fetcher = options.fetcher
+
+  useEffect(() => {
+    const controller = new AbortController()
+    loader()
+
+    return () => {
+      controller.abort("Request canceled")
+    }
+  }, [url])
+  
+  async function loader() {
+    if (fetcher) {
+      try {
+        const data = await fetcher()
+        setData(data)
+      } catch(err) {
+        setError(err)
+      } finally {
+        setIsLoading(false)
+      }
+    } else {
+      fetch(url)
+      .then(res => res.json())
+      .then(data => setData(data))
+      .catch(err => setError(err))
+      .finally(() => setIsLoading(false))
+    }
+  }
+
+  return { data, isLoading, error }
+}
+
 export function useWindow() {
   const [windowSize, setWindowSize] = useState({
     windowWidth: window.innerWidth,
