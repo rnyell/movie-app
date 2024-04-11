@@ -32,7 +32,6 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
   const [, setPlayedLS] = useLocalStorage("played", userState.played)
   const [key, setKey] = useState(0) // for <AnimatePresence> purposes
   const navigate = useNavigate()
-  console.log(userState.played)
 
   useEffect(() => {
     loadData()

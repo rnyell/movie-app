@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react"
 import { createPortal } from "react-dom"
 import { motion, AnimatePresence, useAnimate } from "framer-motion"
-import { StarIcon, BookmarkIcon,  FilmIcon, TvIcon } from "@heroicons/outline"
-import { BookmarkSlashIcon } from "@heroicons/solid"
+import { StarIcon, BookmarkIcon, FilmIcon, TvIcon } from "@heroicons/outline"
+import { BookmarkSlashIcon, PlayIcon } from "@heroicons/solid"
 import { getMovieDetails } from "@src/utils/apis"
 import { getGenresBaseOnIds, formatRate, formatRuntime, formatReleaseDate } from "@src/utils/utils"
 import { getMovieRuntime } from "@src/utils/apis"
@@ -22,7 +22,7 @@ export default function MovieCard({ result, type, ...rest }) {
       getMovieRuntime(result.id).then(d => setRuntime(d))
     }
 
-    if (type === "bookmarked") {
+    if (type === "bookmarked" || type === "played") {
       loadMovieDetails()
     }
   }, [])
@@ -48,44 +48,70 @@ export default function MovieCard({ result, type, ...rest }) {
   switch (type) {
     case "list": {
       return (
-          <motion.div 
-            data-type={type}
-            className="movie-card"
-            ref={listCardRef}
-            style={{ width: "clamp(175px, 20vw, 305px)" }}
-            onHoverStart={() => setListCardOverlay(true)}
-            onHoverEnd={() => setListCardOverlay(false)}
-            whileHover={handleCardHover}
-            // whileHover={{ flexGrow: 1 }}
-          >
-            <figure>
-              <img
-                src={`https://image.tmdb.org/t/p/original${result.backdrop_path}`}
-                alt="poster" className="poster"
-                draggable="false"
-              />
-              <AnimatePresence>
-              {listCardOverlay && 
-                <motion.div className="hover-overlay"
-                  initial={{ opacity: 0, y: 35 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 35 }}
-                  transition={{ type: "tween", duration: 0.2, ease: "easeOut" }}
-                >
-                  <span className="release-date">{formatReleaseDate(result.release_date)}</span>
-                  <span className="runtime">{formatRuntime(runtime)}</span>
-                </motion.div>
-              }
-            </AnimatePresence>
-            </figure>
-            <div className="main-details">
-              <h5 className="title truncate">{result.title}</h5>
-              <span className="vote">
-                <i className="icon star-icon"><StarIcon /></i>
-                <span className="vote-number">{formatRate(result.vote_average)}</span>
-              </span>
-            </div>
-          </motion.div>
+        <motion.div 
+          data-type={type}
+          className="movie-card"
+          ref={listCardRef}
+          style={{ width: "clamp(175px, 20vw, 305px)" }}
+          onHoverStart={() => setListCardOverlay(true)}
+          onHoverEnd={() => setListCardOverlay(false)}
+          whileHover={handleCardHover}
+          // whileHover={{ flexGrow: 1 }}
+        >
+          <figure>
+            <img
+              src={`https://image.tmdb.org/t/p/original${result.backdrop_path}`}
+              alt="poster" className="poster"
+              draggable="false"
+            />
+            <AnimatePresence>
+            {listCardOverlay &&
+              <motion.div className="hover-overlay"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ 
+                  type: "tween",
+                  duration: 0.2,
+                  ease: "easeOut" 
+                }}
+              >
+                <span className="release-date">{formatReleaseDate(result.release_date)}</span>
+                <span className="runtime">{formatRuntime(runtime)}</span>
+              </motion.div>
+            }
+          </AnimatePresence>
+          </figure>
+          <div className="main-details">
+            <h5 className="title truncate">{result.title}</h5>
+            <span className="vote">
+              <i className="icon star-icon"><StarIcon /></i>
+              <span className="vote-number">{formatRate(result.vote_average)}</span>
+            </span>
+          </div>
+        </motion.div>
+      )
+    }
+
+    case "screen": {
+      return (
+        <div data-type={type} className="movie-card">
+          <figure>
+            <img
+              src={`https://image.tmdb.org/t/p/original${result.backdrop_path}`}
+              alt="poster" className="poster"
+              draggable="false"
+            />
+          </figure>
+          <h5 className="title truncate">{result.title}</h5>
+          <div className="details">
+            <span className="runtime">{formatRuntime(runtime)}</span>
+            <span className="vote">
+              <i className="icon star-icon"><StarIcon /></i>
+              <span className="vote-number">{formatRate(result.vote_average)}</span>
+            </span>
+          </div>
+        </div>
       )
     }
 
@@ -96,7 +122,7 @@ export default function MovieCard({ result, type, ...rest }) {
             <img
               src={`https://image.tmdb.org/t/p/original${result.backdrop_path}`}
               alt="poster" className="poster"
-              draggable="false" /* imp */
+              draggable="false"
             />
           </figure>
           <h5 className="title truncate">{result.name}</h5>
@@ -110,25 +136,49 @@ export default function MovieCard({ result, type, ...rest }) {
       )
     }
 
-    case "screen": {
+    case "played": {
+      const {
+        id,
+        title,
+        runtime,
+        backdrop_path,
+      } = movieDetails
+
       return (
-        <div data-type={type} className="movie-card">
+        <motion.div
+          data-type={type}
+          className="movie-card"
+          onHoverStart={() => setListCardOverlay(true)}
+          onHoverEnd={() => setListCardOverlay(false)}
+        >
           <figure>
             <img
-              src={`https://image.tmdb.org/t/p/original${result.backdrop_path}`}
-              alt="poster" className="poster"
-              draggable="false" /* imp */
+              src={`https://image.tmdb.org/t/p/original${backdrop_path}`}
+              className="poster"
+              draggable="false"
             />
+          <div className="bar" />
+          <AnimatePresence>
+            {listCardOverlay && 
+              <motion.div 
+                className="hover-overlay grid-center"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ type: "tween", duration: 0.2, ease: "easeOut" }}
+              >
+                <button className="btn flex-x-center">
+                  <i className="icon">
+                    <PlayIcon />
+                  </i>
+                  Re-watch
+                </button>
+              </motion.div>
+            }
+          </AnimatePresence>
           </figure>
-          <h5 className="title truncate">{result.title}</h5>
-          <div className="details">
-            <span className="runtime">{formatRuntime(runtime)}</span>
-            <span className="vote">
-              <i className="icon star-icon"><StarIcon /></i>
-              <span className="vote-number">{formatRate(result.vote_average)}</span>
-            </span>
-          </div>
-        </div>
+          <h5 className="title truncate">{title}</h5>
+        </motion.div>
       )
     }
 
@@ -170,10 +220,7 @@ export default function MovieCard({ result, type, ...rest }) {
       )
       
       return (
-        <motion.div
-          className="movie-card"
-          data-type={type}
-        >
+        <motion.div className="movie-card" data-type={type}>
           <motion.figure
             onHoverStart={() => setBookCardOverlay(true)}
             onHoverEnd={() => setBookCardOverlay(false)}

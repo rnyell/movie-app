@@ -3,12 +3,6 @@ import { createPortal } from "react-dom"
 import { Link } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { StarIcon, BookmarkIcon, FilmIcon, TvIcon } from "@heroicons/outline"
-import {
-  readLocalStorage,
-  formatRuntime,
-  getMovieGenres,
-  formatRate
-} from "@src/utils/utils"
 import { useLocalStorage } from "@src/utils/hooks"
 import { useUserState } from "@src/store/app-context"
 import SideNav from "@components/sidenav"
@@ -66,7 +60,13 @@ export default function UserStuff() {
       <main>
         <Header dataset="discover default" />
         <section className="played-section">
-          <h4 className="heading">Played History</h4>
+          <header className="flex-y-center">
+            <h4 className="heading">Played History</h4>
+            {/* <i className="icon">
+              TODO: 1. change view: list or grid
+                    2. sort base on the time movie is watched
+            </i> */}
+          </header>
           <div className="played-container container">
             {userState.played.length === 0 ? (
               <div className="empty-history-msg empty-msg">
@@ -74,11 +74,11 @@ export default function UserStuff() {
                 <p>Let's <Link to="/discover">explore</Link> some movies!</p>
               </div>
             ) : (
-              <div>
-                {userState.played.map(id =>
+              userState.played.map(id =>
+                <div className="grid-item">
                   <MovieCard key={id} result={id} type="played" />
-                )}
-              </div>
+                </div>
+              )
             )}
           </div>
           {userState.played.length !== 0 && (
@@ -89,7 +89,9 @@ export default function UserStuff() {
         </section>
         <hr style={{alignSelf: "center"}} />
         <section className="watchlist-section">
-          <h4 className="heading">Your Watchlist</h4>
+          <header className="flex-y-center">
+            <h4 className="heading">Your Watchlist</h4>
+          </header>
           <div className="movies-container container">
             {userState.bookmarked.length === 0 ? (
               <div className="empty-watchlist-msg empty-msg">

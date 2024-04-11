@@ -48,8 +48,6 @@
   }
 
   .sidenav {
-    /* grid-column: 1 / -1;
-    grid-row: 2 / 3; */
     width: 95%;
     height: unset;
     position: fixed;
@@ -119,17 +117,17 @@
   }
 }
 
-@keyframes stroks {
-  100% {
-    stroke-dashoffset: 400;
-  }
-}
-
 @media (width < 460px) {
   .userstuff-page {
-
     & .heading {
       font-size: 1.5rem;
+    }
+  }
+
+  .movie-card[data-type="played"] {
+    & .title {
+      margin-top: 4cqw;
+      font-size: 1.15rem;
     }
   }
 
@@ -142,6 +140,13 @@
     & .title {
       font-size: 1.35rem;
     }
+  }
+}
+
+
+@keyframes stroks {
+  100% {
+    stroke-dashoffset: 400;
   }
 }
 

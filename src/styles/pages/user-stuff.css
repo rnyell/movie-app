@@ -4,12 +4,13 @@
     padding-inline: var(--space-6);
   }
 
-  & .heading {
+  & header {
     margin-bottom: var(--space-6);
   }
 
   & .container {
     padding: var(--space-10);
+    padding-bottom: 3.5rem;
     background-color: color-mix(in srgb, rgb(37 40 42 / 75%), rgb(47 137 227 / 50%) 10%);
     border-radius: 2rem;
     box-shadow: 0 5px 2rem rgb(11 15 17 / 20%);
@@ -38,15 +39,19 @@
       transition: background-color var(--duration-1) ease-in;
 
       &:hover {
-        background-color: rgb(208, 47, 52);
+        background-color: var(--color-red-300);
       }
     }
   }
 }
 
 .played-section {
-  &.played-container {
-    
+  & .played-container:has(.grid-item) {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 165px), 1fr));
+    gap: 2rem 1.75rem;
+    font-size: 0.8rem;
   }
 }
 
@@ -73,21 +78,17 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 160px), 1fr));
     gap: 3rem 1.75rem;
-
-    & .grid-item {
-      min-width: 0;
-    }
   }
 }
 
 
-/* create separate component? */
+/*- create separate component? */
 .bookmark-confirmation-box-backdrop {
   position: absolute;
   z-index: var(--z-50);
   inset: 0;
   background-color: rgb(37 40 42 / 65%);
-  /* backdrop-filter: blur(5px); */
+  backdrop-filter: blur(5px);
 }
 
 .bookmark-confirmation-box {
