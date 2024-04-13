@@ -1,22 +1,35 @@
 import { useEffect, useState } from "react"
 import { StarIcon, BookmarkIcon, FilmIcon, TvIcon } from "@heroicons/outline"
+
 import { getMovieDetails } from "@src/utils/apis"
 import { readLocalStorage } from "@src/utils/utils"
-import SideNav from "@components/sidenav"
-import Header from "@components/header"
-import MovieCard from "@components/movie/movie-card"
+import { useUserState } from "@src/store/app-context"
+
 
 export default function Reservation() {
+  const {userState, userDispatch} = useUserState()
+
   return (
-    <div className="reservation-page main-layout">
-      <SideNav />
-      <main>
-        <Header dataset="discover default" />
-        <section className="watchlist-section">
+    <div className="reservation-page">
+      <section className="watchlist-section">
+        <header>
           <h4 className="heading">Reserved Tickets</h4>
-          
-        </section>
-      </main>
+        </header>
+        <div className="tickets-container">
+          {userState.reserved.length === 0 ? (
+            <div className="empty-tickets-msg empty-msg">
+              <p>No movies is reserved yet.</p>
+            </div>
+          ) : (
+            userState.reserved.map(res => 
+              <div className="ticket">
+                <h6>{res.title}</h6>
+                <div></div>
+              </div>
+            )
+          )}
+        </div>
+      </section>
     </div>
   )
 }

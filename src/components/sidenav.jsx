@@ -145,7 +145,9 @@ function SubMenu() {
       animate={{ y: 0, opacity: 1 }}
       exit={{ 
         y: 60, opacity: 0.1,
-        transition: { type: "tween", duration: 0.15 }
+        transition: {
+          type: "tween", duration: 0.15
+        }
       }}
     >
       {sub_links.map(link =>

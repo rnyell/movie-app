@@ -1,179 +1,7 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Rokkitt:ital,wght@0,100..900;1,100..900&display=swap'); */
 /* @import "@src/tailwind.css" layer(framework); */
-@layer reset, framework, defaults, typo, components, utilities;
+@layer framework, reset, defaults, typo, components, utilities;
 
-@layer framework {
-
-}
-
-@font-face {
-  font-family: Montserrat;
-  font-weight: 400;
-  font-style: normal;
-  src: local("Montserrat"),
-    url("/fonts/Montserrat-400.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: Montserrat;
-  font-weight: 400;
-  font-style: italic;
-  src: url("/fonts/Montserrat-400-italic.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: Montserrat;
-  font-weight: 500;
-  font-style: normal;
-  src: local("Montserrat"),
-    url("/fonts/Montserrat-500.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: Montserrat;
-  font-weight: 600;
-  font-style: normal;
-  src: local("Montserrat"),
-    url("/fonts/Montserrat-600.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: Montserrat;
-  font-weight: 600;
-  font-style: italic;
-  src: local("Montserrat"),
-    url("/fonts/Montserrat-600-italic.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: Montserrat;
-  font-weight: 700;
-  font-style: normal;
-  src: local("Montserrat"),
-    url("/fonts/Montserrat-700.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: Ubuntu;
-  font-weight: 400;
-  font-style: normal;
-  /*? font-display: swap;*/
-  src: local("Montserrat"),
-    url("/fonts/Ubuntu-400.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: Ubuntu;
-  font-weight: 500;
-  font-style: normal;
-  /*? font-display: swap;*/
-  src: local("Montserrat"),
-    url("/fonts/Ubuntu-500.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: Ubuntu;
-  font-weight: 700;
-  font-style: normal;
-  /*? font-display: swap;*/
-  src: local("Montserrat"),
-    url("/fonts/Ubuntu-700.ttf") format("truetype");
-}
-
-
-:root {
-  --base-size: 1rem;
-  --space-1: calc(0.25 * var(--base-size));
-  --space-2: calc(0.5 * var(--base-size));
-  --space-3: calc(0.75 * var(--base-size));
-  --space-4: calc(1 * var(--base-size));
-  --space-5: calc(1.25 * var(--base-size));
-  --space-6: calc(1.5 * var(--base-size));
-  --space-7: calc(1.75 * var(--base-size));
-  --space-8: calc(2 * var(--base-size));
-  --space-9: calc(2.5 * var(--base-size));
-  --space-10: calc(3 * var(--base-size));
-  --outline-size-1: 1px;
-  --outline-size-2: 0.07525rem;
-  --outline-size-3: 0.1375rem;
-  --outline-size-4: 0.185rem;
-  --full-rounded: 9999px;
-  --shadow-100: 0 0.15rem 1.15rem rgb(0 0 0 / 20%);
-  --shadow-200: 0 0.1rem 0.75rem rgb(0 0 0 / 50%);
-  --duration-1: 150ms;
-  --duration-2: 220ms;
-  --z-neg20: -20;
-  --z-neg10: -10;
-  --z-neg5: -5;
-  --z-0: 0;
-  --z-5: 5;
-  --z-10: 10;
-  --z-20: 20;
-  --z-50: 50;
-  --z-100: 100;
-
-  --color-neutral-100: rgb(234 239 243);
-  --color-neutral-200: rgb(221 229 235);
-  --color-neutral-250: color-mix(
-    in srgb, var(--color-neutral-200), var(--color-neutral-300)
-  );
-  --color-neutral-300: rgb(195 206 219);
-  --color-neutral-350: color-mix(
-    in srgb, var(--color-neutral-300), var(--color-neutral-400)
-  );
-  --color-neutral-400: rgb(131 140 148);
-  --color-neutral-450: color-mix(
-    in srgb, var(--color-neutral-400), var(--color-neutral-500)
-  );
-  --color-neutral-500: rgb(66 71 75);
-  --color-neutral-550: color-mix(
-    in srgb, var(--color-neutral-500), var(--color-neutral-600)
-  );
-  --color-neutral-600: rgb(50 55 57);
-  --color-neutral-650: color-mix(
-    in srgb, var(--color-neutral-600), var(--color-neutral-700)
-  );
-  --color-neutral-700: rgb(37 40 42);
-  --color-neutral-750: color-mix(
-    in srgb, var(--color-neutral-700), var(--color-neutral-800)
-  );
-  --color-neutral-800: rgb(30 32 34);
-  --color-neutral-900: rgb(19 20 22);
-  --color-orange-300: rgb(245 197 24);
-  --color-red-300: rgb(182 38 43);
-  --color-red-500: rgb(151 28 32);
-  --black-gradient: rgb(10 13 15 / 25%);
-
-  /*
-  --color-accent-100: rgb(57 168 185);
-  --color-accent-100: rgb(197 65 100);
-  --color-accent-100: rgb(186 58 92);
-  */
-  --color-accent-100: #E48A94;
-  --color-accent-200: #DA697A;
-  --color-accent-300: #D3546A;
-  --color-accent-400: #C74361;
-  --color-accent-500: #BA3A5C;
-  --color-accent-600: #A72A4B;
-  
-  /* calculate the true vw unit, without scrollbar */
-  /* just in the case of <html> adding the scrollbar */
-  --scrollbar-width: 0;
-  --viewport-width: calc(100vw - var(--scrollbar-width));
-
-  /* specific to project variables */
-  --icon-size-1: 0.25rem;
-  --icon-size-2: 0.5rem;
-  --icon-size-3: 0.75rem;
-  --icon-size-4: 1rem;
-  --icon-size-5: 1.25rem;
-  --icon-size-6: 1.5rem;
-  --icon-size-7: 1.75rem;
-  --icon-size-8: 2rem;
-  --poster-landscape-ratio: 1.75;
-  --poster-portrait-ratio: 0.665;
-  --safe-space-to-scroll-bottom-nav: 75px;
-}
 
 @layer utilities {
   .truncate {
@@ -258,6 +86,7 @@
     aspect-ratio: 1 / 1;
 
     & svg {
+      min-width: 15px;
       max-width: 36.25px;
     }
   }
@@ -266,6 +95,174 @@
     display: inline-grid;
     place-items: center;
   }
+}
+
+:root {
+  --base-size: 1rem;
+  --space-1: calc(0.25 * var(--base-size));
+  --space-2: calc(0.5 * var(--base-size));
+  --space-3: calc(0.75 * var(--base-size));
+  --space-4: calc(1 * var(--base-size));
+  --space-5: calc(1.25 * var(--base-size));
+  --space-6: calc(1.5 * var(--base-size));
+  --space-7: calc(1.75 * var(--base-size));
+  --space-8: calc(2 * var(--base-size));
+  --space-9: calc(2.5 * var(--base-size));
+  --space-10: calc(3 * var(--base-size));
+  --outline-size-1: 1px;
+  --outline-size-2: 0.07525rem;
+  --outline-size-3: 0.1375rem;
+  --outline-size-4: 0.185rem;
+  --full-rounded: 9999px;
+  --shadow-100: 0 0.15rem 1.15rem rgb(0 0 0 / 20%);
+  --shadow-200: 0 0.1rem 0.75rem rgb(0 0 0 / 50%);
+  --duration-1: 150ms;
+  --duration-2: 220ms;
+  --z-neg20: -20;
+  --z-neg10: -10;
+  --z-neg5: -5;
+  --z-0: 0;
+  --z-5: 5;
+  --z-10: 10;
+  --z-20: 20;
+  --z-50: 50;
+  --z-100: 100;
+
+  --color-neutral-100: rgb(234 239 243);
+  --color-neutral-200: rgb(221 229 235);
+  --color-neutral-250: color-mix(
+    in srgb, var(--color-neutral-200), var(--color-neutral-300)
+  );
+  --color-neutral-300: rgb(195 206 219);
+  --color-neutral-350: color-mix(
+    in srgb, var(--color-neutral-300), var(--color-neutral-400)
+  );
+  --color-neutral-400: rgb(131 140 148);
+  --color-neutral-450: color-mix(
+    in srgb, var(--color-neutral-400), var(--color-neutral-500)
+  );
+  --color-neutral-500: rgb(66 71 75);
+  --color-neutral-550: color-mix(
+    in srgb, var(--color-neutral-500), var(--color-neutral-600)
+  );
+  --color-neutral-600: rgb(50 55 57);
+  --color-neutral-650: color-mix(
+    in srgb, var(--color-neutral-600), var(--color-neutral-700)
+  );
+  --color-neutral-700: rgb(37 40 42);
+  --color-neutral-750: color-mix(
+    in srgb, var(--color-neutral-700), var(--color-neutral-800)
+  );
+  --color-neutral-800: rgb(30 32 34);
+  --color-neutral-900: rgb(19 20 22);
+  --color-orange-300: rgb(245 197 24);
+  --color-red-300: rgb(182 38 43);
+  --color-red-500: rgb(151 28 32);
+  --black-gradient: rgb(10 13 15 / 25%);
+
+  /*
+  --color-accent-100: rgb(57 168 185);
+  --color-accent-100: rgb(197 65 100);
+  --color-accent-100: rgb(186 58 92);
+  */
+  --color-accent-100: #E48A94;
+  --color-accent-200: #DA697A;
+  --color-accent-300: #D3546A;
+  --color-accent-400: #C74361;
+  --color-accent-500: #BA3A5C;
+  --color-accent-600: #A72A4B;
+  
+  /* calculate the true vw unit, without scrollbar */
+  /* just in the case of <html> adds the scrollbar */
+  --scrollbar-width: 0;
+  --viewport-width: calc(100vw - var(--scrollbar-width));
+
+  /* specific to project variables */
+  --icon-size-1: 0.25rem;
+  --icon-size-2: 0.5rem;
+  --icon-size-3: 0.75rem;
+  --icon-size-4: 1rem;
+  --icon-size-5: 1.25rem;
+  --icon-size-6: 1.5rem;
+  --icon-size-7: 1.75rem;
+  --icon-size-8: 2rem;
+  --poster-landscape-ratio: 1.75;
+  --poster-portrait-ratio: 0.665;
+  --safe-space-to-scroll-bottom-nav: 75px;
+}
+
+@font-face {
+  font-family: Montserrat;
+  font-weight: 400;
+  font-style: normal;
+  src: local("Montserrat"),
+    url("/fonts/Montserrat-400.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Montserrat;
+  font-weight: 400;
+  font-style: italic;
+  src: url("/fonts/Montserrat-400-italic.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Montserrat;
+  font-weight: 500;
+  font-style: normal;
+  src: local("Montserrat"),
+    url("/fonts/Montserrat-500.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Montserrat;
+  font-weight: 600;
+  font-style: normal;
+  src: local("Montserrat"),
+    url("/fonts/Montserrat-600.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Montserrat;
+  font-weight: 600;
+  font-style: italic;
+  src: local("Montserrat"),
+    url("/fonts/Montserrat-600-italic.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Montserrat;
+  font-weight: 700;
+  font-style: normal;
+  src: local("Montserrat"),
+    url("/fonts/Montserrat-700.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Ubuntu;
+  font-weight: 400;
+  font-style: normal;
+  /*? font-display: swap;*/
+  src: local("Montserrat"),
+    url("/fonts/Ubuntu-400.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Ubuntu;
+  font-weight: 500;
+  font-style: normal;
+  /*? font-display: swap;*/
+  src: local("Montserrat"),
+    url("/fonts/Ubuntu-500.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Ubuntu;
+  font-weight: 700;
+  font-style: normal;
+  /*? font-display: swap;*/
+  src: local("Montserrat"),
+    url("/fonts/Ubuntu-700.ttf") format("truetype");
 }
 
 @layer typo {
@@ -315,6 +312,10 @@
   }
 }
 
+@layer framework {
+
+}
+
 @layer defaults {
   /* * {
     min-width: 0;
@@ -357,9 +358,9 @@
     height: 100%;
   }
 
-  i,
-  label {
+  i {
     display: inline-block;
+    text-align: center;
   }
 
   a {
@@ -374,8 +375,16 @@
     border-color: var(--color-neutral-700);
   }
 
+  label {
+    display: inline-block;
+  }
+
   input {
     font-size: 1rem;
+
+    &::placeholder {
+      font-size: inherit;
+    }
   }
 }
 
@@ -399,10 +408,6 @@
   a {
     color: inherit;
     text-decoration: none;
-  }
-
-  i {
-    text-align: center;
   }
 
   ul,

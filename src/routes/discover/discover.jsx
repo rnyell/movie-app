@@ -25,28 +25,24 @@ export default function Discover() {
   }
   
   return (
-    <div className="discover-page main-layout">
-      <SideNav />
-      <main>
-        <Header dataset="discover default" />
-        {isNestedRoute ? <Outlet /> :
-          <>
-            <NewsSction />
-            <section className="recommended-section">
-              <header>
-                <h4>Recommended movies</h4>
-              </header>
-              <div className="movie-list">
-                {isLoading ? <h2>loading</h2> : (
-                  recMovies.map(movie => 
-                    <MovieCard result={movie} type="list" />
-                  )
-                )}
-              </div>
-            </section>
-          </>
-        }
-      </main>
+    <div className="discover-page">
+      {isNestedRoute ? <Outlet /> :
+        <>
+          <NewsSction />
+          <section className="recommended-section">
+            <header>
+              <h4>Recommended movies</h4>
+            </header>
+            <div className="movie-list">
+              {isLoading ? <h2>loading</h2> : (
+                recMovies.map(movie => 
+                  <MovieCard key={movie.id} result={movie} type="list" />
+                )
+              )}
+            </div>
+          </section>
+        </>
+      }
     </div>
   )
 }

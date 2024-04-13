@@ -1,4 +1,4 @@
-import { request, sortResults } from "./utils"
+import { request } from "./utils"
 
 
 export const MOVIE_GENRES = {
@@ -62,24 +62,6 @@ export const seriesDisplayedGenres = [
   { name: "Crime", id: 80 },
 ]
 
-/*
-recommendations
-Oppenheimer
-872585
-
-Napoleon
-753342
-
-The Batman 2022
-414906
-*/
-
-// ~'/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc'
-// ~'3/discover/tv?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc'
-//~ https://api.themoviedb.org/3/trending/all/week?language=en-US"
-
-//~ /3/movie/{movie_id}/similar
-
 //+ series
 //+ https://developer.themoviedb.org/reference/tv-series-on-the-air-list
 //+ https://api.themoviedb.org/3/tv/{series_id}
@@ -112,10 +94,12 @@ export async function getOnScreenMovies() {
 
 
 export async function getPopularMovies() {
+  //+ '/3/discover/movie?include_video=false&sort_by=popularity.desc'
   const path = "3/movie/popular"
   const params = {
     page: 1,
     language: "en-US",
+    include_adult: false,
     api_key: import.meta.env.VITE_MAIN_API_KEY
   }
   let data = await request(path, params)
@@ -130,6 +114,7 @@ export async function getTrendingSeries() {
     page: 1,
     language: "en-US",
     include_adult: false,
+    include_video: false,
     sort_by: "popularity.desc",
     "vote_count.gte": 200,
     include_null_first_air_dates: false,
@@ -193,8 +178,12 @@ export async function getMovieDetails(movieId) {
 }
 
 /*
-Note:
-"similar" is built by looking for items based on their keywords and genres. "recommendations" are built by looking at user ratings. Very different approaches. Similar does not tend to yield very good results.
+Note: "similar" is built by looking for items based on their keywords and genres. "recommendations" are built by looking at user ratings. Very different approaches. Similar does not tend to yield very good results.
+--------------------------
+recommended movies
+Oppenheimer 872585
+Napoleon 753342
+The Batman 2022 414906
 */
 export async function getRecommendedMovies(movieId) {
   const path = `3/movie/${movieId}/recommendations`
@@ -248,57 +237,3 @@ export async function getSomeNews() {
   const {articles} = data
   return articles
 }
-
-// export async function getMovies(title = "", lang?: string) {
-//   const formattedTitle = title.split(' ').join("+");
-//   const path = "3/search/movie";
-//   const params = {
-//     query: formattedTitle,
-//     language: lang,
-//     api_key: import.meta.env.VITE_MAIN_API_KEY
-//   };
-//   const movies: any[] = [];
-//   const data = await request(path, params);
-//   const { total_pages: totalPages } = data;
-//   for (let i = 1; i <= totalPages; i++) {
-//     let data = await request(path, { ...params, page: i });
-//     movies.push(...data.results);
-//   }
-//   const results = movies.filter(movie => movie.vote_count > 50);
-//   return results
-// }
-
-// export async function getSeries(title = "", lang?: string) {
-//   const formattedTitle = title.split(' ').join("+");
-//   const path = "3/search/tv";
-//   const params = {
-//     query: formattedTitle,
-//     language: lang,
-//     api_key: import.meta.env.VITE_MAIN_API_KEY
-//   };
-//   const series: any[] = [];
-//   const data = await request(path, params);
-//   const { total_pages: totalPages } = data;
-//   for (let i = 1; i <= totalPages; i++) {
-//     let data = await request(path, { ...params, page: i });
-//     series.push(...data.results);
-//   }
-//   const results = series.filter(s => s.vote_count > 50);
-//   return results;
-// }
-
-// export async function getSearchedMovies(title = "", page = 1) {
-//   let formattedTitle = title.split(' ').join("+")
-//   let data = await request("3/search/movie", {
-//     query: formattedTitle,
-//     language: "en-US",
-//     page: page,
-//     api_key: import.meta.env.VITE_MAIN_API_KEY
-//   })
-//   const { 
-//     results, 
-//     total_results: totalResults, 
-//     total_pages: totalPages
-//   } = data
-//   return { results, totalResults, totalPages }
-// }

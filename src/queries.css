@@ -17,7 +17,7 @@
         justify-content: center;
       }
 
-      & img {
+      & .logo {
         width: 90%;
       }
     }
@@ -58,7 +58,6 @@
     border-radius: 3.5rem;
     /* outline: var(--outline-size-2) color-mix(in srgb, var(--color-neutral-400), transparent) solid;
     outline-offset: 0; */
-    /*? wierd case... opacit/alpha-channel not working without fixed position */
     
     &::after {
       display: none;

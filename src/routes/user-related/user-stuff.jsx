@@ -5,8 +5,8 @@ import { motion, AnimatePresence } from "framer-motion"
 import { StarIcon, BookmarkIcon, FilmIcon, TvIcon } from "@heroicons/outline"
 import { useLocalStorage } from "@src/utils/hooks"
 import { useUserState } from "@src/store/app-context"
-import SideNav from "@components/sidenav"
 import Header from "@components/header"
+import SideNav from "@components/sidenav"
 import MovieCard from "@components/movie/movie-card"
 
 export default function UserStuff() {
@@ -55,68 +55,64 @@ export default function UserStuff() {
   )
   
   return (
-    <div className="userstuff-page main-layout">
-      <SideNav />
-      <main>
-        <Header dataset="discover default" />
-        <section className="played-section">
-          <header className="flex-y-center">
-            <h4 className="heading">Played History</h4>
-            {/* <i className="icon">
-              TODO: 1. change view: list or grid
-                    2. sort base on the time movie is watched
-            </i> */}
-          </header>
-          <div className="played-container container">
-            {userState.played.length === 0 ? (
-              <div className="empty-history-msg empty-msg">
-                <p>You haven't watched any movies yet.</p>
-                <p>Let's <Link to="/discover">explore</Link> some movies!</p>
-              </div>
-            ) : (
-              userState.played.map(id =>
-                <div className="grid-item">
-                  <MovieCard key={id} result={id} type="played" />
-                </div>
-              )
-            )}
-          </div>
-          {userState.played.length !== 0 && (
-            <div className="cta">
-              <button className="btn" onClick={clearHistory}>Remove History</button>
+    <div className="userstuff-page">
+      <section className="played-section">
+        <header className="flex-y-center">
+          <h4 className="heading">Played History</h4>
+          {/* <i className="icon">
+            TODO: 1. change view: list or grid
+                  2. sort base on the time movie is watched
+          </i> */}
+        </header>
+        <div className="played-container container">
+          {userState.played.length === 0 ? (
+            <div className="empty-history-msg empty-msg">
+              <p>You haven't watched any movies yet.</p>
+              <p>Let's <Link to="/discover">explore</Link> some movies!</p>
             </div>
+          ) : (
+            userState.played.map(id =>
+              <div key={id} className="grid-item">
+                <MovieCard result={id} type="played" />
+              </div>
+            )
           )}
-        </section>
-        <hr style={{alignSelf: "center"}} />
-        <section className="watchlist-section">
-          <header className="flex-y-center">
-            <h4 className="heading">Your Watchlist</h4>
-          </header>
-          <div className="movies-container container">
-            {userState.bookmarked.length === 0 ? (
-              <div className="empty-watchlist-msg empty-msg">
-                <p>Your watchlist is currently empty.</p>
-                <p>You can add your desired movies or series to watchlist with bookmark button: <i className="icon"><BookmarkIcon /></i></p>
-              </div>
-            ) : (userState.bookmarked.map(id =>
-              <div className="grid-item" key={id}>
-                <MovieCard result={id} type="bookmarked" clearBookmark={clearBookmark} />
-              </div>
-            ))}
+        </div>
+        {userState.played.length !== 0 && (
+          <div className="cta">
+            <button className="btn" onClick={clearHistory}>Remove History</button>
           </div>
-          {userState.bookmarked.length !== 0 && (
-            <div className="cta">
-              <button className="btn" onClick={() => setShowModal(true)}>Clear All</button>
-            </div>
-          )}
-        </section>
-        {createPortal(
-          <AnimatePresence>
-            {showModal && <ConfirmationBox />}
-          </AnimatePresence>,
-          document.body
         )}
-      </main>
+      </section>
+      <hr style={{marginInline: "auto"}} />
+      <section className="watchlist-section">
+        <header className="flex-y-center">
+          <h4 className="heading">Your Watchlist</h4>
+        </header>
+        <div className="movies-container container">
+          {userState.bookmarked.length === 0 ? (
+            <div className="empty-watchlist-msg empty-msg">
+              <p>Your watchlist is currently empty.</p>
+              <p>You can add your desired movies or series to watchlist with bookmark button: <i className="icon"><BookmarkIcon /></i></p>
+            </div>
+          ) : (userState.bookmarked.map(id =>
+            <div className="grid-item" key={id}>
+              <MovieCard result={id} type="bookmarked" clearBookmark={clearBookmark} />
+            </div>
+          ))}
+        </div>
+        {userState.bookmarked.length !== 0 && (
+          <div className="cta">
+            <button className="btn" onClick={() => setShowModal(true)}>Clear All</button>
+          </div>
+        )}
+      </section>
+      {createPortal(
+        <AnimatePresence>
+          {showModal && <ConfirmationBox />}
+        </AnimatePresence>,
+        document.body
+      )}
     </div>
   )
 }

@@ -3,7 +3,6 @@ import { useNavigate, useLocation, Link } from 'react-router-dom'
 import { motion } from "framer-motion"
 import { ChevronLeftIcon, BookmarkIcon, StarIcon, PlayIcon } from "@heroicons/outline"
 
-import { useSelectedMovie } from '@src/store/app-context'
 import { getMovieDetails, getMovieTrailer } from "@src/utils/apis"
 import { formatRuntime, getMovieGenres, formatRate } from '@src/utils/utils'
 import { SelectedMovieSkeleton } from '@components/skeletons'
@@ -21,7 +20,6 @@ export default function SelectedMovie() {
   })
   const [trailerUrl, setTrailerUrl] = useState("")
   const [isLoading, setIsLoading] = useState(true)
-  const [, setSelectedMovie] = useSelectedMovie()
   const [movieDetails, setMovieDetails] = useState({})
   const navigate = useNavigate()
   const { state } = useLocation()
@@ -58,7 +56,7 @@ export default function SelectedMovie() {
       setImgUrl({
         ...imgUrl,
         width: "original",
-        path: bg_path
+        path: backdrop_path
       })
     }
   }
@@ -70,9 +68,8 @@ export default function SelectedMovie() {
     genres,
     vote_average: rate,
     overview: plot,
-    tagline,
     poster_path,
-    backdrop_path: bg_path,
+    backdrop_path,
     credits,
     videos,
     budget,
@@ -98,9 +95,7 @@ export default function SelectedMovie() {
   }
 
   function handleBooking() {
-    // just 2024 movies, avalibale in "On Screen" movies
-    setSelectedMovie({ title, poster_path })
-    navigate("/booking")
+    navigate("/booking", { state: { title, poster_path, backdrop_path }})
   }
 
   const variants = {

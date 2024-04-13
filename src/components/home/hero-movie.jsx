@@ -215,7 +215,7 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
             </button>
           </div>
           <p className="tagline">{tagline}</p>
-          <motion.div className="rate" variants={itemsA}>
+          <motion.div className="rate" variants={itemsB}>
             <div className="helper-div">
               <i className="icon">
                 <StarIcon />
