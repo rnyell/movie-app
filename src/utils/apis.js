@@ -113,6 +113,7 @@ export async function getTrendingSeries() {
   const params = {
     page: 1,
     language: "en-US",
+    region: "US",
     include_adult: false,
     include_video: false,
     sort_by: "popularity.desc",

@@ -9,41 +9,26 @@ import MovieCard from "@components/movie/movie-card"
 
 export default function SeriesSection() {
   const [movieState] = useMovieState()
-  const [constrainsWidth, setConstrainsWidth] = useState(400)
   const draggableRef = useRef(null)
 
   useEffect(() => {
-    handleResize()
-    window.addEventListener("resize", handleResize)
-    return () => window.removeEventListener("resize", handleResize)
+    
   }, [])
-
-  function handleResize() {
-    let offset = 85
-    setConstrainsWidth(
-      draggableRef.current.scrollWidth - window.innerWidth + offset
-    )
-  }
   
 
   return (
     <div className="series-section">
       <header>
-        <div>
-          <h4 className="heading">Trending Series</h4>
-          <Link to="/">Explore more<ChevronRightIcon /></Link>
-        </div>
+        <h4 className="heading">Trending Series</h4>
+        <Link to="/discover/series">Explore more <ChevronRightIcon /></Link>
         {/* <p>Be a couch potato for a week!</p> */}
       </header>
-      <div className="trending-series-wrapper">
-        <motion.div
-          ref={draggableRef}
-          drag="x"
-          dragConstraints={{ left: -constrainsWidth, right: 0 }}
-          className="draggable"
-        >
-          {movieState.series.map(movie => <MovieCard key={movie.id} result={movie} type="series" />)}
-        </motion.div>
+      <div className="draggable-wrapper">
+        <div className="draggable scroll-snap-start">
+          {movieState.series.slice(0, 12).map(movie =>
+            <MovieCard key={movie.id} result={movie} type="series" />
+          )}
+        </div>
       </div>
     </div>
   )

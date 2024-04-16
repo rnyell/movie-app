@@ -98,8 +98,9 @@ export default function MovieCard({ result, type, ...rest }) {
         <div data-type={type} className="movie-card">
           <figure>
             <img
-              src={`https://image.tmdb.org/t/p/original${result.backdrop_path}`}
-              alt="poster" className="poster"
+              className="poster"
+              src={`https://image.tmdb.org/t/p/w500${result.backdrop_path}`} /* original or w500? */
+              alt="poster"
               draggable="false"
             />
           </figure>
@@ -120,8 +121,9 @@ export default function MovieCard({ result, type, ...rest }) {
         <div data-type={type} className="movie-card">
           <figure>
             <img
+              className="poster"
               src={`https://image.tmdb.org/t/p/original${result.backdrop_path}`}
-              alt="poster" className="poster"
+              alt="poster"
               draggable="false"
             />
           </figure>

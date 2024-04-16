@@ -1,47 +1,31 @@
 .home-page {
-  height: 100vh;
-  height: 100dvh;
   overflow: hidden;
   display: grid;
   grid-template-columns: auto 1fr;
 }
 
 .home-page .home-content {
-  grid-column: 2 / 3;
   container: main-container / inline-size;
+  grid-column: 2 / 3;
+  height: 100vh;
   position: relative;
   isolation: isolate;
   overflow-y: scroll;
   scrollbar-width: none;
   scrollbar-width: thin;
   scrollbar-color: var(--color-neutral-500) var(--color-neutral-700);
-
-  /* these comented styles are applies by JS in <HomePage />, but kept to see what's going on.
-  & [data-fixed-scroll] {
-    width: 100%;
-    height: 100vh;
-    position: sticky;
-    z-index: var(--z-10);
-    top: 0;
-    overflow: hidden;
-  }
-  & [data-fake-scroll] {
-    width: 100%;
-  }
-  */
 }
 
 .home-page :where(.screen-section, .series-section) {
+  margin-top: var(--space-12);
   padding-inline: var(--space-8);
   position: relative;
   isolation: isolate;
   overflow: hidden;
 
   & header {
-    & div {
-      display: flex;
-      align-items: center;
-    }
+    display: flex;
+    align-items: center;
 
     & .heading {
       color: var(--color-accent-300);
@@ -53,18 +37,18 @@
 
     & a {
       margin-left: auto;
-      padding: 0.75rem 1rem;
+      padding: var(--space-2) var(--space-4);
       font-size: 0.75rem;
-      background-color: var(--color-neutral-700);
       border-radius: 0.75rem;
-
+      
       &:hover {
         text-decoration: underline;
+        background-color: var(--color-neutral-700);
       }
     }
 
     & svg {
-      margin-left: var(--space-2);
+      margin-left: var(--space-1);
       width: var(--icon-size-4);
     }
 
@@ -74,13 +58,12 @@
     }
   }
 
-  & :where(.screen-movies-wrapper, .trending-series-wrapper) {
-    margin-top: var(--space-4);
-    padding: var(--space-4);
+  & .draggable-wrapper {
+    margin-top: var(--space-6);
     position: relative;
     overflow: hidden;
   
-    &::before,
+    /* &::before,
     &::after {
       content: "";
       height: 100%;
@@ -103,23 +86,22 @@
       background-image: linear-gradient(
         to left, var(--color-neutral-800), transparent 80%
       );
-    }
+    } */
+  }
+
+  & .draggable {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 16vw), 1fr));
+    align-items: start;
+    gap: 1.75rem 1.5rem;
   }
 }
 
 .home-page .screen-section {
   --opacity: 0;
   --scale: 1;
-  /* cursor: none; */
   
-  & .draggable {
-    width: max-content; /* imp */
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: clamp(220px + 2vw, 16vw, 300px);
-    align-items: start;
-    column-gap: 1.75rem;
-  }
+  /* cursor: none; */
 
   & .pointer {
     pointer-events: none;
@@ -166,18 +148,6 @@
   }
 }
 
-.home-page .series-section {
-  margin-top: 2rem;
-
-  & .draggable {
-    width: max-content; /* imp */
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: clamp(150px + 1vw, 15vw, 200px);
-    align-items: start;
-    column-gap: 1.75rem;
-  }
-}
 
 /* .home-page .bg-effect {
   pointer-events: none;

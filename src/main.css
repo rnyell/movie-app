@@ -4,9 +4,9 @@
 @import "@styles/pages/home-page.css" layer;
 @import "@styles/pages/discover-page.css" layer;
 @import "@styles/pages/results-page.css" layer;
-@import "@styles/pages/user-stuff.css" layer;
-@import "@styles/pages/reservation.css" layer;
-@import "@styles/pages/booking.css" layer;
+@import "@styles/pages/userstuff-page.css" layer;
+@import "@styles/pages/reservation-page.css" layer;
+@import "@styles/pages/booking-page.css" layer;
 @import "@styles/pages/player-page.css" layer;
 @import "@styles/pages/selected-movie.css" layer;
 
@@ -17,7 +17,6 @@
 @import "@styles/movie-card.css" layer;
 @import "@styles/ticket.css" layer;
 @import "@styles/pagination.css" layer;
-@import "@styles/footer.css" layer;
 @import "@styles/errors.css" layer;
 @import "@styles/skeletons.css" layer;
 

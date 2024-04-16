@@ -32,11 +32,11 @@ const lg_links = [
 ]
 
 const sm_links = [
-  { name: "TV Shows", href: "/discover/series", icon: <TvIcon /> },
-  { name: "Movies", href: "/discover/movies", icon: <FilmIcon /> },
-  { name: "Home", href: "/", icon: <HomeIcon /> },
-  { name: "Discover", href: "/discover", icon: <CompasIcon /> },
-  { name: "", href: "/#", icon: <Squares2X2Icon /> },
+  { name: "TV Shows", href: "/discover/series", element: Link, icon: <TvIcon /> },
+  { name: "Movies", href: "/discover/movies", element: Link, icon: <FilmIcon /> },
+  { name: "Home", href: "/", element: Link, icon: <HomeIcon /> },
+  { name: "Discover", href: "/discover", element: Link, icon: <CompasIcon /> },
+  { name: "", href: null, element: "div", icon: <Squares2X2Icon /> },
 ]
 
 const sub_links = [
@@ -110,25 +110,26 @@ export default function SideNav() {
                 </Link>
             )})
           : sm_links.map((link, idx) => {
-              const squaresIdx = sm_links.length - 1
+              const isSquares = sm_links.length - 1 === idx
               const isActive = location.pathname === link.href
+              const Element = link.element
               return (
-                <Link
-                  ref={squaresIdx === idx ? submenuLinkRef : null}
+                <Element
+                  ref={isSquares ? submenuLinkRef : null}
                   to={link.href}
                   key={link.href}
                   className={`link ${
                     isActive && "is-active"
                   }`}
-                  onClick={() => { squaresIdx === idx && setIsOpen(!isOpen) }}
+                  onClick={() => { isSquares && setIsOpen(!isOpen) }}
                 >
                   <i className="icon">{isActive ? sm_solid_icons[idx] : link.icon}</i>
                   <p className="link-tag">{link.name}</p>
                   {isActive && <div className="dot"></div>}
                   {<AnimatePresence>
-                    {squaresIdx === idx && isOpen && <SubMenu setIsOpen={setIsOpen} />}
+                    {isSquares && isOpen && <SubMenu setIsOpen={setIsOpen} />}
                   </AnimatePresence>}
-                </Link>
+                </Element>
               )
             })}
       </nav>

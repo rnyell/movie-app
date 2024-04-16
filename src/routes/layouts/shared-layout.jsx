@@ -5,7 +5,7 @@ import SideNav from "@components/sidenav"
 export default function SharedLayout() {
 
   return (
-    <div className="main-layout">
+    <div className="shared-layout">
       <SideNav />
       <main>
         <Header dataset="sticky default" />

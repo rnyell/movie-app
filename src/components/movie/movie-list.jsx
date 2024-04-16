@@ -21,7 +21,7 @@ export default function MovieList({ type, genreId }) {
     isLoading ? (
       <p>loading</p>
     ) : (
-      <div className="movie-list">
+      <div className="movie-list scroll-snap-start">
         {results.map(result => <MovieCard key={result.id} result={result} type="list" />)}
       </div>
     )

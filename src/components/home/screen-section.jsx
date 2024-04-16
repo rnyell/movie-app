@@ -1,6 +1,6 @@
 import { useEffect, useReducer, useRef, useState } from "react"
 import { Link } from "react-router-dom"
-import { motion, useScroll, animate, useInView, useTransform, useMotionValueEvent } from "framer-motion"
+import { motion } from "framer-motion"
 import { ArrowUpRightIcon, ChevronRightIcon } from "@heroicons/outline"
 
 import { useMovieState } from "@src/store/app-context"
@@ -54,24 +54,14 @@ const reducer = (state, action) => {
 export default function ScreenSection() {
   const [movieState] = useMovieState()
   const [pointer, dispatch] = useReducer(reducer, init)
-  const [constrainsWidth, setConstrainsWidth] = useState(400)
   const sectionRef = useRef(null)
   const draggableRef = useRef(null)
   const cursorRef = useRef(null)
 
   
   useEffect(() => {
-    handleResize()
-    window.addEventListener("resize", handleResize)
-    return () => window.removeEventListener("resize", handleResize)
-  }, [constrainsWidth])
-
-  function handleResize() {
-    let offset = 85
-    setConstrainsWidth(
-      draggableRef.current.scrollWidth - window.innerWidth + offset
-    )
-  }
+    
+  }, [])
   
   const styles = {
     "--scale": pointer.scale,
@@ -115,28 +105,22 @@ export default function ScreenSection() {
     <section
       ref={sectionRef}
       style={styles}
-      // style={{ opacity: scrollYProgress }}
-      onMouseEnter={handlePointerEnter}
-      onPointerMove={handlePointerMove}
-      onMouseLeave={handlePointerLeave}
+      // onMouseEnter={handlePointerEnter}
+      // onPointerMove={handlePointerMove}
+      // onMouseLeave={handlePointerLeave}
       className="screen-section"
     >
       <header>
-        <div>
-          <h4 className="heading">Now Playing</h4>
-          <Link to="/">Explore more<ChevronRightIcon /></Link>
-        </div>
+        <h4 className="heading">Now Playing</h4>
+        <Link to="/onscreen">Explore more <ChevronRightIcon /></Link>
         {/* <p>Grab Your Popcorn!🍿</p> */}
       </header>
-      <div className="screen-movies-wrapper">
-        <motion.div
-          ref={draggableRef}
-          drag="x"
-          dragConstraints={{ left: -constrainsWidth, right: 0 }}
-          className="draggable"
-        >
-          {movieState.screen.slice(0, 10).map(movie => <MovieCard key={movie.id} result={movie} type="screen" />)}
-        </motion.div>
+      <div className="draggable-wrapper">
+        <div className="draggable scroll-snap-start">
+          {movieState.screen.slice(0, 12).map(movie => 
+            <MovieCard key={movie.id} result={movie} type="screen" />
+          )}
+        </div>
       </div>
       <div ref={cursorRef} className="pointer">
         <div className={`${pointer.hover ? "is-hover" : ""}`}>

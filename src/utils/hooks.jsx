@@ -41,8 +41,7 @@ export function useFetch(url, options = {}) {
 export function useWindow() {
   const [windowSize, setWindowSize] = useState({
     windowWidth: window.innerWidth,
-    windowHeight: window.innerHeight,
-    scrollbarWidth: window.innerWidth - document.documentElement.clientWidth
+    windowHeight: window.innerHeight
   })
 
   useEffect(() => {
@@ -56,14 +55,8 @@ export function useWindow() {
   function handleResizeEvent() {
     setWindowSize({
       windowWidth: window.innerWidth,
-      windowHeight: window.innerHeight,
-      scrollbarWidth: window.innerWidth - document.documentElement.clientWidth
+      windowHeight: window.innerHeight
     })
-
-    document.documentElement.style.setProperty(
-      "--scrollbar-width",
-      `${windowSize.scrollbarWidth}px`
-    )
   }
 
   return {...windowSize}

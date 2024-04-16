@@ -36,6 +36,7 @@ const routes = [
       { path: "/", element: <HomePage />, },
       { path: "/", element: <SharedLayout />, children: [
         { path: "/reservation", element: <Reservation /> },
+        { path: "/onscreen", element: <OnScreenPage /> },
         { path: "/your-stuff", element: <UserStuff /> },
         { path: "/discover", element: <Discover />, children: [
           { path: "/discover/movies", element: <MoviesPage /> },

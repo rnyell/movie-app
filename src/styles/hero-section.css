@@ -218,7 +218,7 @@
   }
 
   & .btn-shared {
-    padding: 1.5cqw;
+    padding: 1.2cqw 1.5cqw;
     font-weight: 500;
     background-color: rgb(20 23 26 / 15%);
     backdrop-filter: blur(5px);
@@ -336,6 +336,7 @@
   & figure {
     flex-shrink: 0;
     width: var(--img-width);
+    min-height: 80px; /* for JS */
     opacity: 0.375;
     scale: 0.925;
     transition: opacity var(--duration-1), scale var(--duration-1);

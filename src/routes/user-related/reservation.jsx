@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 import { StarIcon, BookmarkIcon, FilmIcon, TvIcon } from "@heroicons/outline"
 
 import { getMovieDetails } from "@src/utils/apis"
@@ -19,6 +20,7 @@ export default function Reservation() {
           {userState.reserved.length === 0 ? (
             <div className="empty-tickets-msg empty-msg">
               <p>No movies is reserved yet.</p>
+              <p>You can reserve tickets from <Link to="/onscreen">in cinema</Link>.</p>
             </div>
           ) : (
             userState.reserved.map(res => 

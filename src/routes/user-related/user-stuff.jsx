@@ -5,8 +5,6 @@ import { motion, AnimatePresence } from "framer-motion"
 import { StarIcon, BookmarkIcon, FilmIcon, TvIcon } from "@heroicons/outline"
 import { useLocalStorage } from "@src/utils/hooks"
 import { useUserState } from "@src/store/app-context"
-import Header from "@components/header"
-import SideNav from "@components/sidenav"
 import MovieCard from "@components/movie/movie-card"
 
 export default function UserStuff() {
@@ -93,7 +91,7 @@ export default function UserStuff() {
           {userState.bookmarked.length === 0 ? (
             <div className="empty-watchlist-msg empty-msg">
               <p>Your watchlist is currently empty.</p>
-              <p>You can add your desired movies or series to watchlist with bookmark button: <i className="icon"><BookmarkIcon /></i></p>
+              <p>To keep track of the stuff you want to watch, just tap the bookmark icon: <i className="icon"><BookmarkIcon /></i></p>
             </div>
           ) : (userState.bookmarked.map(id =>
             <div className="grid-item" key={id}>

@@ -31,33 +31,28 @@
 
 /*-------------------------------------------------------------------------------------------------------*/
 .movie-card[data-type="screen"] {
-  --radius: 1.25rem;
+  --radius: 1.2rem;
   --padding: var(--space-3);
-  --card-width: 16.25vw;
-  --poster-width: calc(var(--card-width) - 2 * var(--padding) - 0.2rem);
 
   padding: var(--padding) var(--padding) var(--space-4);
   position: relative;
-  background-color: var(--color-neutral-700);
-  background-color: color-mix(in srgb, var(--color-neutral-700) 80%, transparent);
+  background-color: color-mix(in srgb, var(--color-neutral-700), transparent 55%);
   border-radius: calc(var(--space-4) + var(--radius));
-  box-shadow: 0 3px 0.75rem rgb(10 15 17 / 50%);
+  box-shadow: 0 3px 1.24rem rgb(10 15 17 / 50%), 
+    0 2px 0.5rem rgb(10 15 17 / 10%);
   
   & .poster {
     width: 100%;
     aspect-ratio: var(--poster-landscape-ratio);
     border-radius: var(--radius);
-    filter: grayscale(20%);
-    transition: scale var(--duration-2), filter var(--duration-1);
   }
 
   & .title {
     align-self: flex-start;
-    margin-top: 1cqh;
+    margin-top: 5cqw;
     margin-left: 2cqw;
     text-align: start;
-    font-size: 0.9rem;
-    font-weight: 400;
+    font-size: clamp(12px, 0.5rem + 2cqw, 17px);
   }
 
   & .details {
@@ -70,43 +65,39 @@
   }
 
   & .vote {
-    margin-left: auto;
-    margin-right: 2cqw;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
+    margin-inline: auto 2cqw;
+    gap: 0.25rem;
 
     & .vote-number {
-      font-size: 0.675rem;
-    }
-
-    & .star-icon {
-      width: 5cqw;
+      margin-top: 2px; /* hacky */
+      font-size: clamp(10px, 0.5rem + 1.5cqw, 13px);
     }
   }
 
   & .runtime {
-    font-size: 0.675rem;
-    font-size: min(0.5rem + 0.75cqw, 0.525rem);
+    font-size: clamp(10px, 0.5rem + 1.5cqw, 13px);
     color: var(--color-neutral-400);
-  }
-}
-
-.movie-card[data-type="screen"]:hover {
-  & .poster {
-    filter: grayscale(0);
-    scale: 1.0275;
   }
 }
 
 
 /*-------------------------------------------------------------------------------------------------------*/
 .movie-card[data-type="series"] {
-  .poster {
+  --radius: 1.2rem;
+  --padding: var(--space-3);
+
+  padding: var(--padding) var(--padding) var(--space-4);
+  position: relative;
+  background-color: color-mix(in srgb, var(--color-neutral-700), transparent 55%);
+  border-radius: calc(var(--space-4) + var(--radius));
+  box-shadow: 0 3px 1.24rem rgb(10 15 17 / 50%), 
+    0 2px 0.5rem rgb(10 15 17 / 10%);
+
+  & .poster {
     border-radius: 1.5rem;
   }
 
-  .title {
+  & .title {
     margin-top: 1cqh;
     margin-left: 2cqw;
     text-align: start;

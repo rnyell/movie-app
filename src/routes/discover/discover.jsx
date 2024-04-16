@@ -2,8 +2,6 @@ import { useEffect, useState } from "react"
 import { Link, Outlet, useLocation } from "react-router-dom"
 
 import { getRecommendedMovies } from "@src/utils/apis"
-import SideNav from "@components/sidenav"
-import Header from "@components/header"
 import NewsSction from "@components/discover/news-section"
 import MovieList from "@components/movie/movie-list"
 import MovieCard from "@components/movie/movie-card"
@@ -28,12 +26,20 @@ export default function Discover() {
     <div className="discover-page">
       {isNestedRoute ? <Outlet /> :
         <>
+          <section className="intro-section">
+            <div className="wrapper">
+              <div>Search</div>
+              <div>Movies</div>
+              <div>Series</div>
+              <div>News</div>
+            </div>
+          </section>
           <NewsSction />
           <section className="recommended-section">
             <header>
               <h4>Recommended movies</h4>
             </header>
-            <div className="movie-list">
+            <div className="movie-list scroll-snap-start">
               {isLoading ? <h2>loading</h2> : (
                 recMovies.map(movie => 
                   <MovieCard key={movie.id} result={movie} type="list" />

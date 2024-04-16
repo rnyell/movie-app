@@ -1,13 +1,4 @@
 .userstuff-page {
-  & section {
-    margin-block: var(--space-8);
-    padding-inline: var(--space-6);
-  }
-
-  & header {
-    margin-bottom: var(--space-6);
-  }
-
   & .container {
     padding: var(--space-10);
     padding-bottom: 3.5rem;

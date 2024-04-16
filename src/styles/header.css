@@ -13,16 +13,10 @@
     margin-inline: auto var(--space-6);
   }
 
-  &[data-set~="sticky"],
-  &[data-set~="sm-screen"] {
+  &[data-set~="sticky"] {
     position: sticky;
     top: 0;
     z-index: var(--z-50);
-    /* background-color: color-mix(in srgb, var(--color-neutral-700) 75%, transparent); */
-    /* backdrop-filter: blur(20px); */
-  }
-
-  &[data-set~="sticky"] {
     background-color: var(--color-neutral-800);
   }
 
@@ -35,9 +29,10 @@
 
   &[data-set~="sm-screen"] {
     --icon-size-6: 1.75rem;
-    background-color: color-mix(
-      in srgb, var(--color-neutral-700) 75%, transparent
-    );
+    position: sticky;
+    top: 0;
+    z-index: var(--z-50);
+    background-color: color-mix(in srgb, var(--color-neutral-700) 75%, transparent);
     backdrop-filter: blur(20px);
 
     & .flex-item {
