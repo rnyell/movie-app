@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import { ChevronRightIcon } from "@heroicons/outline"
 import { FireIconSolid } from "@src/utils/icons"
 import { seriesDisplayedGenres } from "@src/utils/apis"
-import MovieList from "@components/movie/movie-list"
+import GenreList from "@components/movie/genre-list"
 
 
 export default function SeriesPage() {
@@ -15,7 +15,7 @@ export default function SeriesPage() {
             <FireIconSolid />
           </i>
         </header>
-        <MovieList type="series" />
+        <GenreList type="series" />
       </section>
 
       {seriesDisplayedGenres.map(genreObj => 
@@ -29,7 +29,7 @@ export default function SeriesPage() {
               </i>
             </Link>
           </header>
-          <MovieList type="series" genreId={genreObj.id} />
+          <GenreList type="series" genreId={genreObj.id} />
         </section>
       )}
     </>

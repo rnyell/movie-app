@@ -3,8 +3,7 @@ import { Link, Outlet, useLocation } from "react-router-dom"
 
 import NewsSction from "@components/discover/news-section"
 import RecommendedSection from "@components/discover/recommended-section"
-import MovieList from "@components/movie/movie-list"
-import MovieCard from "@components/movie/movie-card"
+import GenreList from "@components/movie/genre-list"
 
 const intro_topics = [
   { href: "/search", tag: "Search" },
@@ -26,7 +25,7 @@ export default function Discover() {
               <p className="intro-text">Explore ...</p>
               <div className="wrapper">
                 {intro_topics.map(elem => (
-                  <Link to={elem.href}>
+                  <Link to={elem.href} key={elem.href}>
                     <div className="box flex-col">
                       <p>{elem.tag}</p>
                     </div>

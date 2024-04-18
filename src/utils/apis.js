@@ -42,7 +42,7 @@ export const TV_GENRES = {
   /* 10766: "Soap",*/
 }
 
-export const movieDisplayedGenres = [
+export const displayedMovieGenres = [
   { name: "Drama", id: 18 },
   { name: "Thrillers", id: 53 },
   { name: "Action", id: 28 },

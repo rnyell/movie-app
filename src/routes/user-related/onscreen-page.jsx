@@ -12,7 +12,14 @@ export default function OnScreenPage() {
           <h4>Currently In Cinema</h4>
         </header>
         <div className="movies-container">
-          {movieState.screen.map(movie => <MovieCard key={movie.id} result={movie} type="screen" />)}
+          {movieState.screen.map(movie => (
+            <MovieCard
+              key={movie.id}
+              result={movie}
+              type="movie"
+              variant="screen"
+            />
+          ))}
         </div>
       </section>
     </div>

@@ -71,7 +71,7 @@ export default function UserStuff() {
           ) : (
             userState.played.map(id =>
               <div key={id} className="grid-item">
-                <MovieCard result={id} type="played" />
+                <MovieCard result={id} type="unknown" variant="played" />
               </div>
             )
           )}
@@ -95,7 +95,12 @@ export default function UserStuff() {
             </div>
           ) : (userState.bookmarked.map(id =>
             <div className="grid-item" key={id}>
-              <MovieCard result={id} type="bookmarked" clearBookmark={clearBookmark} />
+              <MovieCard
+                result={id}
+                type="unknown"
+                variant="bookmarked"
+                clearBookmark={clearBookmark}
+              />
             </div>
           ))}
         </div>

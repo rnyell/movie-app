@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { getItemsByGenre } from "@src/utils/apis"
 import MovieCard from "./movie-card"
 
-export default function MovieList({ type, genreId }) {
+export default function GenreList({ type, genreId }) {
   const [isLoading, setIsLoading] = useState(true)
   const [results, setResults] = useState([])
 
@@ -21,8 +21,15 @@ export default function MovieList({ type, genreId }) {
     isLoading ? (
       <p>loading</p>
     ) : (
-      <div className="movie-list scroll-snap-start">
-        {results.map(result => <MovieCard key={result.id} result={result} type="list" />)}
+      <div className="genre-list scroll-snap-start">
+        {results.map(result => (
+          <MovieCard
+            key={result.id}
+            result={result}
+            type={type}
+            variant="list"
+          />
+        ))}
       </div>
     )
   )

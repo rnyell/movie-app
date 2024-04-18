@@ -120,7 +120,7 @@ export default function ResultsPage() {
               key={movie.id}
               className="movie-grid-item"
             >
-              <MovieCard result={movie} type="result" />
+              <MovieCard result={movie} type="unknown" variant="result" />
             </Link>
           ))}
         </motion.div>

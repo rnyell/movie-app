@@ -25,7 +25,7 @@ export default function RecommendedSection() {
       <div className="movie-list scroll-snap-start">
         {isLoading ? <h2>loading</h2> : (
           recMovies.map(movie => 
-            <MovieCard key={movie.id} result={movie} type="list" />
+            <MovieCard key={movie.id} result={movie} type="movie" variant="list" />
           )
         )}
       </div>

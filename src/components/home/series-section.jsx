@@ -26,7 +26,7 @@ export default function SeriesSection() {
       <div className="draggable-wrapper">
         <div className="draggable scroll-snap-start">
           {movieState.series.slice(0, 12).map(movie =>
-            <MovieCard key={movie.id} result={movie} type="series" />
+            <MovieCard key={movie.id} result={movie} type="series" variant="series" />
           )}
         </div>
       </div>

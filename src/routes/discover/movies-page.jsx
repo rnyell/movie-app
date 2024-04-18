@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom"
 import { ChevronRightIcon } from "@heroicons/outline"
 import { FireIconSolid } from "@src/utils/icons"
-import { movieDisplayedGenres } from "@src/utils/apis"
-import MovieList from "@components/movie/movie-list"
+import { displayedMovieGenres } from "@src/utils/apis"
+import GenreList from "@components/movie/genre-list"
 
 
 export default function MoviesPage() {
@@ -15,10 +15,10 @@ export default function MoviesPage() {
             <FireIconSolid />
           </i>
         </header>
-        <MovieList type="movie" />
+        <GenreList type="movie" />
       </section>
 
-      {movieDisplayedGenres.map(genreObj => 
+      {displayedMovieGenres.map(genreObj => 
         <section key={genreObj.id}>
           <header>
             <h4>{genreObj.name}</h4>
@@ -29,7 +29,7 @@ export default function MoviesPage() {
               </i>
             </Link>
           </header>
-          <MovieList type="movie" genreId={genreObj.id} />
+          <GenreList type="movie" genreId={genreObj.id} />
         </section>
       )}
     </>
