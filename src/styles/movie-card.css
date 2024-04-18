@@ -107,54 +107,133 @@
 
 
 /*-------------------------------------------------------------------------------------------------------*/
+.movie-list:has(:hover) .movie-card[data-type="list"]:not(:has(:hover)) {
+  opacity: 0.6;
+}
+
 .movie-card[data-type="list"] {
-  /* actually its width is inlined by JS b'cuz of ""framer motion"" reasons, so this width property is essentially has no impact
-    but it is kept for better understanding of how the <MovieList /> is laid out. */
-  width: clamp(175px, 20vw, 305px);
+  width: clamp(175px, 18vw, 300px);
+  scroll-margin-left: 3px; /* related to the visibility of the left-outline. it works with 1.5px but 3px is safer */
+  border-radius: 1.5rem;
+  box-shadow: var(--box-shadow-1);
+  outline: 1.5px solid transparent;
+  outline-offset: 0;
+  transition: opacity var(--duration-2) ease-out,
+    outline-color var(--duration-2) ease-in;
 
-  & figure {
-    position: relative;
-    overflow: hidden;
-
-    & .poster {
-      aspect-ratio: 1.65;
-      border-radius: 1.5rem;
-    }
+  &:hover {
+    outline-color: color-mix(in srgb, var(--color-neutral-400), transparent);
   }
 
-  & .main-details {
+  & .wrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1.5rem;
+  }
+
+  & .poster {
+    aspect-ratio: 1.65;
+  }
+
+  & .hover-overlay {
+    padding: 3cqw 6cqw;
+    font-size: 0.85rem;
+    background-color: rgb(15 18 20 / 65%);
+  }
+
+  & .title {
+    margin-top: auto;
+    width: unset;
+  }
+
+  & .details {
     margin-top: var(--space-2);
-    padding-inline: var(--space-2);
-    width: 100%;
     display: flex;
     align-items: center;
+    column-gap: 0.5rem;
+    color: var(--color-neutral-300);
+    font-weight: 500;
 
-    & .title {
-      font-size: 1rem;
+    & .dot {
+      margin-top: -1px; /* hacky */
+      scale: 1.35;
+    }
+
+    & .runtime {
+      letter-spacing: -0.25px;
     }
 
     & .vote {
-      margin-left: auto;
-      font-size: 0.8rem;
+      color: inherit;
+
+      & .vote-number {
+        margin-left: 2px;
+      }
     }
 
+    & .star-icon svg {
+      fill: var(--color-neutral-300);
+    }
+  }
+
+  & .cta-btns {
+    margin-block: var(--space-4);
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  & button {
+    overflow: hidden;
+    border-radius: 0.5rem;
+    backdrop-filter: blur(5px);
+    
     & .icon {
-      width: var(--icon-size-3);
+      padding: var(--space-2);
+      color: var(--color-neutral-800);
+      background-color: color-mix(in srgb, var(--color-neutral-200), transparent 55%);
+      cursor: pointer;
+      transition: background-color var(--duration-1) ease-in;
+    }
+
+    & .play-icon {
+      color: var(--color-neutral-300);
+      background-color: var(--color-accent-500);
+
+      &:hover {
+        color: var(--color-neutral-800);
+      }
+    }
+
+    & svg {
+      width: var(--space-4);
+      stroke-width: 1.75;
+      transition: color var(--duration-1) ease-in;
+    }
+
+    & .is-bookmarked svg {
+      fill: var(--color-neutral-800);
+    }
+
+    & .icon:hover {
+      background-color: var(--color-neutral-300);
     }
   }
 
-  .hover-overlay {
-    pointer-events: none;
-    background-image: linear-gradient(
-      180deg, rgb(20 20 20 / 90%), rgb(35 35 35 / 55%) -5%
-    );
-  }
+  /* & .ambient {
+    position: absolute;
+    inset: 0;
+    z-index: var(--z-neg5);
+    background-size: cover;
+    background-position: center;
+    opacity: 0.35;
+    filter: blur(15px);
+  } */
 }
 
 /*-------------------------------------------------------------------------------------------------------*/
 .movie-card[data-type="played"] {
 
-  figure {
+  & figure {
     position: relative;
     overflow: hidden;
     border-radius: 1rem;

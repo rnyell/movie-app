@@ -1,52 +1,42 @@
 import { useEffect, useState } from "react"
 import { Link, Outlet, useLocation } from "react-router-dom"
 
-import { getRecommendedMovies } from "@src/utils/apis"
 import NewsSction from "@components/discover/news-section"
+import RecommendedSection from "@components/discover/recommended-section"
 import MovieList from "@components/movie/movie-list"
 import MovieCard from "@components/movie/movie-card"
 
+const intro_topics = [
+  { href: "/search", tag: "Search" },
+  { href: "/discover/movies", tag: "Movies" },
+  { href: "/discover/series", tag: "Series" },
+  { href: "/discover/news", tag: "News" },
+]
+
 export default function Discover() {
-  const [recMovies, setRecMovies] = useState(null)
-  const [isLoading, setIsLoading] = useState(true)
   const { pathname } = useLocation()
   const isNestedRoute = pathname === "/discover/movies" || pathname === "/discover/series"
-
-  useEffect(() => {
-    loadData()
-  }, [])
-
-  async function loadData() {
-    const data = await getRecommendedMovies(872585)
-    setRecMovies(data)
-    setIsLoading(false)
-  }
   
   return (
     <div className="discover-page">
       {isNestedRoute ? <Outlet /> :
         <>
           <section className="intro-section">
-            <div className="wrapper">
-              <div>Search</div>
-              <div>Movies</div>
-              <div>Series</div>
-              <div>News</div>
+            <div className="container">
+              <p className="intro-text">Explore ...</p>
+              <div className="wrapper">
+                {intro_topics.map(elem => (
+                  <Link to={elem.href}>
+                    <div className="box flex-col">
+                      <p>{elem.tag}</p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
             </div>
           </section>
           <NewsSction />
-          <section className="recommended-section">
-            <header>
-              <h4>Recommended movies</h4>
-            </header>
-            <div className="movie-list scroll-snap-start">
-              {isLoading ? <h2>loading</h2> : (
-                recMovies.map(movie => 
-                  <MovieCard key={movie.id} result={movie} type="list" />
-                )
-              )}
-            </div>
-          </section>
+          <RecommendedSection />
         </>
       }
     </div>

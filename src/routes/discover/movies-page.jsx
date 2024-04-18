@@ -18,13 +18,6 @@ export default function MoviesPage() {
         <MovieList type="movie" />
       </section>
 
-      <section>
-        <h4>Recommend for you</h4>
-        <div>
-
-        </div>
-      </section>
-
       {movieDisplayedGenres.map(genreObj => 
         <section key={genreObj.id}>
           <header>

@@ -83,6 +83,13 @@ export function getMovieDirector(crew = []) {
   return crew.filter(({ job }) => job === "Director")[0].name
 }
 
+export function devideItemsIntoPages(page, array) {
+  const ITEMS_PER_PAGE = 18
+  let arg1 = (page - 1) * ITEMS_PER_PAGE
+  let arg2 = ITEMS_PER_PAGE * page
+  return array.slice(arg1, arg2)
+}
+
 
 export function generatePagination(currentPage, totalPages) {
   if (totalPages <= 5) {

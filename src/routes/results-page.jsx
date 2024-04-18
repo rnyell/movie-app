@@ -3,7 +3,7 @@ import { Link, useSearchParams, useLocation } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 
 import { getAllResults } from "@src/utils/apis"
-import { generatePagination } from "@src/utils/utils"
+import { devideItemsIntoPages, generatePagination } from "@src/utils/utils"
 import { useSearch } from "@src/store/app-context"
 import Header from "@components/header"
 import MovieCard from "@components/movie/movie-card"
@@ -16,13 +16,12 @@ const results_types = ["all", "movie", "tv"]
 
 export default function ResultsPage() {
   const ITEMS_PER_PAGE = 18
-  const [isLoading, setIsLoading] = useState(true)
   const [searchState, searchDispatch] = useSearch()
   const [searchStateCopy, setSearchStateCopy] = useState({ results: [], pages: 0 })
   const [resultsType, setResultsType] = useState("all")
   const [searchParams] = useSearchParams()
   const location = useLocation()
-  // how does it work? this is a simple variable not a state...
+  const [isLoading, setIsLoading] = useState(true)
   let currentPage = Number(searchParams.get("page")) || 1
   let allPagesArray = 1
 
@@ -33,6 +32,10 @@ export default function ResultsPage() {
   useEffect(() => {
     if (searchParams.get("query")) {
       loadResultsOnUpdate()
+    }
+
+    if (searchParams.get("query") === null) {
+
     }
   }, [location])
 
@@ -94,13 +97,6 @@ export default function ResultsPage() {
     }
   }
 
-  function devideResultsIntoPages(page) {
-    let arg1 = (page - 1) * ITEMS_PER_PAGE
-    let arg2 = ITEMS_PER_PAGE * page
-    return searchStateCopy.results.slice(arg1, arg2)
-  }
-
-
   const results =
     searchState.pages === 0 ? (
       <NotFoundResult />
@@ -111,7 +107,7 @@ export default function ResultsPage() {
           layout
           // transition={{ layout: { duration: 0.2 } }}
         >
-          {devideResultsIntoPages(currentPage).map((movie) => (
+          {devideItemsIntoPages(currentPage, searchStateCopy.results).map((movie) => (
             <Link
               to={`/movies/${(movie.title || movie.name)
                 .trim()
@@ -133,9 +129,7 @@ export default function ResultsPage() {
 
   return (
     <div className="results-page">
-      <div className="sticky">
-        <Header dataset="results-page" />
-      </div>
+      <Header dataset="sticky results-page" />
       <aside>
         <FilterBox />
       </aside>

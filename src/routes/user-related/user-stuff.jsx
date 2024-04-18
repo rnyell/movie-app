@@ -85,7 +85,7 @@ export default function UserStuff() {
       <hr style={{marginInline: "auto"}} />
       <section className="watchlist-section">
         <header className="flex-y-center">
-          <h4 className="heading">Your Watchlist</h4>
+          <h4 className="heading">Watchlist</h4>
         </header>
         <div className="movies-container container">
           {userState.bookmarked.length === 0 ? (

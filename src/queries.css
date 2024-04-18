@@ -325,6 +325,13 @@
   }
 }
 
+@container discover-page (width < 750px) {
+  .wrapper {
+    grid-template-columns: repeat(2, minmax(20vw, 1fr));
+    grid-template-rows: repeat(2, calc(100px + 4vmin));
+  }
+}
+
 
 /** on results page */
 @container movie-card (width > 165px) {

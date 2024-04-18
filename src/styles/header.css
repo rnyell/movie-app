@@ -21,6 +21,11 @@
   }
 
   &[data-set~="results-page"] {
+    grid-column: 1 / -1;
+    grid-row: 1 / 2;
+    background-color: color-mix(in srgb, var(--color-neutral-700) 75%, transparent);
+    backdrop-filter: blur(20px);
+
     & .flex-item {
       margin-inline: var(--space-6) auto;
       width: max(300px, 45%);

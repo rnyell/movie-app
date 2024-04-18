@@ -4,11 +4,6 @@
   grid-template-columns: minmax(auto, min(30vw, 300px)) 1fr;
   grid-template-rows: auto auto;
 
-  .sticky {
-    grid-column: 1 / -1;
-    grid-row: 1 / 2;
-  }
-
   & aside {
     grid-column: 1 / 2;
     grid-row: 2 / 3;
@@ -27,14 +22,6 @@
     height: 0;
     opacity: 0;
   }
-}
-
-.results-page .sticky {
-  position: sticky;
-  top: 0;
-  z-index: var(--z-50);
-  background-color: color-mix(in srgb, var(--color-neutral-700) 75%, transparent);
-  backdrop-filter: blur(20px);
 }
 
 .results-page aside {

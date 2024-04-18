@@ -20,9 +20,20 @@
     }
   }
 
+  .before-abs {
+    &::before {
+      content: "";
+      position: absolute;
+    }
+  }
+
   .grid-center {
     display: grid;
     place-items: center;
+  }
+
+  .flex {
+    display: flex;
   }
 
   .flex-center {
@@ -39,6 +50,11 @@
   .flex-x-center {
     display: flex;
     justify-content: center;
+  }
+
+  .flex-col {
+    display: flex;
+    flex-direction: column;
   }
 
   .flex-col-x-center {
@@ -89,11 +105,11 @@
       }
 
       & section {
-        margin-block: var(--space-8);
+        margin-block: var(--space-7);
         padding-inline: var(--space-6);
       }
     
-      & header {
+      & section > header {
         margin-bottom: var(--space-6);
       }
     }
@@ -133,10 +149,7 @@
   --outline-size-1: 1px;
   --outline-size-2: 0.07525rem;
   --outline-size-3: 0.1375rem;
-  --outline-size-4: 0.185rem;
-  --full-rounded: 9999px;
-  --duration-1: 150ms;
-  --duration-2: 220ms;
+  --outline-size-4: 2.5px;
   --z-neg20: -20;
   --z-neg10: -10;
   --z-neg5: -5;
@@ -146,7 +159,12 @@
   --z-20: 20;
   --z-50: 50;
   --z-100: 100;
-
+  --z-max: 9999;
+  --full-rounded: 9999px;
+  --duration-1: 150ms;
+  --duration-2: 220ms;
+  --duration-3: 300ms;
+  
   --box-shadow-1: 0 3px 1.24rem rgb(10 15 17 / 50%), 0 2px 0.5rem rgb(10 15 17 / 10%);
   
   --color-neutral-100: rgb(234 239 243);
@@ -176,7 +194,10 @@
   );
   --color-neutral-800: rgb(30 32 34);
   --color-neutral-900: rgb(19 20 22);
+
+  --color-aliceblue-200: aliceblue;
   --color-orange-300: rgb(245 197 24);
+  --color-orange-500: rgb(255 165 00);
   --color-red-300: rgb(182 38 43);
   --color-red-500: rgb(151 28 32);
   --black-gradient: rgb(10 13 15 / 25%);
@@ -384,6 +405,7 @@
 
   a {
     display: inline-block;
+    text-underline-offset: 2px;
     text-decoration-skip-ink: auto;
   }
 

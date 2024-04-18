@@ -1,21 +1,33 @@
 import { useEffect, useRef, useState } from "react"
 import { createPortal } from "react-dom"
-import { motion, AnimatePresence, useAnimate } from "framer-motion"
-import { StarIcon, BookmarkIcon, FilmIcon, TvIcon } from "@heroicons/outline"
+import { motion, AnimatePresence } from "framer-motion"
+import { StarIcon, BookmarkIcon, FilmIcon, TvIcon, ArrowTopRightOnSquareIcon } from "@heroicons/outline"
 import { BookmarkSlashIcon, PlayIcon } from "@heroicons/solid"
-import { getMovieDetails } from "@src/utils/apis"
+
+import { useWindow, useLocalStorage } from "@src/utils/hooks"
+import { getMovieDetails, getMovieRuntime } from "@src/utils/apis"
 import { getGenresBaseOnIds, formatRate, formatRuntime, formatReleaseDate } from "@src/utils/utils"
-import { getMovieRuntime } from "@src/utils/apis"
+import { useUserState } from "@src/store/app-context"
 
 
 export default function MovieCard({ result, type, ...rest }) {
+  const {windowWidth} = useWindow()
+  const {userState, userDispatch} = useUserState()
+  const [, setBookmarkedLS] = useLocalStorage("bookmarked", userState.bookmarked)
+  const [isBookmarked, setIsBookmarked] = useState()
+
   const [runtime, setRuntime] = useState(null)
   const listCardRef = useRef()
+  const [listCardWidth, setListCardWidth] = useState()
   const [listCardOverlay, setListCardOverlay] = useState(false)
   const [bookCardOverlay, setBookCardOverlay] = useState(false)
   const [movieDetails, setMovieDetails] = useState({})
   const [showModal, setShowModal] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    setIsBookmarked(userState.bookmarked.includes(result.id))
+  }, [])
 
   useEffect(() => {
     if (type === "screen" || type === "list") {
@@ -25,7 +37,16 @@ export default function MovieCard({ result, type, ...rest }) {
     if (type === "bookmarked" || type === "played") {
       loadMovieDetails()
     }
-  }, [])
+
+    if (listCardRef.current) {
+      setListCardWidth(listCardRef.current.offsetWidth)
+    }
+
+  }, [windowWidth, listCardWidth])
+  
+  useEffect(() => {
+    setBookmarkedLS(userState.bookmarked)
+  }, [isBookmarked])
 
   async function loadMovieDetails() {
     const data = await getMovieDetails(result)
@@ -33,15 +54,13 @@ export default function MovieCard({ result, type, ...rest }) {
     setIsLoading(false)
   }
 
-  function handleCardHover() {
-    if (listCardRef.current) {
-      const initialWidth = listCardRef.current.offsetWidth
-      // const initialHeight = listCardRef.current.offsetHeight
-      // const aspectRatio = initialWidth / initialHeight
-      return {
-        width: initialWidth * 1.2,
-        // height: initialWidth * 1.2 / aspectRatio,
-      }
+  function bookmarkMovie(id) {
+    if (!userState.bookmarked.includes(id)) {
+      userDispatch({ type: "add_bookmark", id })
+      setIsBookmarked(true)
+    } else if (userState.bookmarked.includes(id)) {
+      userDispatch({ type: "remove_bookmark", id })
+      setIsBookmarked(false)
     }
   }
 
@@ -53,20 +72,22 @@ export default function MovieCard({ result, type, ...rest }) {
           className="movie-card"
           ref={listCardRef}
           style={{ width: "clamp(175px, 20vw, 305px)" }}
+          whileHover={{width: 1.15 * listCardWidth}}
           onHoverStart={() => setListCardOverlay(true)}
           onHoverEnd={() => setListCardOverlay(false)}
-          whileHover={handleCardHover}
-          // whileHover={{ flexGrow: 1 }}
         >
-          <figure>
-            <img
-              src={`https://image.tmdb.org/t/p/original${result.backdrop_path}`}
-              alt="poster" className="poster"
-              draggable="false"
-            />
+          <div className="wrapper">
+            <figure>
+              <img
+                src={`https://image.tmdb.org/t/p/original${result.backdrop_path}`}
+                alt="poster" className="poster"
+                draggable="false"
+              />
+            </figure>
             <AnimatePresence>
             {listCardOverlay &&
-              <motion.div className="hover-overlay"
+              <motion.div
+                className="hover-overlay flex-col"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -76,19 +97,45 @@ export default function MovieCard({ result, type, ...rest }) {
                   ease: "easeOut" 
                 }}
               >
-                <span className="release-date">{formatReleaseDate(result.release_date)}</span>
-                <span className="runtime">{formatRuntime(runtime)}</span>
-              </motion.div>
-            }
-          </AnimatePresence>
-          </figure>
-          <div className="main-details">
-            <h5 className="title truncate">{result.title}</h5>
-            <span className="vote">
-              <i className="icon star-icon"><StarIcon /></i>
-              <span className="vote-number">{formatRate(result.vote_average)}</span>
-            </span>
+                <h4 className="title">{result.title}</h4>
+                <div className="details">
+                  <span className="release-date">{formatReleaseDate(result.release_date)}</span>
+                  <i className="dot">&#x2022;</i>
+                  <span className="runtime">{formatRuntime(runtime)}</span>
+                  <i className="dot">&#x2022;</i>
+                  <span className="vote">
+                    <span className="vote-number">{formatRate(result.vote_average)}</span>
+                    <i className="icon star-icon"><StarIcon /></i>
+                  </span>
+                </div>
+                <div className="cta-btns">
+                  <button className="btn">
+                    <i className="icon play-icon">
+                      <PlayIcon />
+                    </i>
+                  </button>
+                  <button className="btn">
+                    <i className="icon">
+                    <ArrowTopRightOnSquareIcon />
+                    </i>
+                  </button>
+                  <button className="btn" onClick={() => bookmarkMovie(result.id)}>
+                    <i className={`icon ${isBookmarked ? "is-bookmarked" : null}`}>
+                      <BookmarkIcon />
+                    </i>
+                  </button>
+                </div>
+              </motion.div>}
+            </AnimatePresence>
           </div>
+          {/* <AnimatePresence>
+            {listCardOverlay &&
+              <div
+                className="ambient"
+                style={{backgroundImage: `url(https://image.tmdb.org/t/p/original${result.backdrop_path})`}}
+              />
+            }
+          </AnimatePresence> */}
         </motion.div>
       )
     }

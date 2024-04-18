@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/outline"
+import { FireIconSolid } from "@src/utils/icons"
 import { getSomeNews } from "@src/utils/apis"
 
 export default function NewsSction() {
@@ -38,11 +39,22 @@ export default function NewsSction() {
               <p className="description">Despite his major ending in Avengers: Endgame, Robert Downey Jr. is more than game to return to the Marvel Cinematic Universe as Tony Stark/Iron Man.</p>
             </div>
           </article>
+          <div className="side-news flex-col-y-center before-abs">
+            <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos, aperiam?</div>
+            <div>Adipisicing elit. Vitae, ad reiciendis voluptatem itaque labore rerum quis aut minima deserunt suscipit eum iusto voluptatibus tempora similique!</div>
+            <div>Lorem ipsum dolor sit amet.</div>
+          </div>
         </div>
 
         <div className="hot-news">
-          <div className="news-card">
+          <div className="news-card before-abs">
             <article>
+              <header className="article-header flex-y-center">
+                <i className="icon fire-icon">
+                  <FireIconSolid />
+                </i>
+                <h6>Hot News</h6>
+              </header>
               <figure className="article-img">
                 <img src="https://static1.colliderimages.com/wordpress/wp-content/uploads/2024/02/duneparttwo1.jpg?q=70&fit=contain&w=1140&h=&dpr=2" />
               </figure>
@@ -52,9 +64,7 @@ export default function NewsSction() {
             </article>
 
             <div className="cta">
-              <div className="date">
-                8 April
-              </div>
+              <div className="date">8 April</div>
               {/* <i className="icon"><ArrowLeftIcon /></i> */}
               <div>1/5</div>
               <i className="icon"><ArrowRightIcon /></i>
@@ -62,10 +72,11 @@ export default function NewsSction() {
           </div>
         </div>
       </div>
-
-      <Link to="/discover/news">
-        Read more news!
-      </Link>
+      <div className="flex">
+        <Link to="/discover/news">
+          Read more news!
+        </Link>
+      </div>
     </section>
   )
 }
