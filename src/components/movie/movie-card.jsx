@@ -7,7 +7,6 @@ import BookmarkedCard from "./movie-cards/bookmark-card"
 import ResultCard from "./movie-cards/result-card"
 
 export default function MovieCard({ result, type, variant, ...rest }) {
-  const [isLoading, setIsLoading] = useState(true)
 
   switch (variant) {
     case "list": {

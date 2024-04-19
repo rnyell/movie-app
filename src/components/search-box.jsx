@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { useSearchParams, useNavigate, useLocation } from "react-router-dom"
 import { MagnifyingGlassIcon } from "@heroicons/outline"
+import { useClickOutside } from "@src/utils/hooks"
 
 
 export default function SearchBox({ dataset }) {
@@ -11,12 +12,7 @@ export default function SearchBox({ dataset }) {
   const boxRef = useRef(null)
   const inputRef = useRef(null)
 
-  useEffect(() => {
-    document.addEventListener('click', handleClickOutside)
-    return () => {
-      document.removeEventListener('click', handleClickOutside)
-    }
-  }, [])
+  useClickOutside(boxRef, handleClickOutside)
 
   useEffect(() => {
     if (params.get("query")) {
@@ -35,13 +31,13 @@ export default function SearchBox({ dataset }) {
       navigate("/search")
       setParams({query: title, page: 1})
       return
-    } else if (title && dataset.includes("results-page")) {
+    } else if (title && dataset.includes("expanded")) {
       setParams({query: title, page: 1})
       return
     }
   }
 
-  function handleClick() {
+  function handleSearchTitle() {
     const formattedInput = userInput
       .trim().toLowerCase()
       .replaceAll("%20", "-");
@@ -69,7 +65,7 @@ export default function SearchBox({ dataset }) {
 
   function keyPressHandler(e) {
     if (e.key === "Enter" || e.code === 13) {
-      handleClick()
+      handleSearchTitle()
     }
   }
 
@@ -81,7 +77,7 @@ export default function SearchBox({ dataset }) {
       onKeyDown={keyPressHandler}
       tabIndex={0}
     >
-      <div className="icon-wrapper" onClick={handleClick}>
+      <div className="icon-wrapper" onClick={handleSearchTitle}>
         <i className="icon search-icon">
           <MagnifyingGlassIcon />
         </i>

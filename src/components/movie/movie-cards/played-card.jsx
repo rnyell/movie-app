@@ -5,7 +5,7 @@ import { StarIcon, BookmarkIcon, FilmIcon, TvIcon } from "@heroicons/outline"
 import { BookmarkSlashIcon, PlayIcon } from "@heroicons/solid"
 
 import { useWindow, useLocalStorage } from "@src/utils/hooks"
-import { getMovieDetails, getMovieRuntime } from "@src/utils/apis"
+import { getMovieDetails, getMediaRuntime } from "@src/utils/apis"
 import { getGenresBaseOnIds, formatRate, formatRuntime, formatReleaseDate } from "@src/utils/utils"
 
 

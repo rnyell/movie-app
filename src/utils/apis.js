@@ -47,6 +47,7 @@ export const displayedMovieGenres = [
   { name: "Thrillers", id: 53 },
   { name: "Action", id: 28 },
   { name: "Crime", id: 80 },
+  { name: "Sci-Fi", id: 878 },
   { name: "Comedy", id: 35 },
   { name: "Romance", id: 10749 },
   { name: "Musical", id: 10402 },
@@ -60,6 +61,24 @@ export const seriesDisplayedGenres = [
   { name: "Comedy", id: 35 },
   { name: "Mystery", id: 9648 },
   { name: "Crime", id: 80 },
+]
+
+export const filterGenres = [
+  { name: "Drama", id: 18 },
+  { name: "Comedy", id: 35 },
+  { name: "Crime", id: 80 },
+  { name: "Mystery", id: 9648 },
+  { name: "Thrillers", id: 53 },
+  { name: "Family", id: 10751},
+  { name: "Romance", id: 10749 },
+  { name: "Musical", id: 10402 },
+  { name: "Animation", id: 16 },
+  { name: "Horror", id: 27 },
+
+  { name: "Sci-Fi", id: 878 },
+  { name: "Sci-Fi, Fantasy", id: 10765 },
+  { name: "Action", id: 28 },
+  { name: "Action, Adveture", id: 10759 },
 ]
 
 //+ series
@@ -152,7 +171,7 @@ export async function getAllResults(title = "", lang = "en-US") {
 }
 
 
-export async function getItemsByGenre(type, genreId) {
+export async function getMediaByGenre(type, genreId) {
   const isAnimation = genreId === 16
   const isTalkShow = genreId === 10767
   const path = (type === "movie") ? "3/discover/movie" : "3/discover/tv"
@@ -167,9 +186,26 @@ export async function getItemsByGenre(type, genreId) {
   return results
 }
 
+export async function getMediaRuntime(type, mediaId) {
+  const path = `3/${type}/${mediaId}`
+  const params = { api_key: import.meta.env.VITE_MAIN_API_KEY }
+  const data = await request(path, params)
+  return data.runtime
+}
 
 export async function getMovieDetails(movieId) {
   const path = `3/movie/${movieId}`
+  // other append_to_response: reviews,
+  const params = {
+    append_to_response: "credits,videos,images,recommendations",
+    api_key: import.meta.env.VITE_MAIN_API_KEY
+  }
+  const data = await request(path, params)
+  return data
+}
+
+export async function getSeriesDetails(seriesId) {
+  const path = `3/tv/${seriesId}`
   const params = {
     append_to_response: "credits,videos,images,recommendations",
     api_key: import.meta.env.VITE_MAIN_API_KEY
@@ -198,13 +234,6 @@ export async function getSimilarMovies(movieId) {
   const params = { language: "en-US", api_key: import.meta.env.VITE_MAIN_API_KEY }
   const data = await request(path, params)
   return data
-}
-
-export async function getMovieRuntime(movieId) {
-  const path = `3/movie/${movieId}`
-  const params = { api_key: import.meta.env.VITE_MAIN_API_KEY }
-  const data = await request(path, params)
-  return data.runtime
 }
 
 export async function getMovieTrailer(movieId) {

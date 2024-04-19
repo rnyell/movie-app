@@ -1,4 +1,4 @@
-import { MOVIE_GENRES, TV_GENRES } from "./apis";
+import { MOVIE_GENRES, TV_GENRES } from "./apis"
 
 
 export async function request(path = "", params = {}) {
@@ -26,7 +26,7 @@ export function writeLocalStorage(key, value) {
   if (typeof key === "string") {
     localStorage.setItem(key, JSON.stringify(value))
   } else {
-    throw new Error("key must be string")
+    throw new Error("\"key\" must be a string")
   }
 }
 

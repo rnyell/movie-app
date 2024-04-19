@@ -1,9 +1,9 @@
 
 
-export default function FilterBox() {
+export default function SideFilter() {
   return (
-    <div className="filter-box">
-      <form>
+    <div className="side-filter">
+      <form name="side-filter">
         <div className="filter-card">
           <h5 className="heading">Genres</h5>
           <div className="genres-box">

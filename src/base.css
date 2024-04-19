@@ -36,6 +36,11 @@
     display: flex;
   }
 
+  .flex-wrap {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
   .flex-center {
     display: flex;
     justify-content: center;
@@ -331,18 +336,18 @@
   }
 
   h2 {
-    font-size: 1.75725rem;
+    font-size: 1.75rem;
     font-weight: 700;
     letter-spacing: 0.4px;
   }
 
   h3 {
-    font-size: 1.575rem;
+    font-size: 1.525rem;
     font-weight: 500;
   }
 
   h4 {
-    font-size: 1.375rem;
+    font-size: 1.35rem;
     font-weight: 500;
   }
 

@@ -4,7 +4,7 @@ import { StarIcon, BookmarkIcon, ArrowTopRightOnSquareIcon } from "@heroicons/ou
 import { PlayIcon } from "@heroicons/solid"
 
 import { useWindow, useLocalStorage } from "@src/utils/hooks"
-import { getMovieDetails, getMovieRuntime } from "@src/utils/apis"
+import { getMovieDetails, getMediaRuntime } from "@src/utils/apis"
 import { getGenresBaseOnIds, formatRate, formatRuntime, formatReleaseDate } from "@src/utils/utils"
 import { useUserState } from "@src/store/app-context"
 
@@ -21,11 +21,11 @@ export default function CommonCard({ result, type, variant }) {
 
   useEffect(() => {
     if (type === "movie") {
-      getMovieRuntime(result.id).then(d => setRuntime(d))
+      getMediaRuntime("movie", result.id).then(d => setRuntime(d))
     }
     
     if (type === "series") {
-
+      getMediaRuntime("tv", result.id).then(d => setRuntime(d))
     }
 
     setIsBookmarked(userState.bookmarked.includes(result.id))
@@ -85,8 +85,12 @@ export default function CommonCard({ result, type, variant }) {
             <h4 className="title">{result.title || result.name}</h4>
             <div className="details">
               <span className="release-date">{formatReleaseDate(result.release_date || result.first_air_date)}</span>
-              <i className="dot">&#x2022;</i>
-              <span className="runtime">{formatRuntime(runtime)}</span>
+              {type === "movie" &&
+              <>
+                <i className="dot">&#x2022;</i>
+                <span className="runtime">{formatRuntime(runtime)}</span>
+              </>
+              }
               <i className="dot">&#x2022;</i>
               <span className="vote">
                 <span className="vote-number">{formatRate(result.vote_average)}</span>

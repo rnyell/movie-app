@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getItemsByGenre } from "@src/utils/apis"
+import { getMediaByGenre } from "@src/utils/apis"
 import MovieCard from "./movie-card"
 
 export default function GenreList({ type, genreId }) {
@@ -11,7 +11,7 @@ export default function GenreList({ type, genreId }) {
   }, [])
 
   async function loadData() {
-    const data = await getItemsByGenre(type, genreId)
+    const data = await getMediaByGenre(type, genreId)
     setResults(data)
     setIsLoading(false)
   }

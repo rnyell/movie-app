@@ -18,7 +18,7 @@ export default function BookingPage() {
             <ChevronLeftIcon />
           </i>
         </Link>
-        <h1 className="movie-title">{state.title}</h1>
+        <h1 className="movie-title">{state?.title}</h1>
       </header>
       <Seats ticketsCount={ticketsCount} setTicketsCount={setTicketsCount} />
       <DateTime ticketsCount={ticketsCount} />

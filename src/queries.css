@@ -123,14 +123,14 @@
     }
   }
 
-  .movie-card[data-type="played"] {
+  .movie-card[data-variant="played"] {
     & .title {
       margin-top: 4cqw;
       font-size: 1.15rem;
     }
   }
 
-  .movie-card[data-type="bookmarked"] {
+  .movie-card[data-variant="bookmarked"] {
     & .title-container {
       align-self: unset;
       height: 1rem;
@@ -334,10 +334,38 @@
 
 
 /** on results page */
+@media (width < 620px) {
+  .results-page {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+
+    & aside {
+      grid-column: 1 / 2;
+      grid-row: 2 / 3;
+      width: unset;
+      height: auto;
+      position: unset;
+    }
+
+    & main {
+      grid-column: 1 / 2;
+      grid-row: 3 / 4;
+    }
+  }
+
+  .results-page .results-grid {
+    row-gap: 2.25rem;
+  }
+}
+
 @container movie-card (width > 165px) {
-  .movie-card[data-type="result"] {
+  .movie-card[data-variant="result"] {
     & .title {
       font-size: calc(1rem + 1cqw);
+
+      @media (width < 520px) {
+        font-size: 1.5rem;
+      }
     }
 
     & .vote-number {
@@ -355,7 +383,7 @@
 }
 
 @container movie-card (width > 250px) {
-  .movie-card[data-type="result"] {
+  .movie-card[data-variant="result"] {
     & .media-icon {
       width: 13cqw;
       height: 13cqw;

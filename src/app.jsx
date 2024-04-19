@@ -47,8 +47,8 @@ const routes = [
       ] },
       { path: "/player", element: <PlayerPage /> },
       { path: "/search", element: <ResultsPage /> },
-      { path: "/movies/:id", element: <SelectedMovie /> },
       { path: "/booking", element: <BookingPage /> },
+      { path: "/:id", element: <SelectedMovie /> },
     ]
   }
 ]

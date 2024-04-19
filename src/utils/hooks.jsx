@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { readLocalStorage, writeLocalStorage } from "./utils"
 
 export function useFetch(url, options = {}) {
@@ -96,9 +96,27 @@ export function useGeoLocation() {
 }
 
 
-// export function useClickOutside() {
+export function useClickOutside(ref, callback) {
+  const element = ref.current
+  const callbackRef = useRef(callback)
 
-//   useEffect(() => {
+  function handler(event) {
+    const target = event.target
+    const isOutside = !element.contains(target)
+    
+    if (isOutside) {
+      callbackRef.current(event)
+    }
+  }
 
-//   })
-// }
+  useEffect(() => {
+    callbackRef.current = callback
+}, [callback])
+
+  useEffect(() => {
+    document.addEventListener("click", handler)
+    return () => {
+      document.removeEventListener("click", handler)
+    }
+  }, [element])
+}

@@ -1,52 +1,53 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useLocation, Link } from 'react-router-dom'
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { ChevronLeftIcon, BookmarkIcon, StarIcon, PlayIcon } from "@heroicons/outline"
 
-import { getMovieDetails, getMovieTrailer } from "@src/utils/apis"
+import { getMovieDetails, getSeriesDetails, getMovieTrailer } from "@src/utils/apis"
 import { formatRuntime, getMovieGenres, formatRate } from '@src/utils/utils'
 import { SelectedMovieSkeleton } from '@components/skeletons'
-import { useWindow } from '../utils/hooks'
+import { useWindow } from '@src/utils/hooks'
 
 
 export default function SelectedMovie() {
   const { windowWidth } = useWindow()
+  const [mediaDetails, setMediaDetails] = useState({})
   const [imgUrl, setImgUrl] = useState({
-    width: "",
-    path: "",
+    width: "", path: "",
     toString() {
       return `${this.width}${this.path}`
     }
   })
   const [trailerUrl, setTrailerUrl] = useState("")
   const [isLoading, setIsLoading] = useState(true)
-  const [movieDetails, setMovieDetails] = useState({})
   const navigate = useNavigate()
   const { state } = useLocation()
   const id = state.id
+  const type = state.type
 
   useEffect(() => {
-    const loadMovie = async () => {
-    const data = await getMovieDetails(id)
-    setMovieDetails(data)
-    setIsLoading(false)
-  }
-    loadMovie()
+    loadData()
   }, [])
   
+  async function loadData() {
+  let data
+
+  if (type === "movie") {
+    data = await getMovieDetails(id)
+  } else if (type === "tv") {
+    data = await getSeriesDetails(id)
+  }
+
+  setMediaDetails(data)
+  setIsLoading(false)
+}
   useEffect(() => {
     handleResize()
-  }, [movieDetails, windowWidth])
+  }, [mediaDetails, windowWidth])
 
 
   function handleResize() {
-    if (windowWidth < 390) {
-      setImgUrl({
-        ...imgUrl,
-        width: "w300",
-        path: poster_path
-      })
-    } else if (windowWidth < 620) {
+    if (windowWidth < 620) {
       setImgUrl({
         ...imgUrl,
         width: "w500",
@@ -75,12 +76,12 @@ export default function SelectedMovie() {
     budget,
     revenue,
     belongs_to_collection
-  } = movieDetails
+  } = mediaDetails
 
   //!
   // credits is undefined
   // const { cast } = credits
-  // console.log(movieDetails)
+  // console.log(mediaDetails)
 
   function showTrailer(data) {
     let officialTrailers = data.results.filter(res => 
@@ -100,30 +101,36 @@ export default function SelectedMovie() {
 
   const variants = {
     initial: {
-      opacity: 0.5,
-      scale: 0.95,
-      y: 20,
+      opacity: 0.65,
+      scale: 0.96,
+      y: 15,
+      x: -10,
     },
-    anime: {
+    animate: {
       opacity: 1,
-      y: 0,
       scale: 1,
+      y: 0,
+      x: 0,
       transition: {
-        duration: 0.300
+        duration: 0.25
       }
     },
     exit: {
       opacity: 0.85,
-      y: 100
+      y: 25
     }
   }
 
+  if (isLoading) {
+    return <SelectedMovieSkeleton />
+  }
+
   return (
-    isLoading ? <SelectedMovieSkeleton /> :
-    <motion.section
+    <motion.div
       variants={variants}
       initial="initial"
-      animate="anime"
+      animate="animate"
+      exit="exit"
       className="selected-movie"
     >
     <Link to={state.prevUrl} className="back-btn">
@@ -160,13 +167,12 @@ export default function SelectedMovie() {
         <div className='casts-wrapper'>
           <h4>Casts</h4>
           <ul className="casts">
-            {
-              credits.cast.slice(0, 7).map(c => 
-                <li>
-                  <img className='cast-img' src={`https://image.tmdb.org/t/p/w154/${c.profile_path}`} alt="cast-profile" />
-                  <p className="cast-name">{c.name}</p>
-                </li>)
-            }
+            {credits.cast.slice(0, 7).map(c => 
+              <li>
+                <img className='cast-img' src={`https://image.tmdb.org/t/p/w154/${c.profile_path}`} alt="cast-profile" />
+                <p className="cast-name">{c.name}</p>
+              </li>
+            )}
           </ul>
         </div>
       </div>
@@ -180,6 +186,6 @@ export default function SelectedMovie() {
         </button>
         <button onClick={handleBooking} className="book-btn">Book Now</button>
       </div>
-    </motion.section>
+    </motion.div>
   )
 }
