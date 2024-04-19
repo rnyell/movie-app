@@ -158,7 +158,8 @@
     display: inline-block;
   }
 
-  & .dropdown {
+  & .filter-dropdown,
+  & .sort-dropdown {
     margin-left: var(--space-2);
     padding: 0.625rem var(--space-5);
     min-width: 5.5rem;

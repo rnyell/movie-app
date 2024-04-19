@@ -98,7 +98,7 @@ export function useGeoLocation() {
 
 export function useClickOutside(ref, callback) {
   const element = ref.current
-  const callbackRef = useRef(callback)
+  const callbackRef = useRef(callback) //? the benefits of the "ref" is not clear...
 
   function handler(event) {
     const target = event.target

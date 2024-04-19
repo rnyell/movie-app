@@ -22,25 +22,25 @@ export default function SelectedMovie() {
   const [isLoading, setIsLoading] = useState(true)
   const navigate = useNavigate()
   const { state } = useLocation()
-  const id = state.id
-  const type = state.type
+  const { type, id } = state
 
   useEffect(() => {
     loadData()
   }, [])
   
   async function loadData() {
-  let data
+    let data
 
-  if (type === "movie") {
-    data = await getMovieDetails(id)
-  } else if (type === "tv") {
-    data = await getSeriesDetails(id)
+    if (type === "movie") {
+      data = await getMovieDetails(id)
+    } else if (type === "tv") {
+      data = await getSeriesDetails(id)
+    }
+
+    setMediaDetails(data)
+    setIsLoading(false)
   }
-
-  setMediaDetails(data)
-  setIsLoading(false)
-}
+  
   useEffect(() => {
     handleResize()
   }, [mediaDetails, windowWidth])

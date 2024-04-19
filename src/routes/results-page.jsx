@@ -26,10 +26,10 @@ export default function ResultsPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [searchParams] = useSearchParams()
   const location = useLocation()
-  const isInitialMarkup = searchParams.get("query") === null
   // const query = searchParams.get("query") //* TODO
+  const isInitialMarkup = searchParams.get("query") === null
+  const currentPage = Number(searchParams.get("page")) || 1
   const ITEMS_PER_PAGE = 18
-  let currentPage = Number(searchParams.get("page")) || 1
   let allPagesArray = 1
 
   useEffect(() => {
@@ -103,16 +103,24 @@ export default function ResultsPage() {
     }
   }
 
-  function filterResultsGenres() {
+  function handleFilterGenres() {
+    if (filteredGenres.length === 0) {
+      return
+    }
+
     const filtered = searchStateCopy.results.filter(res => {
-      filteredGenres.forEach(g => res.genre_ids.includes(g))
+      for (let i = 0; i <= filteredGenres.length; ++i) {
+        if (res.genre_ids.includes(filteredGenres[i])) {
+          return true
+        }
+      }
     })
     const pages = Math.ceil(filtered.length / ITEMS_PER_PAGE)
     setSearchStateCopy({ results: filtered, pages })
     allPagesArray = generatePagination(currentPage, searchStateCopy.pages)
+    console.log(searchStateCopy.results)
   }
 
-  // console.log(searchStateCopy.results)
 
   const results = searchState.pages === 0 ? (
       <NotFoundResult />
@@ -145,12 +153,11 @@ export default function ResultsPage() {
           <SideFilter />
         ) : (
           <SmFilter
-            filterResultsType={filterResultsType}
-            setFilteredType={setFilteredType}
             filteredType={filteredType}
-            filterResultsGenres={filterResultsGenres}
+            setFilteredType={setFilteredType}
             filteredGenres={filteredGenres}
             setFilteredGenres={setFilteredGenres}
+            handleFilterGenres={handleFilterGenres}
           />
         )}
       </aside>

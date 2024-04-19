@@ -415,10 +415,12 @@
   }
 
   hr {
+    margin-block: var(--space-2);
+    margin-inline: auto;
     width: 80%;
     max-width: 750px;
-    border-width: 2px;
-    border-color: var(--color-neutral-700);
+    border: none;
+    border-top: 2px solid var(--color-neutral-700);
   }
 
   label {
