@@ -32,7 +32,11 @@ export default function SideFilter() {
             </label>
           </div>
         </div>
-        <div className="filter-card flex-col">
+        <div
+          data-feature-not-available
+          title="feature currently is not available"
+          className="filter-card flex-col"
+        >
           <h5 className="heading">Country &amp; language</h5>
           <div className="group lang-box flex-col">
             <label htmlFor="langs" className="flex-y-center">

@@ -3,32 +3,30 @@ import { motion, AnimatePresence } from "framer-motion"
 import { FunnelIcon, BarsArrowDownIcon, BarsArrowUpIcon, XMarkIcon } from "@heroicons/outline"
 import { EqualizerIcon } from "@src/utils/icons"
 import { useClickOutside } from "@utils/hooks"
-import { filterGenres, ALL_GENRES } from "@utils/apis"
+import { FILTER_GENRES, ALL_GENRES } from "@utils/apis"
+import { useSearch } from "@src/store/search-context"
 
 const results_types = ["all", "movie", "tv"]
+const ITEMS_PER_PAGE = 18
 
-export default function SmFilter({
-  filteredType,
-  setFilteredType,
-  filteredGenres,
-  setFilteredGenres,
-  sortOptions,
-  setSortOptions,
-  handleFilterGenres,
-}) {
+export default function SmFilter({ searchStateCopy, setSearchStateCopy }) {
+  const {searchState, searchOptions, optionsDispatch} = useSearch()
   const [filterIsOpen, setFilterIsOpen] = useState(false)
   const [sortIsOpen, setSortIsOpen] = useState(false)
+  const [s, setS] = useState(0) // !hacky - to update state syncly...
   const ref = useRef(null)
 
-  useClickOutside(ref, handleClickOutside)
-  function handleClickOutside() {
-    if (filterIsOpen) {
-      setFilterIsOpen(false)
-    }
+  // console.log(searchOptions)
 
-    if (sortIsOpen) {
-      setSortIsOpen(false)
-    }
+  useEffect(() => {
+    updateSelectedFilters()
+  }, [s])
+
+  useClickOutside(ref, handleClickOutside)
+
+  function handleClickOutside() {
+    if (filterIsOpen) setFilterIsOpen(false)
+    if (sortIsOpen) setSortIsOpen(false)
   }
 
   function showFilterItems() {
@@ -41,24 +39,67 @@ export default function SmFilter({
     setFilterIsOpen(false)
   }
 
-  function toggleGenre(id) {
-    let filtered
-    if (filteredGenres.includes(id)) {
-      filtered = filteredGenres.filter(el => el !== id)
-    } else {
-      filtered = [...new Set( [...filteredGenres, id] )]
+  // function returnFilteredByType() {
+  //   const initialResults = searchState.results
+  //   const selectedType = searchOptions.filters.type
+
+  //   if (selectedType !== "all") {
+  //     const filtered = searchState.results.filter(item => item.media_type === selectedType)
+  //     return filtered
+  //   }
+
+  //   return initialResults
+  // }
+
+  function returnFilteredByGenres() {
+    const initialResults = searchState.results
+    const selectedGenres = searchOptions.filters.genres
+    if (selectedGenres.length === 0) {
+      return initialResults
     }
-    setFilteredGenres(filtered)
+
+    const filteredResults = initialResults.filter(res => {
+      for (let i = 0; i < selectedGenres.length; i++) {
+        if (res.genre_ids.includes(selectedGenres[i])) {
+          return true
+        }
+      }
+    })
+
+    console.log(filteredResults)
+    return filteredResults
   }
 
-  function removeGenre(id) {
-    const filtered = filteredGenres.filter(fg => fg !== id)
-    setFilteredGenres([...filtered])
-    handleFilterGenres()
+  function updateSelectedFilters() {
+    const selectedType = searchOptions.filters.type
+    const filteredByGenres = returnFilteredByGenres()
+    if (selectedType !== "all") {
+      const filtered = filteredByGenres.filter(item => item.media_type === selectedType)
+      const pages = Math.ceil(filtered.length / ITEMS_PER_PAGE)
+      setSearchStateCopy({ results: filtered, pages })
+    } else {
+      const pages = Math.ceil(filteredByGenres.length / ITEMS_PER_PAGE)
+      setSearchStateCopy({ results: filteredByGenres, pages })
+    }
   }
 
-  function handleApplyFilters() {
-    handleFilterGenres()
+  function handleRemovedFilters(id) {
+    if (typeof id === "string" && searchOptions.filters.type !== "all") {
+      optionsDispatch({ type: "set_type", media: "all" })
+    }
+
+    if (typeof id === "number") {
+      optionsDispatch({ type: "set_genres", id })
+    }
+
+    setS(s + 1)
+  }
+
+  console.log(searchOptions.filters)
+
+  function handleApplyClick(e) {
+    e.stopPropagation()
+    updateSelectedFilters()
     setFilterIsOpen(false)
   }
 
@@ -77,7 +118,6 @@ export default function SmFilter({
     }
   }
 
-  console.log(filteredGenres)
 
   return (
     <>
@@ -104,8 +144,8 @@ export default function SmFilter({
                       {results_types.map((type) => (
                         <span
                           key={type}
-                          onClick={() => setFilteredType(type)}
-                          className={`${type === filteredType ? "is-active" : null}`}
+                          onClick={() => optionsDispatch({type: "set_type", media: type})}
+                          className={`${type === searchOptions.filters.type ? "is-active" : null}`}
                         >
                           {type === "tv" ? "TV" : type.substring(0, 1).toUpperCase() + type.substring(1)}
                         </span>
@@ -116,11 +156,11 @@ export default function SmFilter({
                   <div className="genre-filter">
                     <h6>Genres</h6>
                     <div className="group flex-wrap">
-                      {filterGenres.map(obj => (
+                      {FILTER_GENRES.map(obj => (
                         <span
                           key={obj.id}
-                          className={`${filteredGenres.includes(obj.id) && "is-active"}`}
-                          onClick={() => toggleGenre(obj.id)}
+                          className={`${searchOptions.filters.genres.includes(obj.id) && "is-active"}`}
+                          onClick={() => optionsDispatch({type: "set_genres", id: obj.id})}
                         >
                           {obj.name}
                         </span>
@@ -128,7 +168,11 @@ export default function SmFilter({
                     </div>
                   </div>
                   <hr style={{width: "95%", marginBlock: "1rem", borderWidth: 1.5}} />
-                  <div className="lang-filter">
+                  <div
+                    data-feature-not-available
+                    title="feature currently is not available"
+                    className="lang-filter"
+                  >
                     <h6>Language & Country</h6>
                     <div className="group flex-col">
                       <label htmlFor="langs" className="flex-y-center">
@@ -153,7 +197,7 @@ export default function SmFilter({
                       </label>
                     </div>
                   </div>
-                  <button onClick={handleApplyFilters}>Apply</button>
+                  <button onClick={handleApplyClick}>Apply</button>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -209,11 +253,24 @@ export default function SmFilter({
         </div>
       </div>
       <div className="selected-filters flex">
+        {searchOptions.filters.type !== "all" ? (
+          <div className="slc-type flex">
+            <span className="flex-y-center">
+              {searchOptions.filters.type}
+              <i className="icon ::before-abs" onClick={() => handleRemovedFilters("t")}>
+                <XMarkIcon />
+              </i>
+            </span>
+            <div data-line />
+          </div>
+        ) : (
+          null
+        )}
         <div className="slc-genres flex">
-          {!filterIsOpen && filteredGenres.map(id => (
+          {searchOptions.filters.genres.map(id => (
             <span key={id} className="slc-genre flex-y-center">
               {ALL_GENRES[id]}
-              <i className="icon" onClick={() => removeGenre(id)}>
+              <i className="icon ::before-abs" onClick={() => handleRemovedFilters(id)}>
                 <XMarkIcon />
               </i>
             </span>

@@ -89,7 +89,7 @@ export const seriesDisplayedGenres = [
   { name: "Crime", id: 80 },
 ]
 
-export const filterGenres = [
+export const FILTER_GENRES = [
   { name: "Drama", id: 18 },
   { name: "Comedy", id: 35 },
   { name: "Crime", id: 80 },

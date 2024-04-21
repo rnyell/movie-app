@@ -17,23 +17,20 @@ import { NotFoundResult } from "@components/errors"
 
 const results_types = ["all", "movie", "tv"]
 
-export default function ResultsPage() {
+export default function SearchPage() {
   const {windowWidth} = useWindow()
-  const [searchState, searchDispatch] = useSearch()
+  const {searchState, searchDispatch, searchOptions, optionsDispatch} = useSearch()
   const [searchStateCopy, setSearchStateCopy] = useState({results: [], pages: 0})
-  const [filteredType, setFilteredType] = useState("all")
-  const [filteredGenres, setFilteredGenres] = useState([])
-  const [sortOptions, setSortOptions] = useState({opt: null, order: "Descending"})
-
   const [isLoading, setIsLoading] = useState(true)
   const [searchParams] = useSearchParams()
   const location = useLocation()
   const query = searchParams.get("query")
   const isInitialMarkup = query === null
-  const currentPage = Number(searchParams.get("page")) || 1
-  const ITEMS_PER_PAGE = 18
-  let allPagesArray = 1
   const isNotFound = searchState.pages === 0
+  const currentPage = Number(searchParams.get("page")) || 1
+  const allPagesArray = generatePagination(currentPage, searchStateCopy.pages)
+
+  // console.log(searchStateCopy)
 
   useEffect(() => {
     loadResultsOnMount()
@@ -44,10 +41,6 @@ export default function ResultsPage() {
       loadResultsOnUpdate()
     }
   }, [location])
-
-  useEffect(() => {
-    filterResultsType()
-  }, [filteredType])
 
   async function loadResultsOnMount() {
     setIsLoading(true)
@@ -66,8 +59,6 @@ export default function ResultsPage() {
   async function loadResultsOnUpdate() {
     setIsLoading(true)
     let title = query
-    console.log(title)
-    console.log(searchState.title)
     if (searchState.title !== title) {
       const data = await getAllResults(title)
       searchDispatch({
@@ -86,42 +77,6 @@ export default function ResultsPage() {
     }
     setIsLoading(false)
   }
-
-  allPagesArray = generatePagination(currentPage, searchStateCopy.pages)
-
-  function filterResultsType() {
-    if (filteredType !== "all") {
-      const filtered = searchState.results.filter(
-        (res) => res.media_type === filteredType
-      )
-      const pages = Math.ceil(filtered.length / ITEMS_PER_PAGE)
-      setSearchStateCopy({ results: filtered, pages })
-      allPagesArray = generatePagination(currentPage, searchStateCopy.pages)
-    } else {
-      setSearchStateCopy({
-        results: searchState.results,
-        pages: searchState.pages,
-      })
-      allPagesArray = generatePagination(currentPage, searchStateCopy.pages)
-    }
-  }
-
-  function handleFilterGenres() {
-    if (filteredGenres.length === 0) {
-      return
-    }
-
-    const filtered = searchState.results.filter(res => {
-      for (let i = 0; i < filteredGenres.length; i++) {
-        if (res.genre_ids.includes(filteredGenres[i])) {
-          return true
-        }
-      }
-    })
-    const pages = Math.ceil(filtered.length / ITEMS_PER_PAGE)
-    setSearchStateCopy({ results: filtered, pages })
-    allPagesArray = generatePagination(currentPage, searchStateCopy.pages)
-  }
   
   // console.log(searchStateCopy.results)
 
@@ -129,12 +84,11 @@ export default function ResultsPage() {
       <NotFoundResult />
     ) : (
       <motion.div
-        className="results-grid"
+        className="search-results"
         layout
-        // transition={{ layout: { duration: 0.2 } }}
       >
         {devideItemsIntoPages(currentPage, searchStateCopy.results)
-          .map(media => 
+          .map(media =>
             <MovieCard
               key={media.id}
               result={media}
@@ -147,24 +101,17 @@ export default function ResultsPage() {
     )
 
   return (
-    <div className="results-page">
+    <div className="search-page">
       <Header dataset="sticky expanded" />
       <aside>
         {windowWidth >= 620 ? (
           <SideFilter />
         ) : query !== null ? (
           <>
-            <h2 className="heading">
-              Results for: <span>{query}</span>
-            </h2>
+            <h2 className="heading">Results for: <span>{query}</span></h2>
             <SmFilter
-              filteredType={filteredType}
-              setFilteredType={setFilteredType}
-              filteredGenres={filteredGenres}
-              setFilteredGenres={setFilteredGenres}
-              sortOptions={sortOptions}
-              setSortOptions={setSortOptions}
-              handleFilterGenres={handleFilterGenres}
+              searchStateCopy={searchStateCopy}
+              setSearchStateCopy={setSearchStateCopy}
             />
           </>
         ) : (
@@ -185,7 +132,7 @@ export default function ResultsPage() {
             <h2 className="heading">
               Results for: <span>{query}</span>
             </h2>)}
-            {windowWidth >= 620 &&
+            {/* {windowWidth >= 620 &&
             <div className="type-filter">
               <div className="type-box">
                 {results_types.map((type) => (
@@ -198,7 +145,7 @@ export default function ResultsPage() {
                   </span>
                 ))}
               </div>
-            </div>}
+            </div>} */}
             <div className="results-container">
               {isLoading ? <SearchResultsSkeleton /> : results}
             </div>

@@ -28,7 +28,7 @@ export default function ResultCard({ result, type, variant }) {
 
   function handleHoverStart() {
     setCardOverlay(true)
-    animate(".title", { y: -45, }, { duration: 0.2 })
+    animate(".title", { y: -45 }, { duration: 0.2 })
     animate(".release-date", { y: -30, opacity: 0 }, { duration: 0.25 })
     animate(".media-icon", { y: -5, opacity: 0 }, { duration: 0.2 })
     animate(".vote", { y: 0, opacity: 1 }, { duration: 0.2 })
@@ -52,10 +52,11 @@ export default function ResultCard({ result, type, variant }) {
       initial={{opacity: 0.5}}
       animate={{opacity: 1}}
       transition={{duration: 0.2}}
-      onHoverStart={handleHoverStart}
-      onHoverEnd={handleHoverEnd}
-    >
-      <div className="subset-details">
+      >
+      <motion.div className="subset-details"
+        onHoverStart={handleHoverStart}
+        onHoverEnd={handleHoverEnd}
+      >
         <i className="icon media-icon">
           {result.media_type === "movie" ? <FilmIcon /> : <TvIcon />}
         </i>
@@ -109,7 +110,7 @@ export default function ResultCard({ result, type, variant }) {
             </motion.div>
           }
         </AnimatePresence>
-      </div>
+      </motion.div>
       <div className="main-details">
         <h4 className="title truncate">{result?.title || result?.name}</h4>
         <p className="release-date">

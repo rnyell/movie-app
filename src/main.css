@@ -3,7 +3,7 @@
 /* pages */
 @import "@styles/pages/home-page.css" layer;
 @import "@styles/pages/discover-page.css" layer;
-@import "@styles/pages/results-page.css" layer;
+@import "@styles/pages/search-page.css" layer;
 @import "@styles/pages/userstuff-page.css" layer;
 @import "@styles/pages/reservation-page.css" layer;
 @import "@styles/pages/booking-page.css" layer;

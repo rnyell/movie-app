@@ -341,7 +341,7 @@
 /********************************************************************************************************/
 /** on results page */
 @media (width < 620px) {
-  .results-page {
+  .search-page {
     grid-template-columns: 1fr;
     grid-template-rows: auto auto auto;
 
@@ -360,7 +360,7 @@
     }
   }
 
-  .results-page .results-grid {
+  .search-page .search-results {
     row-gap: 2.25rem;
   }
 }

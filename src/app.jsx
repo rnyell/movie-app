@@ -15,7 +15,7 @@ import MoviesPage from "@src/routes/discover/movies-page"
 import SeriesPage from "@src/routes/discover/series-page"
 import NewsPage from "@src/routes/discover/news-page"
 import Article from "@src/routes/discover/article"
-import ResultsPage from "@src/routes/results-page"
+import SearchPage from "@src/routes/search-page"
 import SelectedMovie from "@src/routes/selected-movie"
 
 import Reservation from "@src/routes/user-related/reservation"
@@ -48,7 +48,7 @@ const routes = [
       ] },
       { path: "/search", element: 
         <SearchProvider>
-          <ResultsPage /> 
+          <SearchPage /> 
         </SearchProvider>
       },
       { path: "/player", element: <PlayerPage /> },

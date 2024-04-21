@@ -1,4 +1,4 @@
-.results-page {
+.search-page {
   display: grid;
   /** `minmax(auto, min(30vw, 300px))` this should  equal to <aside>'s width */
   grid-template-columns: minmax(auto, min(30vw, 300px)) 1fr;
@@ -17,7 +17,7 @@
   }
 }
 
-.results-page aside {
+.search-page aside {
   width: min(30vw, 300px);
   height: 75vh;
   /* position: sticky; */
@@ -44,6 +44,18 @@
 
   & option {
     border: 0;
+  }
+}
+
+[data-feature-not-available] {
+  cursor: not-allowed;
+  opacity: 0.35;
+
+  & div,
+  & label,
+  & select,
+  & span {
+    cursor: not-allowed !important;
   }
 }
 
@@ -193,7 +205,7 @@
 }
 
 aside:has(> .heading) {
-  padding-inline: var(--space-8); /* same as: `.results-page "main"` */
+  padding-inline: var(--space-8); /* same as: `.search-page "main"` */
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -347,25 +359,38 @@ aside:has(> .heading) {
 }
 
 .selected-filters {
-  overflow-x: scroll;
-  scrollbar-width: none;
+  /* overflow: hidden; */
+  /* issue: "overflow: hidden" not working */
+  /*? is there any way to make it work without fixed width? */
+  width: calc(100vw - 4rem);
 
-  /* [data-line] {
-    margin-inline: 0.75rem;
+  [data-line] {
+    margin-left: 0.75rem;
     width: 1px;
     background-color: var(--color-neutral-450);
-  } */
+  }
 
   & span {
-    /* padding: var(--space-1) var(--space-2); */
-    padding: 0.625rem var(--space-3) 0.625rem var(--space-4);
-    min-width: 6.5rem;
+    flex-shrink: 0; /* MF! */
+    padding-inline: 0.675rem 0.25rem;
+    padding-block: 0.275rem;
+    overflow: hidden;
+    gap: 0.625rem;
     font-size: 0.85rem;
     border: 1px solid var(--color-neutral-400);
     border-radius: var(--full-rounded);
-
+    
     & .icon {
       margin-left: auto;
+      padding: 5px;
+      cursor: pointer;
+
+      &::before {
+        width: 1px;
+        height: 200%;
+        top: -1rem; left: 0;
+        background-color: var(--color-neutral-500);
+      }
     }
 
     & svg {
@@ -375,15 +400,18 @@ aside:has(> .heading) {
   }
 
   & .slc-type {
-
+    margin-right: 0.75rem;
   }
 
   & .slc-genres {
+    padding-inline: 0.375rem;
+    overflow-x: scroll;
+    scrollbar-width: none;
     gap: 0.5rem;
   }
 }
 
-.results-page main {
+.search-page main {
   padding-inline: var(--space-8);
   overflow: hidden;
   display: flex;
@@ -424,7 +452,7 @@ aside:has(> .heading) {
   max-width: 1200px;
 }
 
-.results-grid {
+.search-results {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 150px), 1fr));
