@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { useSearchParams, useNavigate, useLocation } from "react-router-dom"
 import { MagnifyingGlassIcon } from "@heroicons/outline"
-import { useClickOutside } from "@src/utils/hooks"
+import { useClickOutside } from "@utils/hooks"
 
 
 export default function SearchBox({ dataset }) {

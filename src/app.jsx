@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client"
 import { RouterProvider, createBrowserRouter } from "react-router-dom"
 
 import AppProvider from "@src/store/app-context"
+import SearchProvider from "@src/store/search-context"
 
 import RootLayout from "@src/routes/layouts/root-layout"
 import SharedLayout from "@src/routes/layouts/shared-layout"
@@ -45,8 +46,12 @@ const routes = [
           { path: "/discover/news/:id", element: <Article /> },
         ] },
       ] },
+      { path: "/search", element: 
+        <SearchProvider>
+          <ResultsPage /> 
+        </SearchProvider>
+      },
       { path: "/player", element: <PlayerPage /> },
-      { path: "/search", element: <ResultsPage /> },
       { path: "/booking", element: <BookingPage /> },
       { path: "/:id", element: <SelectedMovie /> },
     ]

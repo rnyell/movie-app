@@ -3,7 +3,7 @@ import { createPortal } from "react-dom"
 import { Link } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { StarIcon, BookmarkIcon, FilmIcon, TvIcon } from "@heroicons/outline"
-import { useLocalStorage } from "@src/utils/hooks"
+import { useLocalStorage } from "@utils/hooks"
 import { useUserState } from "@src/store/app-context"
 import MovieCard from "@components/movie/movie-card"
 

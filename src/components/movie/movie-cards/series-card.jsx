@@ -1,5 +1,5 @@
 import { StarIcon, BookmarkIcon } from "@heroicons/outline"
-import { formatRate } from "@src/utils/utils"
+import { formatRate } from "@utils/utils"
 
 export default function SeriesCard({ result, type, variant }) {
   return (

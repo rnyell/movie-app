@@ -3,9 +3,9 @@ import { motion, AnimatePresence } from "framer-motion"
 import { StarIcon, BookmarkIcon, ArrowTopRightOnSquareIcon } from "@heroicons/outline"
 import { PlayIcon } from "@heroicons/solid"
 
-import { useWindow, useLocalStorage } from "@src/utils/hooks"
-import { getMovieDetails, getMediaRuntime } from "@src/utils/apis"
-import { getGenresBaseOnIds, formatRate, formatRuntime, formatReleaseDate } from "@src/utils/utils"
+import { useWindow, useLocalStorage } from "@utils/hooks"
+import { getMovieDetails, getMediaRuntime } from "@utils/apis"
+import { getGenresBaseOnIds, formatRate, formatRuntime, formatReleaseDate } from "@utils/utils"
 import { useUserState } from "@src/store/app-context"
 
 

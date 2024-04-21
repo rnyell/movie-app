@@ -1,4 +1,4 @@
-.app-skeleton {
+.home-page-skeleton {
   height: 100vh;
   display: grid;
   grid-template-columns: minmax(200px, 1fr) 4fr;
@@ -89,7 +89,7 @@
   animation: loader-4 1.2s infinite ease-in;
 }
 
-.movie-skeleton {
+.selected-movie-skeleton {
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
@@ -100,6 +100,7 @@
     width: 80%;
     aspect-ratio: 16 / 9;
     border-radius: 2rem;
+    box-shadow: 0 2px 0.5rem rgb(11 15 17 / 20%);
     animation: loader-2 1.2s 1.2s infinite ease-in;
   }
 
@@ -137,51 +138,37 @@
   }
 }
 
-.search-results-skeleton {
-  padding: var(--space-8);
-  width: 100%;
 
-  & .l-results-grid {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 150px), 1fr));
-    /* grid-template-rows: repeat(3, 300px); */
-    gap: 1rem 1.25rem;
+.search-results-skeleton {
+  padding: var(--space-8) var(--space-2);
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1.75rem;
+
+  @media (width < 420px) {
+    & {
+      grid-template-columns: 1fr 1fr;
+    }
   }
 
-  & .l-movie-card {
-    --rad: 1.5rem;
-    padding: var(--space-3);
+  & .movie-card-skeleton {
     width: 100%;
-    aspect-ratio: 1 / 1.325;
+    max-height: 275px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: var(--space-2);
-    background-color: var(--color-neutral-700);
-    border-radius: calc(var(--space-3) + var(--rad));
-
+  
     & .l-poster {
       margin-inline: auto;
       width: 100%;
-      height: 85%;
-      position: relative;
+      aspect-ratio: 0.715;
       background-color: var(--color-neutral-600);
-      border-radius: var(--rad);
+      border-radius: 1.5rem;
       animation: loader-3 1.2s infinite ease-in;
-
-      &::after {
-        content: "";
-        width: 2.25rem;
-        height: 2.25rem;
-        position: absolute;
-        top: var(--space-3);
-        left: var(--space-3);
-        background-color: color-mix(in srgb, var(--color-neutral-400), transparent 90%);
-        border-radius: var(--full-rounded);
-      }
     }
-
+  
     & .l-title {
       margin-top: var(--space-2);
       width: 56.25%;
@@ -190,7 +177,7 @@
       border-radius: var(--full-rounded);
       animation: loader-3 1.2s infinite ease-in;
     }
-
+  
     & .l-release-date {
       width: 35%;
       height: 0.675rem;

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getMediaByGenre } from "@src/utils/apis"
+import { getMediaByGenre } from "@utils/apis"
 import MovieCard from "./movie-card"
 
 export default function GenreList({ type, genreId }) {

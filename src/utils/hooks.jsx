@@ -101,6 +101,7 @@ export function useClickOutside(ref, callback) {
   const callbackRef = useRef(callback) //? the benefits of the "ref" is not clear...
 
   function handler(event) {
+    event.stopPropagation()
     const target = event.target
     const isOutside = !element.contains(target)
     

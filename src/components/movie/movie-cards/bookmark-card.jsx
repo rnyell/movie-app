@@ -4,8 +4,8 @@ import { motion, AnimatePresence } from "framer-motion"
 import { StarIcon, FilmIcon, TvIcon, ArrowTopRightOnSquareIcon } from "@heroicons/outline"
 import { BookmarkSlashIcon, PlayIcon } from "@heroicons/solid"
 
-import { getMovieDetails } from "@src/utils/apis"
-import { getGenresBaseOnIds, formatRate, formatRuntime, formatReleaseDate } from "@src/utils/utils"
+import { getMovieDetails } from "@utils/apis"
+import { getGenresBaseOnIds, formatRate, formatRuntime, formatReleaseDate } from "@utils/utils"
 
 
 export default function BookmarkedCard({ result, type, variant, clearBookmark }) {

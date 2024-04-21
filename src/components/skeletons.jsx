@@ -1,8 +1,17 @@
-import { Link } from "react-router-dom"
+//import { Link } from "react-router-dom"
 
-export function AppLoadingSkeleton() {
+export function AppLoader() {
+
   return (
-    <div className="app-skeleton">
+    <div>
+
+    </div>
+  )
+}
+
+export function HomePageSkeleton() {
+  return (
+    <div className="home-page-skeleton">
       <div className="l-sidenav">
         <div className="l-sidenav-item"></div>
         <div className="l-sidenav-item"></div>
@@ -38,7 +47,7 @@ export function HeroMovieLoadingSkeleton() {
 
 export function SelectedMovieSkeleton() {
   return (
-    <div className="movie-skeleton">
+    <div className="selected-movie-skeleton">
       <div className="l-poster"></div>
       <div className="l-attr">
         <span></span>
@@ -63,17 +72,14 @@ export function SelectedMovieSkeleton() {
 export function SearchResultsSkeleton() {
   return (
     <div className="search-results-skeleton">
-      <div className="l-results-grid">
-        {
-          [...Array(10).keys()].map((_, i) => (
-            <div className="l-movie-card" key={i}>
-              <div className="l-poster"></div>
-              <div className="l-title"></div>
-              <div className="l-release-date"></div>
-            </div>
-          ))
-        }
-      </div>
+      {[...Array(10).keys()].map((_, i) => (
+          <div className="movie-card-skeleton" key={i}>
+            <div className="l-poster"></div>
+            <div className="l-title"></div>
+            <div className="l-release-date"></div>
+          </div>
+        ))
+      }
     </div>
   )
 }

@@ -415,7 +415,7 @@
   }
 
   & .poster {
-    max-height: 300px;
+    max-height: 290px;
   }
 
   & .main-details {
@@ -438,7 +438,7 @@
   }
 
   & .release-date {
-    margin-top: 1cqw;
+    margin-top: -0.25rem;
     font-size: max(0.75rem + 1cqw, 14px + 0.2vw);
     /* transition: translate var(--duration-2), opacity var(--duration-1);
     transition-timing-function: ease-in; */

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import { ChevronRightIcon } from "@heroicons/outline"
 import { FireIconSolid } from "@src/utils/icons"
-import { seriesDisplayedGenres } from "@src/utils/apis"
+import { seriesDisplayedGenres } from "@utils/apis"
 import GenreList from "@components/movie/genre-list"
 
 

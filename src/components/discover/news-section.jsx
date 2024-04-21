@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/outline"
 import { FireIconSolid } from "@src/utils/icons"
-import { getSomeNews } from "@src/utils/apis"
+import { getSomeNews } from "@utils/apis"
 
 export default function NewsSction() {
   const [news, setNews] = useState()
@@ -39,7 +39,7 @@ export default function NewsSction() {
               <p className="description">Despite his major ending in Avengers: Endgame, Robert Downey Jr. is more than game to return to the Marvel Cinematic Universe as Tony Stark/Iron Man.</p>
             </div>
           </article>
-          <div className="side-news flex-col-y-center before-abs">
+          <div className="side-news flex-col-y-center ::before-abs">
             <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos, aperiam?</div>
             <div>Adipisicing elit. Vitae, ad reiciendis voluptatem itaque labore rerum quis aut minima deserunt suscipit eum iusto voluptatibus tempora similique!</div>
             <div>Lorem ipsum dolor sit amet.</div>
@@ -47,7 +47,7 @@ export default function NewsSction() {
         </div>
 
         <div className="hot-news">
-          <div className="news-card before-abs">
+          <div className="news-card ::before-abs">
             <article>
               <header className="article-header flex-y-center">
                 <i className="icon fire-icon">

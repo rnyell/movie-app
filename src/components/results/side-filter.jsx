@@ -1,54 +1,61 @@
+import { ALL_GENRES } from "@utils/apis"
+
+const ALL_GENRES_ARRAY = []
+for (let prop in ALL_GENRES) {
+  ALL_GENRES_ARRAY.push({ name: ALL_GENRES[prop], id: prop })
+}
 
 
 export default function SideFilter() {
   return (
-    <div className="side-filter">
-      <form name="side-filter">
-        <div className="filter-card">
+    <div className="side-filter ::after-abs">
+      <form name="side-filter" className="flex-col">
+        <div className="filter-card flex-col ::after-abs">
           <h5 className="heading">Genres</h5>
-          <div className="genres-box">
-            <label htmlFor="drama" className="flex-center">
-              <span>Drama</span>
-              <input type="checkbox" id="drama" />
+          <div className="group genres-box">
+            {ALL_GENRES_ARRAY.map(genre => (
+              <label key={genre.id} className="flex-center" htmlFor={genre.name}>
+                <span>{genre.name}</span>
+                <input type="checkbox" id={genre.name} />
+              </label>
+            ))}
+          </div>
+        </div>
+        <div className="filter-card flex-col">
+          <h5 className="heading">Releasee Date</h5>
+          <div className="group date-box flex-col">
+            <label htmlFor="from" className="flex-y-center">
+              <span>from:</span> <input type="text" id="from" pattern="[+]?\d+" />
             </label>
-            <label htmlFor="thriller" className="flex-center">
-              <span>Thriller</span>
-              <input type="checkbox" id="thriller" />
-            </label>
-            <label htmlFor="mystery" className="flex-center">
-              <span>Mystery</span>
-              <input type="checkbox" id="mystery" />
-            </label>
-            <label htmlFor="action" className="flex-center">
-              <span>Action</span>
-              <input type="checkbox" id="action" />
-            </label>
-            <label htmlFor="romance" className="flex-center">
-              <span>Romance</span>
-              <input type="checkbox" id="romance" />
-            </label>
-            <label htmlFor="comdey" className="flex-center">
-              <span>Comdy</span>
-              <input type="checkbox" id="comdey" />
-            </label>
-            <label htmlFor="sci-fi" className="flex-center">
-              <span>Sci-Fi</span>
-              <input type="checkbox" id="sci-fi" />
+            <label htmlFor="to" className="flex-y-center">
+              <span>to:</span> <input type="text" id="to" pattern="[+]?\d+" />
             </label>
           </div>
         </div>
-        <div className="filter-card">
-          <h5 className="heading">Releasee Date</h5>
-          <input type="number" />
-        </div>
-        <div className="filter-card">
+        <div className="filter-card flex-col">
           <h5 className="heading">Country &amp; language</h5>
-          <select id="langs" name="langs">
-            <option value="volvo">Volvo</option>
-            <option value="saab">Saab</option>
-            <option value="fiat">Fiat</option>
-            <option value="audi">Audi</option>
-          </select>
+          <div className="group lang-box flex-col">
+            <label htmlFor="langs" className="flex-y-center">
+              <span>Language:</span>
+              <div className="::after-abs">
+                <select id="langs" name="langs">
+                  <option value="English">English</option>
+                  <option value="French">French</option>
+                  <option value="Dutch">Dutch</option>
+                </select>
+              </div>
+            </label>
+            <label htmlFor="countries" className="flex-y-center">
+              <span>Origin Country:</span>
+              <div className="::after-abs">
+                <select id="countries" name="countries">
+                  <option value="US">US</option>
+                  <option value="England">England</option>
+                  <option value="France">France</option>
+                </select>
+              </div>
+            </label>
+          </div>
         </div>
       </form>
     </div>

@@ -3,10 +3,10 @@ import { useNavigate, useLocation, Link } from 'react-router-dom'
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronLeftIcon, BookmarkIcon, StarIcon, PlayIcon } from "@heroicons/outline"
 
-import { getMovieDetails, getSeriesDetails, getMovieTrailer } from "@src/utils/apis"
-import { formatRuntime, getMovieGenres, formatRate } from '@src/utils/utils'
+import { getMovieDetails, getSeriesDetails, getMovieTrailer } from "@utils/apis"
+import { formatRuntime, getMovieGenres, formatRate } from '@utils/utils'
 import { SelectedMovieSkeleton } from '@components/skeletons'
-import { useWindow } from '@src/utils/hooks'
+import { useWindow } from '@utils/hooks'
 
 
 export default function SelectedMovie() {

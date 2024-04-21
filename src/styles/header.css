@@ -81,11 +81,12 @@
   overflow: hidden;
   border-radius: var(--full-rounded);
   border: var(--outline-size-1) solid color-mix(in srgb, var(--color-neutral-500), transparent);;
-  transition: var(--duration-1) ease-in, outline var(--duration-1) 120ms;
+  outline: var(--outline-size-3) solid transparent;
+  outline-offset: 0;
+  transition: outline-color var(--duration-2) ease-in;
 
   &:focus-within {
-    outline: var(--outline-size-3) solid var(--color-accent-300);
-    outline-offset: 0;
+    outline-color: var(--color-accent-300);
   }
 
   &[data-set~="default"] {
@@ -158,9 +159,7 @@
     padding-left: calc(var(--box-width) + 0.5vw);
     font-size: 0.75rem;
     color: var(--color-neutral-200);
-    background-color: color-mix(
-      in srgb, var(--color-neutral-650), transparent
-    );
+    background-color: color-mix(in srgb, var(--color-neutral-650), transparent);
     transition: var(--duration-1) ease-in;
   
     &::placeholder {

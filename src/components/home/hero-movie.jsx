@@ -9,14 +9,14 @@ import {
   ChevronLeftIcon,
 } from "@heroicons/outline"
 
-import { useLocalStorage } from "@src/utils/hooks"
-import { getMovieDetails } from "@src/utils/apis"
+import { useLocalStorage } from "@utils/hooks"
+import { getMovieDetails } from "@utils/apis"
 import {
   getMovieGenres,
   getMovieDirector,
   formatRate,
   formatReleaseDate
-} from "@src/utils/utils"
+} from "@utils/utils"
 import { useUserState } from "@src/store/app-context"
 import { HeroMovieLoadingSkeleton } from "@components/skeletons"
 import Casts from "@components/movie/casts"

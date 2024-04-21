@@ -2,8 +2,8 @@ import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { StarIcon, BookmarkIcon, FilmIcon, TvIcon } from "@heroicons/outline"
 
-import { getMovieDetails } from "@src/utils/apis"
-import { readLocalStorage } from "@src/utils/utils"
+import { getMovieDetails } from "@utils/apis"
+import { readLocalStorage } from "@utils/utils"
 import { useUserState } from "@src/store/app-context"
 
 

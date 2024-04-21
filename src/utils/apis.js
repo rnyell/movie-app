@@ -1,6 +1,32 @@
 import { request } from "./utils"
 
 
+export const ALL_GENRES = {
+  18: "Drama",
+  53: "Thriller",
+  28: "Action",
+  35: "Comedy",
+  16: "Animation",
+  80: "Crime",
+  12: "Adventure",
+  14: "Fantasy",
+  10751: "Family",
+  9648: "Mystery",
+  27: "Horror",
+  878: "Sci-Fi",
+  10749: "Romance",
+  10402: "Music",
+  10759: "Action & Adventure",
+  10765: "Sci-Fi & Fantasy",
+  10767: "Talk",
+  10768: "War & Politics",
+  37: "Western",
+  99: "Documentary",
+  36: "History",
+  10752: "War",
+  10770: "TV Movie",
+}
+
 export const MOVIE_GENRES = {
   18: "Drama",
   53: "Thriller",
@@ -74,11 +100,12 @@ export const filterGenres = [
   { name: "Musical", id: 10402 },
   { name: "Animation", id: 16 },
   { name: "Horror", id: 27 },
-
   { name: "Sci-Fi", id: 878 },
-  { name: "Sci-Fi, Fantasy", id: 10765 },
+  // { name: "Sci-Fi, Fantasy", id: 10765 },
+  { name: "Fantasy", id: 10765 },
   { name: "Action", id: 28 },
-  { name: "Action, Adveture", id: 10759 },
+  // { name: "Action, Adveture", id: 10759 },
+  { name: "Adveture", id: 10759 },
 ]
 
 //+ series

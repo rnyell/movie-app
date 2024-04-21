@@ -20,8 +20,17 @@
     }
   }
 
-  .before-abs {
+  .\:\:before-abs {
+    position: relative;
     &::before {
+      content: "";
+      position: absolute;
+    }
+  }
+
+  .\:\:after-abs {
+    position: relative;
+    &::after {
       content: "";
       position: absolute;
     }
@@ -420,7 +429,7 @@
     width: 80%;
     max-width: 750px;
     border: none;
-    border-top: 2px solid var(--color-neutral-700);
+    border-top: 2px solid var(--color-neutral-650);
   }
 
   label {

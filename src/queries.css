@@ -1,3 +1,8 @@
+/*
+⚠️ except "errors.css" & "skeleton.css", all <<media|container queries>> are placed here.
+*/
+
+/********************************************************************************************************/
 /** on home page */
 @media (width < 1300px) {
   .sidenav {
@@ -325,6 +330,7 @@
   }
 }
 
+/********************************************************************************************************/
 @container discover-page (width < 750px) {
   .wrapper {
     grid-template-columns: repeat(2, minmax(20vw, 1fr));
@@ -332,7 +338,7 @@
   }
 }
 
-
+/********************************************************************************************************/
 /** on results page */
 @media (width < 620px) {
   .results-page {
@@ -350,6 +356,7 @@
     & main {
       grid-column: 1 / 2;
       grid-row: 3 / 4;
+      margin-top: var(--space-4);
     }
   }
 

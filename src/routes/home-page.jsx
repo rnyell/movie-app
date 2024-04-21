@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { Link } from "react-router-dom"
 import { motion, useScroll, useTransform } from "framer-motion"
 
-import { useWindow } from "@src/utils/hooks"
+import { useWindow } from "@utils/hooks"
 import Header from "@components/header"
 import SideNav from "@components/sidenav"
 import HeroSection from "@components/home/hero-section"

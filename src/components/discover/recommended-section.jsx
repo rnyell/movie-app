@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { getRecommendedMovies } from "@src/utils/apis"
+import { getRecommendedMovies } from "@utils/apis"
 import MovieCard from "@components/movie/movie-card"
 
 export default function RecommendedSection() {

@@ -11,15 +11,14 @@ import {
   getComingMovies,
   getOnScreenMovies,
   getTrendingSeries,
-} from "@src/utils/apis"
-import { readLocalStorage } from "@src/utils/utils"
-import { useGeoLocation } from "@src/utils/hooks"
-import { AppLoadingSkeleton } from "@components/skeletons"
+} from "@utils/apis"
+import { readLocalStorage } from "@utils/utils"
+import { useGeoLocation } from "@utils/hooks"
+import { HomePageSkeleton } from "@components/skeletons"
 import { VPNError } from "@components/errors"
 
 const UserContext = createContext()
 const MoviesContext = createContext()
-const SearchContext = createContext([])
 
 export function useUserState() {
   return useContext(UserContext)
@@ -27,10 +26,6 @@ export function useUserState() {
 
 export function useMovieState() {
   return useContext(MoviesContext)
-}
-
-export function useSearch() {
-  return useContext(SearchContext)
 }
 
 
@@ -98,42 +93,12 @@ function userStateReducer(state, action) {
   }
 }
 
-const searchInitial = {
-  title: "",
-  results: [],
-  pages: 1,
-}
-
-function searchReducer(state, action) {
-  switch (action.type) {
-    case "set_search": {
-      return {
-        ...state,
-        results: action.results,
-        pages: action.pages,
-      }
-    }
-    case "page_changed": {
-      return {
-        ...state,
-        results: action.results,
-      }
-    }
-    case "set_error": {
-      return {
-        results: [],
-        pages: 0,
-      }
-    }
-  }
-}
-
 export default function AppProvider({ children }) {
-  const { country } = useGeoLocation()
   const [userState, userDispatch] = useReducer(userStateReducer, userStateInitializer())
   const [movieState, setMovieState] = useState({ popular: [], screen: [], series: [] })
-  const [searchState, searchDispatch] = useReducer(searchReducer, searchInitial)
   const [isLoading, setIsLoading] = useState(true)
+  const { country } = useGeoLocation()
+  const isVPNError = country === "IR"
 
   useEffect(() => {
     loadData()
@@ -152,17 +117,17 @@ export default function AppProvider({ children }) {
     })
     setIsLoading(false)
   }
-  
-  return isLoading ? (
-    <AppLoadingSkeleton />
-  ) : country === "IR" ? (
+
+  if (isLoading) {
+    return <HomePageSkeleton />
+  }
+
+  return isVPNError ? (
     <VPNError />
   ) : (
     <UserContext.Provider value={{userState, userDispatch}}>
       <MoviesContext.Provider value={[movieState]}>
-        <SearchContext.Provider value={[searchState, searchDispatch]}>
-          {children}
-        </SearchContext.Provider>
+        {children}
       </MoviesContext.Provider>
     </UserContext.Provider>
   )

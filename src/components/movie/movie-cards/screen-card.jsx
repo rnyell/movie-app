@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { StarIcon } from "@heroicons/outline"
-import { getMovieDetails, getMediaRuntime } from "@src/utils/apis"
-import { formatRate, formatRuntime } from "@src/utils/utils"
+import { getMovieDetails, getMediaRuntime } from "@utils/apis"
+import { formatRate, formatRuntime } from "@utils/utils"
 
 export default function ScreenCard({ result, type, variant }) {
   const [runtime, setRuntime] = useState(null)

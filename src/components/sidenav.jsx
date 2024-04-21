@@ -19,7 +19,7 @@ import {
 } from "@heroicons/solid"
 import { CompasIconSolid, CompasIcon } from "@src/utils/icons"
 import logo from "@src/assets/logo.png"
-import { useWindow } from "@src/utils/hooks"
+import { useWindow } from "@utils/hooks"
 
 
 const lg_links = [

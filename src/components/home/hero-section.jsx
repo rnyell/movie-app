@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 
 import { useMovieState } from "@src/store/app-context"
-import { useWindow } from "@src/utils/hooks"
+import { useWindow } from "@utils/hooks"
 import HeroMovie from "@components/home/hero-movie"
 import Carousel from "@components/home/carousel"
 import Swiper from "@components/home/swiper"

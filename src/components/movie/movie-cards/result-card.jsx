@@ -3,13 +3,13 @@ import { Link, useLocation } from "react-router-dom"
 import { motion, AnimatePresence, useAnimate } from "framer-motion"
 import { StarIcon, BookmarkIcon, FilmIcon, TvIcon, ArrowTopRightOnSquareIcon } from "@heroicons/outline"
 import { BookmarkSlashIcon, PlayIcon } from "@heroicons/solid"
-import { getGenresBaseOnIds, formatRate, formatRuntime, formatReleaseDate } from "@src/utils/utils"
+import { getGenresBaseOnIds, formatRate, formatRuntime, formatReleaseDate } from "@utils/utils"
 
 
 export default function ResultCard({ result, type, variant }) {
   const [cardOverlay, setCardOverlay] = useState(false)
-  const location = useLocation()
   const [scope, animate] = useAnimate()
+  const location = useLocation()
 
   const overlayVariants = {
     initial: {
@@ -49,9 +49,9 @@ export default function ResultCard({ result, type, variant }) {
       data-variant={variant}
       ref={scope}
       layout
-      initial={{ opacity: 0.5 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.2 }}
+      initial={{opacity: 0.5}}
+      animate={{opacity: 1}}
+      transition={{duration: 0.2}}
       onHoverStart={handleHoverStart}
       onHoverEnd={handleHoverEnd}
     >
@@ -71,7 +71,7 @@ export default function ResultCard({ result, type, variant }) {
           />
         </figure>
         <AnimatePresence>
-          {cardOverlay &&  
+          {cardOverlay &&
             <motion.div
               className="hover-overlay flex-col"
               variants={overlayVariants}
@@ -80,17 +80,6 @@ export default function ResultCard({ result, type, variant }) {
               exit="exit"
               // transition={{ duration: 2 }}
             >
-              {/* <h5 className="overlay-title">{result?.title || result?.name}</h5>
-              <p className="overlay-release-date">
-                {formatReleaseDate(result?.release_date) || formatReleaseDate(result?.first_air_date)}
-              </p> */}
-              {/* <span className="genres">
-                {getGenresBaseOnIds(result.media_type, result.genre_ids)
-                  .map(genre => <span key={genre} className="genre">{genre}, </span>
-                )}
-              </span> */}
-              {/* <p className="overview">{result.overview}</p> */}
-              {/* TODO: if 2024, a "new" tag is attached */}
               <motion.div
                 className="cta-btns"
                 initial={{y: 12}}
@@ -108,7 +97,7 @@ export default function ResultCard({ result, type, variant }) {
                     type: result.media_type,
                     prevUrl: location.pathname + location.search,
                   }}
-                >
+                  >
                   <i className="icon arrow-icon">
                     <ArrowTopRightOnSquareIcon />
                   </i>
@@ -130,3 +119,14 @@ export default function ResultCard({ result, type, variant }) {
     </motion.div>
   )
 }
+                  {/* <h5 className="overlay-title">{result?.title || result?.name}</h5>
+                  <p className="overlay-release-date">
+                    {formatReleaseDate(result?.release_date) || formatReleaseDate(result?.first_air_date)}
+                  </p> */}
+                  {/* <span className="genres">
+                    {getGenresBaseOnIds(result.media_type, result.genre_ids)
+                      .map(genre => <span key={genre} className="genre">{genre}, </span>
+                    )}
+                  </span> */}
+                  {/* <p className="overview">{result.overview}</p> */}
+                  {/* TODO: if 2024, a "new" tag is attached */}
