@@ -100,8 +100,11 @@ export default function SmFilter({ setSearchStateCopy }) {
     setS(s + 1)
   }
   
-  function handleApplyFilters(e) {
+  function handleSubmitFilters(e) {
     e.stopPropagation()
+    e.preventDefault()
+    const data = new FormData(e.target)
+    console.log(data)
     updateSelectedFilters()
     setFilterIsOpen(false)
   }
@@ -130,7 +133,6 @@ export default function SmFilter({ setSearchStateCopy }) {
 
     if (sortItem === "title") {
       if (order === "desc") {
-        console.log(unsortedResults[sortItem]);
         sortedResults = unsortedResults.toSorted(
           (a, b) => b[sortItem].localeCompare(a[sortItem])
         )
@@ -150,9 +152,6 @@ export default function SmFilter({ setSearchStateCopy }) {
     setSearchStateCopy({ results: sortedResults, pages })
     // OR: setSearchStateCopy({ ...searchStateCopy,  results: sortedResults })
   }
-
-  console.log(searchOptions.sorts)
-  // console.log(searchState.results)
 
   function handleApplySorts(e) {
     e.stopPropagation()
@@ -188,7 +187,8 @@ export default function SmFilter({ setSearchStateCopy }) {
             <i className="icon"><FunnelIcon /></i>
             <AnimatePresence>
               {filterIsOpen && (
-                <motion.div
+                <motion.form
+                  onSubmit={handleSubmitFilters}
                   className="dropdown-box flex-col"
                   variants={dropdownVariants}
                   initial="initial"
@@ -201,7 +201,7 @@ export default function SmFilter({ setSearchStateCopy }) {
                       {media_types.map((type) => (
                         <span
                           key={type}
-                          onClick={() => optionsDispatch({type: "set_type", media: type})}
+                          // onClick={() => optionsDispatch({type: "set_type", media: type})}
                           className={`${type === searchOptions.filters.type ? "is-active" : null}`}
                         >
                           {type === "tv" ? "TV" : strCapitalizer(type)}
@@ -217,7 +217,7 @@ export default function SmFilter({ setSearchStateCopy }) {
                         <span
                           key={obj.id}
                           className={`${searchOptions.filters.genres.includes(obj.id) && "is-active"}`}
-                          onClick={() => optionsDispatch({type: "set_genres", id: obj.id})}
+                          // onClick={() => optionsDispatch({type: "set_genres", id: obj.id})}
                         >
                           {obj.name}
                         </span>
@@ -254,8 +254,8 @@ export default function SmFilter({ setSearchStateCopy }) {
                       </label>
                     </div>
                   </div>
-                  <button onClick={handleApplyFilters}>Apply</button>
-                </motion.div>
+                  <button type="submit">Apply</button>
+                </motion.form>
               )}
             </AnimatePresence>
           </div>

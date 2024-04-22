@@ -8,8 +8,7 @@ import { devideItemsIntoPages, generatePagination, strCapitalizer } from "@utils
 import { useSearch } from "@src/store/search-context"
 
 import Header from "@components/header"
-import SideFilter from "@components/results/side-filter"
-import SmFilter from "@components/results/sm-filter"
+import FilterBox from "@components/search/filterbox"
 import MovieCard from "@components/movie/movie-card"
 import Pagination from "@components/pagination"
 import { SearchResultsSkeleton } from "@components/skeletons"
@@ -77,8 +76,7 @@ export default function SearchPage() {
     }
     setIsLoading(false)
   }
-  
-  // console.log(searchStateCopy.results)
+
 
   const results = isNotFound ? (
       <NotFoundResult />
@@ -104,16 +102,7 @@ export default function SearchPage() {
     <div className="search-page">
       <Header dataset="sticky expanded" />
       <aside>
-        {windowWidth >= 620 ? (
-          <SideFilter setSearchStateCopy={setSearchStateCopy} />
-        ) : query !== null ? (
-          <>
-            <h2 className="heading">Results for: <span>{query}</span></h2>
-            <SmFilter setSearchStateCopy={setSearchStateCopy} />
-          </>
-        ) : (
-          null
-        )}
+        <FilterBox setSearchStateCopy={setSearchStateCopy} />
       </aside>
       <main>
         {isInitialMarkup ? (
