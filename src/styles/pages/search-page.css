@@ -47,8 +47,10 @@
   }
 }
 
+/* currently disable */
+/* ................................... */
 [data-feature-not-available] {
-  cursor: not-allowed;
+  cursor: not-allowed !important;
   opacity: 0.35;
 
   & div,
@@ -58,6 +60,14 @@
     cursor: not-allowed !important;
   }
 }
+
+[for="release_date"],
+[for="title"] {
+  opacity: 0.35;
+  cursor: not-allowed !important;
+}
+/* ................................... */
+/* ................................... */
 
 .side-filter {
   --outline-width: -1.5px;
@@ -321,8 +331,16 @@ aside:has(> .heading) {
   }  
 
   & .sort-dropdown {
-    & .sort-options .group {
-      gap: var(--space-2);
+    & label.is-active {
+      font-weight: 500;
+      color: var(--color-neutral-800);
+      background-color: var(--color-neutral-350);
+    }
+
+    & .sort-options {
+      & .group {
+        gap: 0.5rem;
+      }
     }
 
     & .sort-order {
@@ -339,9 +357,10 @@ aside:has(> .heading) {
     & label {
       padding: var(--space-3) var(--space-4);
       font-size: 0.95rem;
-      background-color: var(--color-neutral-600);
-      background-color: var(--color-neutral-700);
+      background-color: var(--color-neutral-550);
       border-radius: 0.75rem;
+      transition: background-color var(--duration-1) ease-in,
+        color var(--duration-1) ease-in;
     }
   }
 

@@ -43,7 +43,7 @@ const searchOptionsInitial = {
     genres: []
   },
   sorts: {
-    sortby: null,
+    sortby: "none",
     order: "desc"
   }
 }
@@ -76,10 +76,39 @@ function searchOptionsRedcuer(state, action) {
       }
     }
     case "set_sortby": {
-
+      return {
+        ...state,
+        sorts: {
+          ...state.sorts,
+          sortby: action.sortby
+        }
+      }
     }
     case "set_order": {
-
+      return {
+        ...state,
+        sorts: {
+          ...state.sorts,
+          order: action.order
+        }
+      }
+    }
+    /* handle clicking outside, dismis current selected while preserving before selection */
+    case "dismis_filters": {
+      return {
+        ...state,
+        filters: {
+          ...action.filters
+        }
+      }
+    }
+    case "dismis_sorts": {
+      return {
+        ...state,
+        sorts: {
+          ...action.sorts
+        }
+      }
     }
   }
 }

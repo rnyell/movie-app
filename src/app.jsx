@@ -17,12 +17,10 @@ import NewsPage from "@src/routes/discover/news-page"
 import Article from "@src/routes/discover/article"
 import SearchPage from "@src/routes/search-page"
 import SelectedMovie from "@src/routes/selected-movie"
-
 import Reservation from "@src/routes/user-related/reservation"
 import OnScreenPage from "@src/routes/user-related/onscreen-page"
 import UserStuff from "@src/routes/user-related/user-stuff"
 import BookingPage from "@src/routes/booking-page"
-
 import { ErrorPage } from "@components/errors"
 
 import "./main.css"

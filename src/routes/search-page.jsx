@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion"
 
 import { useWindow } from "@utils/hooks"
 import { getAllResults } from "@utils/apis"
-import { devideItemsIntoPages, generatePagination } from "@utils/utils"
+import { devideItemsIntoPages, generatePagination, strCapitalizer } from "@utils/utils"
 import { useSearch } from "@src/store/search-context"
 
 import Header from "@components/header"
@@ -105,14 +105,11 @@ export default function SearchPage() {
       <Header dataset="sticky expanded" />
       <aside>
         {windowWidth >= 620 ? (
-          <SideFilter />
+          <SideFilter setSearchStateCopy={setSearchStateCopy} />
         ) : query !== null ? (
           <>
             <h2 className="heading">Results for: <span>{query}</span></h2>
-            <SmFilter
-              searchStateCopy={searchStateCopy}
-              setSearchStateCopy={setSearchStateCopy}
-            />
+            <SmFilter setSearchStateCopy={setSearchStateCopy} />
           </>
         ) : (
           null
@@ -141,7 +138,7 @@ export default function SearchPage() {
                     onClick={() => setFilteredType(type)}
                     className={`${type === filteredType ? "is-active" : null}`}
                   >
-                    {type === "tv" ? "TV" : type.substring(0, 1).toUpperCase() + type.substring(1)}
+                    {type === "tv" ? "TV" : strCapitalizer(type)}
                   </span>
                 ))}
               </div>

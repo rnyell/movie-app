@@ -115,22 +115,29 @@ export function generatePagination(currentPage, totalPages) {
   ]
 }
 
-export function sortResults(arr = []) {
+export function sortResults(arr = [], key) {
   if (arr.length <= 1) {
     return arr
   }
 
-  const pivot = arr[arr.length - 1].vote_average
+  const pivot = arr[0][key]
   const left = []
   const right = []
+  console.log(pivot)
 
   for (let i = 0; i < arr.length - 1; i++) {
-    if (arr[i].vote_average < pivot) {
+    if (arr[i][key] < pivot) {
       left.push(arr[i])
     } else {
       right.push(arr[i])
     }
   }
 
-  return [...sortResults(left), pivot, ...sortResults(right)]
+  const sortedLeft = sortResults(left, key)
+  const sortedRight = sortResults(right, key)
+  return [...sortedLeft, arr[0], ...sortedRight]
+}
+
+export function strCapitalizer(word) {
+  return word.split(" ").map(el => el.substring(0, 1).toUpperCase() + el.substring(1, el.length)).join(" ")
 }

@@ -3,20 +3,27 @@ import { motion, AnimatePresence } from "framer-motion"
 import { FunnelIcon, BarsArrowDownIcon, BarsArrowUpIcon, XMarkIcon } from "@heroicons/outline"
 import { EqualizerIcon } from "@src/utils/icons"
 import { useClickOutside } from "@utils/hooks"
+import { strCapitalizer, sortResults } from "@utils/utils"
 import { FILTER_GENRES, ALL_GENRES } from "@utils/apis"
 import { useSearch } from "@src/store/search-context"
 
-const results_types = ["all", "movie", "tv"]
 const ITEMS_PER_PAGE = 18
+const media_types = ["all", "movie", "tv"]
+const sorts_item = [
+  { item: "none", name: "none" },
+  { item: "popularity", name: "popularity" },
+  { item: "vote_average", name: "rating" },
+  { item: "release_date" , name: "release date" },
+  { item: "title" , name: "title" },
+]
 
-export default function SmFilter({ searchStateCopy, setSearchStateCopy }) {
+
+export default function SmFilter({ setSearchStateCopy }) {
   const {searchState, searchOptions, optionsDispatch} = useSearch()
   const [filterIsOpen, setFilterIsOpen] = useState(false)
   const [sortIsOpen, setSortIsOpen] = useState(false)
   const [s, setS] = useState(0) // !hacky - to update state syncly...
   const ref = useRef(null)
-
-  // console.log(searchOptions)
 
   useEffect(() => {
     updateSelectedFilters()
@@ -42,12 +49,10 @@ export default function SmFilter({ searchStateCopy, setSearchStateCopy }) {
   // function returnFilteredByType() {
   //   const initialResults = searchState.results
   //   const selectedType = searchOptions.filters.type
-
   //   if (selectedType !== "all") {
   //     const filtered = searchState.results.filter(item => item.media_type === selectedType)
   //     return filtered
   //   }
-
   //   return initialResults
   // }
 
@@ -66,13 +71,13 @@ export default function SmFilter({ searchStateCopy, setSearchStateCopy }) {
       }
     })
 
-    console.log(filteredResults)
     return filteredResults
   }
 
   function updateSelectedFilters() {
     const selectedType = searchOptions.filters.type
     const filteredByGenres = returnFilteredByGenres()
+    // const filteredByType = returnFilteredByType()
     if (selectedType !== "all") {
       const filtered = filteredByGenres.filter(item => item.media_type === selectedType)
       const pages = Math.ceil(filtered.length / ITEMS_PER_PAGE)
@@ -94,13 +99,65 @@ export default function SmFilter({ searchStateCopy, setSearchStateCopy }) {
 
     setS(s + 1)
   }
-
-  console.log(searchOptions.filters)
-
-  function handleApplyClick(e) {
+  
+  function handleApplyFilters(e) {
     e.stopPropagation()
     updateSelectedFilters()
     setFilterIsOpen(false)
+  }
+  
+  function updateSelectedSorts() {
+    const unsortedResults = searchState.results
+    const sortItem = searchOptions.sorts.sortby
+    const order = searchOptions.sorts.order
+    let sortedResults
+
+    if (sortItem === "none") {
+      return
+    }
+
+    if (sortItem === "popularity" || sortItem === "vote_average") {
+      if (order === "desc") {
+        sortedResults = unsortedResults.toSorted(
+          (a, b) => b[sortItem] - a[sortItem]
+        )
+      } else {
+        sortedResults = unsortedResults.toSorted(
+          (a, b) => a[sortItem] - b[sortItem]
+        )
+      }
+    }
+
+    if (sortItem === "title") {
+      if (order === "desc") {
+        console.log(unsortedResults[sortItem]);
+        sortedResults = unsortedResults.toSorted(
+          (a, b) => b[sortItem].localeCompare(a[sortItem])
+        )
+      } else {
+        sortedResults = unsortedResults.toSorted(
+          (a, b) => a[sortItem].localeCompare(b[sortItem])
+        )
+      }
+    }
+
+    // if (sortItem === "release_date") {
+    //   // release_date & first_air_date
+    //   return
+    // }
+
+    const pages = Math.ceil(sortedResults.length / ITEMS_PER_PAGE)
+    setSearchStateCopy({ results: sortedResults, pages })
+    // OR: setSearchStateCopy({ ...searchStateCopy,  results: sortedResults })
+  }
+
+  console.log(searchOptions.sorts)
+  // console.log(searchState.results)
+
+  function handleApplySorts(e) {
+    e.stopPropagation()
+    updateSelectedSorts()
+    setSortIsOpen(false)
   }
 
   const dropdownVariants = {
@@ -141,13 +198,13 @@ export default function SmFilter({ searchStateCopy, setSearchStateCopy }) {
                   <div className="type-filter">
                     <h6>Type</h6>
                     <div className="group type-box">
-                      {results_types.map((type) => (
+                      {media_types.map((type) => (
                         <span
                           key={type}
                           onClick={() => optionsDispatch({type: "set_type", media: type})}
                           className={`${type === searchOptions.filters.type ? "is-active" : null}`}
                         >
-                          {type === "tv" ? "TV" : type.substring(0, 1).toUpperCase() + type.substring(1)}
+                          {type === "tv" ? "TV" : strCapitalizer(type)}
                         </span>
                       ))}
                     </div>
@@ -197,7 +254,7 @@ export default function SmFilter({ searchStateCopy, setSearchStateCopy }) {
                       </label>
                     </div>
                   </div>
-                  <button onClick={handleApplyClick}>Apply</button>
+                  <button onClick={handleApplyFilters}>Apply</button>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -220,32 +277,43 @@ export default function SmFilter({ searchStateCopy, setSearchStateCopy }) {
                   <div className="sort-options">
                     <h6>Sort by</h6>
                     <div className="group flex-col">
-                      <label>
-                        Popularity <input type="radio" name="opt" />
-                      </label>
-                      <label>
-                        Release Date <input type="radio" name="opt" />
-                      </label>
-                      <label>
-                        Name <input type="radio" name="opt" />
-                      </label>
+                      {sorts_item.map(obj => (
+                        <label
+                          key={obj.item}
+                          htmlFor={obj.item}
+                          className={`${searchOptions.sorts.sortby === obj.item ? "is-active" : null}`}
+                          onClick={() => {
+                            (obj.item !== "release_date" && obj.item !== "title") && optionsDispatch({ type: "set_sortby", sortby: obj.item})}
+                          }
+                        >
+                          {strCapitalizer(obj.name)} <input type="radio" name="opt" id={obj.item} />
+                        </label>
+                      ))}
                     </div>
                   </div>
                   <hr style={{width: "95%", marginBlock: "1rem", borderWidth: 1.5}} />
                   <div className="sort-order">
                     <h6>Order</h6>
                     <div className="group flex">
-                      <label className="flex-y-center">
-                        <i className="icon"><BarsArrowUpIcon /></i><span>Asc.</span>
-                        <input type="radio" name="order" />
-                      </label>
-                      <label className="flex-y-center">
+                      <label
+                        htmlFor="desc"
+                        className={`flex-y-center ${searchOptions.sorts.order === "desc" ? "is-active" : null}`}
+                        onClick={() => optionsDispatch({ type: "set_order", order: "desc"})}
+                      >
                         <i className="icon"><BarsArrowDownIcon /></i><span>Desc.</span>
-                        <input type="radio" name="order" />
+                        <input type="radio" name="order" id="desc" />
+                      </label>
+                      <label
+                        htmlFor="asc"
+                        className={`flex-y-center ${searchOptions.sorts.order === "asc" ? "is-active" : null}`}
+                        onClick={() => optionsDispatch({ type: "set_order", order: "asc"})}
+                      >
+                        <i className="icon"><BarsArrowUpIcon /></i><span>Asc.</span>
+                        <input type="radio" name="order" id="asc" />
                       </label>
                     </div>
                   </div>
-                  <button>Apply</button>
+                  <button onClick={handleApplySorts}>Apply</button>
                 </motion.div>
               )}
             </AnimatePresence>

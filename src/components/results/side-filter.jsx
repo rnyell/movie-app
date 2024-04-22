@@ -6,7 +6,7 @@ for (let prop in ALL_GENRES) {
 }
 
 
-export default function SideFilter() {
+export default function SideFilter({ setSearchStateCopy }) {
   return (
     <div className="side-filter ::after-abs">
       <form name="side-filter" className="flex-col">
