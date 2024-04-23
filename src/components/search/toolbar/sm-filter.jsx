@@ -7,8 +7,9 @@ import { strCapitalizer, sortResults } from "@utils/utils"
 import { FILTER_GENRES, ALL_GENRES } from "@utils/apis"
 import { useSearch } from "@src/store/search-context"
 
+import FilterDropdown from "./filter-dropdown"
+
 const ITEMS_PER_PAGE = 18
-const media_types = ["all", "movie", "tv"]
 const sorts_item = [
   { item: "none", name: "none" },
   { item: "popularity", name: "popularity" },
@@ -22,11 +23,11 @@ export default function SmFilter({ setSearchStateCopy }) {
   const {searchState, searchOptions, optionsDispatch} = useSearch()
   const [filterIsOpen, setFilterIsOpen] = useState(false)
   const [sortIsOpen, setSortIsOpen] = useState(false)
-  const [s, setS] = useState(0) // !hacky - to update state syncly...
   const ref = useRef(null)
+  const [s, setS] = useState(0) // !hacky - to update state syncly on remove...
 
   useEffect(() => {
-    updateSelectedFilters()
+    // updateSelectedFilters()
   }, [s])
 
   useClickOutside(ref, handleClickOutside)
@@ -36,56 +37,14 @@ export default function SmFilter({ setSearchStateCopy }) {
     if (sortIsOpen) setSortIsOpen(false)
   }
 
-  function showFilterItems() {
+  function showFilterDropdown() {
     setFilterIsOpen(true)
     setSortIsOpen(false)
   }
 
-  function showSortItems() {
+  function showSortDropdown() {
     setSortIsOpen(true)
     setFilterIsOpen(false)
-  }
-
-  // function returnFilteredByType() {
-  //   const initialResults = searchState.results
-  //   const selectedType = searchOptions.filters.type
-  //   if (selectedType !== "all") {
-  //     const filtered = searchState.results.filter(item => item.media_type === selectedType)
-  //     return filtered
-  //   }
-  //   return initialResults
-  // }
-
-  function returnFilteredByGenres() {
-    const initialResults = searchState.results
-    const selectedGenres = searchOptions.filters.genres
-    if (selectedGenres.length === 0) {
-      return initialResults
-    }
-
-    const filteredResults = initialResults.filter(res => {
-      for (let i = 0; i < selectedGenres.length; i++) {
-        if (res.genre_ids.includes(selectedGenres[i])) {
-          return true
-        }
-      }
-    })
-
-    return filteredResults
-  }
-
-  function updateSelectedFilters() {
-    const selectedType = searchOptions.filters.type
-    const filteredByGenres = returnFilteredByGenres()
-    // const filteredByType = returnFilteredByType()
-    if (selectedType !== "all") {
-      const filtered = filteredByGenres.filter(item => item.media_type === selectedType)
-      const pages = Math.ceil(filtered.length / ITEMS_PER_PAGE)
-      setSearchStateCopy({ results: filtered, pages })
-    } else {
-      const pages = Math.ceil(filteredByGenres.length / ITEMS_PER_PAGE)
-      setSearchStateCopy({ results: filteredByGenres, pages })
-    }
   }
 
   function handleRemovedFilters(id) {
@@ -98,15 +57,6 @@ export default function SmFilter({ setSearchStateCopy }) {
     }
 
     setS(s + 1)
-  }
-  
-  function handleSubmitFilters(e) {
-    e.stopPropagation()
-    e.preventDefault()
-    const data = new FormData(e.target)
-    console.log(data)
-    updateSelectedFilters()
-    setFilterIsOpen(false)
   }
   
   function updateSelectedSorts() {
@@ -181,87 +131,22 @@ export default function SmFilter({ setSearchStateCopy }) {
         <div className="wrapper" ref={ref}>
           <div
             className={`filter-dropdown ${filterIsOpen && "is-open"}`}
-            onClick={showFilterItems}
+            onClick={showFilterDropdown}
           >
             <p>Filters</p>
             <i className="icon"><FunnelIcon /></i>
             <AnimatePresence>
               {filterIsOpen && (
-                <motion.form
-                  onSubmit={handleSubmitFilters}
-                  className="dropdown-box flex-col"
-                  variants={dropdownVariants}
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
-                >
-                  <div className="type-filter">
-                    <h6>Type</h6>
-                    <div className="group type-box">
-                      {media_types.map((type) => (
-                        <span
-                          key={type}
-                          // onClick={() => optionsDispatch({type: "set_type", media: type})}
-                          className={`${type === searchOptions.filters.type ? "is-active" : null}`}
-                        >
-                          {type === "tv" ? "TV" : strCapitalizer(type)}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                  <hr style={{width: "95%", marginBlock: "1rem", borderWidth: 1.5}} />
-                  <div className="genre-filter">
-                    <h6>Genres</h6>
-                    <div className="group flex-wrap">
-                      {FILTER_GENRES.map(obj => (
-                        <span
-                          key={obj.id}
-                          className={`${searchOptions.filters.genres.includes(obj.id) && "is-active"}`}
-                          // onClick={() => optionsDispatch({type: "set_genres", id: obj.id})}
-                        >
-                          {obj.name}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                  <hr style={{width: "95%", marginBlock: "1rem", borderWidth: 1.5}} />
-                  <div
-                    data-feature-not-available
-                    title="feature currently is not available"
-                    className="lang-filter"
-                  >
-                    <h6>Language & Country</h6>
-                    <div className="group flex-col">
-                      <label htmlFor="langs" className="flex-y-center">
-                        <span>Language:</span>
-                        <div className="::after-abs">
-                          <select id="langs" name="langs">
-                            <option value="English">English</option>
-                            <option value="French">French</option>
-                            <option value="Dutch">Dutch</option>
-                          </select>
-                        </div>
-                      </label>
-                      <label htmlFor="countries" className="flex-y-center">
-                        <span>Origin Country:</span>
-                        <div className="::after-abs">
-                          <select id="countries" name="countries">
-                            <option value="US">US</option>
-                            <option value="England">England</option>
-                            <option value="France">France</option>
-                          </select>
-                        </div>
-                      </label>
-                    </div>
-                  </div>
-                  <button type="submit">Apply</button>
-                </motion.form>
+                <FilterDropdown 
+                  setSearchStateCopy={setSearchStateCopy}
+                  setFilterIsOpen={setFilterIsOpen}
+                />
               )}
             </AnimatePresence>
           </div>
           <div
             className={`sort-dropdown ${sortIsOpen && "is-open"}`}
-            onClick={showSortItems}
+            onClick={showSortDropdown}
           >
             <p>Sort</p>
             <i className="icon"><EqualizerIcon /></i>

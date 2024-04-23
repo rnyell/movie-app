@@ -1,35 +1,25 @@
 import { useEffect, useState } from "react"
-import { Link, useSearchParams, useLocation } from "react-router-dom"
+import { useSearchParams, useLocation } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 
 import { useWindow } from "@utils/hooks"
 import { getAllResults } from "@utils/apis"
-import { devideItemsIntoPages, generatePagination, strCapitalizer } from "@utils/utils"
 import { useSearch } from "@src/store/search-context"
 
 import Header from "@components/header"
-import FilterBox from "@components/search/filterbox"
-import MovieCard from "@components/movie/movie-card"
-import Pagination from "@components/pagination"
-import { SearchResultsSkeleton } from "@components/skeletons"
-import { NotFoundResult } from "@components/errors"
+import FilterBox from "@components/search/toolbar/filterbox"
+import SearchResults from "@components/search/results/SearcResults"
 
-const results_types = ["all", "movie", "tv"]
 
 export default function SearchPage() {
   const {windowWidth} = useWindow()
-  const {searchState, searchDispatch, searchOptions, optionsDispatch} = useSearch()
+  const {searchState, searchDispatch} = useSearch()
   const [searchStateCopy, setSearchStateCopy] = useState({results: [], pages: 0})
   const [isLoading, setIsLoading] = useState(true)
   const [searchParams] = useSearchParams()
   const location = useLocation()
   const query = searchParams.get("query")
   const isInitialMarkup = query === null
-  const isNotFound = searchState.pages === 0
-  const currentPage = Number(searchParams.get("page")) || 1
-  const allPagesArray = generatePagination(currentPage, searchStateCopy.pages)
-
-  // console.log(searchStateCopy)
 
   useEffect(() => {
     loadResultsOnMount()
@@ -78,26 +68,6 @@ export default function SearchPage() {
   }
 
 
-  const results = isNotFound ? (
-      <NotFoundResult />
-    ) : (
-      <motion.div
-        className="search-results"
-        layout
-      >
-        {devideItemsIntoPages(currentPage, searchStateCopy.results)
-          .map(media =>
-            <MovieCard
-              key={media.id}
-              result={media}
-              type={media.media_type}
-              variant="result"
-            />
-          )
-        }
-      </motion.div>
-    )
-
   return (
     <div className="search-page">
       <Header dataset="sticky expanded" />
@@ -118,26 +88,7 @@ export default function SearchPage() {
             <h2 className="heading">
               Results for: <span>{query}</span>
             </h2>)}
-            {/* {windowWidth >= 620 &&
-            <div className="type-filter">
-              <div className="type-box">
-                {results_types.map((type) => (
-                  <span
-                    key={type}
-                    onClick={() => setFilteredType(type)}
-                    className={`${type === filteredType ? "is-active" : null}`}
-                  >
-                    {type === "tv" ? "TV" : strCapitalizer(type)}
-                  </span>
-                ))}
-              </div>
-            </div>} */}
-            <div className="results-container">
-              {isLoading ? <SearchResultsSkeleton /> : results}
-            </div>
-            {!isNotFound && (
-              <Pagination currentPage={currentPage} allPagesArray={allPagesArray} />
-            )}
+            <SearchResults isLoading={isLoading} searchStateCopy={searchStateCopy} />
           </>
         )}
       </main>

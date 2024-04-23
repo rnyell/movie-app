@@ -17,15 +17,7 @@
   }
 }
 
-.search-page aside {
-  width: min(30vw, 300px);
-  height: 75vh;
-  /* position: sticky; */
-  position: fixed;
-  top: 5rem;  /** <Header />'s height (which is ≈85px) */
-  left: 0;
-  font-size: 0.9rem;
-
+.search-page {
   & input[type="checkbox"],
   & input[type="radio"] {
     width: 0;
@@ -45,29 +37,49 @@
   & option {
     border: 0;
   }
-}
 
-/* currently disable */
-/* ................................... */
-[data-feature-not-available] {
-  cursor: not-allowed !important;
-  opacity: 0.35;
-
-  & div,
-  & label,
-  & select,
-  & span {
+  /* currently disable */
+  /* ................................... */
+  [data-feature-not-available] {
     cursor: not-allowed !important;
+    opacity: 0.35 !important;
+
+    & div,
+    & label,
+    & select,
+    & span {
+      cursor: not-allowed !important;
+    }
+  }
+
+  [for="release_date"],
+  [for="title"] {
+    opacity: 0.35 !important;
+    cursor: not-allowed !important;
+  }
+  /* ................................... */
+  /* ................................... */
+
+  & .type-filter {
+    margin-top: var(--space-6);
+    align-self: flex-start;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    font-size: 0.9rem;
   }
 }
 
-[for="release_date"],
-[for="title"] {
-  opacity: 0.35;
-  cursor: not-allowed !important;
+.search-page aside {
+  width: min(30vw, 300px);
+  height: 75vh;
+  /* position: sticky; */
+  position: fixed;
+  top: 5rem;  /** <Header />'s height (which is ≈85px) */
+  left: 0;
+  font-size: 0.9rem;
 }
-/* ................................... */
-/* ................................... */
 
 .side-filter {
   --outline-width: -1.5px;
@@ -192,7 +204,7 @@
     display: flex;
     gap: var(--space-2);
 
-    & > span {
+    & > label {
       min-width: 5.5rem;
       padding: 0.625rem;
       text-align: center;
@@ -205,8 +217,8 @@
         color var(--duration-1) ease-in;
     }
 
-    & span:hover,
-    & span.is-active {
+    & label:hover,
+    & label:has(:checked) {
       color: var(--color-neutral-800);
       background-color: var(--color-neutral-300);
       border-color: var(--color-neutral-300);
@@ -277,15 +289,17 @@ aside:has(> .heading) {
     position: absolute;
     top: calc(100% + 10px);
     left: 0;
-    gap: 0.5rem;
     color: var(--color-neutral-300);
-    background-color: var(--color-neutral-700);
     background-color: var(--color-neutral-650);
     border-radius: 1.5rem;
     box-shadow: 0 5px 0.5rem rgb(11 15 17 / 30%);
 
     & hr {
       border-color: var(--color-neutral-500);
+    }
+
+    & form {
+      gap: 0.375rem;
     }
 
     & .group {
@@ -301,22 +315,26 @@ aside:has(> .heading) {
     }
     
     & .genre-filter {
-      & span {
+      & label {
         padding: 0.35rem var(--space-2);
         font-size: 0.8rem;
         border: 1px solid var(--color-neutral-450);
         border-radius: 0.75rem;
         cursor: pointer;
+        transition: background-color var(--duration-1) ease-in,
+          border-color var(--duration-1) ease-in,
+          color var(--duration-1) ease-in;
       }
 
-      & span:hover {
+      & label:hover {
         background-color: var(--color-neutral-350);
         color: var(--color-neutral-800);
       }
 
-      & span.is-active {
+      & label:has(:checked) {
         color: var(--color-neutral-800);
         background-color: var(--color-neutral-300);
+        border-color: var(--color-neutral-300);
       }
     }
   }
@@ -453,16 +471,6 @@ aside:has(> .heading) {
       }
     }
   }
-
-  & .type-filter {
-    margin-top: var(--space-6);
-    align-self: flex-start;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-around;
-    font-size: 0.9rem;
-  }
 }
 
 .results-container {
@@ -476,9 +484,4 @@ aside:has(> .heading) {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 150px), 1fr));
   gap: 1.25rem 1.75rem;
-  /* justify-items: center; */ /*? why images&layout brokes with this */
-
-  /* & .movie-grid-item {
-    min-width: 0;
-  } */
 }

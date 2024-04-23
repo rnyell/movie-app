@@ -60,18 +60,20 @@ function searchOptionsRedcuer(state, action) {
       }
     }
     case "set_genres": {
-      var filteredGenres  // using `var` to honor years of honset servicing to humankind...
+      // var filteredGenres  // using `var` to honor years of honset servicing to humankind...
       const currentGenres = state.filters.genres
-      if (currentGenres.includes(action.id)) {
-        filteredGenres = currentGenres.filter(el => el !== action.id)
-      } else {
-        filteredGenres = [...new Set( [...currentGenres, action.id] )]
-      }
+      // if (currentGenres.includes(action.id)) {
+      //   filteredGenres = currentGenres.filter(el => el !== action.id)
+      // } else {
+      //   filteredGenres = [...new Set( [...currentGenres, action.id] )]
+      // }
+      // filteredGenres = [...new Set( [...currentGenres, action.id] )]
       return {
         ...state,
         filters: {
           ...state.filters,
-          genres: filteredGenres
+          // genres: [...new Set( [...currentGenres, action.id] )]
+          genres: [...action.ids]
         }
       }
     }

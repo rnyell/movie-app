@@ -4,12 +4,13 @@ import { motion, AnimatePresence } from "framer-motion"
 import { StarIcon, FilmIcon, TvIcon, ArrowTopRightOnSquareIcon } from "@heroicons/outline"
 import { BookmarkSlashIcon, PlayIcon } from "@heroicons/solid"
 
-import { getMovieDetails } from "@utils/apis"
+import { getMovieDetails, getSeriesDetails } from "@utils/apis"
 import { getGenresBaseOnIds, formatRate, formatRuntime, formatReleaseDate } from "@utils/utils"
 
 
 export default function BookmarkedCard({ result, type, variant, clearBookmark }) {
   const [movieDetails, setMovieDetails] = useState({})
+  const [seriesDetails, setSeriesDetails] = useState({})
   const [cardOverlay, setCardOverlay] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
@@ -20,8 +21,18 @@ export default function BookmarkedCard({ result, type, variant, clearBookmark })
     setIsLoading(false)
   }
 
+  async function loadSeriesDetails() {
+    const data = await getSeriesDetails(result)
+    setSeriesDetails(data)
+    setIsLoading(false)
+  }
+
   useEffect(() => {
-    loadMovieDetails()
+    if (type === "movie") {
+      loadMovieDetails()
+    } else if (type === "tv") {
+      loadSeriesDetails()
+    }
   }, [])
 
   const {
@@ -105,5 +116,4 @@ export default function BookmarkedCard({ result, type, variant, clearBookmark })
       )}
     </motion.div>
   )
-
 }

@@ -56,7 +56,7 @@ export default function CommonCard({ result, type, variant }) {
       data-variant={variant}
       className="movie-card"
       ref={listCardRef}
-      style={{width: "clamp(175px, 20vw, 305px)"}}
+      style={{width: "clamp(175px, 55vw, 305px)"}}
       whileHover={{width: 1.15 * listCardWidth}}
       onHoverStart={() => setListCardOverlay(true)}
       onHoverEnd={() => setListCardOverlay(false)}

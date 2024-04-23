@@ -113,7 +113,7 @@
 
 /* .movie-card[data-variant="common"] */
 .movie-card[data-variant="list"] {
-  width: clamp(175px, 18vw, 300px);
+  /* width: clamp(175px, 55vw, 300px); */ /* this is set inline by JS */
   scroll-margin-left: 3px; /* related to the visibility of the left-outline. it works with 1.5px but 3px is safer */
   border-radius: 1.5rem;
   box-shadow: var(--box-shadow-1);
