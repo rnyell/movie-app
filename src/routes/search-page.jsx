@@ -8,7 +8,7 @@ import { useSearch } from "@src/store/search-context"
 
 import Header from "@components/header"
 import FilterBox from "@components/search/toolbar/filterbox"
-import SearchResults from "@components/search/results/SearcResults"
+import SearchResults from "@components/search/results/SearchResults"
 
 
 export default function SearchPage() {
@@ -72,7 +72,7 @@ export default function SearchPage() {
     <div className="search-page">
       <Header dataset="sticky expanded" />
       <aside>
-        <FilterBox setSearchStateCopy={setSearchStateCopy} />
+        <FilterBox searchStateCopy={searchStateCopy} setSearchStateCopy={setSearchStateCopy} />
       </aside>
       <main>
         {isInitialMarkup ? (

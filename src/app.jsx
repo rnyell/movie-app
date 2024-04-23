@@ -44,11 +44,11 @@ const routes = [
           { path: "/discover/news/:id", element: <Article /> },
         ] },
       ] },
-      { path: "/search", element: 
+      { path: "/search", element: (
         <SearchProvider>
-          <SearchPage /> 
+          <SearchPage />
         </SearchProvider>
-      },
+      )},
       { path: "/player", element: <PlayerPage /> },
       { path: "/booking", element: <BookingPage /> },
       { path: "/:id", element: <SelectedMovie /> },

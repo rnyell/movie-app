@@ -35,15 +35,27 @@ export default function BookmarkedCard({ result, type, variant, clearBookmark })
     }
   }, [])
 
-  const {
-    id,
-    title,
-    release_date,
-    runtime,
-    genres,
-    vote_average,
-    poster_path,
-  } = movieDetails
+  if (Object.keys(movieDetails).length !== 0) {
+    var {
+      id,
+      title,
+      release_date,
+      runtime,
+      genres,
+      vote_average,
+      poster_path,
+    } = movieDetails
+  } else if (Object.keys(seriesDetails).length !== 0) {
+    var {
+      id,
+      name: title,
+      runtime,
+      genres,
+      vote_average,
+      poster_path,
+    } = seriesDetails
+  }
+
 
   function hideConfirmationBox() {
     setShowModal(false)

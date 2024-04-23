@@ -8,19 +8,16 @@ import TypeCheckbox from "./type-checkbox"
 const ITEMS_PER_PAGE = 18
 
 
-export default function FilterDropdown({ setSearchStateCopy, setFilterIsOpen }) {
-  const {searchState, searchOptions, optionsDispatch} = useSearch()
-  const [type, setType] = useState(searchOptions.filters.type)
-  const [genres, setGenres] = useState(searchOptions.filters.genres) // hacky... state was one step behind. forced us to use useEffect
-
-  useEffect(() => {
-    // hacky...
-    updateSelectedFilters()
-  }, [genres])
+export default function FilterItems({ setSearchStateCopy, setFilterIsOpen }) {
+  const {searchState, optionsDispatch} = useSearch()
+  // const [genres, setGenres] = useState(searchOptions.filters.genres) // hacky... state was one step behind. forced us to use useEffect
+  // useEffect(() => {
+  //   // hacky...
+  //   updateSelectedFilters()
+  // }, [genres])
   
-  function returnFilteredByGenres() {
+  function returnFilteredByGenres(selectedGenres) {
     const initialResults = searchState.results
-    const selectedGenres = searchOptions.filters.genres
     if (selectedGenres.length === 0) {
       return initialResults
     }
@@ -36,9 +33,8 @@ export default function FilterDropdown({ setSearchStateCopy, setFilterIsOpen }) 
     return filteredResults
   }
 
-  function updateSelectedFilters() {
-    const selectedType = searchOptions.filters.type
-    const filteredByGenres = returnFilteredByGenres()
+  function updateSelectedFilters(selectedType, selectedGenres) {
+    const filteredByGenres = returnFilteredByGenres(selectedGenres)
     if (selectedType !== "all") {
       const filtered = filteredByGenres.filter(item => item.media_type === selectedType)
       const pages = Math.ceil(filtered.length / ITEMS_PER_PAGE)
@@ -55,11 +51,10 @@ export default function FilterDropdown({ setSearchStateCopy, setFilterIsOpen }) 
     const formData = new FormData(e.target)
     const selectedType = formData.get("type")
     const selectedGenres = formData.getAll("genre")
-    // optionsDispatch(prve => ({ ...prve, type: "set_genres", ids: selectedGenres }))
     optionsDispatch({ type: "set_type", media: selectedType })
     optionsDispatch({ type: "set_genres", ids: selectedGenres })
-    updateSelectedFilters()
-    setGenres(selectedGenres)
+    updateSelectedFilters(selectedType, selectedGenres)
+    // setGenres(selectedGenres)
     setFilterIsOpen(false)
   }
 

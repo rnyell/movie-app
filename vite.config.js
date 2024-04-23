@@ -24,12 +24,14 @@ export default defineConfig({
     devSourcemap: true,
     postcss: {
       plugins: [autoprefixer]
-    }
+    },
+    // transformer: "lightningcss"
   },
 
   build: {
     outDir: "dist",
     assetsDir: "assets",
+    // cssMinify: "lightningcss"
     // cssMinify: false,
   },
 

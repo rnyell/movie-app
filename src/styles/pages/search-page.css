@@ -60,7 +60,7 @@
   /* ................................... */
   /* ................................... */
 
-  & .type-filter {
+  & main .type-filter {
     margin-top: var(--space-6);
     align-self: flex-start;
     display: flex;
@@ -349,12 +349,6 @@ aside:has(> .heading) {
   }  
 
   & .sort-dropdown {
-    & label.is-active {
-      font-weight: 500;
-      color: var(--color-neutral-800);
-      background-color: var(--color-neutral-350);
-    }
-
     & .sort-options {
       & .group {
         gap: 0.5rem;
@@ -380,9 +374,15 @@ aside:has(> .heading) {
       transition: background-color var(--duration-1) ease-in,
         color var(--duration-1) ease-in;
     }
+
+    & label:has(:checked) {
+      font-weight: 500;
+      color: var(--color-neutral-800);
+      background-color: var(--color-neutral-350);
+    }
   }
 
-  & button {
+  & button[type="submit"] {
     margin-top: var(--space-5);
     padding: var(--space-3) var(--space-4);
     border-radius: 1rem;
