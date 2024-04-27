@@ -10,34 +10,31 @@ const searchInitial = {
   title: "",
   results: [],
   pages: 0,
+  error: false
 }
 
 function searchReducer(state, action) {
   switch (action.type) {
     case "set_search": {
       return {
+        ...state,
         title: action.title,
         results: action.results,
         pages: action.pages,
       }
     }
-    case "page_changed": {
-      return {
-        ...state,
-        results: action.results,
-      }
-    }
     case "set_error": {
       return {
-        title: "",
-        results: [],
-        pages: 0,
+        ...state,
+        error: true
       }
     }
   }
 }
 
 const searchOptionsInitial = {
+  isFiltered: false,
+  isSorted: false,
   filters: {
     type: "all",
     genres: []
@@ -45,41 +42,35 @@ const searchOptionsInitial = {
   sorts: {
     sortby: "none",
     order: "desc"
-  }
+  },
 }
-
+// possible issue: isFiltered & isSorted won't be false again by dispatch
 function searchOptionsRedcuer(state, action) {
   switch (action.type) {
     case "set_type": {
       return {
         ...state,
+        isFiltered: true,
         filters: {
           ...state.filters,
           type: action.media
-        }
+        },
       }
     }
     case "set_genres": {
-      // var filteredGenres  // using `var` to honor years of honset servicing to humankind...
-      const currentGenres = state.filters.genres
-      // if (currentGenres.includes(action.id)) {
-      //   filteredGenres = currentGenres.filter(el => el !== action.id)
-      // } else {
-      //   filteredGenres = [...new Set( [...currentGenres, action.id] )]
-      // }
-      // filteredGenres = [...new Set( [...currentGenres, action.id] )]
       return {
         ...state,
+        isFiltered: true,
         filters: {
           ...state.filters,
-          // genres: [...new Set( [...currentGenres, action.id] )]
           genres: [...action.ids]
-        }
+        },
       }
     }
     case "set_sortby": {
       return {
         ...state,
+        isSorted: true,
         sorts: {
           ...state.sorts,
           sortby: action.sortby
@@ -89,26 +80,10 @@ function searchOptionsRedcuer(state, action) {
     case "set_order": {
       return {
         ...state,
+        isSorted: true,
         sorts: {
           ...state.sorts,
           order: action.order
-        }
-      }
-    }
-    /* handle clicking outside, dismis current selected while preserving before selection */
-    case "dismis_filters": {
-      return {
-        ...state,
-        filters: {
-          ...action.filters
-        }
-      }
-    }
-    case "dismis_sorts": {
-      return {
-        ...state,
-        sorts: {
-          ...action.sorts
         }
       }
     }

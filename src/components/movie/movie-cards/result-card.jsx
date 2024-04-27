@@ -56,6 +56,8 @@ export default function ResultCard({ result, type, variant }) {
       <motion.div className="subset-details"
         onHoverStart={handleHoverStart}
         onHoverEnd={handleHoverEnd}
+        onTapStart={handleHoverStart}
+        onTapCancel={handleHoverEnd}
       >
         <i className="icon media-icon">
           {result.media_type === "movie" ? <FilmIcon /> : <TvIcon />}

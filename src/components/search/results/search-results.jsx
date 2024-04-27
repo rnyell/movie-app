@@ -12,6 +12,7 @@ export default function SearchResults({ isLoading, searchStateCopy }) {
   const {searchState} = useSearch()
   const [searchParams] = useSearchParams()
   const isNotFound = searchState.pages === 0
+  // const isNotFound = searchState.error // wtf?
   const currentPage = Number(searchParams.get("page")) || 1
   const allPagesArray = generatePagination(currentPage, searchStateCopy.pages)
 
@@ -26,7 +27,7 @@ export default function SearchResults({ isLoading, searchStateCopy }) {
 
   return (
     <>
-      <div className="results-container">
+      <section className="results-container">
         <motion.div
           className="search-results"
           layout
@@ -42,7 +43,7 @@ export default function SearchResults({ isLoading, searchStateCopy }) {
             )
           }
         </motion.div>
-      </div>
+      </section>
       {!isNotFound && (
         <Pagination
           currentPage={currentPage}

@@ -420,7 +420,22 @@
 
     & .swiper-card-content {
       overflow: hidden;
+      /* position: relative;
+      z-index: var(--z-0); */
       border-radius: 3rem;
+      
+      /* &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: var(--z-neg10);
+        background-color: var(--color-neutral-800);
+      } */
+      
+      & img {
+        /* position: relative; */
+        /* z-index: var(--z-10); */
+      }
     }
 
     & .front-card > .swiper-card-content {

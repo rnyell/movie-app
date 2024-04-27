@@ -1,6 +1,5 @@
 import { MOVIE_GENRES, TV_GENRES } from "./apis"
 
-
 export async function request(path = "", params = {}) {
   const base = import.meta.env.VITE_MAIN_API_URL
   const url = new URL(path, base)
@@ -115,29 +114,69 @@ export function generatePagination(currentPage, totalPages) {
   ]
 }
 
-export function sortResults(arr = [], key) {
-  if (arr.length <= 1) {
-    return arr
+export function strCapitalizer(word) {
+  return word.split(" ").map(el => el.substring(0, 1).toUpperCase() + el.substring(1, el.length)).join(" ")
+}
+
+
+const ITEMS_PER_PAGE = 18
+export function filterResults(initialResults, selectedType, selectedGenres) {
+  let filteredByGenres, filteredByType, pages;
+
+  if (selectedGenres.length === 0) {
+    filteredByGenres = initialResults
+  } else {
+    filteredByGenres = initialResults.filter(res => {
+      for (let i = 0; i < selectedGenres.length; i++) {
+        // genre_ids: number[] // selectedGenres: string[]
+        if (res.genre_ids.includes(+selectedGenres[i])) {
+          return true
+        }
+      }
+    })
   }
 
-  const pivot = arr[0][key]
-  const left = []
-  const right = []
-  console.log(pivot)
+  if (selectedType !== "all") {
+    filteredByType = filteredByGenres.filter(item => item.media_type === selectedType)
+    pages = Math.ceil(filteredByType.length / ITEMS_PER_PAGE)
+  } else {
+    filteredByType = filteredByGenres
+    pages = Math.ceil(filteredByGenres.length / ITEMS_PER_PAGE)
+  }
 
-  for (let i = 0; i < arr.length - 1; i++) {
-    if (arr[i][key] < pivot) {
-      left.push(arr[i])
+  return {results: filteredByType, pages}
+}
+
+export function sortResults(unsortedResults, sortby, order) {
+  let sortedResults
+
+  if (sortby === "none") {
+    return unsortedResults
+  }
+
+  if (sortby === "popularity" || sortby === "vote_average") {
+    if (order === "desc") {
+      sortedResults = unsortedResults.toSorted(
+        (a, b) => b[sortby] - a[sortby]
+      )
     } else {
-      right.push(arr[i])
+      sortedResults = unsortedResults.toSorted(
+        (a, b) => a[sortby] - b[sortby]
+      )
     }
   }
 
-  const sortedLeft = sortResults(left, key)
-  const sortedRight = sortResults(right, key)
-  return [...sortedLeft, arr[0], ...sortedRight]
-}
+  // if (sortby === "title") {
+  //   if (order === "desc") {
+  //     sortedResults = unsortedResults.toSorted(
+  //       (a, b) => b[sortby].localeCompare(a[sortby])
+  //     )
+  //   } else {
+  //     sortedResults = unsortedResults.toSorted(
+  //       (a, b) => a[sortby].localeCompare(b[sortby])
+  //     )
+  //   }
+  // }
 
-export function strCapitalizer(word) {
-  return word.split(" ").map(el => el.substring(0, 1).toUpperCase() + el.substring(1, el.length)).join(" ")
+  return sortedResults
 }

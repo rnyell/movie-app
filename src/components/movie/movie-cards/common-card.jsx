@@ -50,7 +50,7 @@ export default function CommonCard({ result, type, variant }) {
       setIsBookmarked(false)
     }
   }
-  
+
   return (
     <motion.div
       data-variant={variant}
@@ -60,6 +60,9 @@ export default function CommonCard({ result, type, variant }) {
       whileHover={{width: 1.15 * listCardWidth}}
       onHoverStart={() => setListCardOverlay(true)}
       onHoverEnd={() => setListCardOverlay(false)}
+      onTapStart={() => setListCardOverlay(true)}
+      onTapCancel={() => setListCardOverlay(false)}
+      whileFocus={{width: 1.15 * listCardWidth}}
     >
       <div className="wrapper">
         <figure>

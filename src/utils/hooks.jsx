@@ -103,7 +103,7 @@ export function useClickOutside(ref, callback) {
   function handler(event) {
     event.stopPropagation()
     const target = event.target
-    const isOutside = !element.contains(target)
+    const isOutside = !element?.contains(target)
     
     if (isOutside) {
       callbackRef.current(event)

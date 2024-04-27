@@ -20,7 +20,7 @@ export default function HomePage() {
       setMainRefHeight(mainRef.current.scrollHeight)
     }
 
-    console.log(mainRefHeight)
+    // console.log(mainRefHeight)
 
   }, [windowWidth, windowHeight, mainRefHeight])
 

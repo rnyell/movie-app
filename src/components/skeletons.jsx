@@ -72,7 +72,7 @@ export function SelectedMovieSkeleton() {
 export function SearchResultsSkeleton() {
   return (
     <div className="search-results-skeleton">
-      {[...Array(10).keys()].map((_, i) => (
+      {[...Array(12).keys()].map((_, i) => (
           <div className="movie-card-skeleton" key={i}>
             <div className="l-poster"></div>
             <div className="l-title"></div>

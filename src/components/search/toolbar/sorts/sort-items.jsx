@@ -1,10 +1,8 @@
-import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import { BarsArrowDownIcon, BarsArrowUpIcon } from "@heroicons/outline"
-import { strCapitalizer } from "@utils/utils"
+import { strCapitalizer, sortResults } from "@utils/utils"
 import { useSearch } from "@src/store/search-context"
 
-const ITEMS_PER_PAGE = 18
 const sorts_item = [
   { item: "none", name: "none" },
   { item: "popularity", name: "popularity" },
@@ -14,45 +12,12 @@ const sorts_item = [
 ]
 
 
-export default function SortItems({ searchStateCopy, setSearchStateCopy, setSortIsOpen }) {
+export default function SortItems({
+  setSearchStateCopy,
+  searchStateCopy,
+  setSortIsOpen
+}) {
   const {searchOptions, optionsDispatch} = useSearch()
-
-  function updateSelectedSorts(sortby, order) {
-    const unsortedResults = searchStateCopy.results
-    let sortedResults
-
-    if (sortby === "none") {
-      return
-    }
-
-    if (sortby === "popularity" || sortby === "vote_average") {
-      if (order === "desc") {
-        sortedResults = unsortedResults.toSorted(
-          (a, b) => b[sortby] - a[sortby]
-        )
-      } else {
-        sortedResults = unsortedResults.toSorted(
-          (a, b) => a[sortby] - b[sortby]
-        )
-      }
-    }
-
-    if (sortby === "title") {
-      if (order === "desc") {
-        sortedResults = unsortedResults.toSorted(
-          (a, b) => b[sortby].localeCompare(a[sortby])
-        )
-      } else {
-        sortedResults = unsortedResults.toSorted(
-          (a, b) => a[sortby].localeCompare(b[sortby])
-        )
-      }
-    }
-
-    const pages = Math.ceil(sortedResults.length / ITEMS_PER_PAGE)
-    setSearchStateCopy({ results: sortedResults, pages })
-    // OR: setSearchStateCopy({ ...searchStateCopy,  results: sortedResults })
-  }
 
   function handleSubmitSorts(e) {
     e.stopPropagation()
@@ -60,9 +25,11 @@ export default function SortItems({ searchStateCopy, setSearchStateCopy, setSort
     const dataForm = new FormData(e.target)
     const sortby = dataForm.get("sortby")
     const order = dataForm.get("order")
+    const unsortedResults = searchStateCopy.results
+    const sortedResults = sortResults(unsortedResults, sortby, order)
+    setSearchStateCopy({ ...searchStateCopy, results: sortedResults })
     optionsDispatch({ type: "set_sortby", sortby })
     optionsDispatch({ type: "set_order", order })
-    updateSelectedSorts(sortby, order)
     setSortIsOpen(false)
   }
 
@@ -91,8 +58,8 @@ export default function SortItems({ searchStateCopy, setSearchStateCopy, setSort
       exit="exit"
     >
       <form className="flex-col" onSubmit={handleSubmitSorts}>
-        <div className="sort-options">
-          <h6>Sort by</h6>
+        <div className="sort-card sort-options">
+          <h6 className="sort-title">Sort by</h6>
           <div className="group flex-col">
             {sorts_item.map(obj => (
               <label key={obj.item} htmlFor={obj.item}>
@@ -103,16 +70,18 @@ export default function SortItems({ searchStateCopy, setSearchStateCopy, setSort
                   id={obj.item}
                   value={obj.item}
                   defaultChecked={searchOptions.sorts.sortby === obj.item}
+                  disabled={obj.item === "title" || obj.item === "release_date"}
+                  title={(obj.item === "title" || obj.item === "release_date") ? "feature currently is not availabe" : null}
                 />
               </label>
             ))}
           </div>
         </div>
         <hr style={{width: "95%", marginBlock: "1rem", borderWidth: 1.5}} />
-        <div className="sort-order">
-          <h6>Order</h6>
+        <div className="sort-card sort-order">
+          <h6 className="sort-title">Order</h6>
           <div className="group flex">
-            <label htmlFor="desc">
+            <label htmlFor="desc" className="flex-y-center">
               <i className="icon"><BarsArrowDownIcon /></i><span>Desc.</span>
               <input
                 type="radio"
@@ -122,7 +91,7 @@ export default function SortItems({ searchStateCopy, setSearchStateCopy, setSort
                 defaultChecked={searchOptions.sorts.order === "desc"}
               />
             </label>
-            <label htmlFor="asc">
+            <label htmlFor="asc" className="flex-y-center">
               <i className="icon"><BarsArrowUpIcon /></i><span>Asc.</span>
               <input
                 type="radio"

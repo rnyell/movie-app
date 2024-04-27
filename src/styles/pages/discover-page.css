@@ -71,6 +71,11 @@
     background-size: cover; /**i*/
     background-position: 0% 50%;
     border-radius: 1.2rem;
+    transition: opacity var(--duration-2) ease-out;
+  }
+
+  & .wrapper:has(:hover) a:not(:has(:hover)) {
+    opacity: 0.45;
   }
 
   & .wrapper .box {

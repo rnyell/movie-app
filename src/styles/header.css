@@ -23,7 +23,7 @@
   &[data-set~="expanded"] {
     grid-column: 1 / -1;
     grid-row: 1 / 2;
-    background-color: color-mix(in srgb, var(--color-neutral-700) 75%, transparent);
+    background-color: color-mix(in srgb, var(--color-neutral-700) 80%, transparent);
     backdrop-filter: blur(20px);
 
     & .flex-item {
@@ -37,7 +37,7 @@
     position: sticky;
     top: 0;
     z-index: var(--z-50);
-    background-color: color-mix(in srgb, var(--color-neutral-700) 75%, transparent);
+    background-color: color-mix(in srgb, var(--color-neutral-700) 80%, transparent);
     backdrop-filter: blur(20px);
 
     & .flex-item {
@@ -86,7 +86,7 @@
   transition: outline-color var(--duration-2) ease-in;
 
   &:focus-within {
-    outline-color: var(--color-accent-300);
+    outline-color: var(--color-neutral-350);
   }
 
   &[data-set~="default"] {
@@ -159,7 +159,7 @@
     padding-left: calc(var(--box-width) + 0.5vw);
     font-size: 0.75rem;
     color: var(--color-neutral-200);
-    background-color: color-mix(in srgb, var(--color-neutral-650), transparent);
+    background-color: color-mix(in srgb, var(--color-neutral-600) 55%, transparent);
     transition: var(--duration-1) ease-in;
   
     &::placeholder {

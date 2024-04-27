@@ -87,6 +87,10 @@
   .flex-item {
     min-width: 0;
   }
+
+  .shrink-0 {
+    flex-shrink: 0;
+  }
 }
 
 @layer components {
@@ -183,30 +187,19 @@
   
   --color-neutral-100: rgb(234 239 243);
   --color-neutral-200: rgb(221 229 235);
-  --color-neutral-250: color-mix(
-    in srgb, var(--color-neutral-200), var(--color-neutral-300)
-  );
+  --color-neutral-250: color-mix(in srgb, var(--color-neutral-200), var(--color-neutral-300));
   --color-neutral-300: rgb(195 206 219);
-  --color-neutral-350: color-mix(
-    in srgb, var(--color-neutral-300), var(--color-neutral-400)
-  );
+  --color-neutral-350: color-mix(in srgb, var(--color-neutral-300), var(--color-neutral-400));
   --color-neutral-400: rgb(131 140 148);
-  --color-neutral-450: color-mix(
-    in srgb, var(--color-neutral-400), var(--color-neutral-500)
-  );
+  --color-neutral-450: color-mix(in srgb, var(--color-neutral-400), var(--color-neutral-500));
   --color-neutral-500: rgb(66 71 75);
-  --color-neutral-550: color-mix(
-    in srgb, var(--color-neutral-500), var(--color-neutral-600)
-  );
+  --color-neutral-550: color-mix(in srgb, var(--color-neutral-500), var(--color-neutral-600));
   --color-neutral-600: rgb(50 55 57);
-  --color-neutral-650: color-mix(
-    in srgb, var(--color-neutral-600), var(--color-neutral-700)
-  );
+  --color-neutral-650: color-mix(in srgb, var(--color-neutral-600), var(--color-neutral-700));
   --color-neutral-700: rgb(37 40 42);
-  --color-neutral-750: color-mix(
-    in srgb, var(--color-neutral-700), var(--color-neutral-800)
-  );
+  --color-neutral-750: color-mix(in srgb, var(--color-neutral-700), var(--color-neutral-800));
   --color-neutral-800: rgb(30 32 34);
+  --color-neutral-850: color-mix(in srgb, var(--color-neutral-800), var(--color-neutral-900));
   --color-neutral-900: rgb(19 20 22);
 
   --color-aliceblue-200: aliceblue;
@@ -345,18 +338,18 @@
   }
 
   h2 {
-    font-size: 1.75rem;
+    font-size: 1.725rem;
     font-weight: 700;
     letter-spacing: 0.4px;
   }
 
   h3 {
-    font-size: 1.525rem;
+    font-size: 1.5rem;
     font-weight: 500;
   }
 
   h4 {
-    font-size: 1.35rem;
+    font-size: 1.3rem;
     font-weight: 500;
   }
 
@@ -444,6 +437,13 @@
     }
   }
 
+  input[type="checkbox"],
+  input[type="radio"] {
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+
   button {
     font-size: 0.875rem;
   }
@@ -483,9 +483,10 @@
   }
 
   input,
+  textarea,
   optgroup,
   select,
-  textarea {
+  option {
     font-family: inherit;
     font-weight: inherit;
     line-height: inherit;

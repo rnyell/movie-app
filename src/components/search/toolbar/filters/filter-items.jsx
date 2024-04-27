@@ -1,48 +1,26 @@
-import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
-import { FILTER_GENRES, MEDIA_TYPES } from "@utils/apis"
+import { filterResults, sortResults } from "@utils/utils"
 import { useSearch } from "@src/store/search-context"
-import GenreCheckbox from "./genre-checkbox"
-import TypeCheckbox from "./type-checkbox"
-
-const ITEMS_PER_PAGE = 18
+import TypeList from "./type-list"
+import GenresList from "./genres-list"
 
 
 export default function FilterItems({ setSearchStateCopy, setFilterIsOpen }) {
-  const {searchState, optionsDispatch} = useSearch()
-  // const [genres, setGenres] = useState(searchOptions.filters.genres) // hacky... state was one step behind. forced us to use useEffect
-  // useEffect(() => {
-  //   // hacky...
-  //   updateSelectedFilters()
-  // }, [genres])
-  
-  function returnFilteredByGenres(selectedGenres) {
-    const initialResults = searchState.results
-    if (selectedGenres.length === 0) {
-      return initialResults
-    }
+  const {searchState, searchOptions, optionsDispatch} = useSearch()
+  const initialResults = searchState.results
+  // hacky... state was one step behind. forced us to use useEffect
+  //// const [genres, setGenres] = useState(searchOptions.filters.genres)
+  //// useEffect(() => {
+  ////   updateSelectedFilters()
+  //// }, [genres])
+  //* fixed
 
-    const filteredResults = initialResults.filter(res => {
-      for (let i = 0; i < selectedGenres.length; i++) {
-        if (res.genre_ids.includes(+selectedGenres[i])) {
-          return true
-        }
-      }
-    })
-
-    return filteredResults
-  }
-
-  function updateSelectedFilters(selectedType, selectedGenres) {
-    const filteredByGenres = returnFilteredByGenres(selectedGenres)
-    if (selectedType !== "all") {
-      const filtered = filteredByGenres.filter(item => item.media_type === selectedType)
-      const pages = Math.ceil(filtered.length / ITEMS_PER_PAGE)
-      setSearchStateCopy({ results: filtered, pages })
-    } else {
-      const pages = Math.ceil(filteredByGenres.length / ITEMS_PER_PAGE)
-      setSearchStateCopy({ results: filteredByGenres, pages })
-    }
+  function filteredNSortedResults(initialResults, selectedType, selectedGenres) {
+    const {results, pages} = filterResults(initialResults, selectedType, selectedGenres)
+    const sortby = searchOptions.sorts.sortby
+    const order = searchOptions.sorts.order
+    const sortedResults = sortResults(results, sortby, order)
+    return {results: sortedResults, pages}
   }
 
   function handleSubmitFilters(e) {
@@ -51,10 +29,10 @@ export default function FilterItems({ setSearchStateCopy, setFilterIsOpen }) {
     const formData = new FormData(e.target)
     const selectedType = formData.get("type")
     const selectedGenres = formData.getAll("genre")
+    const {results, pages} = filteredNSortedResults(initialResults, selectedType, selectedGenres)
+    setSearchStateCopy({results, pages})
     optionsDispatch({ type: "set_type", media: selectedType })
     optionsDispatch({ type: "set_genres", ids: selectedGenres })
-    updateSelectedFilters(selectedType, selectedGenres)
-    // setGenres(selectedGenres)
     setFilterIsOpen(false)
   }
 
@@ -83,30 +61,22 @@ export default function FilterItems({ setSearchStateCopy, setFilterIsOpen }) {
       exit="exit"
     >
       <form onSubmit={handleSubmitFilters} className="flex-col">
-        <div className="type-filter">
-          <h6>Type</h6>
-          <div className="group type-box">
-            {MEDIA_TYPES.map(type => (
-              <TypeCheckbox key={type} type={type} />
-            ))}
-          </div>
+        <div className="filter-card type-filter">
+          <h6 className="filter-title">Type</h6>
+          <TypeList />
         </div>
         <hr style={{width: "95%", marginBlock: "1rem", borderWidth: 1.5}} />
-        <div className="genre-filter">
-          <h6>Genres</h6>
-          <div className="group flex-wrap">
-            {FILTER_GENRES.map(genre => (
-              <GenreCheckbox key={genre.id} genre={genre} />
-            ))}
-          </div>
+        <div className="filter-card genres-filter ::after-abs">
+          <h6 className="filter-title">Genres</h6>
+          <GenresList />
         </div>
         <hr style={{width: "95%", marginBlock: "1rem", borderWidth: 1.5}} />
         <div
           data-feature-not-available
           title="feature currently is not available"
-          className="lang-filter"
+          className="filter-card lang-filter"
         >
-          <h6>Language & Country</h6>
+          <h6 className="filter-title">Language & Country</h6>
           <div className="group flex-col">
             <label htmlFor="langs" className="flex-y-center">
               <span>Language:</span>

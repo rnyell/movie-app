@@ -17,8 +17,10 @@ export const ALL_GENRES = {
   878: "Sci-Fi",
   10749: "Romance",
   10402: "Music",
-  10759: "Action & Adventure",
-  10765: "Sci-Fi & Fantasy",
+  // 10759: "Action & Adventure",
+  10759: "Adventure",
+  // 10765: "Sci-Fi & Fantasy",
+  10765: "Fantasy",
   10767: "Talk",
   10768: "War & Politics",
   37: "Western",
@@ -53,15 +55,17 @@ export const MOVIE_GENRES = {
 export const TV_GENRES = {
   18: "Drama",
   10751: "Family",
-  10759: "Action & Adventure",
-  10765: "Sci-Fi & Fantasy",
+  // 10759: "Action & Adventure",
+  10759: "Adventure",
+  // 10765: "Sci-Fi & Fantasy",
+  10765: "Fantasy",
   35: "Comedy",
   80: "Crime",
   9648: "Mystery",
   10767: "Talk",
   16: "Animation",
-  10768: "War & Politics",
   37: "Western",
+  10768: "War & Politics",
   99: "Documentary",
   /* 10762: "Kids",*/
   /* 10763: "News",*/
@@ -83,35 +87,32 @@ export const displayedMovieGenres = [
 
 export const seriesDisplayedGenres = [
   { name: "Drama", id: "18" },
-  { name: "Action, Adveture", id: "10759" },
-  { name: "Sci-Fi, Fantasy", id: "10765" },
+  { name: "Action and Adveture", id: "10759" },
+  { name: "Sci-Fi and Fantasy", id: "10765" },
   { name: "Comedy", id: "35" },
   { name: "Mystery", id: "9648" },
   { name: "Crime", id: "80" },
 ]
 
-export const FILTER_GENRES = [
-  { name: "Drama", id: "18" },
-  { name: "Comedy", id: "35" },
-  { name: "Crime", id: "80" },
-  { name: "Mystery", id: "9648" },
-  { name: "Thrillers", id: "53" },
-  { name: "Family", id: "10751"},
-  { name: "Romance", id: "10749" },
-  { name: "Musical", id: "10402" },
-  { name: "Animation", id: "16" },
-  { name: "Horror", id: "27" },
-  { name: "Sci-Fi", id: "878" },
-  // { name: "Sci-Fi, Fantasy", id: "10765" },
-  { name: "Fantasy", id: "10765" },
-  { name: "Action", id: "28" },
-  // { name: "Action, Adveture", id: "10759" },
-  { name: "Adveture", id: "10759" },
-]
+// export const FILTER_GENRES = [
+//   { name: "Drama", id: "18" },
+//   { name: "Comedy", id: "35" },
+//   { name: "Crime", id: "80" },
+//   { name: "Action", id: "28" },
+//   // { name: "Action, Adveture", id: "10759" },
+//   { name: "Adveture", id: "10759" },
+//   { name: "Mystery", id: "9648" },
+//   { name: "Thrillers", id: "53" },
+//   { name: "Family", id: "10751"},
+//   { name: "Romance", id: "10749" },
+//   { name: "Musical", id: "10402" },
+//   { name: "Animation", id: "16" },
+//   { name: "Horror", id: "27" },
+//   { name: "Sci-Fi", id: "878" },
+//   // { name: "Sci-Fi, Fantasy", id: "10765" },
+//   { name: "Fantasy", id: "10765" },
+// ]
 
-//+ series
-//+ https://developer.themoviedb.org/reference/tv-series-on-the-air-list
-//+ https://api.themoviedb.org/3/tv/{series_id}
 
 export async function getComingMovies() {
   const path = "3/movie/upcoming"
@@ -125,7 +126,6 @@ export async function getComingMovies() {
   return results
 }
 
-
 export async function getOnScreenMovies() {
   const path = "3/movie/now_playing"
   const params = {
@@ -138,7 +138,6 @@ export async function getOnScreenMovies() {
   const { results } = data
   return results
 }
-
 
 export async function getPopularMovies() {
   //+ '/3/discover/movie?include_video=false&sort_by=popularity.desc'
@@ -192,7 +191,7 @@ export async function getAllResults(title = "", lang = "en-US") {
     results.push(...data.results)
   }
 
-  results = results.filter(res => res.media_type !== "person" && res.vote_count > 40)
+  results = results.filter(res => res.media_type !== "person" && res.vote_count > 45)
   const ITEMS_PER_PAGE = 18
   const pages = Math.ceil(results.length / ITEMS_PER_PAGE)
   return { results, pages }
@@ -242,6 +241,9 @@ export async function getSeriesDetails(seriesId) {
   return data
 }
 
+//+ series
+//+ https://developer.themoviedb.org/reference/tv-series-on-the-air-list
+//+ https://api.themoviedb.org/3/tv/{series_id}
 /*
 Note: "similar" is built by looking for items based on their keywords and genres. "recommendations" are built by looking at user ratings. Very different approaches. Similar does not tend to yield very good results.
 --------------------------

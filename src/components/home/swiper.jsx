@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { motion, useMotionValue, useTransform, AnimatePresence } from "framer-motion"
 
 
@@ -119,9 +119,9 @@ function SwiperCard({
       style={{
         x: xTranslate,
         rotate,
-        transformOrigin: "50% 60%",
         right: (idx * RIGHT_X_STEPS) - RIGHT_X_OFFSET,
         marginRight: isFront ? 10 : null,
+        transformOrigin: "50% 60%",
         cursor: isFront ? "grab" : "auto",
       }}
       drag={isFront ? "x" : false}
