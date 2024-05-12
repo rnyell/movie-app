@@ -1,41 +1,29 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { createPortal } from "react-dom"
+import { Link, useLocation } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { StarIcon, FilmIcon, TvIcon, ArrowTopRightOnSquareIcon } from "@heroicons/outline"
 import { BookmarkSlashIcon, PlayIcon } from "@heroicons/solid"
 
-import { getMovieDetails, getSeriesDetails } from "@utils/apis"
+import { useMediaDetails } from "@utils/hooks"
 import { getGenresBaseOnIds, formatRate, formatRuntime, formatReleaseDate } from "@utils/utils"
+import { portraitCardOverlayVariants, defaultMotionProps } from "@utils/motions"
+import { useUserState } from "@src/store/app-context"
+import { PortraitCardLoading } from "@components/skeletons"
+import ConfirmationModal from "@components/user-stuff/confirmation-modal"
 
 
-export default function BookmarkedCard({ result, type, variant, clearBookmark }) {
-  const [movieDetails, setMovieDetails] = useState({})
-  const [seriesDetails, setSeriesDetails] = useState({})
+export default function BookmarkedCard({ result, media, variant }) {
+  /* result: number */
+  const {mediaDetails, isLoading} = useMediaDetails(media, result)
+  const {userDispatch} = useUserState()
   const [cardOverlay, setCardOverlay] = useState(false)
   const [showModal, setShowModal] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
+  const location = useLocation()
+  const confirmText = "Are you sure you want to remove this movie from your watchlist?"
 
-  async function loadMovieDetails() {
-    const data = await getMovieDetails(result)
-    setMovieDetails(data)
-    setIsLoading(false)
-  }
-
-  async function loadSeriesDetails() {
-    const data = await getSeriesDetails(result)
-    setSeriesDetails(data)
-    setIsLoading(false)
-  }
-
-  useEffect(() => {
-    if (type === "movie") {
-      loadMovieDetails()
-    } else if (type === "tv") {
-      loadSeriesDetails()
-    }
-  }, [])
-
-  if (Object.keys(movieDetails).length !== 0) {
+  if (media === "movie") {
+    /* `var` used to let (pun!) variables accessible outside of `if` scope. */
     var {
       id,
       title,
@@ -44,8 +32,9 @@ export default function BookmarkedCard({ result, type, variant, clearBookmark })
       genres,
       vote_average,
       poster_path,
-    } = movieDetails
-  } else if (Object.keys(seriesDetails).length !== 0) {
+      overview
+    } = mediaDetails
+  } else if (media === "tv") {
     var {
       id,
       name: title,
@@ -53,35 +42,20 @@ export default function BookmarkedCard({ result, type, variant, clearBookmark })
       genres,
       vote_average,
       poster_path,
-    } = seriesDetails
+      overview
+    } = mediaDetails
   }
-
-
-  function hideConfirmationBox() {
-    setShowModal(false)
-    clearBookmark(id)
-  }
-
-  const ConfirmationBox = () => (
-    <>
-      <div className="bookmark-confirmation-box-backdrop" onClick={() => setShowModal(false)}></div>
-      <motion.div
-        className="bookmark-confirmation-box"
-        initial={{ y: -50, opacity: 0.5 }}
-        animate={{ y: 0, opacity: 1 }}
-        exit={{ y: -80, opacity: 0.5 }}
-        transition={{ duration: 0.2 }}
-      >
-        <p>Are you sure you want to remove this movie from your watchlist?</p>
-        {/* <button>Add to watched</button> */}
-        <div className="btns">
-          <button className="btn cancel-btn" onClick={() => setShowModal(false)}>Cancel</button>
-          <button className="btn del-btn" onClick={hideConfirmationBox}>Delete</button>
-        </div>
-      </motion.div>
-    </>
-  )
   
+  function handleSubmittedAction() {
+    userDispatch({ type: "remove_bookmark", media, id })
+    setShowModal(false)
+  }
+
+
+  if (isLoading) {
+    return <PortraitCardLoading />
+  }
+
   return (
     <motion.div className="movie-card" data-variant={variant}>
       <motion.figure
@@ -90,29 +64,54 @@ export default function BookmarkedCard({ result, type, variant, clearBookmark })
       >
         <img
           src={`https://image.tmdb.org/t/p/original${poster_path}`}
-          alt="poster" className="poster"
+          className="poster"
+          alt="poster"
           draggable="false"
         />
       <div className="ambient" style={{backgroundImage: `url(https://image.tmdb.org/t/p/original${poster_path})`}} />
       <AnimatePresence>
         {cardOverlay &&
         <motion.div
-          className="hover-overlay"
-          initial={{ opacity: 0.35 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0.2 }}
-          transition={{ type: "tween", duration: 0.2, ease: "easeOut" }}
+          className="hover-overlay flex-col"
+          variants={portraitCardOverlayVariants}
+          {...defaultMotionProps}
         >
-          <i className="remove-icon" onClick={() => setShowModal(true)}>
-            <BookmarkSlashIcon />
-          </i>
-          <div className="details">
-            <span className="release-date">{formatReleaseDate(release_date)}</span>
-            <span className="runtime">{formatRuntime(runtime)}</span>
-            <span className="vote">
-              <i className="icon star-icon"><StarIcon /></i>
-              <span className="vote-number">{formatRate(vote_average)}</span>
-            </span>
+          <div className="details flex-col">
+            <div className="flex">
+              <span className="release-date">{formatReleaseDate(release_date)}</span>
+              <i className="dot">&#x2022;</i>
+              <span className="runtime">{formatRuntime(runtime)}</span>
+              <i className="dot">&#x2022;</i>
+              <span className="vote">
+                <i className="icon star-icon"><StarIcon /></i>
+                <span className="vote-number">{formatRate(vote_average)}</span>
+              </span>
+            </div>
+            <p className="overview">{overview}</p>
+          </div>
+          <div className="cta-btns flex-x-center">
+            <button className="btn">
+              <i className="icon remove-icon" onClick={() => setShowModal(true)}>
+                <BookmarkSlashIcon />
+              </i>
+            </button>
+            <Link
+              className="btn"
+              to={`/${(title)
+                .trim()
+                .toLowerCase()
+                .replaceAll(" ", "-")}`
+              }
+              state={{
+                id: result,
+                media: media,
+                prevUrl: location.pathname + location.search,
+              }}
+            >
+              <i className="icon arrow-icon">
+                <ArrowTopRightOnSquareIcon />
+              </i>
+            </Link>
           </div>
         </motion.div>}
       </AnimatePresence>
@@ -122,7 +121,13 @@ export default function BookmarkedCard({ result, type, variant, clearBookmark })
       </div>
       {createPortal(
         <AnimatePresence>
-          {showModal && <ConfirmationBox />}
+          {showModal && (
+            <ConfirmationModal
+              confirmText={confirmText}
+              setModal={setShowModal}
+              handleSubmittedAction={handleSubmittedAction}
+            />
+          )}
         </AnimatePresence>,
         document.body
       )}

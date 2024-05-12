@@ -11,7 +11,7 @@ export default function HeroSection() {
   const [movieState] = useMovieState()
   const [currIndex, setCurrIndex] = useState(0)
   const popularMoviesCount = movieState.popular.length
-  const { windowWidth } = useWindow()
+  const {windowWidth} = useWindow()
 
   useEffect(() => {
     let interval

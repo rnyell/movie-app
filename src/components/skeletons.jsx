@@ -1,11 +1,61 @@
-//import { Link } from "react-router-dom"
+import { motion } from "framer-motion"
 
-export function AppLoader() {
+const initialLoadingVariants = {
+  initial: {
+    opacity: 1
+  },
+  animate: {
+    opacity: 1,
+    transition: {
+      duration: 0.6
+    }
+  },
+  exit: {
+    opacity: 0.25,
+    transition: {
+      delay: 1,
+      duration: 1,
+    }
+  }
+}
 
+const mainLoadingVariants = {
+  initial: {
+
+  },
+  animate: {
+
+  },
+  exit: {
+
+  }
+}
+
+export function InitialLoading() {
   return (
-    <div>
+    <motion.div
+      className="initial-loading"
+      variants={initialLoadingVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+    >
+      <img src="/vhs/gl1.gif" />
+    </motion.div>
+  )
+}
 
-    </div>
+export function AppLoading() {
+  return (
+    <motion.div
+      className="main-loading"
+      // variants={mainLoadingVariants}
+      // initial="initial"
+      // animate="animate"
+      // exit="exit"
+    >
+      <div />
+    </motion.div>
   )
 }
 
@@ -40,8 +90,14 @@ export function HomePageSkeleton() {
 export function HeroMovieLoadingSkeleton() {
   return (
     <div className="hero-movie-skeleton">
-      
+
     </div>
+  )
+}
+
+export function PortraitCardLoading() {
+  return (
+    <div className="portrait-card-loading"></div>
   )
 }
 

@@ -4,7 +4,7 @@ import { StarIcon } from "@heroicons/outline"
 import { getMovieDetails, getMediaRuntime } from "@utils/apis"
 import { formatRate, formatRuntime } from "@utils/utils"
 
-export default function ScreenCard({ result, type, variant }) {
+export default function ScreenCard({ result, media, variant }) {
   const [runtime, setRuntime] = useState(null)
 
   useEffect(() => {

@@ -22,6 +22,10 @@
     }
   }
 
+  & .dot {
+    scale: 1.35;
+  }
+
   & .hover-overlay {
     position: absolute;
     z-index: var(--z-20);
@@ -107,12 +111,11 @@
 
 
 /*-------------------------------------------------------------------------------------------------------*/
-.movie-list:has(:hover) .movie-card[data-variant="list"]:not(:has(:hover)) {
-  opacity: 0.6;
+.movie-list:has(:hover) .movie-card[data-variant="common"]:not(:has(:hover)) {
+  /* opacity: 0.6; */
 }
 
-/* .movie-card[data-variant="common"] */
-.movie-card[data-variant="list"] {
+.movie-card[data-variant="common"] {
   /* width: clamp(175px, 55vw, 300px); */ /* this is set inline by JS */
   scroll-margin-left: 3px; /* related to the visibility of the left-outline. it works with 1.5px but 3px is safer */
   border-radius: 1.5rem;
@@ -157,7 +160,6 @@
 
     & .dot {
       margin-top: -1px; /* hacky */
-      scale: 1.35;
     }
 
     & .runtime {
@@ -184,15 +186,15 @@
   }
 
   & button {
-    overflow: hidden;
-    border-radius: 0.5rem;
-    backdrop-filter: blur(5px);
-    
+    /* overflow: hidden; */
+    cursor: pointer;
+  
     & .icon {
+      border-radius: 0.5rem;
+      backdrop-filter: blur(5px);
       padding: var(--space-2);
       color: var(--color-neutral-800);
-      background-color: color-mix(in srgb, var(--color-neutral-200), transparent 55%);
-      cursor: pointer;
+      background-color: color-mix(in srgb, var(--color-neutral-200), transparent 40%);
       transition: background-color var(--duration-1) ease-in;
     }
 
@@ -280,8 +282,7 @@
 .movie-card[data-variant="bookmarked"] {
   --img-radius: 1.5rem;
   min-width: 0;
-  display: flex;
-  flex-direction: column;
+  width: clamp(165px, 50vw, 185px);
   align-items: center;
   
   & figure {
@@ -296,10 +297,10 @@
       width: 103%;
       height: 103%;
       position: absolute;
-      bottom: -1rem;
+      bottom: -0.75rem;
       z-index: var(--z-neg5);
       background-size: cover;
-      opacity: 0.45;
+      opacity: 0.35;
       filter: blur(20px);
       border-radius: var(--img-radius);
     }
@@ -325,40 +326,76 @@
     white-space: wrap;
   }
 
-  & .details {
-    width: 100%;
-    position: absolute;
-    bottom: 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
   & .hover-overlay {
+    padding: 1rem;
+    gap: 1rem;
     font-size: 0.8rem;
-    background-image: linear-gradient(
-      180deg, rgb(10 15 17 / 35%), rgb(10 15 17 / 80%)
-    );
+    font-size: clamp(12px, 10px + 1cqw, 16px);
+    background-image: linear-gradient(rgb(10 15 17 / 80%), rgb(10 15 17 / 35%));
     border-radius: var(--img-radius);
 
-    & .remove-icon {
-      padding: 5cqw;
-      position: absolute;
-      top: 10cqw;
-      left: 10cqw;
-      background-color: rgb(165 165 165 / 35%);
-      backdrop-filter: blur(5px);
-      border-radius: 0.5rem;
-      cursor: pointer;
+    & .cta-btns {
+      margin-top: 1rem;
+      margin-top: auto;
+      justify-content: space-around;
+      justify-content: center;
+      gap: 1rem;
+    }
 
+    & .btn {
+      overflow: hidden;
+      /* cursor: pointer; */
+      
+      & .icon {
+        padding: 5cqw;
+        color: var(--color-neutral-800);
+        background-color: color-mix(in srgb, var(--color-neutral-200), transparent 40%);
+        backdrop-filter: blur(10px);
+        border-radius: 0.5rem;
+        transition: background-color var(--duration-1) ease-in;
+  
+        & svg {
+          width: var(--icon-size-5);
+          transition: color var(--duration-1) ease-in;
+        }
+  
+        &:hover {
+          background-color: var(--color-neutral-300);
+        }
+      }
+    }
+    
+    & .star-icon {
       & svg {
-        width: var(--icon-size-5);
+        min-width: 10px;
+        width: var(--icon-size-2);
       }
     }
 
-    & .star-icon {
-      width: var(--icon-size-4);
+    & .details {
+      margin-top: 1rem;
+      width: 100%;
+      gap: 1rem;
+      
+      & > div {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      & .overview {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+        /* font-family: 'Trebuchet MS', sans-serif; */
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: var(--color-neutral-350);
+
+        &:hover {
+          -webkit-line-clamp: 5;
+        }
+      }
     }
   }
 }
@@ -384,8 +421,9 @@
   & :is(.media-icon, .bookmark-icon, .arrow-icon) {
     width: 22cqw;
     max-width: 45px;
-    border-radius: var(--full-rounded);
-
+    border-radius: 0.6rem;
+    transition: background-color var(--duration-1) ease-in;
+    
     & svg {
       width: 60%;
       stroke-width: 1.5;
@@ -399,6 +437,7 @@
     left: 7.5cqw;
     background-color: rgb(220 220 220 / 62.5%);
     backdrop-filter: blur(3px);
+    border-radius: var(--full-rounded);
     transition: opacity var(--duration-1), translate var(--duration-2);
 
     & svg {
@@ -495,6 +534,10 @@
 
       & .icon:hover {
         background-color: var(--color-neutral-300);
+      }
+
+      & .is-bookmarked svg {
+        fill: var(--color-neutral-800);
       }
     }
   

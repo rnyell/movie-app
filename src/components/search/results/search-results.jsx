@@ -37,7 +37,7 @@ export default function SearchResults({ isLoading, searchStateCopy }) {
               <MovieCard
                 key={media.id}
                 result={media}
-                type={media.media_type}
+                media={media.media_type}
                 variant="result"
               />
             )

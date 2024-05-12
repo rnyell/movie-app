@@ -1,7 +1,7 @@
 import { StarIcon, BookmarkIcon } from "@heroicons/outline"
 import { formatRate } from "@utils/utils"
 
-export default function SeriesCard({ result, type, variant }) {
+export default function SeriesCard({ result, media, variant }) {
   return (
     <div data-variant={variant} className="movie-card">
       <figure>

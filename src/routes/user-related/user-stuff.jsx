@@ -23,12 +23,7 @@ export default function UserStuff() {
     setBookmarksOnLS(userState.bookmarked)
   }
 
-  function clearBookmark(id) {
-    userDispatch({ type: "remove_bookmark", id })
-    setBookmarksOnLS(userState.bookmarked)
-  }
-
-  function hideConfirmationBox() {
+  function handleSubmittedAction() {
     clearAllBookmarks()
     setShowModal(false)
   }
@@ -46,7 +41,7 @@ export default function UserStuff() {
         <p>Are you sure you want to all your watchlist movies?</p>
         <div className="btns">
           <button className="btn cancel-btn" onClick={() => setShowModal(false)}>Cancel</button>
-          <button className="btn del-btn" onClick={hideConfirmationBox}>Delete</button>
+          <button className="btn del-btn" onClick={handleSubmittedAction}>Delete</button>
         </div>
       </motion.div>
     </>
@@ -71,7 +66,7 @@ export default function UserStuff() {
           ) : (
             userState.played.map(id =>
               <div key={id} className="grid-item">
-                <MovieCard result={id} type="unknown" variant="played" />
+                <MovieCard result={id} media="unknown" variant="played" />
               </div>
             )
           )}
@@ -93,13 +88,12 @@ export default function UserStuff() {
               <p>Your watchlist is currently empty.</p>
               <p>To keep track of the stuff you want to watch, just tap the bookmark icon: <i className="icon"><BookmarkIcon /></i></p>
             </div>
-          ) : (userState.bookmarked.map(id =>
-            <div className="grid-item" key={id}>
+          ) : (userState.bookmarked.map(bookm =>
+            <div className="grid-item" key={bookm.id}>
               <MovieCard
-                result={id}
-                type="unknown"
+                result={bookm.id}
+                media={bookm.media}
                 variant="bookmarked"
-                clearBookmark={clearBookmark}
               />
             </div>
           ))}

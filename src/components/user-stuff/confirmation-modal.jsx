@@ -1,13 +1,12 @@
-import { useEffect, useRef, useState } from "react"
 import { motion } from "framer-motion"
 
 
-export default function ConfirmationBox() {
-  const [showModal, setShowModal] = useState(false)
+export default function ConfirmationModal(props) {
+  const { confirmText, setModal, handleSubmittedAction } = props
   
   return (
     <>
-      <div className="bookmark-confirmation-box-backdrop" onClick={() => setShowModal(false)}></div>
+      <div className="bookmark-confirmation-box-backdrop" onClick={() => setModal(false)}></div>
       <motion.div
         className="bookmark-confirmation-box"
         initial={{ y: -50, opacity: 0.5 }}
@@ -15,11 +14,11 @@ export default function ConfirmationBox() {
         exit={{ y: -80, opacity: 0.5 }}
         transition={{ duration: 0.2 }}
       >
-        <p>Are you sure you want to remove this movie from your watchlist?</p>
+        <p>{confirmText}</p>
         {/* <button>Add to watched</button> */}
         <div className="btns">
-          <button className="btn cancel-btn" onClick={() => setShowModal(false)}>Cancel</button>
-          <button className="btn del-btn" onClick={hideConfirmationBox}>Delete</button>
+          <button className="btn cancel-btn" onClick={() => setModal(false)}>Cancel</button>
+          <button className="btn del-btn" onClick={handleSubmittedAction}>Delete</button>
         </div>
       </motion.div>
     </>

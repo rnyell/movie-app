@@ -26,6 +26,7 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
   const {userState, userDispatch} = useUserState()
   const [isLoading, setIsLoading] = useState(true)
   const [movieDetails, setMovieDetails] = useState({})
+  const media = "movie"
   //? useState({}) is fine but useState() caues error!
   const [isBookmarked, setIsBookmarked] = useState()
   const [, setBookmarkedLS] = useLocalStorage("bookmarked", userState.bookmarked)
@@ -34,17 +35,25 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
   const navigate = useNavigate()
 
   useEffect(() => {
-    loadData()
-    setIsBookmarked(userState.bookmarked.includes(movie.id))
-    setBookmarkedLS(userState.bookmarked)
-    setKey(key + 1)
     console.log("hero movie re-rendered")
+    loadData()
+    setKey(key + 1)
+    
+    const foundIndex = userState.bookmarked.findIndex(bookm =>
+      bookm.id === movie.id && bookm.media === media
+    )
+    const isFound = foundIndex !== -1
+    setIsBookmarked(isFound)
 
     return () => {
       setPlayedLS(userState.played)
     }
+  }, [movie.id])
+
+  useEffect(() => {
     // any better way to update local storage?
-  }, [movie.id, isBookmarked])
+    setBookmarkedLS(userState.bookmarked)
+  }, [isBookmarked])
 
   async function loadData() {
     const data = await getMovieDetails(movie.id)
@@ -73,12 +82,15 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
   // console.log(movieDetails)
 
   function bookmarkMovie(id) {
-    if (!userState.bookmarked.includes(id)) {
-      userDispatch({ type: "add_bookmark", id })
-      setIsBookmarked(true)
-    } else if (userState.bookmarked.includes(id)) {
-      userDispatch({ type: "remove_bookmark", id })
+    const foundIndex = userState.bookmarked.findIndex(bookm => bookm.id === id)
+    const isFound = foundIndex !== -1 ? true : false
+
+    if (isFound) {
+      userDispatch({ type: "remove_bookmark", media, id })
       setIsBookmarked(false)
+    } else {
+      userDispatch({ type: "add_bookmark", media, id })
+      setIsBookmarked(true)
     }
   }
 

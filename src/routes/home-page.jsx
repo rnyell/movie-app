@@ -19,9 +19,6 @@ export default function HomePage() {
     if (mainRef.current) {
       setMainRefHeight(mainRef.current.scrollHeight)
     }
-
-    // console.log(mainRefHeight)
-
   }, [windowWidth, windowHeight, mainRefHeight])
 
   const { scrollY } = useScroll({

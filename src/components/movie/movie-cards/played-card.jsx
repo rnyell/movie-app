@@ -9,7 +9,7 @@ import { getMovieDetails, getMediaRuntime } from "@utils/apis"
 import { getGenresBaseOnIds, formatRate, formatRuntime, formatReleaseDate } from "@utils/utils"
 
 
-export default function PlayedCard({ result, type, variant }) {
+export default function PlayedCard({ result, media, variant }) {
   const [cardOverlay, setCardOverlay] = useState(false)
   const [movieDetails, setMovieDetails] = useState({})
   const [isLoading, setIsLoading] = useState(true)

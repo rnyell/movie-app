@@ -257,6 +257,10 @@
     font-size: 0.75rem;
   }
 
+  .btn-shared {
+    font-weight: 400;
+  }
+
   .tagline {
     grid-column: 1 / 3;
     font-size: 0.65rem;

@@ -15,7 +15,7 @@ export default function SeriesPage() {
             <FireIconSolid />
           </i>
         </header>
-        <GenreList type="series" />
+        <GenreList media="tv" />
       </section>
 
       {seriesDisplayedGenres.map(genreObj => 
@@ -29,7 +29,7 @@ export default function SeriesPage() {
               </i>
             </Link>
           </header>
-          <GenreList type="series" genreId={genreObj.id} />
+          <GenreList media="tv" genreId={genreObj.id} />
         </section>
       )}
     </>

@@ -16,7 +16,7 @@ export default function OnScreenPage() {
             <MovieCard
               key={movie.id}
               result={movie}
-              type="movie"
+              media="movie"
               variant="screen"
             />
           ))}

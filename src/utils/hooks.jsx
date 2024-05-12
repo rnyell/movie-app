@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react"
 import { readLocalStorage, writeLocalStorage } from "./utils"
+import { getMovieDetails, getSeriesDetails } from "./apis"
 
 export function useFetch(url, options = {}) {
   const [data, setData] = useState(null)
@@ -38,6 +39,7 @@ export function useFetch(url, options = {}) {
   return { data, isLoading, error }
 }
 
+
 export function useWindow() {
   const [windowSize, setWindowSize] = useState({
     windowWidth: window.innerWidth,
@@ -62,6 +64,7 @@ export function useWindow() {
   return {...windowSize}
 }
 
+
 export function useLocalStorage(key, fallbackValue = "") {
   const [value, setValue] = useState(
     readLocalStorage(key) ?? fallbackValue
@@ -74,8 +77,9 @@ export function useLocalStorage(key, fallbackValue = "") {
   return [value, setValue]
 }
 
+
 export function useGeoLocation() {
-  const userGeoScheme = { ip: null, country: null } // FUT: ts
+  const userGeoScheme = { ip: null, country: null }
   const [userGeo, setUserGeo] = useState(userGeoScheme)
 
   useEffect(() => {
@@ -120,4 +124,32 @@ export function useClickOutside(ref, callback) {
       document.removeEventListener("click", handler)
     }
   }, [element])
+}
+
+
+export function useMediaDetails(media, id) {
+  const [mediaDetails, setMediaDetails] = useState({})
+  const [isLoading, setIsLoading] = useState(true)
+
+  async function loadMovieDetails() {
+    const data = await getMovieDetails(id)
+    setMediaDetails(data)
+    setIsLoading(false)
+  }
+
+  async function loadSeriesDetails() {
+    const data = await getSeriesDetails(id)
+    setMediaDetails(data)
+    setIsLoading(false)
+  }
+
+  useEffect(() => {
+    if (media === "movie") {
+      loadMovieDetails()
+    } else if (media === "tv") {
+      loadSeriesDetails()
+    }
+  }, [])
+
+  return { mediaDetails, isLoading }
 }

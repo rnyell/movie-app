@@ -118,7 +118,7 @@ export default function ScreenSection() {
       <div className="draggable-wrapper">
         <div className="draggable scroll-snap-start">
           {movieState.screen.slice(0, 12).map(movie => 
-            <MovieCard key={movie.id} result={movie} type="movie" variant="screen" />
+            <MovieCard key={movie.id} result={movie} media="movie" variant="screen" />
           )}
         </div>
       </div>

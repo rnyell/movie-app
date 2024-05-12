@@ -8,12 +8,6 @@ import GenresList from "./genres-list"
 export default function FilterItems({ setSearchStateCopy, setFilterIsOpen }) {
   const {searchState, searchOptions, optionsDispatch} = useSearch()
   const initialResults = searchState.results
-  // hacky... state was one step behind. forced us to use useEffect
-  //// const [genres, setGenres] = useState(searchOptions.filters.genres)
-  //// useEffect(() => {
-  ////   updateSelectedFilters()
-  //// }, [genres])
-  //* fixed
 
   function filteredNSortedResults(initialResults, selectedType, selectedGenres) {
     const {results, pages} = filterResults(initialResults, selectedType, selectedGenres)
@@ -81,7 +75,7 @@ export default function FilterItems({ setSearchStateCopy, setFilterIsOpen }) {
             <label htmlFor="langs" className="flex-y-center">
               <span>Language:</span>
               <div className="::after-abs">
-                <select id="langs" name="langs">
+                <select id="langs" name="langs" disabled={true}>
                   <option value="English">English</option>
                   <option value="French">French</option>
                   <option value="Dutch">Dutch</option>
@@ -91,7 +85,7 @@ export default function FilterItems({ setSearchStateCopy, setFilterIsOpen }) {
             <label htmlFor="countries" className="flex-y-center">
               <span>Origin Country:</span>
               <div className="::after-abs">
-                <select id="countries" name="countries">
+                <select id="countries" name="countries" disabled={true}>
                   <option value="US">US</option>
                   <option value="England">England</option>
                   <option value="France">France</option>

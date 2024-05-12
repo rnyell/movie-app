@@ -1,21 +1,11 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useReducer,
-  useState,
-} from "react"
-
-import {
-  getPopularMovies,
-  getComingMovies,
-  getOnScreenMovies,
-  getTrendingSeries,
-} from "@utils/apis"
-import { readLocalStorage } from "@utils/utils"
+import { createContext, useContext, useEffect, useReducer, useState } from "react"
+import { AnimatePresence } from "framer-motion"
 import { useGeoLocation } from "@utils/hooks"
-import { HomePageSkeleton } from "@components/skeletons"
+import { readLocalStorage } from "@utils/utils"
+import { getPopularMovies, getOnScreenMovies, getTrendingSeries } from "@utils/apis"
+import { InitialLoading, AppLoading } from "@components/skeletons"
 import { VPNError } from "@components/errors"
+
 
 const UserContext = createContext()
 const MoviesContext = createContext()
@@ -33,11 +23,24 @@ function userStateInitializer() {
   const reserved = readLocalStorage("reserved") ?? []
   const played = readLocalStorage("played") ?? []
   const bookmarked = readLocalStorage("bookmarked") ?? []
-  return { name: "guest", reserved, played, bookmarked }
+
+  return {
+    name: "guest",
+    country: "unknown",
+    reserved,
+    played,
+    bookmarked
+  }
 }
 
 function userStateReducer(state, action) {
   switch (action.type) {
+    case "set_country": {
+      return {
+        ...state,
+        country: action.country
+      }
+    }
     case "reserved": {
       const info = {
         id: action.id,
@@ -72,13 +75,25 @@ function userStateReducer(state, action) {
       }
     }
     case "add_bookmark": {
+      const added = {
+        media: action.media,
+        id: action.id
+      }
       return {
         ...state,
-        bookmarked: [...state.bookmarked, action.id],
+        bookmarked: [...state.bookmarked, added],
       }
     }
     case "remove_bookmark": {
-      const filtered = state.bookmarked.filter(bookm => bookm !== action.id)
+      const removed = {
+        media: action.media,
+        id: action.id
+      }
+      let filtered = state.bookmarked.filter(bookm => bookm.id !== removed.id)
+      // if we have a movie and a series with common ids
+      if (filtered.length === 2) {
+        filtered = filtered.filter(bookm => bookm.media === removed.media)
+      }
       return {
         ...state,
         bookmarked: [...filtered],
@@ -96,9 +111,11 @@ function userStateReducer(state, action) {
 export default function AppProvider({ children }) {
   const [userState, userDispatch] = useReducer(userStateReducer, userStateInitializer())
   const [movieState, setMovieState] = useState({ popular: [], screen: [], series: [] })
+  const [isInitialLoad, setIsInitialLoad] = useState(true)
   const [isLoading, setIsLoading] = useState(true)
-  const { country } = useGeoLocation()
-  const isVPNError = country === "IR"
+  const {country} = useGeoLocation()
+  // const isVPNError = country === "IR"
+  const isVPNError = false
 
   useEffect(() => {
     loadData()
@@ -116,19 +133,25 @@ export default function AppProvider({ children }) {
       series: trendingSeries,
     })
     setIsLoading(false)
+    // setIsInitialLoad(false)
   }
 
-  if (isLoading) {
-    return <HomePageSkeleton />
-  }
 
-  return isVPNError ? (
-    <VPNError />
-  ) : (
-    <UserContext.Provider value={{userState, userDispatch}}>
-      <MoviesContext.Provider value={[movieState]}>
-        {children}
-      </MoviesContext.Provider>
-    </UserContext.Provider>
+  return (
+    <AnimatePresence mode="wait" initial={true} >
+      {isLoading ? (
+        isInitialLoad ? <InitialLoading /> : <AppLoading />
+      ) : isVPNError ? (
+        <VPNError />
+      ) : (
+        <div key="nothing-but-for-AnimatePresence-sake">
+          <UserContext.Provider value={{userState, userDispatch}}>
+            <MoviesContext.Provider value={[movieState]}>
+              {children}
+            </MoviesContext.Provider>
+          </UserContext.Provider>
+        </div>
+      )}
+    </AnimatePresence>
   )
 }

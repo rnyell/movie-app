@@ -19,14 +19,14 @@ export const ALL_GENRES = {
   10402: "Music",
   // 10759: "Action & Adventure",
   10759: "Adventure",
-  // 10765: "Sci-Fi & Fantasy",
-  10765: "Fantasy",
-  10767: "Talk",
+  10765: "Sci-Fi & Fantasy",
+  // 10765: "Fantasy",
   10768: "War & Politics",
-  37: "Western",
   99: "Documentary",
+  37: "Western",
   36: "History",
   10752: "War",
+  10767: "Talk",
   10770: "TV Movie",
 }
 
@@ -93,25 +93,6 @@ export const seriesDisplayedGenres = [
   { name: "Mystery", id: "9648" },
   { name: "Crime", id: "80" },
 ]
-
-// export const FILTER_GENRES = [
-//   { name: "Drama", id: "18" },
-//   { name: "Comedy", id: "35" },
-//   { name: "Crime", id: "80" },
-//   { name: "Action", id: "28" },
-//   // { name: "Action, Adveture", id: "10759" },
-//   { name: "Adveture", id: "10759" },
-//   { name: "Mystery", id: "9648" },
-//   { name: "Thrillers", id: "53" },
-//   { name: "Family", id: "10751"},
-//   { name: "Romance", id: "10749" },
-//   { name: "Musical", id: "10402" },
-//   { name: "Animation", id: "16" },
-//   { name: "Horror", id: "27" },
-//   { name: "Sci-Fi", id: "878" },
-//   // { name: "Sci-Fi, Fantasy", id: "10765" },
-//   { name: "Fantasy", id: "10765" },
-// ]
 
 
 export async function getComingMovies() {

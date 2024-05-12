@@ -1,28 +1,41 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { motion, AnimatePresence, useAnimate } from "framer-motion"
 import { StarIcon, BookmarkIcon, FilmIcon, TvIcon, ArrowTopRightOnSquareIcon } from "@heroicons/outline"
-import { BookmarkSlashIcon, PlayIcon } from "@heroicons/solid"
+import { useLocalStorage } from "@utils/hooks"
 import { getGenresBaseOnIds, formatRate, formatRuntime, formatReleaseDate } from "@utils/utils"
+import { portraitCardOverlayVariants, defaultMotionProps } from "@utils/motions"
+import { useUserState } from "@src/store/app-context"
 
 
-export default function ResultCard({ result, type, variant }) {
+export default function ResultCard({ result, media, variant }) {
+  const {userState, userDispatch} = useUserState()
+  const [_, setBookmarkedLS] = useLocalStorage("bookmarked", userState.bookmarked)
+  const [isBookmarked, setIsBookmarked] = useState()
   const [cardOverlay, setCardOverlay] = useState(false)
   const [scope, animate] = useAnimate()
   const location = useLocation()
 
-  const overlayVariants = {
-    initial: {
-      opacity: 0
-    },
-    animate: {
-      opacity: 1
-    },
-    exit: {
-      opacity: 0,
-      transition: {
-        duration: 0.3
-      }
+  useEffect(() => {
+    const foundIndex = userState.bookmarked.findIndex(bookm => bookm.id === result.id)
+    const isFound = foundIndex !== -1
+    setIsBookmarked(isFound)
+  }, [])
+
+  useEffect(() => {
+    setBookmarkedLS(userState.bookmarked)
+  }, [isBookmarked])
+
+  function bookmarkMovie(id) {
+    const foundIndex = userState.bookmarked.findIndex(bookm => bookm.id === id)
+    const isFound = foundIndex !== -1 ? true : false
+
+    if (isFound) {
+      userDispatch({ type: "remove_bookmark", media, id })
+      setIsBookmarked(false)
+    } else {
+      userDispatch({ type: "add_bookmark", media, id })
+      setIsBookmarked(true)
     }
   }
 
@@ -52,15 +65,14 @@ export default function ResultCard({ result, type, variant }) {
       initial={{opacity: 0.5}}
       animate={{opacity: 1}}
       transition={{duration: 0.2}}
-      >
-      <motion.div className="subset-details"
+    >
+      <motion.div
+        className="subset-details"
         onHoverStart={handleHoverStart}
         onHoverEnd={handleHoverEnd}
-        onTapStart={handleHoverStart}
-        onTapCancel={handleHoverEnd}
       >
         <i className="icon media-icon">
-          {result.media_type === "movie" ? <FilmIcon /> : <TvIcon />}
+          {media === "movie" ? <FilmIcon /> : <TvIcon />}
         </i>
         <span className="vote">
           <i className="icon star-icon"><StarIcon /></i>
@@ -77,11 +89,8 @@ export default function ResultCard({ result, type, variant }) {
           {cardOverlay &&
             <motion.div
               className="hover-overlay flex-col"
-              variants={overlayVariants}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-              // transition={{ duration: 2 }}
+              variants={portraitCardOverlayVariants}
+              {...defaultMotionProps}
             >
               <motion.div
                 className="cta-btns"
@@ -97,7 +106,7 @@ export default function ResultCard({ result, type, variant }) {
                   }
                   state={{
                     id: result.id,
-                    type: result.media_type,
+                    media: result.media_type,
                     prevUrl: location.pathname + location.search,
                   }}
                   >
@@ -105,7 +114,10 @@ export default function ResultCard({ result, type, variant }) {
                     <ArrowTopRightOnSquareIcon />
                   </i>
                 </Link>
-                <i className="icon bookmark-icon">
+                <i
+                  className={`icon bookmark-icon ${isBookmarked ? "is-bookmarked" : null}`}
+                  onClick={() => bookmarkMovie(result.id)}
+                >
                   <BookmarkIcon />
                 </i>
               </motion.div>
@@ -122,14 +134,11 @@ export default function ResultCard({ result, type, variant }) {
     </motion.div>
   )
 }
-                  {/* <h5 className="overlay-title">{result?.title || result?.name}</h5>
-                  <p className="overlay-release-date">
-                    {formatReleaseDate(result?.release_date) || formatReleaseDate(result?.first_air_date)}
-                  </p> */}
-                  {/* <span className="genres">
-                    {getGenresBaseOnIds(result.media_type, result.genre_ids)
-                      .map(genre => <span key={genre} className="genre">{genre}, </span>
-                    )}
-                  </span> */}
-                  {/* <p className="overview">{result.overview}</p> */}
-                  {/* TODO: if 2024, a "new" tag is attached */}
+  {/* <h5 className="overlay-title">{result?.title || result?.name}</h5>
+      <span className="genres">
+        {getGenresBaseOnIds(result.media_type, result.genre_ids)
+        .map(genre => <span key={genre} className="genre">{genre}, </span>
+      )}
+  </span> */}
+  {/* <p className="overview">{result.overview}</p> */}
+  {/* TODO: if 2024, a "new" tag is attached */}

@@ -15,7 +15,7 @@ export default function MoviesPage() {
             <FireIconSolid />
           </i>
         </header>
-        <GenreList type="movie" />
+        <GenreList media="movie" />
       </section>
 
       {displayedMovieGenres.map(genreObj => 
@@ -29,7 +29,7 @@ export default function MoviesPage() {
               </i>
             </Link>
           </header>
-          <GenreList type="movie" genreId={genreObj.id} />
+          <GenreList media="movie" genreId={genreObj.id} />
         </section>
       )}
     </>

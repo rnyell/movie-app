@@ -1,15 +1,21 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Rokkitt:ital,wght@0,100..900;1,100..900&display=swap'); */
 /* @import "@src/tailwind.css" layer(framework); */
-@layer framework, reset, defaults, typo, components, utilities;
+@layer reset, defaults, typo, custom, components, utilities;
 
 
-@layer utilities {
+@layer utilities {  
+  /* .stack-container {
+    position: relative;
+    isolation: isolate;
+  } */
+
   .truncate {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
   }
 
+  /* naming: scroll-snap-container */
   .scroll-snap-start {
     overflow-x: scroll;
     scroll-snap-type: x proximity;
@@ -102,7 +108,26 @@
     isolation: isolate;
     background-color: var(--color-neutral-800);
   }
+  
+  .icon {
+    display: inline-grid;
+    place-items: center;
+    aspect-ratio: 1 / 1;
 
+    & svg {
+      min-width: 15px;
+      max-width: 36.25px;
+    }
+  }
+
+  .btn {
+    display: inline-grid;
+    place-items: center;
+  }
+}
+
+
+@layer custom {
   .shared-layout {
     height: 100vh;
     overflow: hidden;
@@ -132,109 +157,90 @@
       }
     }
   }
-  
-  .icon {
-    display: inline-grid;
-    place-items: center;
-    aspect-ratio: 1 / 1;
 
-    & svg {
-      min-width: 15px;
-      max-width: 36.25px;
-    }
+  /* .cta-btns {
+    display: flex;
+  } */
+
+  :root {
+    --base-size: 1rem;
+    --space-1: calc(0.25 * var(--base-size));
+    --space-2: calc(0.5 * var(--base-size));
+    --space-3: calc(0.75 * var(--base-size));
+    --space-4: calc(1 * var(--base-size));
+    --space-5: calc(1.25 * var(--base-size));
+    --space-6: calc(1.5 * var(--base-size));
+    --space-7: calc(1.75 * var(--base-size));
+    --space-8: calc(2 * var(--base-size));
+    --space-9: calc(2.5 * var(--base-size));
+    --space-10: calc(3 * var(--base-size));
+    --space-11: calc(3.5 * var(--base-size));
+    --space-12: calc(4 * var(--base-size));
+    --outline-size-1: 1px;
+    --outline-size-2: 0.07525rem;
+    --outline-size-3: 0.1375rem;
+    --outline-size-4: 2.5px;
+    --z-neg20: -20;
+    --z-neg10: -10;
+    --z-neg5: -5;
+    --z-0: 0;
+    --z-5: 5;
+    --z-10: 10;
+    --z-20: 20;
+    --z-50: 50;
+    --z-100: 100;
+    --z-max: 9999;
+    --full-rounded: 9999px;
+    --duration-1: 150ms;
+    --duration-2: 220ms;
+    --duration-3: 300ms;
+    --box-shadow-1: 0 3px 1.24rem rgb(10 15 17 / 50%),
+      0 2px 0.5rem rgb(10 15 17 / 10%);
+    
+    --color-neutral-100: rgb(234 239 243);
+    --color-neutral-200: rgb(221 229 235);
+    --color-neutral-250: color-mix(in srgb, var(--color-neutral-200), var(--color-neutral-300));
+    --color-neutral-300: rgb(195 206 219);
+    --color-neutral-350: color-mix(in srgb, var(--color-neutral-300), var(--color-neutral-400));
+    --color-neutral-400: rgb(131 140 148);
+    --color-neutral-450: color-mix(in srgb, var(--color-neutral-400), var(--color-neutral-500));
+    --color-neutral-500: rgb(66 71 75);
+    --color-neutral-550: color-mix(in srgb, var(--color-neutral-500), var(--color-neutral-600));
+    --color-neutral-600: rgb(50 55 57);
+    --color-neutral-650: color-mix(in srgb, var(--color-neutral-600), var(--color-neutral-700));
+    --color-neutral-700: rgb(37 40 42);
+    --color-neutral-750: color-mix(in srgb, var(--color-neutral-700), var(--color-neutral-800));
+    --color-neutral-800: rgb(30 32 34);
+    --color-neutral-850: color-mix(in srgb, var(--color-neutral-800), var(--color-neutral-900));
+    --color-neutral-900: rgb(19 20 22);
+  
+    --color-accent-100: #E48A94;
+    --color-accent-200: #DA697A;
+    --color-accent-300: #D3546A;
+    --color-accent-400: #C74361;
+    --color-accent-500: #BA3A5C;
+    --color-accent-600: #A72A4B;
+  
+    --color-aliceblue-200: aliceblue;
+    --color-orange-300: rgb(245 197 24);
+    --color-orange-500: rgb(255 165 00);
+    --color-red-300: rgb(182 38 43);
+    --color-red-500: rgb(151 28 32);
+    --black-gradient: rgb(10 13 15 / 25%);
+  
+    --icon-size-1: 0.25rem;
+    --icon-size-2: 0.5rem;
+    --icon-size-3: 0.75rem;
+    --icon-size-4: 1rem;
+    --icon-size-5: 1.25rem;
+    --icon-size-6: 1.5rem;
+    --icon-size-7: 1.75rem;
+    --icon-size-8: 2rem;
+    --fg-blur: 0px;
+    --poster-landscape-ratio: 1.75;
+    --poster-portrait-ratio: 0.665;
+    --safe-space-to-scroll-bottom-nav: 75px;
   }
-
-  .btn {
-    display: inline-grid;
-    place-items: center;
-  }
-}
-
-:root {
-  --base-size: 1rem;
-  --space-1: calc(0.25 * var(--base-size));
-  --space-2: calc(0.5 * var(--base-size));
-  --space-3: calc(0.75 * var(--base-size));
-  --space-4: calc(1 * var(--base-size));
-  --space-5: calc(1.25 * var(--base-size));
-  --space-6: calc(1.5 * var(--base-size));
-  --space-7: calc(1.75 * var(--base-size));
-  --space-8: calc(2 * var(--base-size));
-  --space-9: calc(2.5 * var(--base-size));
-  --space-10: calc(3 * var(--base-size));
-  --space-11: calc(3.5 * var(--base-size));
-  --space-12: calc(4 * var(--base-size));
-  --outline-size-1: 1px;
-  --outline-size-2: 0.07525rem;
-  --outline-size-3: 0.1375rem;
-  --outline-size-4: 2.5px;
-  --z-neg20: -20;
-  --z-neg10: -10;
-  --z-neg5: -5;
-  --z-0: 0;
-  --z-5: 5;
-  --z-10: 10;
-  --z-20: 20;
-  --z-50: 50;
-  --z-100: 100;
-  --z-max: 9999;
-  --full-rounded: 9999px;
-  --duration-1: 150ms;
-  --duration-2: 220ms;
-  --duration-3: 300ms;
-  
-  --box-shadow-1: 0 3px 1.24rem rgb(10 15 17 / 50%), 0 2px 0.5rem rgb(10 15 17 / 10%);
-  
-  --color-neutral-100: rgb(234 239 243);
-  --color-neutral-200: rgb(221 229 235);
-  --color-neutral-250: color-mix(in srgb, var(--color-neutral-200), var(--color-neutral-300));
-  --color-neutral-300: rgb(195 206 219);
-  --color-neutral-350: color-mix(in srgb, var(--color-neutral-300), var(--color-neutral-400));
-  --color-neutral-400: rgb(131 140 148);
-  --color-neutral-450: color-mix(in srgb, var(--color-neutral-400), var(--color-neutral-500));
-  --color-neutral-500: rgb(66 71 75);
-  --color-neutral-550: color-mix(in srgb, var(--color-neutral-500), var(--color-neutral-600));
-  --color-neutral-600: rgb(50 55 57);
-  --color-neutral-650: color-mix(in srgb, var(--color-neutral-600), var(--color-neutral-700));
-  --color-neutral-700: rgb(37 40 42);
-  --color-neutral-750: color-mix(in srgb, var(--color-neutral-700), var(--color-neutral-800));
-  --color-neutral-800: rgb(30 32 34);
-  --color-neutral-850: color-mix(in srgb, var(--color-neutral-800), var(--color-neutral-900));
-  --color-neutral-900: rgb(19 20 22);
-
-  --color-aliceblue-200: aliceblue;
-  --color-orange-300: rgb(245 197 24);
-  --color-orange-500: rgb(255 165 00);
-  --color-red-300: rgb(182 38 43);
-  --color-red-500: rgb(151 28 32);
-  --black-gradient: rgb(10 13 15 / 25%);
-
-  /*
-  --color-accent-100: rgb(57 168 185);
-  --color-accent-100: rgb(197 65 100);
-  --color-accent-100: rgb(186 58 92);
-  */
-  --color-accent-100: #E48A94;
-  --color-accent-200: #DA697A;
-  --color-accent-300: #D3546A;
-  --color-accent-400: #C74361;
-  --color-accent-500: #BA3A5C;
-  --color-accent-600: #A72A4B;
-
-  /* specific to project variables */
-  --icon-size-1: 0.25rem;
-  --icon-size-2: 0.5rem;
-  --icon-size-3: 0.75rem;
-  --icon-size-4: 1rem;
-  --icon-size-5: 1.25rem;
-  --icon-size-6: 1.5rem;
-  --icon-size-7: 1.75rem;
-  --icon-size-8: 2rem;
-
-  --fg-blur: 0px;
-  --poster-landscape-ratio: 1.75;
-  --poster-portrait-ratio: 0.665;
-  --safe-space-to-scroll-bottom-nav: 75px;
 }
 
 @font-face {
@@ -313,7 +319,6 @@
 
 @layer typo {
   html {
-    /* font-size: clamp(0.775rem, 55% + 0.75vw, 19px); */
     font-size: clamp(12.25px, 55% + 0.75vw, 18.25px);
     text-rendering: optimizeLegibility;
   }
@@ -359,15 +364,7 @@
   }
 }
 
-@layer framework {
-
-}
-
 @layer defaults {
-  /* * {
-    min-width: 0;
-  } */
-
   ::selection {
     background-color: var(--color-accent-600);
   }
@@ -392,6 +389,10 @@
   ::-webkit-scrollbar-thumb {
     background-color: var(--color-neutral-500);
   }
+
+  /* * {
+    min-width: 0;
+  } */
 
   html {
     min-height: 100%;
@@ -431,10 +432,6 @@
 
   input {
     font-size: 1rem;
-
-    &::placeholder {
-      font-size: inherit;
-    }
   }
 
   input[type="checkbox"],
@@ -484,8 +481,8 @@
 
   input,
   textarea,
-  optgroup,
   select,
+  optgroup,
   option {
     font-family: inherit;
     font-weight: inherit;
@@ -494,12 +491,18 @@
     border: none;
   }
 
+  input::placeholder,
+  textarea::placeholder {
+    font-size: inherit;
+    font-weight: inherit;
+  }
+
   button {
+    text-align: center;
     font-family: inherit;
     font-size: 100%;
     font-weight: inherit;
     line-height: inherit;
-    text-align: center;
     color: inherit;
     background-color: transparent;
     background-image: none;

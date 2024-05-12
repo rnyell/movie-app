@@ -2,33 +2,35 @@ import { useEffect, useRef, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { StarIcon, BookmarkIcon, ArrowTopRightOnSquareIcon } from "@heroicons/outline"
 import { PlayIcon } from "@heroicons/solid"
-
 import { useWindow, useLocalStorage } from "@utils/hooks"
-import { getMovieDetails, getMediaRuntime } from "@utils/apis"
+import { getMediaRuntime } from "@utils/apis"
 import { getGenresBaseOnIds, formatRate, formatRuntime, formatReleaseDate } from "@utils/utils"
+import { landCardOverlayVariants, defaultMotionProps } from "@utils/motions"
 import { useUserState } from "@src/store/app-context"
 
 
-export default function CommonCard({ result, type, variant }) {
+export default function CommonCard({ result, media, variant }) {
   const {windowWidth} = useWindow()
   const {userState, userDispatch} = useUserState()
   const [_, setBookmarkedLS] = useLocalStorage("bookmarked", userState.bookmarked)
   const [isBookmarked, setIsBookmarked] = useState()
+  const [cardWidth, setCardWidth] = useState()
+  const [cardOverlay, setCardOverlay] = useState(false)
+  const cardRef = useRef(null)
   const [runtime, setRuntime] = useState(null)
-  const listCardRef = useRef()
-  const [listCardWidth, setListCardWidth] = useState()
-  const [listCardOverlay, setListCardOverlay] = useState(false)
 
   useEffect(() => {
-    if (type === "movie") {
+    if (media === "movie") {
       getMediaRuntime("movie", result.id).then(d => setRuntime(d))
     }
     
-    if (type === "series") {
+    if (media === "tv") {
       getMediaRuntime("tv", result.id).then(d => setRuntime(d))
     }
 
-    setIsBookmarked(userState.bookmarked.includes(result.id))
+    const foundIndex = userState.bookmarked.findIndex(bookm => bookm.id === result.id)
+    const isFound = foundIndex !== -1
+    setIsBookmarked(isFound)
   }, [])
 
   useEffect(() => {
@@ -36,18 +38,21 @@ export default function CommonCard({ result, type, variant }) {
   }, [isBookmarked])
 
   useEffect(() => {
-    if (listCardRef.current) {
-      setListCardWidth(listCardRef.current.offsetWidth)
+    if (cardRef.current) {
+      setCardWidth(cardRef.current.offsetWidth)
     }
-  }, [windowWidth, listCardWidth])
+  }, [windowWidth, cardWidth])
 
   function bookmarkMovie(id) {
-    if (!userState.bookmarked.includes(id)) {
-      userDispatch({ type: "add_bookmark", id })
-      setIsBookmarked(true)
-    } else if (userState.bookmarked.includes(id)) {
-      userDispatch({ type: "remove_bookmark", id })
+    const foundIndex = userState.bookmarked.findIndex(bookm => bookm.id === id)
+    const isFound = foundIndex !== -1 ? true : false
+
+    if (isFound) {
+      userDispatch({ type: "remove_bookmark", media, id })
       setIsBookmarked(false)
+    } else {
+      userDispatch({ type: "add_bookmark", media, id })
+      setIsBookmarked(true)
     }
   }
 
@@ -55,49 +60,46 @@ export default function CommonCard({ result, type, variant }) {
     <motion.div
       data-variant={variant}
       className="movie-card"
-      ref={listCardRef}
+      ref={cardRef}
       style={{width: "clamp(175px, 55vw, 305px)"}}
-      whileHover={{width: 1.15 * listCardWidth}}
-      onHoverStart={() => setListCardOverlay(true)}
-      onHoverEnd={() => setListCardOverlay(false)}
-      onTapStart={() => setListCardOverlay(true)}
-      onTapCancel={() => setListCardOverlay(false)}
-      whileFocus={{width: 1.15 * listCardWidth}}
+      // whileFocus={{width: 1.15 * cardWidth}}
+      whileHover={{width: 1.15 * cardWidth}}
+      onHoverStart={() => setCardOverlay(true)}
+      onHoverEnd={() => setCardOverlay(false)}
     >
       <div className="wrapper">
         <figure>
           <img
+            className="poster"
             src={`https://image.tmdb.org/t/p/original${result.backdrop_path}`}
-            alt="poster" className="poster"
+            alt="poster"
             draggable="false"
           />
         </figure>
         <AnimatePresence>
-        {listCardOverlay &&
+        {cardOverlay &&
           <motion.div
             className="hover-overlay flex-col"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ 
-              type: "tween",
-              duration: 0.2,
-              ease: "easeOut" 
-            }}
+            variants={landCardOverlayVariants}
+            {...defaultMotionProps}
           >
             <h4 className="title">{result.title || result.name}</h4>
             <div className="details">
-              <span className="release-date">{formatReleaseDate(result.release_date || result.first_air_date)}</span>
-              {type === "movie" &&
-              <>
-                <i className="dot">&#x2022;</i>
-                <span className="runtime">{formatRuntime(runtime)}</span>
-              </>
-              }
+              <span className="release-date">
+                {formatReleaseDate(result.release_date || result.first_air_date)}
+              </span>
+              {media === "movie" && (
+                <>
+                  <i className="dot">&#x2022;</i>
+                  <span className="runtime">{formatRuntime(runtime)}</span>
+                </>
+              )}
               <i className="dot">&#x2022;</i>
               <span className="vote">
                 <span className="vote-number">{formatRate(result.vote_average)}</span>
-                <i className="icon star-icon"><StarIcon /></i>
+                <i className="icon star-icon">
+                  <StarIcon />
+                </i>
               </span>
             </div>
             <div className="cta-btns">
@@ -107,8 +109,8 @@ export default function CommonCard({ result, type, variant }) {
                 </i>
               </button>
               <button className="btn">
-                <i className="icon">
-                <ArrowTopRightOnSquareIcon />
+                <i className="icon arrow-icon">
+                  <ArrowTopRightOnSquareIcon />
                 </i>
               </button>
               <button className="btn" onClick={() => bookmarkMovie(result.id)}>
@@ -121,7 +123,7 @@ export default function CommonCard({ result, type, variant }) {
         </AnimatePresence>
       </div>
       {/* <AnimatePresence>
-        {listCardOverlay &&
+        {cardOverlay &&
           <div
             className="ambient"
             style={{backgroundImage: `url(https://image.tmdb.org/t/p/original${result.backdrop_path})`}}

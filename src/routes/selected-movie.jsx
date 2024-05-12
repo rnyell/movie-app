@@ -1,50 +1,32 @@
-import { useEffect, useState } from 'react'
-import { useNavigate, useLocation, Link } from 'react-router-dom'
+import { useEffect, useState } from "react"
+import { useNavigate, useLocation, Link } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronLeftIcon, BookmarkIcon, StarIcon, PlayIcon } from "@heroicons/outline"
-
-import { getMovieDetails, getSeriesDetails, getMovieTrailer } from "@utils/apis"
-import { formatRuntime, getMovieGenres, formatRate } from '@utils/utils'
-import { SelectedMovieSkeleton } from '@components/skeletons'
-import { useWindow } from '@utils/hooks'
+import { useWindow, useMediaDetails } from "@utils/hooks"
+import { formatRuntime, getMovieGenres, formatRate } from "@utils/utils"
+import { pageInVariants, defaultMotionProps } from "@utils/motions"
+import { getMovieTrailer } from "@utils/apis"
+import { SelectedMovieSkeleton } from "@components/skeletons"
 
 
 export default function SelectedMovie() {
-  const { windowWidth } = useWindow()
-  const [mediaDetails, setMediaDetails] = useState({})
+  const {windowWidth} = useWindow()
   const [imgUrl, setImgUrl] = useState({
-    width: "", path: "",
+    width: "",
+    path: "",
     toString() {
       return `${this.width}${this.path}`
     }
   })
-  const [trailerUrl, setTrailerUrl] = useState("")
-  const [isLoading, setIsLoading] = useState(true)
   const navigate = useNavigate()
-  const { state } = useLocation()
-  const { type, id } = state
-
-  useEffect(() => {
-    loadData()
-  }, [])
-  
-  async function loadData() {
-    let data
-
-    if (type === "movie") {
-      data = await getMovieDetails(id)
-    } else if (type === "tv") {
-      data = await getSeriesDetails(id)
-    }
-
-    setMediaDetails(data)
-    setIsLoading(false)
-  }
+  const location = useLocation()
+  const {state: {media, id, prevUrl}} = location
+  const {mediaDetails, isLoading} = useMediaDetails(media, id)
+  // const [trailerUrl, setTrailerUrl] = useState("")
   
   useEffect(() => {
     handleResize()
   }, [mediaDetails, windowWidth])
-
 
   function handleResize() {
     if (windowWidth < 620) {
@@ -61,7 +43,7 @@ export default function SelectedMovie() {
       })
     }
   }
-  
+
   const {
     title,
     release_date,
@@ -81,44 +63,23 @@ export default function SelectedMovie() {
   //!
   // credits is undefined
   // const { cast } = credits
-  // console.log(mediaDetails)
 
-  function showTrailer(data) {
-    let officialTrailers = data.results.filter(res => 
-      res.type === "Trailer" && 
-      res.official === true
-    )
-  
-    let latestTrailer = officialTrailers[0].key
-    let trailerUrl = `https://www.youtube.com/watch?v=${latestTrailer}`
-    setTrailerUrl(trailerUrl)
-    // console.log(trailerUrl)
-  }
+  // function showTrailer(data) {
+  //   let officialTrailers = data.results.filter(res => 
+  //     res.type === "Trailer" && 
+  //     res.official === true
+  //   )  
+  //   let latestTrailer = officialTrailers[0].key
+  //   let trailerUrl = `https://www.youtube.com/watch?v=${latestTrailer}`
+  //   setTrailerUrl(trailerUrl)
+  // }
 
   function handleBooking() {
-    navigate("/booking", { state: { title, poster_path, backdrop_path }})
-  }
-
-  const variants = {
-    initial: {
-      opacity: 0.65,
-      scale: 0.96,
-      y: 15,
-      x: -10,
-    },
-    animate: {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      x: 0,
-      transition: {
-        duration: 0.25
+    navigate("/booking", {
+      state: {
+        title, poster_path, backdrop_path
       }
-    },
-    exit: {
-      opacity: 0.85,
-      y: 25
-    }
+    })
   }
 
   if (isLoading) {
@@ -127,16 +88,14 @@ export default function SelectedMovie() {
 
   return (
     <motion.div
-      variants={variants}
-      initial="initial"
-      animate="animate"
-      exit="exit"
       className="selected-movie"
+      variants={pageInVariants}
+      {...defaultMotionProps}
     >
-    <Link to={state.prevUrl} className="back-btn">
-      <i className="icon">
-        <ChevronLeftIcon />
-      </i>
+      <Link to={prevUrl} className="back-btn">
+        <i className="icon">
+          <ChevronLeftIcon />
+        </i>
       </Link>
       <div className="btn">
         <i className="icon bookmark-icon">
@@ -146,9 +105,9 @@ export default function SelectedMovie() {
       <div className="poster-wrapper">
         <figure>
           <img
+            className="poster"
             src={`https://image.tmdb.org/t/p/${imgUrl}`}
             alt="movie-poster"
-            className="poster"
           />
         </figure>
         <div className="gradient">
@@ -168,8 +127,12 @@ export default function SelectedMovie() {
           <h4>Casts</h4>
           <ul className="casts">
             {credits.cast.slice(0, 7).map(c => 
-              <li>
-                <img className='cast-img' src={`https://image.tmdb.org/t/p/w154/${c.profile_path}`} alt="cast-profile" />
+              <li key={c.name}>
+                <img
+                  className="cast-img"
+                  src={`https://image.tmdb.org/t/p/w154/${c.profile_path}`}
+                  alt="cast-image"
+                />
                 <p className="cast-name">{c.name}</p>
               </li>
             )}

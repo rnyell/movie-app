@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { getMediaByGenre } from "@utils/apis"
 import MovieCard from "./movie-card"
 
-export default function GenreList({ type, genreId }) {
+export default function GenreList({ media, genreId }) {
   const [isLoading, setIsLoading] = useState(true)
   const [results, setResults] = useState([])
 
@@ -11,12 +11,12 @@ export default function GenreList({ type, genreId }) {
   }, [])
 
   async function loadData() {
-    const data = await getMediaByGenre(type, genreId)
+    const data = await getMediaByGenre(media, genreId)
     setResults(data)
     setIsLoading(false)
   }
 
-  // console.log(results)
+
   return (
     isLoading ? (
       <p>loading</p>
@@ -26,8 +26,8 @@ export default function GenreList({ type, genreId }) {
           <MovieCard
             key={result.id}
             result={result}
-            type={type}
-            variant="list"
+            media={media}
+            variant="common"
           />
         ))}
       </div>
