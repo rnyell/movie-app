@@ -2,71 +2,79 @@
   min-height: 100dvh;
   position: relative;
 
-  & :is(.btn, .back-btn) {
-    padding: var(--space-2);
-    display: inline-grid;
-    place-items: center;
+  & .btns {
+    padding: var(--space-6) var(--space-6);
     position: absolute;
+    top: 0;
     z-index: var(--z-50);
-    top: 1.5rem;
-    left: 1.5rem;
-    backdrop-filter: blur(4px);
-    background-color: rgb(150 150 150 / 25%);
-    /* outline: var(--outline-size-2) solid var(--color-neutral-300); */
-    border-radius: 0.875rem;
+    gap: 0.75rem;
+
+    & .btn {
+      padding: var(--space-2);
+      background-color: rgb(200 200 200 / 40%);
+      backdrop-filter: blur(10px);
+      border-radius: 0.75rem;
+      transition: background-color var(--duration-1) ease-in;
+    }
+
+    & .btn:hover {
+      background-color: rgb(210 210 210 / 50%);
+    }
 
     & .icon {
       width: var(--icon-size-6);
     }
+
+    & .fave-btn {
+      margin-left: auto;
+    }
   }
 
-  & .btn {
-    left: unset;
-    right: 1.5rem;
-  }
   
   & .poster-wrapper {
-    height: 65vh;
-    position: relative;
-    isolation: isolate;
-  }
+    height: 90vh;
 
-  & .gradient {
-    position: absolute;
-    z-index: var(--z-10);
-    inset: 0;
-    background-image: linear-gradient(
-      180deg, rgb(10 13 15 / 15%), rgb(13 17 19 / 80%) 85%
-    );
-  }
-
-  & figure {
-    width: 100%;
-    height: 100%;
-    min-height: 200px;
-
-    & .poster {
-      width: 100%;
-      height: 100%;
-      object-position: 50% 0;
+    &::after {
+      inset: 0;
+      z-index: var(--z-neg5);
+      background-image: linear-gradient(rgb(10 13 15 / 5%), var(--color-neutral-800));
     }
+
+    & .bg-poster {
+      position: relative;
+      z-index: var(--z-neg10);
+      background-position: 50% 0;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+  }
+
+  & .main-details {
+    padding: 0 var(--space-10) var(--space-4);
+    gap: 0.5rem;
+    position: absolute;
+    bottom: 0.5rem;
+  }
+
+  & .title {
+    margin-bottom: 0.5rem;
+    font-size: min(4rem, 60px);
+    font-weight: 600;
+    color: var(--color-neutral-100);
   }
   
   & .details {
+    margin-bottom: 1rem;
     width: 100%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     gap: var(--space-2);
-    position: absolute;
-    bottom: 1rem;
-    left: 50%;
-    translate: -50% 0;
-    color: var(--color-neutral-300);
-    font-size: 0.875rem;
+    font-size: 0.8rem;
+    color: var(--color-neutral-350);
 
     & .dot {
-      font-size: 1.5rem;
+      scale: 1.35;
     }
   }
 
@@ -79,44 +87,117 @@
     }
   }
 
-  & .description {
-    margin-top: var(--space-4);
-    padding: var(--space-5);
-  }
-  
-  & .title {
-    color: var(--color-neutral-100);
-  }
-
-  & .plot {
+  & .overview {
+    margin-bottom: 1.5rem;
+    max-width: 75ch;
+    font-size: 0.9rem;
     color: var(--color-neutral-300);
   }
 
-  & .casts-wrapper {
+  & .cta-btns {
+    gap: 1rem;
+
+    & .btn {
+      padding: var(--space-3) var(--space-5);
+      display: flex;
+      font-weight: 500;
+      color: var(--color-neutral-250);
+      border-radius: var(--full-rounded);
+      transition: color var(--duration-1) ease-in,
+        background-color var(--duration-1) ease-in;
+    }
+
+    & .btn:hover {
+      color: var(--color-neutral-800);
+      background-color: var(--color-neutral-300);
+    }
+
+    & .watch-btn {
+      cursor: pointer;
+      background-color: var(--color-accent-600);
+
+      &:hover {
+        & .icon svg {
+          fill: var(--color-neutral-800);
+        }
+      }
+
+      & svg {
+        width: var(--icon-size-5);
+        fill: var(--color-neutral-300);
+        transition: fill var(--duration-1) ease-in;
+      }
+    }
+  
+    & .trailer-btn {
+      border: var(--outline-size-2) solid var(--color-neutral-300);
+    }
+  }
+
+  & .sub-details {
+    margin-top: 4.5rem;
+    padding: 0 var(--space-10) var(--space-6);
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+
+  & .img-poster {
+    grid-row: 1 / 2;
+    grid-column: 2 / 3;
+    width: calc(12rem + 3vw);
+    overflow: hidden;
+    opacity: 0.26;
+    /* position: absolute;
+    right: 15vw;
+    bottom: 1rem; */
+    border-radius: 1.5rem;
+    box-shadow: var(--box-shadow-1);
+  }
+
+  & .credits {
+    grid-row: 1 / 2;
+    grid-column: 1 / 2;
+
+    & .tag {
+      margin-bottom: 0.75rem;
+      font-size: 1.15rem;
+    }
+  }
+
+  & .director {
+    margin-top: 2rem;
+  }
+
+  & .casts {
+    margin-top: 2rem;
+  }
+
+  /* & .casts {
     margin-top: var(--space-6);
     padding-inline: var(--space-2);
     max-width: 80%;
     overflow-x: scroll;
+    scrollbar-width: none;
 
     & h4 {
       margin-bottom: var(--space-4);
     }
   }
 
-  & .casts {
+  & .casts-list {
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
-    gap: 0.75rem;
+    gap: 0.5rem;
 
     & li {
       flex-shrink: 0;
-      width: 25%;
-      text-align: center; /* it centers imgs cuz they're inline/inline-block items */
+      min-width: 120px;
+      text-align: center;
     }
 
     & .cast-img {
-      width: 5rem;
+      width: 4rem;
       aspect-ratio: 1;
       object-position: 0 15%;
       border-radius: var(--full-rounded);
@@ -125,42 +206,7 @@
     & .cast-name {
       margin-top: var(--space-2);
       font-size: 0.75rem;
-      /* width: fit-content; */
       text-align: center;
     }
-  }
-}
-
-
-.selected-movie .cta {
-  padding: var(--space-5);
-
-  & > button {
-    padding: var(--space-4) var(--space-6);
-    font-weight: 500;
-    border-radius: var(--full-rounded);
-    cursor: pointer;
-  }
-  
-  & .trailer-btn {
-    display: flex;
-    align-items: center;
-    color: var(--color-neutral-200);
-    outline: var(--outline-size-3) solid var(--color-accent-500);
-
-    & .icon {
-      margin-left: var(--space-2);
-      width: var(--icon-size-6);
-
-      & svg {
-        stroke: var(--color-accent-500);
-        fill: var(--color-accent-500);
-      }
-    }
-  }
-
-  & .book-btn {
-    background-color: var(--color-accent-500);
-    outline: var(--outline-size-3) solid var(--color-accent-500);
-  }
+  } */
 }

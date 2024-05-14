@@ -4,7 +4,7 @@
 
 
 @layer utilities {  
-  .stack-container {
+  .isolated-stack {
     position: relative;
     isolation: isolate;
   }
@@ -24,6 +24,13 @@
   .unselectable {
     pointer-events: none;
     user-select: none;
+  }
+
+  .absolute-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
   }
 
   /* naming: scroll-snap-container */
@@ -111,6 +118,10 @@
 
   .w-100 {
     width: 100%;
+  }
+
+  .h-100 {
+    height: 100%;
   }
 }
 
@@ -361,7 +372,7 @@
 
 @layer typo {
   html {
-    font-size: clamp(12.25px, 55% + 0.75vw, 18.25px);
+    font-size: clamp(12.5px, 55% + 0.7vw, 18.25px);
     text-rendering: optimizeLegibility;
   }
   
@@ -457,6 +468,7 @@
     display: inline-block;
     text-underline-offset: 2px;
     text-decoration-skip-ink: auto;
+    cursor: default;
   }
 
   hr {

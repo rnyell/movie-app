@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useLocation, Link } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
-import { ChevronLeftIcon, BookmarkIcon, StarIcon, PlayIcon } from "@heroicons/outline"
+import { ChevronLeftIcon, BookmarkIcon, HeartIcon, StarIcon, PlayIcon } from "@heroicons/outline"
 import { useWindow, useMediaDetails } from "@utils/hooks"
-import { formatRuntime, getMovieGenres, formatRate } from "@utils/utils"
+import { formatRuntime, getMovieGenres, formatRate, getMovieDirector } from "@utils/utils"
 import { pageTransitionVariants, defaultVariantsLabel } from "@utils/motions"
 import { getMovieTrailer } from "@utils/apis"
 import { SelectedMovieSkeleton } from "@components/skeletons"
+import Casts from "@components/movie/casts"
 
 
 export default function SelectedMovie() {
@@ -48,11 +49,11 @@ export default function SelectedMovie() {
     title,
     release_date,
     runtime,
-    genres,
     vote_average: rate,
-    overview: plot,
     poster_path,
     backdrop_path,
+    overview,
+    genres,
     credits,
     videos,
     budget,
@@ -60,8 +61,9 @@ export default function SelectedMovie() {
     belongs_to_collection
   } = mediaDetails
 
-  //!
-  // credits is undefined
+  console.log(mediaDetails)
+
+  // credits is undefined. why??
   // const { cast } = credits
 
   // function showTrailer(data) {
@@ -74,13 +76,6 @@ export default function SelectedMovie() {
   //   setTrailerUrl(trailerUrl)
   // }
 
-  function handleBooking() {
-    navigate("/booking", {
-      state: {
-        title, poster_path, backdrop_path
-      }
-    })
-  }
 
   if (isLoading) {
     return <SelectedMovieSkeleton />
@@ -92,62 +87,60 @@ export default function SelectedMovie() {
       variants={pageTransitionVariants}
       {...defaultVariantsLabel}
     >
-      <Link to={prevUrl} className="back-btn">
-        <i className="icon">
-          <ChevronLeftIcon />
-        </i>
-      </Link>
-      <div className="btn">
-        <i className="icon bookmark-icon">
-         <BookmarkIcon />
-        </i>
+      <div className="btns flex w-100">
+        <Link to={prevUrl} className="btn back-btn">
+          <i className="icon">
+            <ChevronLeftIcon />
+          </i>
+        </Link>
+        <button className="btn fave-btn">
+          <i className="icon fave-icon">
+            <HeartIcon />
+          </i>
+        </button>
+        <button className="btn bookmark-btn">
+          <i className="icon bookmark-icon">
+          <BookmarkIcon />
+          </i>
+        </button>
       </div>
-      <div className="poster-wrapper">
-        <figure>
-          <img
-            className="poster"
-            src={`https://image.tmdb.org/t/p/${imgUrl}`}
-            alt="movie-poster"
-          />
-        </figure>
-        <div className="gradient">
+      <div className="poster-wrapper isolated-stack ::after-abs">
+        <div className="bg-poster h-100" style={{backgroundImage: `url(https://image.tmdb.org/t/p/${imgUrl})`}} />
+        <div className="main-details flex-col w-100">
+          <h2 className="title">{title}</h2>
           <div className="details">
+            <span className="release-date">{release_date?.slice(0, 4)}</span>
+            <i className="dot">&#x2022;</i>
             <span className="runtime">{formatRuntime(runtime)}</span>
             <i className="dot">&#x2022;</i>
             <span className="genres">{getMovieGenres(genres)}</span>
-            <i className="dot">&#x2022;</i>
-            <span className="release-date">{release_date?.slice(0, 4)}</span>
+          </div>
+          <p className="overview">{overview}</p>
+          <div className="cta-btns flex">
+            <button className="btn watch-btn">
+              <i className="icon"><PlayIcon /></i>
+              <span>Watch</span>
+            </button>
+            <button className="btn trailer-btn">Trailer</button>
           </div>
         </div>
       </div>
-      <div className="description">
-        <h3 className="title">{title}</h3>
-        <p className="plot">{plot}</p>
-        <div className='casts-wrapper'>
-          <h4>Casts</h4>
-          <ul className="casts">
-            {credits.cast.slice(0, 7).map(c => 
-              <li key={c.name}>
-                <img
-                  className="cast-img"
-                  src={`https://image.tmdb.org/t/p/w154/${c.profile_path}`}
-                  alt="cast-image"
-                />
-                <p className="cast-name">{c.name}</p>
-              </li>
-            )}
-          </ul>
-        </div>
-      </div>
 
-      <div className="cta">
-        <button onClick={() => showTrailer(videos)} className="trailer-btn">
-          <span>Watch Trailer</span>
-          <i className="icon play-icon">
-            <PlayIcon />
-          </i>
-        </button>
-        <button onClick={handleBooking} className="book-btn">Book Now</button>
+      <div className="sub-details">
+        <figure className="img-poster">
+          <img src={`https://image.tmdb.org/t/p/w500${poster_path})`} />
+        </figure>
+        <div className="credits">
+          <Casts casts={credits.cast} mode="list" />
+          <div className="director flex">
+            <h5 className="tag">Directed By</h5>
+            <p className="director-name">{getMovieDirector(credits.crew)}</p>
+          </div>
+        </div>
+
+        <div className="related-content">
+
+        </div>
       </div>
     </motion.div>
   )

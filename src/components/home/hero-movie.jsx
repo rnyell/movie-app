@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import {
   StarIcon,
@@ -8,7 +8,6 @@ import {
   ChevronRightIcon,
   ChevronLeftIcon,
 } from "@heroicons/outline"
-
 import { useLocalStorage } from "@utils/hooks"
 import { getMovieDetails } from "@utils/apis"
 import {
@@ -17,6 +16,7 @@ import {
   formatRate,
   formatReleaseDate
 } from "@utils/utils"
+import { defaultVariantsLabel } from "@utils/motions"
 import { useUserState } from "@src/store/app-context"
 import { HeroMovieLoadingSkeleton } from "@components/skeletons"
 import Casts from "@components/movie/casts"
@@ -32,6 +32,7 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
   const [, setBookmarkedLS] = useLocalStorage("bookmarked", userState.bookmarked)
   const [, setPlayedLS] = useLocalStorage("played", userState.played)
   const [key, setKey] = useState(0) // for <AnimatePresence> purposes
+  const location = useLocation()
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -99,6 +100,16 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
     navigate("/player", { state: { id } })
   }
 
+  function handleSelectedMovie() {
+    navigate(`/${(title).trim().toLowerCase().replaceAll(" ", "-")}`, {
+      state: {
+        id,
+        media,
+        prevUrl: location.pathname + location.search,
+      }
+    })
+  }
+
   const staggerChildren = {
     initial: {},
     animate: {
@@ -109,7 +120,7 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
     exit: {}
   }
 
-  const itemsA = {
+  const itemsAVariants = {
     initial: {
       opacity: 0.2,
       y: -18
@@ -124,7 +135,7 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
     },
   }
 
-  const itemsB = {
+  const itemsBVariants = {
     initial: {
       opacity: 0.15,
       y: 8
@@ -147,9 +158,7 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
         className="hero-movie"
         key={key}
         variants={staggerChildren}
-        initial="initial"
-        animate="animate"
-        exit="exit"
+        {...defaultVariantsLabel}
       >
         <div className="grid-container">
           <motion.div
@@ -162,9 +171,7 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
           </motion.div>
           <motion.div
             className="bg-poster"
-            style={{
-              backgroundImage: `url("https://image.tmdb.org/t/p/original${bg_path}")`
-            }}
+            style={{backgroundImage: `url("https://image.tmdb.org/t/p/original${bg_path}")`}}
             initial={{ opacity: 0.5 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0.4 }}
@@ -173,11 +180,11 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
             className="grid-item-title"
             variants={staggerChildren}
           >
-            <motion.h2 className="title" variants={itemsA}>{title}</motion.h2>
-            <motion.span className="release-date" variants={itemsB}>
+            <motion.h2 className="title" variants={itemsAVariants}>{title}</motion.h2>
+            <motion.span className="release-date" variants={itemsBVariants}>
               {formatReleaseDate(release_date)}
             </motion.span>
-            <motion.p className="genres" variants={itemsB}>
+            <motion.p className="genres" variants={itemsBVariants}>
               {getMovieGenres(genres)}
             </motion.p>
           </motion.div>
@@ -188,13 +195,11 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
               </i>
               <span>Watch</span>
             </button>
-            <button className="btn btn-shared trailer-btn">
-              <span>Trailer</span>
+            <button className="btn btn-shared info-btn" onClick={handleSelectedMovie}>
+              <span>More Info</span>
             </button>
             <button 
-              className={
-                `btn btn-shared bookmark-btn ${isBookmarked ? "is-bookmarked" : null}`
-              }
+              className={`btn btn-shared bookmark-btn ${isBookmarked ? "is-bookmarked" : null}`}
               onClick={() => bookmarkMovie(id)}
             >
               <i className="icon">
@@ -203,7 +208,7 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
             </button>
           </div>
           <p className="tagline">{tagline}</p>
-          <motion.div className="rate" variants={itemsB}>
+          <motion.div className="rate" variants={itemsBVariants}>
             <div className="helper-div">
               <i className="icon">
                 <StarIcon />
@@ -212,10 +217,10 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
             </div>
           </motion.div>
           <motion.div className="director" variants={staggerChildren}>
-            <motion.p variants={itemsB}>Directed by</motion.p>
-            <motion.p className="director-name" variants={itemsB}>{getMovieDirector(credits.crew)}</motion.p>
+            <motion.p variants={itemsBVariants}>Directed by</motion.p>
+            <motion.p className="director-name" variants={itemsBVariants}>{getMovieDirector(credits.crew)}</motion.p>
           </motion.div>
-          <Casts casts={credits.cast} />
+          <Casts casts={credits.cast} mode="drawer" />
           <div className="btns">
             <button className="btn btn-shared" onClick={() => showPrevMovie(1)}>
               <ChevronLeftIcon />

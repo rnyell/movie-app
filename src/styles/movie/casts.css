@@ -1,0 +1,130 @@
+.casts {
+  & .casts-list {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    & > * {
+      /* .cast and button */
+      flex-shrink: 0;
+    }
+
+    & .cast {
+      text-align: center;
+      border-radius: var(--full-rounded);
+    }
+
+    & .cast-img {
+      aspect-ratio: 1;
+      border-radius: var(--full-rounded);
+      outline: 2.5px solid var(--color-neutral-700);
+      outline-offset: 0;
+    }
+    
+    & .cast-img {
+      object-position: 0 15%;
+    }
+  
+    & .cast-name {
+      margin-top: 0.25rem;
+      width: fit-content;
+    }
+  }
+}
+
+
+.casts[data-mode="list"] {
+  & .casts-list {
+    height: 120px;
+    max-width: 80vw;
+    overflow-x: scroll;
+    scrollbar-width: none;
+    gap: 0.625rem;
+  }
+
+  & .cast {
+    /* min-width: 80px; */
+    width: 5rem;
+  }
+
+  & .cast-img {
+    width: 4.25rem;
+  }
+
+  & .cast-name {
+    height: 1rem;
+    font-size: 0.6rem;
+  }
+}
+
+
+.casts[data-mode="drawer"] {
+  grid-column: 1 / 2;
+  grid-row: 5 / 6;
+  align-self: end;
+
+  & .tag {
+    margin-bottom: 1.5cqw;
+    font-size: 1rem;
+    font-weight: 500;
+    font-family: Montserrat;
+  }
+
+  & .casts-list {
+    /* basically this `width` defines the column-track's width of its parent's grid-container */
+    width: 200px; /*! hacky */
+    align-items: center;
+    gap: 2cqw;
+
+    &.show-more .cast-name {
+      visibility: visible;
+    }
+  }
+
+  & .cast {
+    width: 5cqw;
+  
+    /** first item shouldn't have margin */
+    /* `!important` is used to override framer-motion inline style */
+    &:first-child {
+      margin-left: 0 !important;
+    }
+  }
+
+  & .cast-img,
+  & button {
+    /* width: max(3.5cqw + 1rem, 40px); */
+    width: calc(2rem + 1cqw);
+  }
+  
+  & .cast-name {
+    height: 0;
+    height: 1rem;
+    max-width: 50px;
+    visibility: hidden;
+    font-size: 0.55rem;
+  }
+  
+  & button {
+    aspect-ratio: 1;
+    translate: 0 -0.75rem; /* hacky fix, related to `.cast-name`'s height */
+    background-color: rgb(20 23 26 / 75%);
+    backdrop-filter: blur(2px);
+    border-radius: var(--full-rounded);
+    outline: 2.5px solid var(--color-neutral-700);
+    outline-offset: 0;
+    transition: background-color var(--duration-1);
+
+    & .icon {
+      color: var(--color-neutral-250);
+    }
+
+    & svg {
+      width: var(--icon-size-4);
+    }
+
+    &:hover {
+      background-color: rgb(31 34 37 / 75%);
+    }
+  }
+}

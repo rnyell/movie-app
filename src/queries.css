@@ -259,6 +259,7 @@
 
   .btn-shared {
     font-weight: 400;
+    font-size: 0.8rem;
   }
 
   .tagline {
@@ -350,6 +351,67 @@
     }
   }
 }
+
+/********************************************************************************************************/
+/** selected movie */
+@media (width < 820px) {
+  .selected-movie {
+    & .casts-list {
+      width: 60vw;
+    }
+  }
+}
+
+@media (width < 620px) {
+  .selected-movie {
+    & .poster-wrapper {
+      height: 80vh;
+
+      &::after {
+        background-image: linear-gradient(rgb(10 13 15 / 10%), var(--color-neutral-800) 90%);
+      }
+    }
+
+    & .title {
+      font-size: 3rem;
+    }
+
+    & .overview {
+      max-width: 360px;
+    }
+
+    & .credits {
+      border-top: 1px solid var(--color-neutral-600);
+    }
+
+    & .casts {
+      & .casts-list {
+        gap: 1.2rem;
+      }
+
+      & .cast {
+        min-width: 50px;
+      }
+
+      & .cast-img {
+        width: 4.5rem;
+      }
+  
+      & .cast-name {
+        font-size: 0.6rem;
+      }
+    }
+  }
+}
+
+@media (width < 480px) {
+  .selected-movie {
+    & .poster-wrapper {
+      height: 70vh;
+    }
+  }
+}
+
 
 /********************************************************************************************************/
 /** on results page */

@@ -60,11 +60,9 @@
     margin-bottom: 3cqh;
   }
 
-  & .casts {
-    grid-column: 1 / 2;
-    grid-row: 5 / 6;
-    align-self: end;
-  }
+  /* & .casts {
+    look at `casts.css` file
+  } */
 
   & .btns {
     grid-column: -2 / -1;
@@ -143,92 +141,20 @@
     }
   }
 
-  & .casts h5 {
-    margin-bottom: 1.5cqw;
-    font-size: 1rem;
-    font-weight: 500;
-    font-family: Montserrat;
-    /* color: color-mix(in srgb, var(--color-neutral-300), var(--color-neutral-400)); */
-  }
-
-  & .casts-list {
-    width: 200px; /*! hacky fix */
-    /* now, basically this defines the col-track's width of its parent's grid-container */
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    gap: 2.5cqw;
-
-    &.show-more .cast-name {
-      visibility: visible;
-    }
-
-    & > * {
-      flex-shrink: 0;
-    }
-
-    & .cast {
-      width: 5cqw;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      border-radius: var(--full-rounded);
-
-      &:first-child {
-        /** to override framer-motion inline style */
-        margin-left: 0 !important;
-      }
-    }
-    
-    & .cast-img, & button {
-      width: max(3.5cqw + 1rem, 40px);
-      width: calc(2rem + 1cqw);
-      aspect-ratio: 1;
-      border-radius: var(--full-rounded);
-      outline: 2.5px solid var(--color-neutral-700);
-      outline-offset: 0;
-    }
-
-    & .cast-img {
-      object-position: 0 15%;
-      user-select: none;
-    }
-
-    & .cast-name {
-      width: fit-content;
-      /* max-width: 50px; */
-      height: 0;
-      visibility: hidden;
-      font-size: 0.5rem;
-    }
-
-    & button {
-      display: inline-grid;
-      place-items: center;
-      font-size: 1rem;
-      background-color: rgb(20 23 26 / 35%);
-      backdrop-filter: blur(2px);
-
-      & .icon {
-        width: var(--icon-size-3);
-        color: var(--color-neutral-300);
-      }
-    }
-  }
-
   & .btn-shared {
     padding: 1.2cqw 1.5cqw;
     font-weight: 500;
     background-color: rgb(20 23 26 / 15%);
     backdrop-filter: blur(5px);
-    border-radius: 0.625rem;
+    border-radius: 0.7rem;
     border: var(--outline-size-1) solid var(--color-neutral-400);
-    transition: background-color var(--duration-1) ease-in;
+    transition: background-color var(--duration-1) ease-in,
+      border-color var(--duration-1) ease-in;
 
     &:hover {
       color: var(--color-neutral-800);
       background-color: var(--color-neutral-300);
+      border-color: var(--color-neutral-300);
     }
 
     & .icon {
@@ -268,10 +194,6 @@
         stroke-width: 2;
         fill: currentColor;
       }
-    }
-
-    & .trailer-btn {
-      width: 4.5rem;
     }
 
     & .bookmark-btn {

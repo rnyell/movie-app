@@ -39,7 +39,7 @@
   --scale: 1;
   /* cursor: none; */
 
-  & .pointer {
+  /* & .pointer {
     pointer-events: none;
     width: 1rem;
     aspect-ratio: 1;
@@ -81,11 +81,10 @@
       font-weight: 600;
       color: var(--color-neutral-200);
     }
-  }
+  } */
 }
 
 .movie-modal {
-  /* padding: var(--space-4); */
   width: clamp(330px, 55%, 550px);
   top: 30%;
   translate: -50% -29%;
