@@ -38,7 +38,7 @@ export default function SelectedFiltersBar({ setSearchStateCopy }) {
     <div className="selected-filters flex">
       {searchOptions.filters.type !== "all" ? (
         <div className="selected-type flex">
-          <span className="flex-y-center">
+          <span className="flex-align-center">
             <b>{searchOptions.filters.type}</b>
             <i className="icon ::before-abs" onClick={() => handleRemovedFilters({removed: "type"})}>
               <XMarkIcon />
@@ -51,7 +51,7 @@ export default function SelectedFiltersBar({ setSearchStateCopy }) {
       )}
       <div className="selected-genres flex">
         {searchOptions.filters.genres.map(id => (
-          <span key={id} className="flex-y-center">
+          <span key={id} className="flex-align-center">
             <b>{ALL_GENRES[id]}</b>
             <i className="icon ::before-abs" onClick={() => handleRemovedFilters({removed:"genre", value: id})}>
               <XMarkIcon />

@@ -16,7 +16,7 @@
   scrollbar-color: var(--color-neutral-500) var(--color-neutral-700);
 }
 
-.home-page :where(.screen-section, .series-section) {
+.home-page :where(.movies-section, .series-section) {
   margin-top: var(--space-12);
   padding-inline: var(--space-8);
   position: relative;
@@ -95,57 +95,6 @@
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 16vw), 1fr));
     align-items: start;
     gap: 1.75rem 1.5rem;
-  }
-}
-
-.home-page .screen-section {
-  --opacity: 0;
-  --scale: 1;
-  
-  /* cursor: none; */
-
-  & .pointer {
-    pointer-events: none;
-    width: 1rem;
-    aspect-ratio: 1;
-    position: absolute;
-    z-index: var(--z-100);
-    top: 0;
-    left: 0;
-    border-radius: 50%;
-    background-color: color-mix(in srgb, var(--color-accent-300) 95%, transparent);
-    opacity: var(--opacity);
-    transition: var(--duration-1);
-    
-    & div {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      position: absolute;
-      z-index: 10;
-      inset: 0;
-      opacity: 0;
-  
-      &.is-hover {
-        opacity: 1;
-      }
-    }
-  
-    & svg {
-      width: 0.35rem;
-      display: block;
-      position: relative;
-      top: -1px;
-      left: 0.625px;
-    }
-  
-    & span {
-      display: inline-block;
-      font-size: 0.125rem;
-      font-weight: 600;
-      color: var(--color-neutral-200);
-    }
   }
 }
 

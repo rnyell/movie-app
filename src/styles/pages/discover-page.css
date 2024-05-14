@@ -48,9 +48,10 @@
   height: unset !important;
   
   & .container {
-    padding: var(--space-8);
-    background-color: color-mix(in srgb, rgb(37 40 42 / 75%), rgb(47 137 227 / 50%) 10%);
-    box-shadow: 0 5px 2rem rgb(11 15 17 / 20%);
+    margin-top: 2rem;
+    /* padding: var(--space-8); */
+    /* background-color: color-mix(in srgb, rgb(37 40 42 / 75%), rgb(47 137 227 / 50%) 10%);
+    box-shadow: 0 5px 2rem rgb(11 15 17 / 20%); */
     border-radius: 2rem;
   }
 
@@ -60,55 +61,73 @@
 
   & .wrapper {
     display: grid;
-    grid-template-columns: repeat(4, minmax(15vw, 1fr));
-    grid-template-rows: repeat(1, calc(100px + 4vmin));
-    gap: 1rem;
+    grid-template-columns: repeat(2, minmax(15vw, 1fr));
+    grid-template-rows: repeat(1, calc(200px + 5vmin));
+    gap: 1.25rem;
   }
 
   & .wrapper a {
     --alpha: 85%;
-    background-image: url("/texture/tx1.jpg");
-    background-size: cover; /**i*/
-    background-position: 0% 50%;
+    color: var(--color-neutral-300);
+    /* background-image: url("/texture/tx1.jpg"); */
+    /*background-size: cover; /**i*/
+    /* background-position: 0% 50%; */
+    /* background-color: var(--color-neutral-650); */
+    border: 1.5px solid var(--color-neutral-600);
     border-radius: 1.2rem;
-    transition: opacity var(--duration-2) ease-out;
-  }
+    /* transition: opacity var(--duration-2) ease-out; */
+    transition: background-color var(--duration-2) ease-out;
 
-  & .wrapper:has(:hover) a:not(:has(:hover)) {
-    opacity: 0.45;
-  }
-
-  & .wrapper .box {
-    padding: 1rem;
-    height: 100%;
-    background-repeat: no-repeat;
-    background-size: 100%;
-    background-position: 0% 0%;
-    mix-blend-mode: hard-light; /**i*/
-    border-radius: 1.2rem;
-    transition: background-size var(--duration-3);
-
-    & p {
-      align-self: flex-start;
-      margin-top: auto;
-      font-size: 1.5rem;
-      font-weight: 700;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-shadow: 0 5px 18px rgb(11 15 17 / 25%);
+    &:hover {
+      background-color: var(--color-neutral-600);
     }
   }
 
-  & a:nth-child(1) .box {
-    /* background-image: conic-gradient(from 0.5turn at 50% 110%, white, orange); */
+  & .wrapper:has(:hover) a:not(:has(:hover)) {
+    /* opacity: 0.5; */
+  }
+
+  & .wrapper .box {
+    padding: var(--space-6);
+    height: 100%;
+    /* background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: 0% 0%; */
+    /* mix-blend-mode: hard-light; /**i*/
+    border-radius: 1.2rem;
+    transition: background-size var(--duration-3);
+
+    & .tag,
+    & .desc {
+      /* -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 5px 18px rgb(11 15 17 / 25%); */
+    }
+
+    & .tag {
+      align-self: flex-start;
+      /* color: var(--color-accent-200); */
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    
+    & .desc {
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+  }
+
+  /* & a:nth-child(1) .box {
     background-image: linear-gradient(
       150deg,
       hsl(21deg 98% 22% / var(--alpha)) 10%, hsl(46deg 92% 45% / var(--alpha)) 60%,
       hsl(7deg 100% 64% / var(--alpha)) 86%, hsl(15deg 91% 47% / var(--alpha)) 98%
     );
 
-    & p {
-      background-image: linear-gradient(90deg, rgb(80, 9, 9), rgb(85, 19, 6), rgb(112, 52, 6));
+    & .tag,
+    & .desc {
+      background-image: linear-gradient(90deg, rgb(80, 9, 9), rgb(85, 19, 6), rgb(99, 46, 6));
     }
   }
 
@@ -119,7 +138,8 @@
       hsl(262deg 100% 64% / var(--alpha)) 86%, hsl(285deg 91% 47% / var(--alpha)) 98%
     );
 
-    & p {
+    & .tag,
+    & .desc {
       background-image: linear-gradient(90deg, rgb(16, 34, 58), rgb(13, 36, 50));
     }
   }
@@ -131,7 +151,8 @@
       hsl(82deg 72% 60% / var(--alpha)) 86%, hsl(57deg 53% 35% / var(--alpha)) 98%
     );
 
-    & p {
+    & .tag,
+    & .desc {
       background-image: linear-gradient(90deg, rgb(16, 34, 58), rgb(13, 36, 50));
     }
   }
@@ -143,10 +164,11 @@
       hsl(196deg 100% 64% / var(--alpha)) 86%, hsl(148deg 68% 36% / var(--alpha)) 98%
     );
 
-    & p {
+    & .tag,
+    & .desc {
       background-image: linear-gradient(90deg, rgb(71, 25, 76), rgb(29, 74, 55), rgb(26, 39, 58));
     }
-  }
+  } */
 
   & .box:hover {
     background-size: 180%;

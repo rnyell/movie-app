@@ -6,7 +6,7 @@ import { BookmarkSlashIcon, PlayIcon } from "@heroicons/solid"
 
 import { useWindow, useLocalStorage } from "@utils/hooks"
 import { getMovieDetails, getMediaRuntime } from "@utils/apis"
-import { getGenresBaseOnIds, formatRate, formatRuntime, formatReleaseDate } from "@utils/utils"
+import { getGenresWithIds, formatRate, formatRuntime, formatReleaseDate } from "@utils/utils"
 
 
 export default function PlayedCard({ result, media, variant }) {
@@ -55,7 +55,7 @@ export default function PlayedCard({ result, media, variant }) {
             exit={{ opacity: 0 }}
             transition={{ type: "tween", duration: 0.2, ease: "easeOut" }}
           >
-            <button className="btn flex-x-center">
+            <button className="btn flex-justify-center">
               <i className="icon">
                 <PlayIcon />
               </i>

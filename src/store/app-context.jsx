@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useReducer, useState } from "reac
 import { AnimatePresence } from "framer-motion"
 import { useGeoLocation } from "@utils/hooks"
 import { readLocalStorage } from "@utils/utils"
-import { getPopularMovies, getOnScreenMovies, getTrendingSeries } from "@utils/apis"
+import { getPopularMovies, getOnScreenMovies, getTrendingMovies, getTrendingSeries } from "@utils/apis"
 import { InitialLoading, AppLoading } from "@components/skeletons"
 import { VPNError } from "@components/errors"
 
@@ -90,7 +90,7 @@ function userStateReducer(state, action) {
         id: action.id
       }
       let filtered = state.bookmarked.filter(bookm => bookm.id !== removed.id)
-      // if we have a movie and a series with common ids
+      // if we have a movie and a tv show with same ids
       if (filtered.length === 2) {
         filtered = filtered.filter(bookm => bookm.media === removed.media)
       }
@@ -108,9 +108,16 @@ function userStateReducer(state, action) {
   }
 }
 
+const initialMovies = {
+  popular: [],
+  movies: [],
+  series: [],
+  screen: [],
+}
+
 export default function AppProvider({ children }) {
   const [userState, userDispatch] = useReducer(userStateReducer, userStateInitializer())
-  const [movieState, setMovieState] = useState({ popular: [], screen: [], series: [] })
+  const [moviesState, setMoviesState] = useState(initialMovies)
   const [isInitialLoad, setIsInitialLoad] = useState(true)
   const [isLoading, setIsLoading] = useState(true)
   const {country} = useGeoLocation()
@@ -118,19 +125,21 @@ export default function AppProvider({ children }) {
   const isVPNError = false
 
   useEffect(() => {
-    loadData()
+    loadMovies()
   }, [])
 
   //? move it to home-page since it's not a global state
-  async function loadData() {
-    // TODO: Promise.all
+  async function loadMovies() {
+    // TODO: Promise.all ?
     const populargMovies = await getPopularMovies()
     const screenMovies = await getOnScreenMovies()
+    const trendingMovies = await getTrendingMovies()
     const trendingSeries = await getTrendingSeries()
-    setMovieState({
+    setMoviesState({
       popular: populargMovies,
-      screen: screenMovies,
+      movies: trendingMovies,
       series: trendingSeries,
+      screen: screenMovies
     })
     setIsLoading(false)
     // setIsInitialLoad(false)
@@ -138,7 +147,7 @@ export default function AppProvider({ children }) {
 
 
   return (
-    <AnimatePresence mode="wait" initial={true} >
+    <AnimatePresence mode="wait" initial={true}>
       {isLoading ? (
         isInitialLoad ? <InitialLoading /> : <AppLoading />
       ) : isVPNError ? (
@@ -146,7 +155,7 @@ export default function AppProvider({ children }) {
       ) : (
         <div key="nothing-but-for-AnimatePresence-sake">
           <UserContext.Provider value={{userState, userDispatch}}>
-            <MoviesContext.Provider value={[movieState]}>
+            <MoviesContext.Provider value={[moviesState]}>
               {children}
             </MoviesContext.Provider>
           </UserContext.Provider>

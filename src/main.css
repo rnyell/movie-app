@@ -16,13 +16,16 @@
 @import "@styles/search/filterbox.css" layer;
 @import "@styles/search/side-filter.css" layer;
 @import "@styles/search/sm-filter.css" layer;
+@import "@styles/search/pagination.css" layer;
 
 @import "@styles/booking/ticket.css" layer;
 
-@import "@styles/movie-card.css" layer;
+@import "@styles/movie/movie-card.css" layer;
+@import "@styles/movie/movie-cards/common-card.css" layer;
+@import "@styles/movie/movie-cards/result-card.css" layer;
+
 @import "@styles/header.css" layer;
 @import "@styles/sidenav.css" layer;
-@import "@styles/pagination.css" layer;
 @import "@styles/errors.css" layer;
 @import "@styles/skeletons.css" layer;
 

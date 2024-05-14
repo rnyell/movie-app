@@ -342,6 +342,15 @@
   }
 }
 
+@media (width < 720px) {
+  .onscreen-page {
+    & .movies-container {
+      /* grid-template-columns: repeat(auto-fill, minmax(min(100%, 175px), 1fr)); */
+      gap: 1.5rem 1.25rem;
+    }
+  }
+}
+
 /********************************************************************************************************/
 /** on results page */
 @media (width < 620px) {

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
 import { ExclamationCircleIcon} from "@heroicons/outline"
+import { modalVariants, defaultVariantsLabel, modalTransition } from "@utils/motions"
 
 export function ErrorPage() {
   return (
@@ -18,9 +19,9 @@ export function VPNError() {
   return (
     <section className="vpn-error">
       <motion.div
-        initial={{ y: -55 }}
-        animate={{ y: 0 }}
-        transition={{ ease: "easeOut", duration: 0.5 }}
+        variants={modalVariants}
+        {...defaultVariantsLabel}
+        transition={modalTransition}
       >
         <p>Due to some restrictions in your area, accessing some domains has been limited. Unfortunately to access our app, you must use a <b>VPN</b>.</p>
         <p>Once connected, please <u>reload the page</u> or <u>press the button bellow</u> to continue.</p>

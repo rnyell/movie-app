@@ -72,7 +72,7 @@ export default function FilterItems({ setSearchStateCopy, setFilterIsOpen }) {
         >
           <h6 className="filter-title">Language & Country</h6>
           <div className="group flex-col">
-            <label htmlFor="langs" className="flex-y-center">
+            <label htmlFor="langs" className="flex-align-center">
               <span>Language:</span>
               <div className="::after-abs">
                 <select id="langs" name="langs" disabled={true}>
@@ -82,7 +82,7 @@ export default function FilterItems({ setSearchStateCopy, setFilterIsOpen }) {
                 </select>
               </div>
             </label>
-            <label htmlFor="countries" className="flex-y-center">
+            <label htmlFor="countries" className="flex-align-center">
               <span>Origin Country:</span>
               <div className="::after-abs">
                 <select id="countries" name="countries" disabled={true}>

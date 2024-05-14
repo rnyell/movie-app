@@ -134,6 +134,24 @@ export async function getPopularMovies() {
   return results
 }
 
+export async function getTrendingMovies() {
+  const path = "3/discover/movie"
+  const params = {
+    page: 1,
+    language: "en-US",
+    region: "US",
+    include_adult: false,
+    include_video: false,
+    sort_by: "popularity.desc",
+    "vote_count.gte": 200,
+    without_genres: "16,99,10770",
+    api_key: import.meta.env.VITE_MAIN_API_KEY
+  }
+  let data = await request(path, params)
+  const {results} = data
+  return results
+}
+
 export async function getTrendingSeries() {
   // const path = "3/trending/tv/week"
   const path = "3/discover/tv"
@@ -150,7 +168,7 @@ export async function getTrendingSeries() {
     api_key: import.meta.env.VITE_MAIN_API_KEY
   }
   let data = await request(path, params)
-  const { results } = data
+  const {results} = data
   return results
 }
 

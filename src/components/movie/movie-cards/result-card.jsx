@@ -3,8 +3,8 @@ import { Link, useLocation } from "react-router-dom"
 import { motion, AnimatePresence, useAnimate } from "framer-motion"
 import { StarIcon, BookmarkIcon, FilmIcon, TvIcon, ArrowTopRightOnSquareIcon } from "@heroicons/outline"
 import { useLocalStorage } from "@utils/hooks"
-import { getGenresBaseOnIds, formatRate, formatRuntime, formatReleaseDate } from "@utils/utils"
-import { portraitCardOverlayVariants, defaultMotionProps } from "@utils/motions"
+import { getGenresWithIds, formatRate, formatRuntime, formatReleaseDate } from "@utils/utils"
+import { portraitCardOverlayVariants, defaultVariantsLabel } from "@utils/motions"
 import { useUserState } from "@src/store/app-context"
 
 
@@ -90,7 +90,7 @@ export default function ResultCard({ result, media, variant }) {
             <motion.div
               className="hover-overlay flex-col"
               variants={portraitCardOverlayVariants}
-              {...defaultMotionProps}
+              {...defaultVariantsLabel}
             >
               <motion.div
                 className="cta-btns"
@@ -136,7 +136,7 @@ export default function ResultCard({ result, media, variant }) {
 }
   {/* <h5 className="overlay-title">{result?.title || result?.name}</h5>
       <span className="genres">
-        {getGenresBaseOnIds(result.media_type, result.genre_ids)
+        {getGenresWithIds(result.media_type, result.genre_ids)
         .map(genre => <span key={genre} className="genre">{genre}, </span>
       )}
   </span> */}

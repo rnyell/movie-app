@@ -1,38 +1,16 @@
 import { useNavigate } from "react-router-dom"
+import { weekObjShort, monthObj } from "@utils/utils"
 import Day from "./day"
 
 export default function DateTime({ ticketsCount }) {
   const date = new Date()
-  let month = date.getMonth()
-  let dayOfWeek = date.getDay()
-  let dayOfMonth = date.getDate()
-  let daysArray = []
-  const weekObj = {
-    0: "Mon",
-    1: "Tue",
-    2: "Wed",
-    3: "Thu",
-    4: "Fri",
-    5: "Sat",
-    6: "Sun",
-  }
-  const monthObj = {
-    0: "January",
-    1: "February",
-    2: "March",
-    3: "April",
-    4: "May",
-    5: "June",
-    6: "July",
-    7: "August",
-    8: "September",
-    9: "October",
-    10: "November",
-    11: "December",
-  }
+  const month = date.getMonth()
+  const dayOfWeek = date.getDay()
+  const dayOfMonth = date.getDate()
+  const daysArray = []
 
   for (let i = 0; i <= 6; i++) {
-    daysArray.push(weekObj[(dayOfWeek + i) % 7])
+    daysArray.push(weekObjShort[(dayOfWeek + i) % 7])
   }
 
   function submitHandler(e) {
@@ -86,9 +64,7 @@ export default function DateTime({ ticketsCount }) {
                 : `${ticketsCount} Tickets`}
             </p>
           </div>
-          <button type="submit" className="buy-ticket-btn">
-            Buy Ticket
-          </button>
+          <button type="submit" className="buy-ticket-btn">Buy Ticket</button>
         </div>
       </form>
     </div>

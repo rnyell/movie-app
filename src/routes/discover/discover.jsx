@@ -6,10 +6,10 @@ import RecommendedSection from "@components/discover/recommended-section"
 import GenreList from "@components/movie/genre-list"
 
 const intro_topics = [
-  { href: "/search", tag: "Search" },
-  { href: "/discover/movies", tag: "Movies" },
-  { href: "/discover/series", tag: "Series" },
-  { href: "/discover/news", tag: "News" },
+  { href: "/search", tag: "Search", desc: "Find your next movie or tv show to watch" },
+  // { href: "/discover/movies", tag: "Movies", desc: "Get the latest news and gossips" },
+  // { href: "/discover/series", tag: "Series", desc: "Get the latest news and gossips" },
+  { href: "/onscreen", tag: "Reserve Tickets", desc: "Book Tickets for Movies in Theaters Near You" },
 ]
 
 export default function Discover() {
@@ -22,12 +22,13 @@ export default function Discover() {
         <>
           <section className="intro-section">
             <div className="container">
-              <p className="intro-text">Explore ...</p>
+              {/* <p className="intro-text">Explore ...</p> */}
               <div className="wrapper">
                 {intro_topics.map(elem => (
                   <Link to={elem.href} key={elem.href}>
                     <div className="box flex-col">
-                      <p>{elem.tag}</p>
+                      <p className="tag">{elem.tag}</p>
+                      <p className="desc">{elem.desc}</p>
                     </div>
                   </Link>
                 ))}

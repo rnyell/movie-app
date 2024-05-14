@@ -1,12 +1,10 @@
 import { useEffect, useRef, useState } from "react"
-import { Link } from "react-router-dom"
 import { motion, useScroll, useTransform } from "framer-motion"
-
 import { useWindow } from "@utils/hooks"
 import Header from "@components/header"
 import SideNav from "@components/sidenav"
 import HeroSection from "@components/home/hero-section"
-import ScreenSection from "@components/home/screen-section"
+import MoviesSection from "@components/home/movies-section"
 import SeriesSection from "@components/home/series-section"
 
 
@@ -56,16 +54,16 @@ export default function HomePage() {
             <motion.div
               initial={{opacity: 0, scale: 0.97, y: 10}}
               whileInView={{opacity: 1, scale: 1, y: 0}}
-              viewport={{amount: 0.1}}
-              transition={{duration: 0.2}}
+              viewport={{amount: 0.15}}
+              transition={{duration: 0.25}}
             >
-              <ScreenSection />
+              <MoviesSection />
             </motion.div>
             <motion.div
               initial={{opacity: 0, scale: 0.97}}
               whileInView={{opacity: 1, scale: 1}}
-              viewport={{amount: 0.1}}
-              transition={{duration: 0.2}}
+              viewport={{amount: 0.15}}
+              transition={{duration: 0.25}}
             >
               <SeriesSection />
             </motion.div>
@@ -76,7 +74,7 @@ export default function HomePage() {
           <>
             <Header dataset="default sm-screen" />
             <HeroSection />
-            <ScreenSection />
+            <MoviesSection />
             <SeriesSection />
           </>
         )}

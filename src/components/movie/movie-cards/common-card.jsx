@@ -4,8 +4,8 @@ import { StarIcon, BookmarkIcon, ArrowTopRightOnSquareIcon } from "@heroicons/ou
 import { PlayIcon } from "@heroicons/solid"
 import { useWindow, useLocalStorage } from "@utils/hooks"
 import { getMediaRuntime } from "@utils/apis"
-import { getGenresBaseOnIds, formatRate, formatRuntime, formatReleaseDate } from "@utils/utils"
-import { landCardOverlayVariants, defaultMotionProps } from "@utils/motions"
+import { getGenresWithIds, formatRate, formatRuntime, formatReleaseDate } from "@utils/utils"
+import { landCardOverlayVariants, defaultVariantsLabel } from "@utils/motions"
 import { useUserState } from "@src/store/app-context"
 
 
@@ -81,7 +81,7 @@ export default function CommonCard({ result, media, variant }) {
           <motion.div
             className="hover-overlay flex-col"
             variants={landCardOverlayVariants}
-            {...defaultMotionProps}
+            {...defaultVariantsLabel}
           >
             <h4 className="title">{result.title || result.name}</h4>
             <div className="details">

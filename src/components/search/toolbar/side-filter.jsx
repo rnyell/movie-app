@@ -71,11 +71,11 @@ export default function SideFilter({ searchStateCopy, setSearchStateCopy }) {
           >
             <h6 className="filter-title">Releasee Date</h6>
             <div className="group date-group flex-col">
-              <label htmlFor="from" className="flex-y-center">
+              <label htmlFor="from" className="flex-align-center">
                 <span>from:</span>
                 <input type="text" id="from" pattern="[+]?\d+" disabled />
               </label>
-              <label htmlFor="to" className="flex-y-center">
+              <label htmlFor="to" className="flex-align-center">
                 <span>to:</span>
                 <input type="text" id="to" pattern="[+]?\d+" disabled />
               </label>
@@ -87,7 +87,7 @@ export default function SideFilter({ searchStateCopy, setSearchStateCopy }) {
           >
             <h6 className="filter-title">Country &amp; language</h6>
             <div className="group lang-group flex-col">
-              <label htmlFor="langs" className="flex-y-center">
+              <label htmlFor="langs" className="flex-align-center">
                 <span>Language:</span>
                 <div className="::after-abs">
                   <select id="langs" name="langs">
@@ -97,7 +97,7 @@ export default function SideFilter({ searchStateCopy, setSearchStateCopy }) {
                   </select>
                 </div>
               </label>
-              <label htmlFor="countries" className="flex-y-center">
+              <label htmlFor="countries" className="flex-align-center">
                 <span>Origin Country:</span>
                 <div className="::after-abs">
                   <select id="countries" name="countries">

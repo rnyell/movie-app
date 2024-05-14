@@ -4,15 +4,26 @@
 
 
 @layer utilities {  
-  /* .stack-container {
+  .stack-container {
     position: relative;
     isolation: isolate;
-  } */
+  }
 
   .truncate {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+  }
+
+  .box-clamp {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+  }
+
+  .unselectable {
+    pointer-events: none;
+    user-select: none;
   }
 
   /* naming: scroll-snap-container */
@@ -62,12 +73,12 @@
     align-items: center;
   }
 
-  .flex-y-center {
+  .flex-align-center {
     display: flex;
     align-items: center;
   }
 
-  .flex-x-center {
+  .flex-justify-center {
     display: flex;
     justify-content: center;
   }
@@ -77,13 +88,13 @@
     flex-direction: column;
   }
 
-  .flex-col-x-center {
+  .flex-col-align-center {
     display: flex;
     flex-direction: column;
     align-items: center;
   }
 
-  .flex-col-y-center {
+  .flex-col-justify-center {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -97,6 +108,10 @@
   .shrink-0 {
     flex-shrink: 0;
   }
+
+  .w-100 {
+    width: 100%;
+  }
 }
 
 @layer components {
@@ -107,6 +122,23 @@
     position: relative;
     isolation: isolate;
     background-color: var(--color-neutral-800);
+  }
+
+  .modal {
+    position: absolute;
+    z-index: var(--z-50);
+    top: 45%;
+    left: 50%;
+    translate: -50% -50%;
+    box-shadow: var(--box-shadow-1);
+  }
+
+  .modal-backdrop {
+    position: absolute;
+    z-index: var(--z-50);
+    inset: 0;
+    background-color: rgb(37 40 42 / 65%);
+    backdrop-filter: blur(5px);
   }
   
   .icon {
@@ -161,6 +193,16 @@
   /* .cta-btns {
     display: flex;
   } */
+
+  & .vote {
+    display: flex;
+    align-items: center;
+    color: var(--color-orange-300);
+
+    & .star-icon svg {
+      fill: var(--color-orange-300);
+    }
+  }
 
   :root {
     --base-size: 1rem;

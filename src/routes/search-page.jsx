@@ -7,7 +7,7 @@ import { getAllResults } from "@utils/apis"
 import { useSearch } from "@src/store/search-context"
 import Header from "@components/header"
 import FilterBox from "@components/search/toolbar/filterbox"
-import SearchResults from "@components/search/results/search-results"
+import SearchResults from "@components/search/search-results"
 
 
 export default function SearchPage() {
@@ -93,7 +93,7 @@ export default function SearchPage() {
         ) : (
           <>
             {isLgScreen && (
-              <header className="flex-y-center ::after-abs">
+              <header className="flex-align-center ::after-abs">
                 <h2 className="heading">
                   Results for: <span className="searched-title">{query}</span>
                 </h2>

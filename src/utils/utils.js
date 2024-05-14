@@ -1,5 +1,6 @@
 import { MOVIE_GENRES, TV_GENRES } from "./apis"
 
+
 export async function request(path = "", params = {}) {
   const base = import.meta.env.VITE_MAIN_API_URL
   const url = new URL(path, base)
@@ -16,10 +17,12 @@ export async function request(path = "", params = {}) {
   }
 }
 
+
 export function readLocalStorage(key) {
   const value = localStorage.getItem(key) || null
   return JSON.parse(value)
 }
+
 
 export function writeLocalStorage(key, value) {
   if (typeof key === "string") {
@@ -28,6 +31,7 @@ export function writeLocalStorage(key, value) {
     throw new Error("\"key\" must be a string")
   }
 }
+
 
 export function formatRuntime(runtime) {
   const hours = Math.trunc(runtime / 60)
@@ -69,7 +73,7 @@ export function getMovieGenres(genres) {
 }
 
 
-export function getGenresBaseOnIds(type = "movie", ids = []) {
+export function getGenresWithIds(type = "movie", ids = []) {
   if (type === "movie") {
     return ids.map((id) => MOVIE_GENRES[id])
   } else if (type === "tv") {
@@ -81,6 +85,7 @@ export function getGenresBaseOnIds(type = "movie", ids = []) {
 export function getMovieDirector(crew = []) {
   return crew.filter(({ job }) => job === "Director")[0].name
 }
+
 
 export function devideItemsIntoPages(page, array) {
   const ITEMS_PER_PAGE = 18
@@ -179,4 +184,40 @@ export function sortResults(unsortedResults, sortby, order) {
   // }
 
   return sortedResults
+}
+
+
+export const weekObjShort = {
+  0: "Mon",
+  1: "Tue",
+  2: "Wed",
+  3: "Thu",
+  4: "Fri",
+  5: "Sat",
+  6: "Sun",
+}
+
+export const weekObj = {
+  0: "Monday",
+  1: "Tuesday",
+  2: "Wednesday",
+  3: "Thursday",
+  4: "Friday",
+  5: "Saturday",
+  6: "Sunday",
+}
+
+export const monthObj = {
+  0: "January",
+  1: "February",
+  2: "March",
+  3: "April",
+  4: "May",
+  5: "June",
+  6: "July",
+  7: "August",
+  8: "September",
+  9: "October",
+  10: "November",
+  11: "December",
 }

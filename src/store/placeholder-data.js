@@ -5,7 +5,7 @@ const reservedSeatsCounts = 19;
 let reservedSeatsNumbers = new Set();
 
 // make a fake reserveed seats
-function makeRandomReservation(min, max) {
+function spitRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 }
 
@@ -14,7 +14,7 @@ for (let num of seatNumbers) {
 }
 
 while (reservedSeatsNumbers.size < reservedSeatsCounts) {
-  reservedSeatsNumbers.add(makeRandomReservation(1, TOTAL_SEAT_COUNT));
+  reservedSeatsNumbers.add(spitRandomNumber(1, TOTAL_SEAT_COUNT));
 }
 
 const updatedSeats = seats.map((seat) =>
@@ -35,10 +35,21 @@ function validSeatSeletion(id) {
   }
 }
 
+const FAKE_PRICES = [23, 48, 10, 14];
+const MOVIES_COUNT = 20;
+const PRICES = [];
+
+for (let i = 0; i < MOVIES_COUNT; i++) {
+  const rand = spitRandomNumber(0, 3)
+  PRICES.push(FAKE_PRICES[rand])
+}
+
+
 export {
   seatNumbers,
   updatedSeats,
   reservedSeatsNumbers,
   availabeSeatsNumbers,
   validSeatSeletion,
+  PRICES,
 };

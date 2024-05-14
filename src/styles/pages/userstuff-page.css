@@ -40,7 +40,7 @@
   & .played-container:has(.grid-item) {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 165px), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 175px), 1fr));
     gap: 2rem 1.75rem;
     font-size: 0.8rem;
   }
@@ -67,39 +67,24 @@
   & .movies-container:has(.grid-item) {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 160px), 1fr));
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(165px, 100%), 1fr));
+    /* grid-template-columns: repeat(auto-fill, minmax(min(185px, 100%), 1fr)); */
     gap: 3.5rem 1.75rem;
   }
 }
 
 
-/*- create separate component? */
-.bookmark-confirmation-box-backdrop {
-  position: absolute;
-  z-index: var(--z-50);
-  inset: 0;
-  background-color: rgb(37 40 42 / 65%);
-  backdrop-filter: blur(5px);
-}
-
-.bookmark-confirmation-box {
+.confirm-modal {
   padding: var(--space-6);
   width: clamp(320px, 55%, 600px);
-  position: absolute;
-  z-index: var(--z-50);
-  top: 50%;
-  left: 50%;
-  translate: -50% -50%;
   display: flex;
   flex-direction: column;
-  align-items: center;
   background-color: var(--color-neutral-700);
   box-shadow: 0 4px 1.25rem rgb(16 21 24 / 50%);
   border-radius: 1.25rem;
 
   & .btns {
-    margin-top: var(--space-6);
+    margin-top: var(--space-10);
     margin-inline: auto var(--space-2);
     display: flex;
     gap: 1rem;

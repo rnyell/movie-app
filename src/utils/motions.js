@@ -1,11 +1,10 @@
-// naming: defaultVariantsLabel ?
-export const defaultMotionProps = {
+export const defaultVariantsLabel = {
   initial: "initial",
   animate: "animate",
   exit: "exit"
 }
 
-export const pageInVariants = {
+export const pageTransitionVariants = {
   initial: {
     opacity: 0.65,
     scale: 0.96,
@@ -28,6 +27,44 @@ export const pageInVariants = {
     transition: {
       duration: 0.35,
       ease: "easeOut"
+    }
+  }
+}
+
+export const modalVariants = {
+  initial: {
+    y: -50,
+    opacity: 0.65
+  },
+  animate: {
+    y: 0,
+    opacity: 1
+  },
+  exit: {
+    y: -75,
+    opacity: 0.65
+  }
+}
+
+export const modalTransition = {
+  duration: 0.45,
+  ease: "easeOut"
+}
+
+export const modalBackdropVariants = {
+  initial: {
+    opacity: 0.85
+  },
+  animate: {
+    opacity: 1,
+    transition: {
+      duration: 0.3
+    }
+  },
+  exit: {
+    opacity: 0.85,
+    transition: {
+      duration: 0.3
     }
   }
 }

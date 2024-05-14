@@ -1,34 +1,72 @@
-import { useEffect, useRef, useState } from "react"
+import { useState } from "react"
+import { createPortal } from "react-dom"
+import { useNavigate } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
-import { StarIcon } from "@heroicons/outline"
-import { getMovieDetails, getMediaRuntime } from "@utils/apis"
-import { formatRate, formatRuntime } from "@utils/utils"
+import { InfoIcon } from "@utils/icons"
+import { PRICES } from "@src/store/placeholder-data"
+import MovieModal from "../movie-modal"
 
-export default function ScreenCard({ result, media, variant }) {
-  const [runtime, setRuntime] = useState(null)
 
-  useEffect(() => {
-    getMediaRuntime("movie", result.id).then(d => setRuntime(d))
-  }, [])
+export default function ScreenCard({ result, variant, idx }) {
+  const [showModal, setShowModal] = useState(false)
+  const navigate = useNavigate()
+  const {
+    title,
+    poster_path,
+    backdrop_path
+  } = result
+
+
+  function handleBooking() {
+    navigate("/booking", {
+      state: {
+        title,
+        poster_path,
+        backdrop_path
+      }
+    })
+  }
 
   return (
-    <div data-variant={variant} className="movie-card">
-      <figure>
+    <motion.div
+      className="movie-card"
+      data-variant={variant}
+      initial={{opacity: 0.9}}
+      whileHover={{opacity: 1, scale: 1.05}}
+      transition={{type: "tween", duration: 0.15}}
+    >
+      <figure className="card-img">
         <img
           className="poster"
-          src={`https://image.tmdb.org/t/p/w500${result.backdrop_path}`} /* original or w500? */
+          src={`https://image.tmdb.org/t/p/w500${backdrop_path}`} /* original or w500? */
           alt="poster"
           draggable="false"
         />
       </figure>
-      <h5 className="title truncate">{result.title}</h5>
-      <div className="details">
-        <span className="runtime">{formatRuntime(runtime)}</span>
-        <span className="vote">
-          <i className="icon star-icon"><StarIcon /></i>
-          <span className="vote-number">{formatRate(result.vote_average)}</span>
-        </span>
+      <div className="card-body flex-col">
+        <div className="sm-details flex">
+          <h5 className="title truncate">{title}</h5>
+          <span className="price">{PRICES[idx]}$</span>
+        </div>
+        <div className="cta-btns flex">
+          <button className="btn book-btn" onClick={handleBooking}>Book Now</button>
+          <button className="btn info-btn" onClick={() => setShowModal(true)}>
+            <i className="icon"><InfoIcon /></i>
+          </button>
+        </div>
       </div>
-    </div>
+      {createPortal(
+        <AnimatePresence>
+          {showModal && (
+            <MovieModal
+              result={result}
+              price={PRICES[idx]}
+              setModal={setShowModal}
+            />
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
+    </motion.div>
   )
 }

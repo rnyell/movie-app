@@ -1,18 +1,23 @@
 import { motion } from "framer-motion"
+import { modalBackdropVariants, modalVariants, defaultVariantsLabel, modalTransition } from "@utils/motions"
 
 
-export default function ConfirmationModal(props) {
+export default function ConfirmModal(props) {
   const { confirmText, setModal, handleSubmittedAction } = props
   
   return (
     <>
-      <div className="bookmark-confirmation-box-backdrop" onClick={() => setModal(false)}></div>
       <motion.div
-        className="bookmark-confirmation-box"
-        initial={{ y: -50, opacity: 0.5 }}
-        animate={{ y: 0, opacity: 1 }}
-        exit={{ y: -80, opacity: 0.5 }}
-        transition={{ duration: 0.2 }}
+        className="modal-backdrop"
+        onClick={() => setModal(false)}
+        variants={modalBackdropVariants}
+        {...defaultVariantsLabel}
+      />
+      <motion.div
+        className="modal confirm-modal"
+        variants={modalVariants}
+        {...defaultVariantsLabel}
+        transition={modalTransition}
       >
         <p>{confirmText}</p>
         {/* <button>Add to watched</button> */}

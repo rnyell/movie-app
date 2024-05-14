@@ -4,20 +4,19 @@ import { useMovieState } from "@src/store/app-context"
 import MovieCard from "@components/movie/movie-card"
 
 
-export default function SeriesSection() {
+export default function MoviesSection() {
   const [moviesState] = useMovieState()
 
   return (
-    <section className="series-section">
+    <section className="movies-section">
       <header>
-        <h4 className="heading">Trending Series</h4>
-        <Link to="/discover/series">Explore more <ChevronRightIcon /></Link>
-        {/* <p>Be a couch potato for a week!</p> */}
+        <h4 className="heading">Now Playing</h4>
+        <Link to="/discover/movies">Explore more <ChevronRightIcon /></Link>
       </header>
       <div className="draggable-wrapper">
         <div className="draggable scroll-snap-start">
-          {moviesState.series.slice(0, 12).map(movie =>
-            <MovieCard key={movie.id} result={movie} media="tv" variant="series" />
+          {moviesState.movies.slice(0, 12).map(movie =>
+            <MovieCard key={movie.id} result={movie} media="movie" variant="screen" />
           )}
         </div>
       </div>

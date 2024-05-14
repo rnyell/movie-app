@@ -99,38 +99,14 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
     navigate("/player", { state: { id } })
   }
 
-  // const containerVariants = {
-  //   initial: {
-  //     opacity: 0.85
-  //   },
-  //   animate: {
-  //     opacity: 1,
-  //     transition: {
-  //       type: "tween",
-  //       ease: "easeIn",
-  //       duration: 0.25,
-  //     },
-  //   },
-  //   exit: {
-  //     opacity: 0.75,
-  //     transition: {
-  //       duration: 0.15
-  //     }
-  //   }
-  // }
-
   const staggerChildren = {
-    initial: {
-
-    },
+    initial: {},
     animate: {
       transition: {
         staggerChildren: 0.1
       }
     },
-    exit: {
-
-    }
+    exit: {}
   }
 
   const itemsA = {
@@ -182,7 +158,7 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
             animate={{ opacity: 0.6 }}
             exit={{ opacity: 0.1 }}
           >
-            <img src={`https://image.tmdb.org/t/p/original${bg_path}`} draggable={false} />
+            <img className="unselectable" src={`https://image.tmdb.org/t/p/original${bg_path}`} draggable={false} />
           </motion.div>
           <motion.div
             className="bg-poster"

@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { ChevronLeftIcon, BookmarkIcon, StarIcon, PlayIcon } from "@heroicons/outline"
 import { useWindow, useMediaDetails } from "@utils/hooks"
 import { formatRuntime, getMovieGenres, formatRate } from "@utils/utils"
-import { pageInVariants, defaultMotionProps } from "@utils/motions"
+import { pageTransitionVariants, defaultVariantsLabel } from "@utils/motions"
 import { getMovieTrailer } from "@utils/apis"
 import { SelectedMovieSkeleton } from "@components/skeletons"
 
@@ -89,8 +89,8 @@ export default function SelectedMovie() {
   return (
     <motion.div
       className="selected-movie"
-      variants={pageInVariants}
-      {...defaultMotionProps}
+      variants={pageTransitionVariants}
+      {...defaultVariantsLabel}
     >
       <Link to={prevUrl} className="back-btn">
         <i className="icon">

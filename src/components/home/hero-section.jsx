@@ -8,10 +8,10 @@ import Swiper from "@components/home/swiper"
 
 
 export default function HeroSection() {
-  const [movieState] = useMovieState()
-  const [currIndex, setCurrIndex] = useState(0)
-  const popularMoviesCount = movieState.popular.length
   const {windowWidth} = useWindow()
+  const [moviesState] = useMovieState()
+  const [currIndex, setCurrIndex] = useState(0)
+  const popularMoviesCount = moviesState.popular.length
 
   useEffect(() => {
     let interval
@@ -37,14 +37,14 @@ export default function HeroSection() {
     setCurrIndex(currIndex - num)
   }
 
-  const images = movieState.popular.map((obj) => obj.backdrop_path)
+  const images = moviesState.popular.map((obj) => obj.backdrop_path)
 
   return (
     <section className="hero-section">
       {windowWidth > 460 ? (
         <>
           <HeroMovie
-            movie={movieState.popular[currIndex]}
+            movie={moviesState.popular[currIndex]}
             showNextMovie={showNextMovie}
             showPrevMovie={showPrevMovie}
           />
@@ -58,7 +58,7 @@ export default function HeroSection() {
         </>
       ) : (
         <Swiper
-          movie={movieState.popular}
+          movie={moviesState.popular}
           currIndex={currIndex}
           setCurrIndex={setCurrIndex}
           showNextMovie={showNextMovie}

@@ -13,7 +13,8 @@ export default function MovieCard({ result, media, variant, ...rest }) {
     }
 
     case "screen": {
-      return <ScreenCard result={result} media={media} variant={variant} />
+      const { idx } = rest
+      return <ScreenCard result={result} idx={idx} variant={variant} />
     }
 
     case "series": {
@@ -25,16 +26,7 @@ export default function MovieCard({ result, media, variant, ...rest }) {
     }
 
     case "bookmarked": {
-      const { clearBookmark } = rest
-
-      return (
-        <BookmarkedCard
-          result={result}
-          media={media}
-          variant={variant}
-          clearBookmark={clearBookmark}
-        />
-      )
+      return <BookmarkedCard result={result} media={media} variant={variant} />
     }
 
     case "result": {

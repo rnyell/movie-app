@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { createPortal } from "react-dom"
 import { Link, useLocation } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
@@ -6,11 +6,11 @@ import { StarIcon, FilmIcon, TvIcon, ArrowTopRightOnSquareIcon } from "@heroicon
 import { BookmarkSlashIcon, PlayIcon } from "@heroicons/solid"
 
 import { useMediaDetails } from "@utils/hooks"
-import { getGenresBaseOnIds, formatRate, formatRuntime, formatReleaseDate } from "@utils/utils"
-import { portraitCardOverlayVariants, defaultMotionProps } from "@utils/motions"
+import { getGenresWithIds, formatRate, formatRuntime, formatReleaseDate } from "@utils/utils"
+import { portraitCardOverlayVariants, defaultVariantsLabel } from "@utils/motions"
 import { useUserState } from "@src/store/app-context"
 import { PortraitCardLoading } from "@components/skeletons"
-import ConfirmationModal from "@components/user-stuff/confirmation-modal"
+import ConfirmModal from "@components/user-related/confirm-modal"
 
 
 export default function BookmarkedCard({ result, media, variant }) {
@@ -23,13 +23,12 @@ export default function BookmarkedCard({ result, media, variant }) {
   const confirmText = "Are you sure you want to remove this movie from your watchlist?"
 
   if (media === "movie") {
-    /* `var` used to let (pun!) variables accessible outside of `if` scope. */
+    /* `var` used to let (pun!) variables to be accessible outside of `if` scope. */
     var {
       id,
       title,
       release_date,
       runtime,
-      genres,
       vote_average,
       poster_path,
       overview
@@ -39,7 +38,6 @@ export default function BookmarkedCard({ result, media, variant }) {
       id,
       name: title,
       runtime,
-      genres,
       vote_average,
       poster_path,
       overview
@@ -74,7 +72,7 @@ export default function BookmarkedCard({ result, media, variant }) {
         <motion.div
           className="hover-overlay flex-col"
           variants={portraitCardOverlayVariants}
-          {...defaultMotionProps}
+          {...defaultVariantsLabel}
         >
           <div className="details flex-col">
             <div className="flex">
@@ -87,9 +85,9 @@ export default function BookmarkedCard({ result, media, variant }) {
                 <span className="vote-number">{formatRate(vote_average)}</span>
               </span>
             </div>
-            <p className="overview">{overview}</p>
+            <p className="overview box-clamp">{overview}</p>
           </div>
-          <div className="cta-btns flex-x-center">
+          <div className="cta-btns flex-justify-center">
             <button className="btn">
               <i className="icon remove-icon" onClick={() => setShowModal(true)}>
                 <BookmarkSlashIcon />
@@ -122,7 +120,7 @@ export default function BookmarkedCard({ result, media, variant }) {
       {createPortal(
         <AnimatePresence>
           {showModal && (
-            <ConfirmationModal
+            <ConfirmModal
               confirmText={confirmText}
               setModal={setShowModal}
               handleSubmittedAction={handleSubmittedAction}
