@@ -81,7 +81,7 @@ export default function SortItems({
         <div className="sort-card sort-order">
           <h6 className="sort-title">Order</h6>
           <div className="group flex">
-            <label htmlFor="desc" className="flex-align-center">
+            <label htmlFor="desc" className="align-center">
               <i className="icon"><BarsArrowDownIcon /></i><span>Desc.</span>
               <input
                 type="radio"
@@ -91,7 +91,7 @@ export default function SortItems({
                 defaultChecked={searchOptions.sorts.order === "desc"}
               />
             </label>
-            <label htmlFor="asc" className="flex-align-center">
+            <label htmlFor="asc" className="align-center">
               <i className="icon"><BarsArrowUpIcon /></i><span>Asc.</span>
               <input
                 type="radio"

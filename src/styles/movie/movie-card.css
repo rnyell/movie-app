@@ -131,6 +131,49 @@
 
 
 /*-------------------------------------------------------------------------------------------------------*/
+.movie-card[data-variant="similar"] {
+  flex-direction: row;
+  gap: 0.625rem;
+  background-color: var(--color-neutral-700);
+  border-radius: 1rem;
+
+  & .card-img {
+    & .poster {
+      max-height: 250px;
+      border-radius: 1rem;
+    }
+  }
+
+  & .card-body {
+    gap: 0.25rem;
+    font-size: 0.8rem;
+  }
+
+  & .title {
+    font-size: 0.85rem;
+  }
+
+  & .release-date {
+    font-size: 0.625rem;
+  }
+
+  & .vote {
+    margin-left: auto;
+    width: 1.5rem;
+    aspect-ratio: 1;
+    background-color: var(--color-orange-300);
+    border-radius: 0.5rem;
+    
+    & .vote-number {
+      font-size: 0.675rem;
+      font-weight: 500;
+      color: var(--color-neutral-800);
+    }
+  }
+}
+
+
+/*-------------------------------------------------------------------------------------------------------*/
 .movie-card[data-variant="played"] {
 
   & figure {
@@ -157,14 +200,12 @@
   }
 
   & .hover-overlay {
-    background-color: rgb(10 15 17 / 45%);
+    background-color: rgb(11 15 17 / 45%);
 
     & button {
-      padding: 7cqw;
+      padding: 6.75cqw;
       gap: 0.5rem;
-      background-color: color-mix(
-        in srgb, var(--color-neutral-500) 75%, transparent
-      );
+      background-color: color-mix(in srgb, var(--color-neutral-500) 75%, transparent);
       border-radius: 1rem;
       cursor: pointer;
     }
@@ -259,25 +300,20 @@
       gap: 1rem;
     }
 
-    & .btn {
-      overflow: hidden;
-      
-      & .icon {
-        padding: 5cqw;
-        color: var(--color-neutral-800);
-        background-color: color-mix(in srgb, var(--color-neutral-200), transparent 40%);
-        backdrop-filter: blur(10px);
-        border-radius: 0.5rem;
-        transition: background-color var(--duration-1) ease-in;
-  
-        & svg {
-          width: var(--icon-size-5);
-          transition: color var(--duration-1) ease-in;
-        }
-  
-        &:hover {
-          background-color: var(--color-neutral-300);
-        }
+    & .bookmarkslash-btn {
+      padding: 5cqw;
+      color: var(--color-neutral-800);
+      background-color: color-mix(in srgb, var(--color-neutral-200), transparent 40%);
+      backdrop-filter: blur(5px);
+      border-radius: 0.5rem;
+      transition: background-color var(--duration-1) ease-in;
+    
+      & svg {
+        width: var(--icon-size-5);
+      }
+
+      &:hover {
+        background-color: var(--color-neutral-300);
       }
     }
     

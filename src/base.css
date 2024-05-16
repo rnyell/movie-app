@@ -19,6 +19,8 @@
     overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;
+    /* setting a default line-clamp */
+    -webkit-line-clamp: 3;
   }
 
   .unselectable {
@@ -26,19 +28,12 @@
     user-select: none;
   }
 
-  .absolute-center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    translate: -50% -50%;
-  }
-
-  /* naming: scroll-snap-container */
-  .scroll-snap-start {
+  .snap-x-proximity {
     overflow-x: scroll;
     scroll-snap-type: x proximity;
     scrollbar-width: none;
 
+    /* setting a default snap-align for direct children */
     & > * {
       scroll-snap-align: start;
     }
@@ -58,6 +53,13 @@
       content: "";
       position: absolute;
     }
+  }
+
+  .absolute-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
   }
 
   .grid-center {
@@ -80,12 +82,12 @@
     align-items: center;
   }
 
-  .flex-align-center {
+  .align-center {
     display: flex;
     align-items: center;
   }
 
-  .flex-justify-center {
+  .justify-center {
     display: flex;
     justify-content: center;
   }
@@ -95,13 +97,13 @@
     flex-direction: column;
   }
 
-  .flex-col-align-center {
+  .align-center-col {
     display: flex;
     flex-direction: column;
     align-items: center;
   }
 
-  .flex-col-justify-center {
+  .justify-center-col {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -167,8 +169,15 @@
     display: inline-grid;
     place-items: center;
   }
-}
 
+  .square-btn {
+    padding: var(--space-2);
+    display: inline-grid;
+    place-items: center;
+    aspect-ratio: 1;
+    border-radius: 0.5rem;
+  }
+}
 
 @layer custom {
   .shared-layout {
@@ -208,11 +217,17 @@
   & .vote {
     display: flex;
     align-items: center;
+    justify-content: center;
     color: var(--color-orange-300);
 
     & .star-icon svg {
       fill: var(--color-orange-300);
     }
+  }
+
+  & .blured-bg {
+    background-color: color-mix(in srgb, var(--color-neutral-200), transparent 45%);
+    backdrop-filter: blur(5px);
   }
 
   :root {
@@ -233,6 +248,7 @@
     --outline-size-2: 0.07525rem;
     --outline-size-3: 0.1375rem;
     --outline-size-4: 2.5px;
+    --full-rounded: 9999px;
     --z-neg20: -20;
     --z-neg10: -10;
     --z-neg5: -5;
@@ -243,43 +259,49 @@
     --z-50: 50;
     --z-100: 100;
     --z-max: 9999;
-    --full-rounded: 9999px;
     --duration-1: 150ms;
     --duration-2: 220ms;
     --duration-3: 300ms;
-    --box-shadow-1: 0 3px 1.24rem rgb(10 15 17 / 50%),
-      0 2px 0.5rem rgb(10 15 17 / 10%);
-    
-    --color-neutral-100: rgb(234 239 243);
-    --color-neutral-200: rgb(221 229 235);
-    --color-neutral-250: color-mix(in srgb, var(--color-neutral-200), var(--color-neutral-300));
-    --color-neutral-300: rgb(195 206 219);
-    --color-neutral-350: color-mix(in srgb, var(--color-neutral-300), var(--color-neutral-400));
+    --box-shadow-1: 0 3px 1.24rem rgb(11 15 17 / 50%),
+      0 2px 0.5rem rgb(11 15 17 / 10%);
+
+     /*
+     this works...
+    --rgb-neutral-200: 221 229 235;
+    --test: rgb(var(--rgb) / 20%);
+    instead of   bg: color-mix(var(--color-neutral-200), transparent 40%)
+    write        bg: rgb(var(--rgb-neutral-200) / 40%)
+     */
+     --color-neutral-100: rgb(234 239 243);
+     --color-neutral-150: rgb(228 234 239);
+     --color-neutral-200: rgb(221 229 235);
+     --color-neutral-250: rgb(208 218 227);
+     --color-neutral-300: rgb(195 206 219);
+    --color-neutral-350: rgb(163 173 184);
     --color-neutral-400: rgb(131 140 148);
-    --color-neutral-450: color-mix(in srgb, var(--color-neutral-400), var(--color-neutral-500));
+    --color-neutral-450: rgb(99 106 112);
     --color-neutral-500: rgb(66 71 75);
-    --color-neutral-550: color-mix(in srgb, var(--color-neutral-500), var(--color-neutral-600));
+    --color-neutral-550: rgb(58 63 66);
     --color-neutral-600: rgb(50 55 57);
-    --color-neutral-650: color-mix(in srgb, var(--color-neutral-600), var(--color-neutral-700));
+    --color-neutral-650: rgb(44 48 50);
     --color-neutral-700: rgb(37 40 42);
-    --color-neutral-750: color-mix(in srgb, var(--color-neutral-700), var(--color-neutral-800));
-    --color-neutral-800: rgb(30 32 34);
-    --color-neutral-850: color-mix(in srgb, var(--color-neutral-800), var(--color-neutral-900));
-    --color-neutral-900: rgb(19 20 22);
-  
+    --color-neutral-750: rgb(32 34 37);
+    --color-neutral-800: rgb(26 28 31);
+    --color-neutral-850: rgb(22 24 26);
+    --color-neutral-900: rgb(17 19 21);
     --color-accent-100: #E48A94;
     --color-accent-200: #DA697A;
     --color-accent-300: #D3546A;
     --color-accent-400: #C74361;
     --color-accent-500: #BA3A5C;
     --color-accent-600: #A72A4B;
-  
-    --color-aliceblue-200: aliceblue;
     --color-orange-300: rgb(245 197 24);
     --color-orange-500: rgb(255 165 00);
     --color-red-300: rgb(182 38 43);
     --color-red-500: rgb(151 28 32);
-    --black-gradient: rgb(10 13 15 / 25%);
+    --color-aliceblue-200: rgb(240 248 255);
+  
+    --rgb-opaque-dark: (11 15 17);
   
     --icon-size-1: 0.25rem;
     --icon-size-2: 0.5rem;
@@ -294,80 +316,6 @@
     --poster-portrait-ratio: 0.665;
     --safe-space-to-scroll-bottom-nav: 75px;
   }
-}
-
-@font-face {
-  font-family: Montserrat;
-  font-weight: 400;
-  font-style: normal;
-  src: local("Montserrat"),
-    url("/fonts/Montserrat-400.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: Montserrat;
-  font-weight: 400;
-  font-style: italic;
-  src: url("/fonts/Montserrat-400-italic.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: Montserrat;
-  font-weight: 500;
-  font-style: normal;
-  src: local("Montserrat"),
-    url("/fonts/Montserrat-500.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: Montserrat;
-  font-weight: 600;
-  font-style: normal;
-  src: local("Montserrat"),
-    url("/fonts/Montserrat-600.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: Montserrat;
-  font-weight: 600;
-  font-style: italic;
-  src: local("Montserrat"),
-    url("/fonts/Montserrat-600-italic.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: Montserrat;
-  font-weight: 700;
-  font-style: normal;
-  src: local("Montserrat"),
-    url("/fonts/Montserrat-700.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: Ubuntu;
-  font-weight: 400;
-  font-style: normal;
-  /*? font-display: swap;*/
-  src: local("Montserrat"),
-    url("/fonts/Ubuntu-400.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: Ubuntu;
-  font-weight: 500;
-  font-style: normal;
-  /*? font-display: swap;*/
-  src: local("Montserrat"),
-    url("/fonts/Ubuntu-500.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: Ubuntu;
-  font-weight: 700;
-  font-style: normal;
-  /*? font-display: swap;*/
-  src: local("Montserrat"),
-    url("/fonts/Ubuntu-700.ttf") format("truetype");
 }
 
 @layer typo {
@@ -411,8 +359,13 @@
     font-weight: 500;
   }
 
-  h5, h6 {
+  h5 {
     font-size: 1.15rem;
+    font-weight: 500;
+  }
+
+  h6 {
+    font-size: 1.05rem;
     font-weight: 500;
   }
 }
@@ -587,4 +540,78 @@
   :where(:focus, :active) {
     outline: none;
   }
+}
+
+@font-face {
+  font-family: Montserrat;
+  font-weight: 400;
+  font-style: normal;
+  src: local("Montserrat"),
+    url("/fonts/Montserrat-400.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Montserrat;
+  font-weight: 400;
+  font-style: italic;
+  src: url("/fonts/Montserrat-400-italic.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Montserrat;
+  font-weight: 500;
+  font-style: normal;
+  src: local("Montserrat"),
+    url("/fonts/Montserrat-500.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Montserrat;
+  font-weight: 600;
+  font-style: normal;
+  src: local("Montserrat"),
+    url("/fonts/Montserrat-600.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Montserrat;
+  font-weight: 600;
+  font-style: italic;
+  src: local("Montserrat"),
+    url("/fonts/Montserrat-600-italic.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Montserrat;
+  font-weight: 700;
+  font-style: normal;
+  src: local("Montserrat"),
+    url("/fonts/Montserrat-700.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Ubuntu;
+  font-weight: 400;
+  font-style: normal;
+  /*? font-display: swap;*/
+  src: local("Montserrat"),
+    url("/fonts/Ubuntu-400.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Ubuntu;
+  font-weight: 500;
+  font-style: normal;
+  /*? font-display: swap;*/
+  src: local("Montserrat"),
+    url("/fonts/Ubuntu-500.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Ubuntu;
+  font-weight: 700;
+  font-style: normal;
+  /*? font-display: swap;*/
+  src: local("Montserrat"),
+    url("/fonts/Ubuntu-700.ttf") format("truetype");
 }

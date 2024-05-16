@@ -1,0 +1,33 @@
+.link-btn {
+  color: var(--color-neutral-800);
+  background-color: color-mix(in srgb, var(--color-neutral-200), transparent 45%);
+  backdrop-filter: blur(5px);
+  transition: background-color var(--duration-1) ease-in;
+
+  & svg {
+    width: var(--icon-size-4);
+    stroke-width: 1.5;
+  }
+
+  &:hover {
+    background-color: var(--color-neutral-300);
+  }
+}
+
+.movie-card[data-variant="result"] .link-btn {
+  padding: 0;
+  width: 22cqw;
+  max-width: 45px;
+
+  & svg {
+    width: 60%;
+  }
+}
+
+.movie-card[data-variant="bookmarked"] .link-btn {
+  padding: 5cqw;
+
+  & svg {
+    width: var(--icon-size-5);
+  }
+}

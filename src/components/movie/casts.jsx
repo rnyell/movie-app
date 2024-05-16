@@ -60,7 +60,7 @@ export default function Casts({ casts, mode }) {
         <h5 className="tag">Casts</h5>
         <ul className="casts-list">
         {casts.slice(0, 7).map((cast, i) =>
-          <li className="cast flex-col-align-center" key={i}>
+          <li className="cast align-center-col" key={i}>
             <img
               className="cast-img unselectable"
               src={`https://image.tmdb.org/t/p/w154/${cast.profile_path}`}
@@ -81,7 +81,7 @@ export default function Casts({ casts, mode }) {
         <AnimatePresence>
           {casts.slice(0, 4).map((cast, i) =>
           <motion.li
-            className="cast flex-col-align-center"
+            className="cast align-center-col"
             key={i}
             variants={itemsA}
             initial="initial"

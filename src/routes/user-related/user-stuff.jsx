@@ -102,12 +102,12 @@ export default function UserStuff() {
           </div>
         )}
       </section>
-      <hr style={{marginInline: "auto"}} />
-      <section className="faved-section">
+      {/* <hr style={{marginInline: "auto"}} /> */}
+      {/*<section className="faved-section">
         <header>
           <h4 className="heading">Faved</h4>
         </header>
-        {/* <div className="faved-container container">
+        <div className="faved-container container">
           {userState.faved.length === 0 ? (
             <EmptyFaved />
           ) : (userState.faved.map(id =>
@@ -115,8 +115,13 @@ export default function UserStuff() {
               <MovieCard result={id} media="unknown" variant="faved"/>
             </div>
           ))}
-        </div> */}
-      </section>
+        </div>
+        {userState.faved.length !== 0 && (
+          <div className="cta">
+            <button className="btn">Unlike All</button>
+          </div>
+        )}
+      </section>*/}
       {createPortal(
         <AnimatePresence>
           {showModal && (

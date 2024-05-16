@@ -15,7 +15,7 @@ export default function SeriesSection() {
         {/* <p>Be a couch potato for a week!</p> */}
       </header>
       <div className="draggable-wrapper">
-        <div className="draggable scroll-snap-start">
+        <div className="draggable snap-x-proximity">
           {moviesState.series.slice(0, 12).map(movie =>
             <MovieCard key={movie.id} result={movie} media="tv" variant="series" />
           )}

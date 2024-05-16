@@ -60,11 +60,13 @@
     margin-bottom: 3cqh;
   }
 
-  /* & .casts {
-    look at `casts.css` file
-  } */
+  & .casts-container {
+    grid-column: 1 / 2;
+    grid-row: 5 / 6;
+    align-self: end;
+  }
 
-  & .btns {
+  & .next-prev-btns {
     grid-column: -2 / -1;
     grid-row: 5 / 6;
     align-self: end;
@@ -132,7 +134,7 @@
     & p:first-child {
       margin-bottom: 0.25cqw;
       font-size: 0.675rem;
-      color: color-mix(in srgb, var(--color-neutral-300), var(--color-neutral-400));
+      color: var(--color-neutral-350);
     }
 
     & .director-name {
@@ -149,7 +151,8 @@
     border-radius: 0.7rem;
     border: var(--outline-size-1) solid var(--color-neutral-400);
     transition: background-color var(--duration-1) ease-in,
-      border-color var(--duration-1) ease-in;
+      border-color var(--duration-1) ease-in,
+      color var(--duration-1) ease-in;
 
     &:hover {
       color: var(--color-neutral-800);
@@ -195,28 +198,9 @@
         fill: currentColor;
       }
     }
-
-    & .bookmark-btn {
-      padding: 1.5cqw;
-      height: max-content;
-
-      & svg {
-        transition: fill var(--duration-1) ease-in,
-          color var(--duration-1) ease-in;
-      }
-    }
-
-    & .bookmark-btn.is-bookmarked {
-      color: var(--color-neutral-800);
-      background-color: var(--color-neutral-200);
-
-      & svg {
-        fill: currentColor;
-      }
-    }
   }
 
-  & .btns {
+  & .next-prev-btns {
     display: inline-flex;
     gap: 1.5cqw;
 

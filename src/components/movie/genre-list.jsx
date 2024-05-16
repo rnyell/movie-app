@@ -21,7 +21,7 @@ export default function GenreList({ media, genreId }) {
     isLoading ? (
       <p>loading</p>
     ) : (
-      <div className="genre-list scroll-snap-start">
+      <div className="genre-list snap-x-proximity">
         {results.map(result => (
           <MovieCard
             key={result.id}

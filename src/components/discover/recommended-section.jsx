@@ -22,7 +22,7 @@ export default function RecommendedSection() {
       <header>
         <h4>Recommended movies</h4>
       </header>
-      <div className="movie-list scroll-snap-start">
+      <div className="movie-list snap-x-proximity">
         {isLoading ? <h2>loading</h2> : (
           recMovies.map(movie => 
             <MovieCard key={movie.id} result={movie} media="movie" variant="common" />

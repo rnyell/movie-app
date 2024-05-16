@@ -24,7 +24,6 @@
   & .filter-title,
   & .sort-title {
     margin-block: 0 var(--space-4);
-    font-size: 1.05rem;
     color: var(--color-accent-100);
   }
 

@@ -7,13 +7,13 @@ import SearchBox from "./search-box"
 export default function Header({ dataset }) {
   return (
     <header className="main-header" data-set={dataset}>
-      {dataset.includes("expanded") && 
-        <Link to="/" className="home-link">
+      {dataset.includes("expanded") && (
+        <Link to="/" className="btn home-link">
           <i className="icon home-icon">
             <HomeIcon />
           </i>
         </Link>
-      }
+      )}
       <div className="flex-item">
         <SearchBox dataset={dataset} />
       </div>
@@ -21,7 +21,7 @@ export default function Header({ dataset }) {
         <i className="icon bell-icon">
           <BellIcon />
         </i>
-        <Link to="/login" className="login-link">
+        <Link to="/login" className="btn login-link">
           <i className="icon user-icon">
             <UserCircleIcon />
           </i>

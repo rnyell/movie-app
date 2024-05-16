@@ -133,10 +133,6 @@
       gap: 1rem 0.75rem;
     }
 
-    & h6 {
-      font-size: 1.05rem;
-    }
-
     & hr {
       display: none;
     }

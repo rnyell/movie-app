@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { useSearchParams, useNavigate, useLocation } from "react-router-dom"
 import { MagnifyingGlassIcon } from "@heroicons/outline"
 import { useClickOutside } from "@utils/hooks"
+import { transformTitleToURL } from "@utils/utils"
 
 
 export default function SearchBox({ dataset }) {
@@ -38,9 +39,7 @@ export default function SearchBox({ dataset }) {
   }
 
   function handleSearchTitle() {
-    const formattedInput = userInput
-      .trim().toLowerCase()
-      .replaceAll("%20", "-");
+    const formattedInput = transformTitleToURL(userInput)
 
     if (!formattedInput) {
       return

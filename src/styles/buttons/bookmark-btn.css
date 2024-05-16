@@ -1,0 +1,79 @@
+.bookmark-btn {
+  background-color: color-mix(in srgb, var(--color-neutral-200), transparent 45%);
+  backdrop-filter: blur(5px);
+  transition: background-color var(--duration-1) ease-in;
+
+  & svg {
+    width: var(--icon-size-4);
+    stroke-width: 1.5;
+  }
+
+  &[data-color="light"] {
+    color: var(--color-neutral-200);
+    background-color: rgb(200 200 200 / 40%);
+    backdrop-filter: blur(10px);
+  
+    &:hover {
+      background-color: rgb(210 210 210 / 50%);
+    }
+  }
+
+  &[data-color="dark"] {
+    color: var(--color-neutral-800);
+  
+    &:hover {
+      background-color: var(--color-neutral-300);
+    }
+  }
+
+  &.is-bookmarked {
+    color: var(--color-neutral-800) !important;
+  
+    & svg {
+      fill: var(--color-neutral-800);
+    }
+  }
+}
+
+
+.movie-card[data-variant="result"] .bookmark-btn {
+  padding: 0;
+  width: 22cqw;
+  max-width: 45px;
+
+  & svg {
+    width: 60%;
+  }
+}
+
+.hero-movie .bookmark-btn {
+  padding: 1.5cqw;
+  height: max-content;
+  background-color: rgb(20 23 26 / 15%);
+  color: var(--color-neutral-200);
+  border: var(--outline-size-1) solid var(--color-neutral-400);
+  border-radius: 0.7rem;
+  transition: background-color var(--duration-1) ease-in,
+    border-color var(--duration-1) ease-in,
+    color var(--duration-1) ease-in;
+
+  & svg {
+    width: 1.05rem;
+    stroke-width: 2;
+  }
+
+  &:hover {
+    color: var(--color-neutral-800);
+    border-color: var(--color-neutral-300);
+  }
+
+  &.is-bookmarked {
+    background-color: var(--color-neutral-250);
+  }
+}
+
+.selected-movie .bookmark-btn {
+  & svg {
+    width: var(--icon-size-5);
+  }
+}

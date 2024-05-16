@@ -44,7 +44,7 @@ export default function MovieModal({ result, setModal, price }) {
         {...defaultVariantsLabel}
       />
       <motion.div
-        className="modal movie-modal flex-col-align-center"
+        className="modal movie-modal align-center-col"
         variants={modalVariants}
         {...defaultVariantsLabel}
         transition={modalTransition}
@@ -59,14 +59,14 @@ export default function MovieModal({ result, setModal, price }) {
           </figure>
         </div>
         <div className="modal-body w-100">
-          <div className="flex-align-center">
+          <div className="align-center">
             <h4 className="title">{title}</h4>
             <span className="vote unselectable">
               {/* <i className="icon star-icon"><StarIcon /></i> */}
               <span className="vote-number">{formatRate(vote_average)}</span>
             </span>
           </div>
-          <div className="main-details flex-align-center">
+          <div className="main-details align-center">
             <span className="release-date">{formatReleaseDate(release_date)}</span>
             <i className="dot">&#x2022;</i>
             <span className="runtime">{formatRuntime(runtime)}</span>
@@ -81,11 +81,11 @@ export default function MovieModal({ result, setModal, price }) {
               <p className="box-clamp">{overview}</p>
             </div>
             <div className="credits">
-              <div className="director flex-align-center">
+              <div className="director align-center">
                 <h6>Directed by:</h6>
                 <p className="director-name">{getMovieDirector(credits.crew)}</p>
               </div>
-              <div className="casts flex-align-center flex-wrap">
+              <div className="casts align-center flex-wrap">
                 <h6>Starring:</h6>
                 {credits.cast.slice(0, 4).map(c =>
                   <p key={c.name} className="cast-name">{c.name}<span>,</span></p>
@@ -93,7 +93,7 @@ export default function MovieModal({ result, setModal, price }) {
               </div>
             </div>
           </div>
-          <div className="btns flex-align-center">
+          <div className="btns align-center">
             <span className="price unselectable">{price}$</span>
             <button className="btn dismiss-btn" onClick={() => setModal(false)}>Dismiss</button>
             <button className="btn buy-btn" onClick={handleBooking}>Buy Ticket</button>

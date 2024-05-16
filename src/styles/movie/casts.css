@@ -4,8 +4,8 @@
     justify-content: flex-start;
     align-items: flex-start;
 
+    /* selcets `.cast` and `button` */
     & > * {
-      /* .cast and button */
       flex-shrink: 0;
     }
 
@@ -58,11 +58,20 @@
 }
 
 
-.casts[data-mode="drawer"] {
-  grid-column: 1 / 2;
-  grid-row: 5 / 6;
-  align-self: end;
+.casts[data-mode="names"] {
+  flex-wrap: wrap;
 
+  & .cast-img {
+    display: none;
+  }
+
+  & .cast-name {
+    width: auto;
+  }
+}
+
+
+.casts[data-mode="drawer"] {
   & .tag {
     margin-bottom: 1.5cqw;
     font-size: 1rem;

@@ -1,60 +1,43 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
-import {
-  StarIcon,
-  BookmarkIcon,
-  PlayIcon,
-  ChevronRightIcon,
-  ChevronLeftIcon,
-} from "@heroicons/outline"
+import { StarIcon, PlayIcon, ChevronRightIcon, ChevronLeftIcon } from "@heroicons/outline"
 import { useLocalStorage } from "@utils/hooks"
-import { getMovieDetails } from "@utils/apis"
 import {
   getMovieGenres,
   getMovieDirector,
   formatRate,
-  formatReleaseDate
+  formatReleaseDate,
+  transformTitleToURL
 } from "@utils/utils"
+import { getMovieDetails } from "@utils/apis"
 import { defaultVariantsLabel } from "@utils/motions"
 import { useUserState } from "@src/store/app-context"
 import { HeroMovieLoadingSkeleton } from "@components/skeletons"
 import Casts from "@components/movie/casts"
+import BookmarkButton from "@components/buttons/bookmark-btn"
 
 
 export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
   const {userState, userDispatch} = useUserState()
   const [isLoading, setIsLoading] = useState(true)
-  const [movieDetails, setMovieDetails] = useState({})
-  const media = "movie"
-  //? useState({}) is fine but useState() caues error!
-  const [isBookmarked, setIsBookmarked] = useState()
-  const [, setBookmarkedLS] = useLocalStorage("bookmarked", userState.bookmarked)
+  const [movieDetails, setMovieDetails] = useState({}) //? useState({}) is fine but useState() caues error!
   const [, setPlayedLS] = useLocalStorage("played", userState.played)
   const [key, setKey] = useState(0) // for <AnimatePresence> purposes
   const location = useLocation()
   const navigate = useNavigate()
 
+  const media = "movie"
+
   useEffect(() => {
     console.log("hero movie re-rendered")
     loadData()
     setKey(key + 1)
-    
-    const foundIndex = userState.bookmarked.findIndex(bookm =>
-      bookm.id === movie.id && bookm.media === media
-    )
-    const isFound = foundIndex !== -1
-    setIsBookmarked(isFound)
 
     return () => {
       setPlayedLS(userState.played)
     }
   }, [movie.id])
-
-  useEffect(() => {
-    // any better way to update local storage?
-    setBookmarkedLS(userState.bookmarked)
-  }, [isBookmarked])
 
   async function loadData() {
     const data = await getMovieDetails(movie.id)
@@ -69,39 +52,22 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
     // runtime,
     genres,
     vote_average: rate,
-    overview: plot,
+    overview,
     tagline,
     poster_path,
     backdrop_path: bg_path,
     credits,
-    videos,
-    images, // Obj[] => e.file_path
-    // budget,
-    // revenue
   } = movieDetails
 
   // console.log(movieDetails)
 
-  function bookmarkMovie(id) {
-    const foundIndex = userState.bookmarked.findIndex(bookm => bookm.id === id)
-    const isFound = foundIndex !== -1 ? true : false
-
-    if (isFound) {
-      userDispatch({ type: "remove_bookmark", media, id })
-      setIsBookmarked(false)
-    } else {
-      userDispatch({ type: "add_bookmark", media, id })
-      setIsBookmarked(true)
-    }
-  }
-
   function playMovie(id) {
     userDispatch({ type: "played", id })
-    navigate("/player", { state: { id } })
+    navigate("/player", { state: { id, media } })
   }
 
   function handleSelectedMovie() {
-    navigate(`/${(title).trim().toLowerCase().replaceAll(" ", "-")}`, {
+    navigate(`/${transformTitleToURL(title)}`, {
       state: {
         id,
         media,
@@ -198,14 +164,7 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
             <button className="btn btn-shared info-btn" onClick={handleSelectedMovie}>
               <span>More Info</span>
             </button>
-            <button 
-              className={`btn btn-shared bookmark-btn ${isBookmarked ? "is-bookmarked" : null}`}
-              onClick={() => bookmarkMovie(id)}
-            >
-              <i className="icon">
-                <BookmarkIcon />
-              </i>
-            </button>
+            <BookmarkButton item={{id, media}} color="dark" />
           </div>
           <p className="tagline">{tagline}</p>
           <motion.div className="rate" variants={itemsBVariants}>
@@ -216,12 +175,14 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
               <p>{formatRate(rate)}</p>
             </div>
           </motion.div>
-          <motion.div className="director" variants={staggerChildren}>
-            <motion.p variants={itemsBVariants}>Directed by</motion.p>
+          <div className="director">
+            <p>Directed by</p>
             <motion.p className="director-name" variants={itemsBVariants}>{getMovieDirector(credits.crew)}</motion.p>
-          </motion.div>
-          <Casts casts={credits.cast} mode="drawer" />
-          <div className="btns">
+          </div>
+          <div className="casts-container">
+            <Casts casts={credits.cast} mode="drawer" />
+          </div>
+          <div className="next-prev-btns">
             <button className="btn btn-shared" onClick={() => showPrevMovie(1)}>
               <ChevronLeftIcon />
             </button>

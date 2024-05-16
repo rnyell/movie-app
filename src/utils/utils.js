@@ -123,6 +123,10 @@ export function strCapitalizer(word) {
   return word.split(" ").map(el => el.substring(0, 1).toUpperCase() + el.substring(1, el.length)).join(" ")
 }
 
+export function transformTitleToURL(title) {
+  return title.trim().toLowerCase().replaceAll(" ", "-")
+}
+
 
 const ITEMS_PER_PAGE = 18
 export function filterResults(initialResults, selectedType, selectedGenres) {

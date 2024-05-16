@@ -1,41 +1,33 @@
 import { useEffect, useRef, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { StarIcon, BookmarkIcon, ArrowTopRightOnSquareIcon } from "@heroicons/outline"
+import { StarIcon } from "@heroicons/outline"
 import { PlayIcon } from "@heroicons/solid"
-import { useWindow, useLocalStorage } from "@utils/hooks"
+import { useWindow } from "@utils/hooks"
 import { getMediaRuntime } from "@utils/apis"
-import { getGenresWithIds, formatRate, formatRuntime, formatReleaseDate } from "@utils/utils"
+import { formatRate, formatRuntime, formatReleaseDate } from "@utils/utils"
 import { landCardOverlayVariants, defaultVariantsLabel } from "@utils/motions"
-import { useUserState } from "@src/store/app-context"
+import BookmarkButton from "@components/buttons/bookmark-btn"
+import LinkButton from "@components/buttons/link-btn"
 
-
+/* another common card for series, cuz series contains pretty diffferent chars than movies */
 export default function CommonCard({ result, media, variant }) {
   const {windowWidth} = useWindow()
-  const {userState, userDispatch} = useUserState()
-  const [_, setBookmarkedLS] = useLocalStorage("bookmarked", userState.bookmarked)
-  const [isBookmarked, setIsBookmarked] = useState()
   const [cardWidth, setCardWidth] = useState()
   const [cardOverlay, setCardOverlay] = useState(false)
   const cardRef = useRef(null)
   const [runtime, setRuntime] = useState(null)
 
+  const id = result.id
+  const title = result.title || result.name
+  const linkData = { title, id, media }
+
   useEffect(() => {
     if (media === "movie") {
       getMediaRuntime("movie", result.id).then(d => setRuntime(d))
-    }
-    
-    if (media === "tv") {
+    } else if (media === "tv") {
       getMediaRuntime("tv", result.id).then(d => setRuntime(d))
     }
-
-    const foundIndex = userState.bookmarked.findIndex(bookm => bookm.id === result.id)
-    const isFound = foundIndex !== -1
-    setIsBookmarked(isFound)
   }, [])
-
-  useEffect(() => {
-    setBookmarkedLS(userState.bookmarked)
-  }, [isBookmarked])
 
   useEffect(() => {
     if (cardRef.current) {
@@ -43,18 +35,6 @@ export default function CommonCard({ result, media, variant }) {
     }
   }, [windowWidth, cardWidth])
 
-  function bookmarkMovie(id) {
-    const foundIndex = userState.bookmarked.findIndex(bookm => bookm.id === id)
-    const isFound = foundIndex !== -1 ? true : false
-
-    if (isFound) {
-      userDispatch({ type: "remove_bookmark", media, id })
-      setIsBookmarked(false)
-    } else {
-      userDispatch({ type: "add_bookmark", media, id })
-      setIsBookmarked(true)
-    }
-  }
 
   return (
     <motion.div
@@ -73,7 +53,7 @@ export default function CommonCard({ result, media, variant }) {
             className="poster"
             src={`https://image.tmdb.org/t/p/original${result.backdrop_path}`}
             alt="poster"
-            draggable="false"
+            draggable={false}
           />
         </figure>
         <AnimatePresence>
@@ -83,7 +63,7 @@ export default function CommonCard({ result, media, variant }) {
             variants={landCardOverlayVariants}
             {...defaultVariantsLabel}
           >
-            <h4 className="title">{result.title || result.name}</h4>
+            <h4 className="title">{title}</h4>
             <div className="details">
               <span className="release-date">
                 {formatReleaseDate(result.release_date || result.first_air_date)}
@@ -103,21 +83,13 @@ export default function CommonCard({ result, media, variant }) {
               </span>
             </div>
             <div className="cta-btns">
-              <button className="btn">
+              <button className="btn play-btn">
                 <i className="icon play-icon">
                   <PlayIcon />
                 </i>
               </button>
-              <button className="btn">
-                <i className="icon arrow-icon">
-                  <ArrowTopRightOnSquareIcon />
-                </i>
-              </button>
-              <button className="btn" onClick={() => bookmarkMovie(result.id)}>
-                <i className={`icon ${isBookmarked ? "is-bookmarked" : null}`}>
-                  <BookmarkIcon />
-                </i>
-              </button>
+              <LinkButton linkData={linkData} />
+              <BookmarkButton item={{id, media}} color="dark" />
             </div>
           </motion.div>}
         </AnimatePresence>

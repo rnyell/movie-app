@@ -1,15 +1,14 @@
 import { useState } from "react"
 import { createPortal } from "react-dom"
-import { Link, useLocation } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
-import { StarIcon, FilmIcon, TvIcon, ArrowTopRightOnSquareIcon } from "@heroicons/outline"
-import { BookmarkSlashIcon, PlayIcon } from "@heroicons/solid"
-
+import { StarIcon, FilmIcon, TvIcon } from "@heroicons/outline"
+import { BookmarkSlashIcon } from "@heroicons/solid"
 import { useMediaDetails } from "@utils/hooks"
-import { getGenresWithIds, formatRate, formatRuntime, formatReleaseDate } from "@utils/utils"
+import { formatRate, formatRuntime, formatReleaseDate } from "@utils/utils"
 import { portraitCardOverlayVariants, defaultVariantsLabel } from "@utils/motions"
 import { useUserState } from "@src/store/app-context"
 import { PortraitCardLoading } from "@components/skeletons"
+import LinkButton from "@components/buttons/link-btn"
 import ConfirmModal from "@components/user-related/confirm-modal"
 
 
@@ -19,8 +18,9 @@ export default function BookmarkedCard({ result, media, variant }) {
   const {userDispatch} = useUserState()
   const [cardOverlay, setCardOverlay] = useState(false)
   const [showModal, setShowModal] = useState(false)
-  const location = useLocation()
   const confirmText = "Are you sure you want to remove this movie from your watchlist?"
+
+  // runtime & release date for tv shows?
 
   if (media === "movie") {
     /* `var` used to let (pun!) variables to be accessible outside of `if` scope. */
@@ -43,7 +43,7 @@ export default function BookmarkedCard({ result, media, variant }) {
       overview
     } = mediaDetails
   }
-  
+
   function handleSubmittedAction() {
     userDispatch({ type: "remove_bookmark", media, id })
     setShowModal(false)
@@ -87,29 +87,13 @@ export default function BookmarkedCard({ result, media, variant }) {
             </div>
             <p className="overview box-clamp">{overview}</p>
           </div>
-          <div className="cta-btns flex-justify-center">
-            <button className="btn">
-              <i className="icon remove-icon" onClick={() => setShowModal(true)}>
+          <div className="cta-btns justify-center">
+            <button className="square-btn bookmarkslash-btn">
+              <i className="icon bookmarkslash-icon" onClick={() => setShowModal(true)}>
                 <BookmarkSlashIcon />
               </i>
             </button>
-            <Link
-              className="btn"
-              to={`/${(title)
-                .trim()
-                .toLowerCase()
-                .replaceAll(" ", "-")}`
-              }
-              state={{
-                id: result,
-                media: media,
-                prevUrl: location.pathname + location.search,
-              }}
-            >
-              <i className="icon arrow-icon">
-                <ArrowTopRightOnSquareIcon />
-              </i>
-            </Link>
+            <LinkButton linkData={{id, title, media}} />
           </div>
         </motion.div>}
       </AnimatePresence>

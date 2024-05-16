@@ -1,10 +1,8 @@
 import { useEffect, useRef, useState } from "react"
 import { createPortal } from "react-dom"
 import { motion, AnimatePresence } from "framer-motion"
-import { StarIcon, BookmarkIcon, FilmIcon, TvIcon } from "@heroicons/outline"
-import { BookmarkSlashIcon, PlayIcon } from "@heroicons/solid"
-
-import { useWindow, useLocalStorage } from "@utils/hooks"
+import { PlayIcon } from "@heroicons/solid"
+import { useLocalStorage } from "@utils/hooks"
 import { getMovieDetails, getMediaRuntime } from "@utils/apis"
 import { getGenresWithIds, formatRate, formatRuntime, formatReleaseDate } from "@utils/utils"
 
@@ -55,7 +53,7 @@ export default function PlayedCard({ result, media, variant }) {
             exit={{ opacity: 0 }}
             transition={{ type: "tween", duration: 0.2, ease: "easeOut" }}
           >
-            <button className="btn flex-justify-center">
+            <button className="btn justify-center">
               <i className="icon">
                 <PlayIcon />
               </i>

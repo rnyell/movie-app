@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useLocation, Link } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
-import { ChevronLeftIcon, BookmarkIcon, HeartIcon, StarIcon, PlayIcon } from "@heroicons/outline"
+import { ChevronLeftIcon, HeartIcon, StarIcon, PlayIcon } from "@heroicons/outline"
 import { useWindow, useMediaDetails } from "@utils/hooks"
 import { formatRuntime, getMovieGenres, formatRate, getMovieDirector } from "@utils/utils"
 import { pageTransitionVariants, defaultVariantsLabel } from "@utils/motions"
-import { getMovieTrailer } from "@utils/apis"
+import { getMovieTrailer, getRecommendedMovies } from "@utils/apis"
 import { SelectedMovieSkeleton } from "@components/skeletons"
+import MovieCard from "@components/movie/movie-card"
 import Casts from "@components/movie/casts"
+import Rates from "@components/movie/rates"
+import BookmarkButton from "../components/buttons/bookmark-btn"
 
 
 export default function SelectedMovie() {
@@ -19,15 +22,28 @@ export default function SelectedMovie() {
       return `${this.width}${this.path}`
     }
   })
+  const [recMovies, setRecMovies] = useState([])
+  const [isRecLoading, setIsRecLoading] = useState(true)
   const navigate = useNavigate()
   const location = useLocation()
   const {state: {media, id, prevUrl}} = location
   const {mediaDetails, isLoading} = useMediaDetails(media, id)
   // const [trailerUrl, setTrailerUrl] = useState("")
+
+  useEffect(() => {
+    loadRecMovies()
+  }, [])
   
   useEffect(() => {
     handleResize()
   }, [mediaDetails, windowWidth])
+
+
+  async function loadRecMovies() {
+    const data = await getRecommendedMovies(id)
+    setRecMovies(data)
+    setIsRecLoading(false)
+  }
 
   function handleResize() {
     if (windowWidth < 620) {
@@ -45,28 +61,35 @@ export default function SelectedMovie() {
     }
   }
 
+  function playMovie(id) {
+    userDispatch({ type: "played", id })
+    navigate("/player", { state: { id, media } })
+  }
+
   const {
     title,
     release_date,
     runtime,
-    vote_average: rate,
+    vote_average: vote,
     poster_path,
     backdrop_path,
     overview,
     genres,
     credits,
     videos,
+    images,
+    belongs_to_collection,
     budget,
     revenue,
-    belongs_to_collection
   } = mediaDetails
 
-  console.log(mediaDetails)
+  // console.log(credits)
 
   // credits is undefined. why??
   // const { cast } = credits
+  // console.log(cast)
 
-  // function showTrailer(data) {
+  {// function showTrailer(data) {
   //   let officialTrailers = data.results.filter(res => 
   //     res.type === "Trailer" && 
   //     res.official === true
@@ -75,6 +98,7 @@ export default function SelectedMovie() {
   //   let trailerUrl = `https://www.youtube.com/watch?v=${latestTrailer}`
   //   setTrailerUrl(trailerUrl)
   // }
+  }
 
 
   if (isLoading) {
@@ -98,11 +122,7 @@ export default function SelectedMovie() {
             <HeartIcon />
           </i>
         </button>
-        <button className="btn bookmark-btn">
-          <i className="icon bookmark-icon">
-          <BookmarkIcon />
-          </i>
-        </button>
+        <BookmarkButton item={{id, media}} size="lg" color="light" />
       </div>
       <div className="poster-wrapper isolated-stack ::after-abs">
         <div className="bg-poster h-100" style={{backgroundImage: `url(https://image.tmdb.org/t/p/${imgUrl})`}} />
@@ -127,19 +147,27 @@ export default function SelectedMovie() {
       </div>
 
       <div className="sub-details">
-        <figure className="img-poster">
+        {/* <figure className="img-poster">
           <img src={`https://image.tmdb.org/t/p/w500${poster_path})`} />
-        </figure>
-        <div className="credits">
-          <Casts casts={credits.cast} mode="list" />
-          <div className="director flex">
-            <h5 className="tag">Directed By</h5>
-            <p className="director-name">{getMovieDirector(credits.crew)}</p>
+        </figure> */}
+        <div className="side-content ::before-abs">
+          <h5>Similar Movies</h5>
+          <div className="related-movies-container flex">
+            {!isRecLoading && recMovies.slice(0, 10).map(movie => 
+              <MovieCard key={movie.id} result={movie} media={media} variant="similar" />
+            )}
           </div>
         </div>
 
-        <div className="related-content">
-
+        <div className="information">
+          <Rates />
+          <div className="credits">
+            <div className="director flex">
+              <h5 className="tag">Directed By:</h5>
+              <p className="director-name">{getMovieDirector(credits.crew)}</p>
+            </div>
+            <Casts casts={credits.cast} mode="list" />
+          </div>
         </div>
       </div>
     </motion.div>

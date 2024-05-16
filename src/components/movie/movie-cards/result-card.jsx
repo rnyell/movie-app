@@ -1,43 +1,30 @@
-import { useEffect, useState } from "react"
-import { Link, useLocation } from "react-router-dom"
+import { useState } from "react"
 import { motion, AnimatePresence, useAnimate } from "framer-motion"
-import { StarIcon, BookmarkIcon, FilmIcon, TvIcon, ArrowTopRightOnSquareIcon } from "@heroicons/outline"
-import { useLocalStorage } from "@utils/hooks"
-import { getGenresWithIds, formatRate, formatRuntime, formatReleaseDate } from "@utils/utils"
+import { StarIcon, FilmIcon, TvIcon } from "@heroicons/outline"
+import { formatRate, formatRuntime, formatReleaseDate } from "@utils/utils"
 import { portraitCardOverlayVariants, defaultVariantsLabel } from "@utils/motions"
-import { useUserState } from "@src/store/app-context"
+import LinkButton from "@components/buttons/link-btn"
+import BookmarkButton from "@components/buttons/bookmark-btn"
 
 
 export default function ResultCard({ result, media, variant }) {
-  const {userState, userDispatch} = useUserState()
-  const [_, setBookmarkedLS] = useLocalStorage("bookmarked", userState.bookmarked)
-  const [isBookmarked, setIsBookmarked] = useState()
   const [cardOverlay, setCardOverlay] = useState(false)
   const [scope, animate] = useAnimate()
-  const location = useLocation()
 
-  useEffect(() => {
-    const foundIndex = userState.bookmarked.findIndex(bookm => bookm.id === result.id)
-    const isFound = foundIndex !== -1
-    setIsBookmarked(isFound)
-  }, [])
+  const id = result.id
+  const title = result.title || result.name
+  const releaseDate = result?.release_date || result?.first_air_date
+  const is2024 = releaseDate === 2024 ? true : false
 
-  useEffect(() => {
-    setBookmarkedLS(userState.bookmarked)
-  }, [isBookmarked])
-
-  function bookmarkMovie(id) {
-    const foundIndex = userState.bookmarked.findIndex(bookm => bookm.id === id)
-    const isFound = foundIndex !== -1 ? true : false
-
-    if (isFound) {
-      userDispatch({ type: "remove_bookmark", media, id })
-      setIsBookmarked(false)
-    } else {
-      userDispatch({ type: "add_bookmark", media, id })
-      setIsBookmarked(true)
-    }
-  }
+  // const {
+  //   id,
+  //   title,
+  //   release_date,
+  //   runtime,
+  //   vote_average,
+  //   poster_path,
+  //   overview
+  // } = result
 
   function handleHoverStart() {
     setCardOverlay(true)
@@ -48,7 +35,6 @@ export default function ResultCard({ result, media, variant }) {
   }
   
   function handleHoverEnd() {
-    // setCardOverlay(true)
     setCardOverlay(false)
     animate(".title", { y: 0 }, { duration: 0.2 })
     animate(".release-date", { y: 0, opacity: 1 }, { duration: 0.25 })
@@ -98,47 +84,17 @@ export default function ResultCard({ result, media, variant }) {
                 animate={{y: 0}}
                 exit={{y: 12}}
               >
-                <Link
-                  to={`/${(result.title || result.name)
-                    .trim()
-                    .toLowerCase()
-                    .replaceAll(" ", "-")}`
-                  }
-                  state={{
-                    id: result.id,
-                    media: result.media_type,
-                    prevUrl: location.pathname + location.search,
-                  }}
-                  >
-                  <i className="icon arrow-icon">
-                    <ArrowTopRightOnSquareIcon />
-                  </i>
-                </Link>
-                <i
-                  className={`icon bookmark-icon ${isBookmarked ? "is-bookmarked" : null}`}
-                  onClick={() => bookmarkMovie(result.id)}
-                >
-                  <BookmarkIcon />
-                </i>
+                <LinkButton linkData={{id, title, media}} />
+                <BookmarkButton item={{id, media}} color="dark" />
               </motion.div>
             </motion.div>
           }
         </AnimatePresence>
       </motion.div>
       <div className="main-details">
-        <h4 className="title truncate">{result?.title || result?.name}</h4>
-        <p className="release-date">
-          {formatReleaseDate(result?.release_date) || formatReleaseDate(result?.first_air_date)}
-        </p>
+        <h4 className="title truncate">{title}</h4>
+        <p className="release-date">{formatReleaseDate(releaseDate)}</p>
       </div>
     </motion.div>
   )
 }
-  {/* <h5 className="overlay-title">{result?.title || result?.name}</h5>
-      <span className="genres">
-        {getGenresWithIds(result.media_type, result.genre_ids)
-        .map(genre => <span key={genre} className="genre">{genre}, </span>
-      )}
-  </span> */}
-  {/* <p className="overview">{result.overview}</p> */}
-  {/* TODO: if 2024, a "new" tag is attached */}

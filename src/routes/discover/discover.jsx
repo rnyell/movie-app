@@ -1,15 +1,13 @@
 import { useEffect, useState } from "react"
 import { Link, Outlet, useLocation } from "react-router-dom"
-
 import NewsSction from "@components/discover/news-section"
 import RecommendedSection from "@components/discover/recommended-section"
 import GenreList from "@components/movie/genre-list"
 
 const intro_topics = [
   { href: "/search", tag: "Search", desc: "Find your next movie or tv show to watch" },
-  // { href: "/discover/movies", tag: "Movies", desc: "Get the latest news and gossips" },
-  // { href: "/discover/series", tag: "Series", desc: "Get the latest news and gossips" },
-  { href: "/onscreen", tag: "Reserve Tickets", desc: "Book Tickets for Movies in Theaters Near You" },
+  { href: "/onscreen", tag: "In Theaters", desc: "Book Tickets for Movies in Theaters Near You" },
+  // { href: "/discover/news", tag: "Series", desc: "Get the latest news and gossips" },
 ]
 
 export default function Discover() {

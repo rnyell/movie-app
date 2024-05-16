@@ -93,7 +93,7 @@ export default function SearchPage() {
         ) : (
           <>
             {isLgScreen && (
-              <header className="flex-align-center ::after-abs">
+              <header className="align-center ::after-abs">
                 <h2 className="heading">
                   Results for: <span className="searched-title">{query}</span>
                 </h2>

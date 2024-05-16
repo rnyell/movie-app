@@ -14,7 +14,7 @@ export default function MoviesSection() {
         <Link to="/discover/movies">Explore more <ChevronRightIcon /></Link>
       </header>
       <div className="draggable-wrapper">
-        <div className="draggable scroll-snap-start">
+        <div className="draggable snap-x-proximity">
           {moviesState.movies.slice(0, 12).map(movie =>
             <MovieCard key={movie.id} result={movie} media="movie" variant="screen" />
           )}

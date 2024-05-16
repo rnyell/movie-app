@@ -1,6 +1,6 @@
-.movie-list:has(:hover) .movie-card[data-variant="common"]:not(:has(:hover)) {
-  /* opacity: 0.6; */
-}
+/* .movie-list:has(:hover) .movie-card[data-variant="common"]:not(:has(:hover)) {
+  opacity: 0.6;
+} */
 
 .movie-card[data-variant="common"] {
   /* width: clamp(175px, 55vw, 300px); */ /* this is set inline by JS */
@@ -71,40 +71,22 @@
     display: flex;
     gap: 0.5rem;
   }
-
-  & button {
-    /* overflow: hidden; */
-    cursor: pointer;
   
-    & .icon {
-      border-radius: 0.5rem;
-      backdrop-filter: blur(5px);
-      padding: var(--space-2);
-      color: var(--color-neutral-800);
-      background-color: color-mix(in srgb, var(--color-neutral-200), transparent 40%);
-      transition: background-color var(--duration-1) ease-in;
-    }
-
-    & .play-icon {
-      color: var(--color-neutral-300);
-      background-color: var(--color-accent-500);
-
-      &:hover {
-        color: var(--color-neutral-800);
-      }
-    }
-
+  & .play-btn {
+    padding: var(--space-2);
+    color: var(--color-neutral-300);
+    background-color: var(--color-accent-500);
+    border-radius: 0.5rem;
+    transition: background-color var(--duration-1) ease-in,
+      color var(--duration-1) ease-in;
+    
     & svg {
       width: var(--space-4);
       stroke-width: 1.75;
-      transition: color var(--duration-1) ease-in;
     }
-
-    & .is-bookmarked svg {
-      fill: var(--color-neutral-800);
-    }
-
-    & .icon:hover {
+    
+    &:hover {
+      color: var(--color-neutral-800);
       background-color: var(--color-neutral-300);
     }
   }

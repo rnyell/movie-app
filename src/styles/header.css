@@ -3,11 +3,6 @@
   width: 100%;
   display: flex;
   align-items: center;
-
-  & a {
-    display: inline-grid;
-    place-items: center;
-  }
   
   & .flex-item {
     margin-inline: auto var(--space-6);
@@ -49,23 +44,29 @@
     }
   }
 
-  & .home-icon {
-    width: var(--icon-size-6);
-    color: color-mix(in srgb, var(--color-neutral-300), var(--color-neutral-400));
+  /* selects every icon in header except search-icon in search-box */
+  & > *:not(.flex-item) .icon {
+    padding: var(--space-2);
+    color: var(--color-neutral-350);
+    border-radius: var(--full-rounded);
+    transition: background-color var(--duration-1) ease-in;
+
+    & svg {
+      width: var(--icon-size-6);
+    }
+
+    &:hover {
+      background-color: var(--color-neutral-600);
+    }
   }
 
   & .user-related {
     display: flex;
     align-items: center;
-    
-    & .icon {
-      width: var(--icon-size-6);
-      color: color-mix(in srgb, var(--color-neutral-300), var(--color-neutral-400));
-    }
   
     & .bell-icon,
     & .login-link {
-      margin-inline: var(--space-2);
+      margin-inline: var(--space-1);
     }
   }
 }
