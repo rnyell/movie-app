@@ -17,9 +17,9 @@ import NewsPage from "@src/routes/discover/news-page"
 import Article from "@src/routes/discover/article"
 import SearchPage from "@src/routes/search-page"
 import SelectedMovie from "@src/routes/selected-movie"
-import Reservation from "@src/routes/user-related/reservation"
-import OnScreenPage from "@src/routes/user-related/onscreen-page"
-import UserStuff from "@src/routes/user-related/user-stuff"
+import Reservation from "@src/routes/reservation/reservation"
+import OnScreenPage from "@src/routes/reservation/onscreen-page"
+import Library from "@src/routes/library"
 import BookingPage from "@src/routes/booking-page"
 import { ErrorPage } from "@components/errors"
 
@@ -36,7 +36,7 @@ const routes = [
       { path: "/", element: <SharedLayout />, children: [
         { path: "/reservation", element: <Reservation /> },
         { path: "/onscreen", element: <OnScreenPage /> },
-        { path: "/your-stuff", element: <UserStuff /> },
+        { path: "/library", element: <Library /> },
         { path: "/discover", element: <Discover />, children: [
           { path: "/discover/movies", element: <MoviesPage /> },
           { path: "/discover/series", element: <SeriesPage /> },

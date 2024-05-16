@@ -17,7 +17,7 @@ export default function Header({ dataset }) {
       <div className="flex-item">
         <SearchBox dataset={dataset} />
       </div>
-      <div className="user-related">
+      <div className="icons">
         <i className="icon bell-icon">
           <BellIcon />
         </i>

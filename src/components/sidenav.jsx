@@ -28,7 +28,7 @@ const lg_links = [
   { name: "Movies", href: "/discover/movies", icon: <FilmIcon /> },
   { name: "TV Shows", href: "/discover/series", icon: <TvIcon /> },
   { name: "Reservation", href: "/reservation", icon: <TicketIcon /> },
-  { name: "Your Stuff", href: "/your-stuff", icon: <BookmarkIcon /> },
+  { name: "Library", href: "/library", icon: <BookmarkIcon /> },
 ]
 
 const sm_links = [
@@ -41,7 +41,7 @@ const sm_links = [
 
 const sub_links = [
   { name: "Reservation", href: "/reservation", icon: <TicketIcon /> },
-  { name: "Your Stuff", href: "/your-stuff", icon: <BookmarkIcon /> }
+  { name: "Library", href: "/library", icon: <BookmarkIcon /> }
 ]
 
 const lg_solid_icons = [

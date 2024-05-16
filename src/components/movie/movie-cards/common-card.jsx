@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { StarIcon } from "@heroicons/outline"
 import { PlayIcon } from "@heroicons/solid"
-import { useWindow } from "@utils/hooks"
+import { EllipsisIcon } from "@utils/icons"
+import { useWindow, useClickOutside } from "@utils/hooks"
 import { getMediaRuntime } from "@utils/apis"
 import { formatRate, formatRuntime, formatReleaseDate } from "@utils/utils"
 import { landCardOverlayVariants, defaultVariantsLabel } from "@utils/motions"
@@ -12,14 +13,17 @@ import LinkButton from "@components/buttons/link-btn"
 /* another common card for series, cuz series contains pretty diffferent chars than movies */
 export default function CommonCard({ result, media, variant }) {
   const {windowWidth} = useWindow()
+  // const initialWidth = {width: windowWidth > 620 ? "clamp(175px, 55vw, 305px)" : "clamp(175px, 55vw, 305px)" }
   const [cardWidth, setCardWidth] = useState()
   const [cardOverlay, setCardOverlay] = useState(false)
   const cardRef = useRef(null)
+  const ellipsisBtnRef = useRef(null)
   const [runtime, setRuntime] = useState(null)
-
   const id = result.id
   const title = result.title || result.name
   const linkData = { title, id, media }
+
+  useClickOutside(ellipsisBtnRef, hideOverlay)
 
   useEffect(() => {
     if (media === "movie") {
@@ -35,14 +39,25 @@ export default function CommonCard({ result, media, variant }) {
     }
   }, [windowWidth, cardWidth])
 
+  /* showOverlay() & hideOverlay() are created for touch devices to show the overlay */
+  function showOverlay(e) {
+    e.stopPropagation()
+    setCardOverlay(true)
+    cardRef.current.style.width = `${1.15 * cardWidth}px`
+  }
+
+  function hideOverlay() {
+    setCardOverlay(false)
+    cardRef.current.style.width = "clamp(175px, 55vw, 305px)"
+  }
+
 
   return (
     <motion.div
-      data-variant={variant}
       className="movie-card"
+      data-variant={variant}
       ref={cardRef}
       style={{width: "clamp(175px, 55vw, 305px)"}}
-      // whileFocus={{width: 1.15 * cardWidth}}
       whileHover={{width: 1.15 * cardWidth}}
       onHoverStart={() => setCardOverlay(true)}
       onHoverEnd={() => setCardOverlay(false)}
@@ -52,12 +67,12 @@ export default function CommonCard({ result, media, variant }) {
           <img
             className="poster"
             src={`https://image.tmdb.org/t/p/original${result.backdrop_path}`}
-            alt="poster"
             draggable={false}
+            alt="poster"
           />
         </figure>
         <AnimatePresence>
-        {cardOverlay &&
+        {cardOverlay && (
           <motion.div
             className="hover-overlay flex-col"
             variants={landCardOverlayVariants}
@@ -91,17 +106,33 @@ export default function CommonCard({ result, media, variant }) {
               <LinkButton linkData={linkData} />
               <BookmarkButton item={{id, media}} color="dark" />
             </div>
-          </motion.div>}
+          </motion.div>
+        )}
         </AnimatePresence>
       </div>
-      {/* <AnimatePresence>
-        {cardOverlay &&
-          <div
-            className="ambient"
-            style={{backgroundImage: `url(https://image.tmdb.org/t/p/original${result.backdrop_path})`}}
-          />
-        }
-      </AnimatePresence> */}
+      {windowWidth < 520 && (
+        <div className="active-on-mobile align-center w-100">
+          <h4 className="title">{title}</h4>
+          <button
+            className="btn ellipsis-btn"
+            ref={ellipsisBtnRef}
+            onClick={showOverlay}
+          >
+            <i className="icon">
+              <EllipsisIcon />
+            </i>
+          </button>
+        </div>
+      )}
     </motion.div>
   )
 }
+
+{/* <AnimatePresence>
+  {cardOverlay &&
+    <div
+      className="ambient"
+      style={{backgroundImage: `url(https://image.tmdb.org/t/p/original${result.backdrop_path})`}}
+    />
+  }
+</AnimatePresence> */}

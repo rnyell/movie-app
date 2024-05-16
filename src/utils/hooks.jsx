@@ -107,6 +107,7 @@ export function useClickOutside(ref, callback) {
   function handler(event) {
     event.stopPropagation()
     const target = event.target
+    // console.log(element, target) //? too many cals
     const isOutside = !element?.contains(target)
     
     if (isOutside) {

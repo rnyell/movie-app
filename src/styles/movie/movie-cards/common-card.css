@@ -6,7 +6,6 @@
   /* width: clamp(175px, 55vw, 300px); */ /* this is set inline by JS */
   scroll-margin-left: 3px; /* related to the visibility of the left-outline. it works with 1.5px but 3px is safer */
   border-radius: 1.5rem;
-  box-shadow: var(--box-shadow-1);
   outline: 1.5px solid transparent;
   outline-offset: 0;
   transition: opacity var(--duration-2) ease-out,
@@ -20,6 +19,7 @@
     position: relative;
     overflow: hidden;
     border-radius: 1.5rem;
+    box-shadow: var(--box-shadow-1);
   }
 
   & .poster {
@@ -88,6 +88,27 @@
     &:hover {
       color: var(--color-neutral-800);
       background-color: var(--color-neutral-300);
+    }
+  }
+
+  & .active-on-mobile {
+    padding: 8px 0;
+
+    & .ellipsis-btn {
+      margin-left: auto;
+      padding: 5px;
+      color: var(--color-neutral-200);
+      border-radius: 0.5rem;
+      cursor: pointer;
+  
+      & svg {
+        width: var(--icon-size-4);
+        stroke-width: 2;
+      }
+
+      &:hover {
+        background-color: var(--color-neutral-600);
+      }
     }
   }
 

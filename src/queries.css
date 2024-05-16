@@ -122,7 +122,7 @@
 }
 
 @media (width < 460px) {
-  .userstuff-page {
+  .library-page {
     & .heading {
       font-size: 1.5rem;
     }
@@ -343,6 +343,14 @@
   }
 }
 
+@media (width < 520px) {
+  .discover-page {
+    & section {
+      height: clamp(250px, 45vh, 400px);
+    }
+  }
+}
+
 @media (width < 720px) {
   .onscreen-page {
     & .movies-container {
@@ -408,6 +416,20 @@
   .selected-movie {
     & .poster-wrapper {
       height: 70vh;
+    }
+  }
+}
+
+
+/********************************************************************************************************/
+@media (width < 620px) {
+  .movie-card[data-variant="common"] {
+    & .wrapper {
+      box-shadow: none;
+    }
+
+    &:hover {
+      outline-color: transparent;
     }
   }
 }

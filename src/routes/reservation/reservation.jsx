@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import { readLocalStorage } from "@utils/utils"
 import { getMovieDetails } from "@utils/apis"
 import { useUserState } from "@src/store/app-context"
-import EmptyTickets from "@components/user-related/empty-tickets"
+import EmptyTickets from "@components/library/empty-tickets"
 
 
 export default function Reservation() {

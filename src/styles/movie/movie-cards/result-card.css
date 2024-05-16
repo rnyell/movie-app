@@ -79,8 +79,6 @@
   & .release-date {
     margin-top: -0.25rem;
     font-size: max(0.75rem + 1cqw, 14px + 0.2vw);
-    /* transition: translate var(--duration-2), opacity var(--duration-1);
-    transition-timing-function: ease-in; */
   }
   
   & .hover-overlay {

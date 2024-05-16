@@ -39,7 +39,7 @@
       flex: 1;
     }
 
-    & .user-related {
+    & .icons {
       margin-left: 1rem;
     }
   }
@@ -60,7 +60,7 @@
     }
   }
 
-  & .user-related {
+  & .icons {
     display: flex;
     align-items: center;
   

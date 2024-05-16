@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { createPortal } from "react-dom"
 import { motion, AnimatePresence } from "framer-motion"
-import { StarIcon, FilmIcon, TvIcon } from "@heroicons/outline"
+import { StarIcon } from "@heroicons/outline"
 import { BookmarkSlashIcon } from "@heroicons/solid"
 import { useMediaDetails } from "@utils/hooks"
 import { formatRate, formatRuntime, formatReleaseDate } from "@utils/utils"
@@ -9,7 +9,7 @@ import { portraitCardOverlayVariants, defaultVariantsLabel } from "@utils/motion
 import { useUserState } from "@src/store/app-context"
 import { PortraitCardLoading } from "@components/skeletons"
 import LinkButton from "@components/buttons/link-btn"
-import ConfirmModal from "@components/user-related/confirm-modal"
+import ConfirmModal from "@components/library/confirm-modal"
 
 
 export default function BookmarkedCard({ result, media, variant }) {
@@ -63,8 +63,8 @@ export default function BookmarkedCard({ result, media, variant }) {
         <img
           src={`https://image.tmdb.org/t/p/original${poster_path}`}
           className="poster"
+          draggable={false}
           alt="poster"
-          draggable="false"
         />
       <div className="ambient" style={{backgroundImage: `url(https://image.tmdb.org/t/p/original${poster_path})`}} />
       <AnimatePresence>

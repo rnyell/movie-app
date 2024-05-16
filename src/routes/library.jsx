@@ -4,9 +4,9 @@ import { AnimatePresence } from "framer-motion"
 import { useLocalStorage } from "@utils/hooks"
 import { useUserState } from "@src/store/app-context"
 import MovieCard from "@components/movie/movie-card"
-import EmptyHistory from "@components/user-related/empty-history"
-import EmptyWatchlist from "@components/user-related/empty-watchlist"
-import ConfirmModal from "@components/user-related/confirm-modal"
+import EmptyHistory from "@components/library/empty-history"
+import EmptyWatchlist from "@components/library/empty-watchlist"
+import ConfirmModal from "@components/library/confirm-modal"
 
 /*
 TODO:
@@ -15,7 +15,7 @@ TODO:
   3. filter movie or tv show on watchlist
 */
 
-export default function UserStuff() {
+export default function Library() {
   const {userState, userDispatch} = useUserState()
   const [, setBookmarksOnLS] = useLocalStorage("bookmarked", userState.bookmarked)
   const [, setPlayedOnLS] = useLocalStorage("played", userState.played)
@@ -56,7 +56,7 @@ export default function UserStuff() {
 
 
   return (
-    <div className="userstuff-page">
+    <div className="library-page">
       <section className="played-section">
         <header>
           <h4 className="heading">Played History</h4>
