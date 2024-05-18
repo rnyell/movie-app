@@ -1,8 +1,5 @@
 .link-btn {
   color: var(--color-neutral-800);
-  background-color: color-mix(in srgb, var(--color-neutral-200), transparent 45%);
-  backdrop-filter: blur(5px);
-  transition: background-color var(--duration-1) ease-in;
 
   & svg {
     width: var(--icon-size-4);
@@ -26,6 +23,16 @@
 
 .movie-card[data-variant="bookmarked"] .link-btn {
   padding: 5cqw;
+
+  & svg {
+    width: var(--icon-size-5);
+  }
+}
+
+.movie-card[data-variant="similar"] .link-btn {
+  margin-inline: auto;
+  margin-block: auto 2rem;
+  padding: var(--space-3);
 
   & svg {
     width: var(--icon-size-5);

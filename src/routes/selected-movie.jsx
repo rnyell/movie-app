@@ -1,34 +1,56 @@
 import { useEffect, useState } from "react"
-import { useNavigate, useLocation, Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
-import { ChevronLeftIcon, HeartIcon, StarIcon, PlayIcon } from "@heroicons/outline"
+import { PlayIcon } from "@heroicons/outline"
 import { useWindow, useMediaDetails } from "@utils/hooks"
-import { formatRuntime, getMovieGenres, formatRate, getMovieDirector } from "@utils/utils"
+import { readLocalStorage, formatRuntime, getMovieGenres, getMovieDirector } from "@utils/utils"
 import { pageTransitionVariants, defaultVariantsLabel } from "@utils/motions"
 import { getMovieTrailer, getRecommendedMovies } from "@utils/apis"
 import { SelectedMovieSkeleton } from "@components/skeletons"
 import MovieCard from "@components/movie/movie-card"
 import Casts from "@components/movie/casts"
 import Rates from "@components/movie/rates"
-import BookmarkButton from "../components/buttons/bookmark-btn"
+import BackButton from "@components/buttons/back-btn"
+import BookmarkButton from "@components/buttons/bookmark-btn"
+import FaveButton from "@components/buttons/fave-btn"
+
+const imgUrlInit = {
+  width: "w500",
+  path: "/",
+  toString() {
+    return `${this.width}${this.path}`
+  }
+}
 
 
 export default function SelectedMovie() {
   const {windowWidth} = useWindow()
-  const [imgUrl, setImgUrl] = useState({
-    width: "",
-    path: "",
-    toString() {
-      return `${this.width}${this.path}`
-    }
-  })
   const [recMovies, setRecMovies] = useState([])
   const [isRecLoading, setIsRecLoading] = useState(true)
+  // const location = useLocation()
+  // const {state: {id, media, prevUrl}} = location
   const navigate = useNavigate()
-  const location = useLocation()
-  const {state: {media, id, prevUrl}} = location
+  const {id, media, prevUrl} = readLocalStorage("linkData")
   const {mediaDetails, isLoading} = useMediaDetails(media, id)
-  // const [trailerUrl, setTrailerUrl] = useState("")
+  const [imgUrl, setImgUrl] = useState(imgUrlInit)
+
+  const {
+    title,
+    release_date,
+    runtime,
+    poster_path,
+    backdrop_path,
+    overview,
+    genres,
+    credits,
+    external_ids,
+    videos,
+    images,
+    belongs_to_collection,
+    budget,
+    revenue,
+  } = mediaDetails
+
 
   useEffect(() => {
     loadRecMovies()
@@ -66,25 +88,6 @@ export default function SelectedMovie() {
     navigate("/player", { state: { id, media } })
   }
 
-  const {
-    title,
-    release_date,
-    runtime,
-    vote_average: vote,
-    poster_path,
-    backdrop_path,
-    overview,
-    genres,
-    credits,
-    videos,
-    images,
-    belongs_to_collection,
-    budget,
-    revenue,
-  } = mediaDetails
-
-  // console.log(credits)
-
   // credits is undefined. why??
   // const { cast } = credits
   // console.log(cast)
@@ -112,16 +115,8 @@ export default function SelectedMovie() {
       {...defaultVariantsLabel}
     >
       <div className="btns flex w-100">
-        <Link to={prevUrl} className="btn back-btn">
-          <i className="icon">
-            <ChevronLeftIcon />
-          </i>
-        </Link>
-        <button className="btn fave-btn">
-          <i className="icon fave-icon">
-            <HeartIcon />
-          </i>
-        </button>
+        <BackButton url={prevUrl} />
+        <FaveButton />
         <BookmarkButton item={{id, media}} size="lg" color="light" />
       </div>
       <div className="poster-wrapper isolated-stack ::after-abs">
@@ -151,7 +146,7 @@ export default function SelectedMovie() {
           <img src={`https://image.tmdb.org/t/p/w500${poster_path})`} />
         </figure> */}
         <div className="side-content ::before-abs">
-          <h5>Similar Movies</h5>
+          <h4>Similar Movies</h4>
           <div className="related-movies-container flex">
             {!isRecLoading && recMovies.slice(0, 10).map(movie => 
               <MovieCard key={movie.id} result={movie} media={media} variant="similar" />
@@ -159,14 +154,14 @@ export default function SelectedMovie() {
           </div>
         </div>
 
+        <Rates id={external_ids.imdb_id} variant="verbose" />
         <div className="information">
-          <Rates />
           <div className="credits">
+            <Casts casts={credits.cast} mode="list" />
             <div className="director flex">
               <h5 className="tag">Directed By:</h5>
               <p className="director-name">{getMovieDirector(credits.crew)}</p>
             </div>
-            <Casts casts={credits.cast} mode="list" />
           </div>
         </div>
       </div>

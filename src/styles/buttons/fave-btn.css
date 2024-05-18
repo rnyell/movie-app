@@ -1,0 +1,17 @@
+.fave-btn {
+  & svg {
+    width: var(--icon-size-6);
+  }
+  
+  &.is-faved {
+    & svg {
+      color: var(--color-neutral-200);
+      fill: var(--color-neutral-200);
+    }
+  }
+}
+
+.selected-movie .fave-btn {
+  backdrop-filter: blur(10px);
+  margin-left: auto;
+}

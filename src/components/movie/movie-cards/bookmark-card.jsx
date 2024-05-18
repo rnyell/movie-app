@@ -88,7 +88,7 @@ export default function BookmarkedCard({ result, media, variant }) {
             <p className="overview box-clamp">{overview}</p>
           </div>
           <div className="cta-btns justify-center">
-            <button className="square-btn bookmarkslash-btn">
+            <button className="main-btn bookmarkslash-btn">
               <i className="icon bookmarkslash-icon" onClick={() => setShowModal(true)}>
                 <BookmarkSlashIcon />
               </i>

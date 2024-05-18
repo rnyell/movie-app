@@ -132,43 +132,30 @@
 
 /*-------------------------------------------------------------------------------------------------------*/
 .movie-card[data-variant="similar"] {
-  flex-direction: row;
-  gap: 0.625rem;
-  background-color: var(--color-neutral-700);
-  border-radius: 1rem;
+  width: clamp(165px, 33vw, 190px);
+  /* overflow: hidden; */ /* why crash!? */
 
-  & .card-img {
-    & .poster {
-      max-height: 250px;
-      border-radius: 1rem;
-    }
+  & .poster {
+    border-radius: 1rem;
   }
 
-  & .card-body {
-    gap: 0.25rem;
-    font-size: 0.8rem;
+  & .hover-overlay {
+    padding: 1rem;
+    background-image: linear-gradient(rgb(11 15 17 / 75%), rgb(11 15 17 / 35%));
+    border-radius: 1rem;
   }
 
   & .title {
-    font-size: 0.85rem;
+    margin-top: 1rem;
+    font-size: 1rem;
+  }
+
+  & .helper-div {
+    margin-top: 1rem;
   }
 
   & .release-date {
-    font-size: 0.625rem;
-  }
-
-  & .vote {
-    margin-left: auto;
-    width: 1.5rem;
-    aspect-ratio: 1;
-    background-color: var(--color-orange-300);
-    border-radius: 0.5rem;
-    
-    & .vote-number {
-      font-size: 0.675rem;
-      font-weight: 500;
-      color: var(--color-neutral-800);
-    }
+    font-size: 0.875rem;
   }
 }
 

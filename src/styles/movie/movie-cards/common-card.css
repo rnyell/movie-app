@@ -73,10 +73,8 @@
   }
   
   & .play-btn {
-    padding: var(--space-2);
     color: var(--color-neutral-300);
     background-color: var(--color-accent-500);
-    border-radius: 0.5rem;
     transition: background-color var(--duration-1) ease-in,
       color var(--duration-1) ease-in;
     

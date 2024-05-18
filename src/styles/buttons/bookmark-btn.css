@@ -1,8 +1,4 @@
 .bookmark-btn {
-  background-color: color-mix(in srgb, var(--color-neutral-200), transparent 45%);
-  backdrop-filter: blur(5px);
-  transition: background-color var(--duration-1) ease-in;
-
   & svg {
     width: var(--icon-size-4);
     stroke-width: 1.5;
@@ -10,11 +6,13 @@
 
   &[data-color="light"] {
     color: var(--color-neutral-200);
-    background-color: rgb(200 200 200 / 40%);
     backdrop-filter: blur(10px);
-  
-    &:hover {
-      background-color: rgb(210 210 210 / 50%);
+
+    &.is-bookmarked {
+      & svg {
+        color: var(--color-neutral-200);
+        fill: var(--color-neutral-200);
+      }
     }
   }
 
@@ -74,6 +72,6 @@
 
 .selected-movie .bookmark-btn {
   & svg {
-    width: var(--icon-size-5);
+    width: var(--icon-size-6);
   }
 }

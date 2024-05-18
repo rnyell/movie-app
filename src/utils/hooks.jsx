@@ -78,6 +78,39 @@ export function useLocalStorage(key, fallbackValue = "") {
 }
 
 
+export function useBroadcastChannel(type, name, message) {
+  // type: "receiver" | "sender"
+  const channel = useRef(null)
+  const [state, setState] = useState(message)
+
+  function handleMessage(event) {
+    setState(event.data)
+  }
+
+  useEffect(() => {
+    channel.current = new BroadcastChannel(name)
+    channel.current.addEventListener("message", handleMessage)
+
+    if (type === "sender") {
+      channel.current.postMessage(message)
+    }
+
+    return () => {
+      channel.current.removeEventListener("message", handleMessage)
+      channel.current.close()
+    }
+  }, [name, type])
+
+  function sendMessage() {
+    if (channel.current && type === "sender") {
+      channel.current.postMessage(message)
+    }
+  }
+
+  return [state, sendMessage]
+}
+
+
 export function useGeoLocation() {
   const userGeoScheme = { ip: null, country: null }
   const [userGeo, setUserGeo] = useState(userGeoScheme)
@@ -102,13 +135,13 @@ export function useGeoLocation() {
 
 export function useClickOutside(ref, callback) {
   const element = ref.current
-  const callbackRef = useRef(callback) //? the benefits of the "ref" is not clear...
+  const callbackRef = useRef(null)
 
   function handler(event) {
     event.stopPropagation()
     const target = event.target
-    // console.log(element, target) //? too many cals
     const isOutside = !element?.contains(target)
+    // console.log(element, target) //? too many cals
     
     if (isOutside) {
       callbackRef.current(event)
@@ -121,6 +154,7 @@ export function useClickOutside(ref, callback) {
 
   useEffect(() => {
     document.addEventListener("click", handler)
+
     return () => {
       document.removeEventListener("click", handler)
     }

@@ -1,0 +1,13 @@
+.back-btn {  
+  & svg {
+    width: var(--icon-size-6);
+  }
+
+  &[data-variant="dark"] {
+    
+  }
+}
+
+.selected-movie .back-btn {
+  backdrop-filter: blur(10px);
+}

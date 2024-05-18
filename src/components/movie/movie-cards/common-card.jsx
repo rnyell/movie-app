@@ -98,7 +98,7 @@ export default function CommonCard({ result, media, variant }) {
               </span>
             </div>
             <div className="cta-btns">
-              <button className="btn play-btn">
+              <button className="main-btn play-btn">
                 <i className="icon play-icon">
                   <PlayIcon />
                 </i>

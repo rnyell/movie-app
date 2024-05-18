@@ -1,0 +1,50 @@
+.rate[data-variant="square"] {
+  width: 1.5rem;
+  aspect-ratio: 1;
+  background-color: var(--color-orange-300);
+  border-radius: 0.5rem;
+
+  & .rate-number {
+    font-size: 0.675rem;
+    font-weight: 500;
+    color: var(--color-neutral-800);
+  }
+}
+
+.movie-card[data-variant="similar"] .rate {
+  margin-left: auto;
+}
+
+.rate[data-variant="star"] {
+
+}
+
+.rates[data-variant="verbose"] {
+  max-width: 920px;
+  font-size: 1.15rem;
+
+  & .box {
+    flex: 1;
+    gap: 0.5rem;
+  }
+
+  & .box:not(.box:last-child) {
+    border-right: 1px solid var(--color-neutral-500);
+  }
+
+  & svg {
+    width: var(--icon-size-8);
+  }
+
+  & .imdb-icon svg {
+    fill: var(--color-orange-500);
+  }
+
+  & .rotten-icon svg {
+    fill: tomato;
+  }
+
+  & .metacritic-icon svg {
+    fill: dodgerblue;
+  }
+}

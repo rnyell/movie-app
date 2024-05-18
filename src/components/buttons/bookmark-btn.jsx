@@ -36,7 +36,7 @@ export default function BookmarkButton({ item, color }) {
 
   return (
     <button
-      className={`square-btn bookmark-btn ${isBookmarked ? "is-bookmarked" : null}`}
+      className={`main-btn bookmark-btn ${isBookmarked ? "is-bookmarked" : null}`}
       data-color={color}
       onClick={bookmarkMovie}
     >

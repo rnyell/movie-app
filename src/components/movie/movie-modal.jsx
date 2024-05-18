@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
-// import { StarIcon } from "@heroicons/outline"
 import { useMediaDetails } from "@utils/hooks"
 import { formatRate, formatRuntime, formatReleaseDate, getMovieGenres, getMovieDirector } from "@utils/utils"
 import { modalBackdropVariants, modalVariants, defaultVariantsLabel, modalTransition } from "@utils/motions"

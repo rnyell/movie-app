@@ -223,7 +223,7 @@ export async function getMovieDetails(movieId) {
   const path = `3/movie/${movieId}`
   // other append_to_response: reviews,
   const params = {
-    append_to_response: "credits,videos,images,recommendations",
+    append_to_response: "credits,videos,images,recommendations,external_ids",
     api_key: import.meta.env.VITE_MAIN_API_KEY
   }
   const data = await request(path, params)
@@ -238,6 +238,15 @@ export async function getSeriesDetails(seriesId) {
   }
   const data = await request(path, params)
   return data
+}
+
+export async function getAdditionalDetails(id) {
+  const url = `https://www.omdbapi.com/?apikey=4109da8f&i=${id}`
+  const res = await fetch(url)
+  const data = await res.json()
+  const {Ratings: ratings} = data
+  // console.log(data)
+  return {ratings}
 }
 
 //+ series

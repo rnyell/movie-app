@@ -153,7 +153,27 @@
     background-color: rgb(37 40 42 / 65%);
     backdrop-filter: blur(5px);
   }
-  
+
+  .btn {
+    display: inline-grid;
+    place-items: center;
+  }
+
+  .main-btn {
+    padding: var(--space-2);
+    display: inline-grid;
+    place-items: center;
+    aspect-ratio: 1;
+    border-radius: 0.625rem;
+    background-color: color-mix(in srgb, var(--color-neutral-200), transparent 55%);
+    backdrop-filter: blur(5px);
+    transition: background-color var(--duration-1) ease-in;
+    
+    &:hover {
+      background-color: color-mix(in srgb, var(--color-neutral-200), transparent 40%);
+    }
+  }
+
   .icon {
     display: inline-grid;
     place-items: center;
@@ -163,19 +183,6 @@
       min-width: 15px;
       max-width: 36.25px;
     }
-  }
-
-  .btn {
-    display: inline-grid;
-    place-items: center;
-  }
-
-  .square-btn {
-    padding: var(--space-2);
-    display: inline-grid;
-    place-items: center;
-    aspect-ratio: 1;
-    border-radius: 0.5rem;
   }
 }
 
@@ -223,11 +230,6 @@
     & .star-icon svg {
       fill: var(--color-orange-300);
     }
-  }
-
-  & .blured-bg {
-    background-color: color-mix(in srgb, var(--color-neutral-200), transparent 45%);
-    backdrop-filter: blur(5px);
   }
 
   :root {

@@ -8,29 +8,8 @@
     top: 0;
     z-index: var(--z-50);
     gap: 0.75rem;
-
-    & .btn {
-      padding: var(--space-2);
-      background-color: rgb(200 200 200 / 40%);
-      backdrop-filter: blur(10px);
-      border-radius: 0.75rem;
-      transition: background-color var(--duration-1) ease-in;
-    }
-
-    & .btn:hover {
-      background-color: rgb(210 210 210 / 50%);
-    }
-
-    & .icon {
-      width: var(--icon-size-6);
-    }
-
-    & .fave-btn {
-      margin-left: auto;
-    }
   }
 
-  
   & .poster-wrapper {
     height: 90vh;
 
@@ -142,13 +121,14 @@
     padding: 0 var(--space-10) var(--space-6);
     display: grid;
     grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
   }
 
   & .side-content {
-    grid-row: 1 / 2;
+    grid-row: 2 / 3;
     grid-column: 2 / 3;
-    padding: 0.25rem;
-    width: min(275px, 20vw);
+    margin-top: 2rem;
+    width: min(400px, 25vw);
     height: 100%;
     
     &::before {
@@ -157,40 +137,50 @@
       left: -2.5rem;
       top: 50%;
       translate: 0 -50%;
-      background-color: var(--color-neutral-550);
-    }
-
-    & h5 {
+      /* background-color: var(--color-neutral-550); */
     }
     
     & .related-movies-container {
       margin-top: 2rem;
+      padding-left: 0.5rem;
+      height: 75vh;
+      overflow-y: scroll;
+      scrollbar-width: none;
       flex-direction: column;
+      align-items: center;
       gap: 0.5rem;
     }
   }
 
-  & .information {
-    grid-row: 1 / -1;
+  & .rates {
     grid-column: 1 / 2;
+  }
+
+  & .information {
+    grid-row: 2 / 3;
+    grid-column: 1 / 2;
+    display: flex;
+    flex-direction: column;
   }
   
   & .credits {
+    margin-top: 2rem;
+
     & .tag {
       margin-bottom: 0.75rem;
-      font-size: 1.15rem;
+    }
+
+    & .director {
+      margin-top: 2rem;
+      gap: 0.25rem;
+    }
+    
+    & .casts {
+      /* margin-top: 2rem; */
+      max-width: 100%;
     }
   }
   
-  & .director {
-    margin-top: 2rem;
-    gap: 0.25rem;
-  }
-  
-  & .casts {
-    margin-top: 2rem;
-    max-width: 100%;
-  }
 
   /* & .img-poster {
     grid-row: 1 / 2;
