@@ -14,8 +14,10 @@ import { getMovieDetails } from "@utils/apis"
 import { defaultVariantsLabel } from "@utils/motions"
 import { useUserState } from "@src/store/app-context"
 import { HeroMovieLoadingSkeleton } from "@components/skeletons"
-import Casts from "@components/movie/casts"
+import Casts from "@components/movie/details/casts"
 import BookmarkButton from "@components/buttons/bookmark-btn"
+import WatchButton from "@components/buttons/watch-btn"
+import Rates from "@components/movie/details/rates"
 
 
 export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
@@ -34,9 +36,9 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
     loadData()
     setKey(key + 1)
 
-    return () => {
-      setPlayedLS(userState.played)
-    }
+    // return () => {
+    //   setPlayedLS(userState.played)
+    // }
   }, [movie.id])
 
   async function loadData() {
@@ -61,11 +63,7 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
 
   // console.log(movieDetails)
 
-  function playMovie(id) {
-    userDispatch({ type: "played", id })
-    navigate("/player", { state: { id, media } })
-  }
-
+  // better name?
   function handleSelectedMovie() {
     navigate(`/${transformTitleToURL(title)}`, {
       state: {
@@ -155,29 +153,19 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
             </motion.p>
           </motion.div>
           <div className="cta-btns">
-            <button className="btn btn-shared watch-btn" onClick={() => playMovie(id)}>
-              <i className="icon">
-                <PlayIcon />
-              </i>
-              <span>Watch</span>
-            </button>
+            <WatchButton data={{id, media, prevUrl: location.pathname + location.search}} />
             <button className="btn btn-shared info-btn" onClick={handleSelectedMovie}>
               <span>More Info</span>
             </button>
             <BookmarkButton item={{id, media}} color="dark" />
           </div>
           <p className="tagline">{tagline}</p>
-          <motion.div className="rate" variants={itemsBVariants}>
-            <div className="helper-div">
-              <i className="icon">
-                <StarIcon />
-              </i>
-              <p>{formatRate(rate)}</p>
-            </div>
+          <motion.div className="rate-container" variants={itemsBVariants}>
+            <Rates rate={rate} variant="star" />
           </motion.div>
           <div className="director">
             <p>Directed by</p>
-            <motion.p className="director-name" variants={itemsBVariants}>{getMovieDirector(credits.crew)}</motion.p>
+            <p className="director-name">{getMovieDirector(credits.crew)}</p>
           </div>
           <div className="casts-container">
             <Casts casts={credits.cast} mode="drawer" />

@@ -34,7 +34,7 @@
 
   & .title {
     margin-top: auto;
-    width: unset;
+    width: 95%;
   }
 
   & .details {
@@ -52,41 +52,12 @@
     & .runtime {
       letter-spacing: -0.25px;
     }
-
-    & .vote {
-      color: inherit;
-
-      & .vote-number {
-        margin-left: 2px;
-      }
-    }
-
-    & .star-icon svg {
-      fill: var(--color-neutral-300);
-    }
   }
 
   & .cta-btns {
     margin-block: var(--space-4);
     display: flex;
     gap: 0.5rem;
-  }
-  
-  & .play-btn {
-    color: var(--color-neutral-300);
-    background-color: var(--color-accent-500);
-    transition: background-color var(--duration-1) ease-in,
-      color var(--duration-1) ease-in;
-    
-    & svg {
-      width: var(--space-4);
-      stroke-width: 1.75;
-    }
-    
-    &:hover {
-      color: var(--color-neutral-800);
-      background-color: var(--color-neutral-300);
-    }
   }
 
   & .active-on-mobile {

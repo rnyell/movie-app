@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { InfoIcon } from "@utils/icons"
 import { PRICES } from "@src/store/placeholder-data"
-import MovieModal from "../movie-modal"
+import MovieDetailsModal from "../modals/movie-details-modal"
 
 
 export default function ScreenCard({ result, variant, idx }) {
@@ -46,7 +46,7 @@ export default function ScreenCard({ result, variant, idx }) {
       <div className="card-body flex-col">
         <div className="sm-details flex">
           <h5 className="title truncate">{title}</h5>
-          <span className="price">{PRICES[idx]}$</span>
+          <span className="price">${PRICES[idx]}</span>
         </div>
         <div className="cta-btns flex">
           <button className="btn book-btn" onClick={handleBooking}>Book Now</button>
@@ -58,7 +58,7 @@ export default function ScreenCard({ result, variant, idx }) {
       {createPortal(
         <AnimatePresence>
           {showModal && (
-            <MovieModal
+            <MovieDetailsModal
               result={result}
               price={PRICES[idx]}
               setModal={setShowModal}

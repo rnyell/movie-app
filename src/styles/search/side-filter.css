@@ -49,11 +49,9 @@
   }
   
   & .type-group {
-    flex-wrap: wrap;
-    
     & label {
       padding: var(--space-2);
-      min-width: 4.75rem;
+      flex: 1;
       font-size: 0.75rem;
     }
   }

@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { StarIcon } from "@heroicons/outline"
-import { PlayIcon } from "@heroicons/solid"
 import { EllipsisIcon } from "@utils/icons"
 import { useWindow, useClickOutside } from "@utils/hooks"
+import { formatRuntime, formatReleaseDate } from "@utils/utils"
 import { getMediaRuntime } from "@utils/apis"
-import { formatRate, formatRuntime, formatReleaseDate } from "@utils/utils"
 import { landCardOverlayVariants, defaultVariantsLabel } from "@utils/motions"
-import BookmarkButton from "@components/buttons/bookmark-btn"
+import WatchButton from "@components/buttons/watch-btn"
 import LinkButton from "@components/buttons/link-btn"
+import BookmarkButton from "@components/buttons/bookmark-btn"
+import Rates from "@components/movie/details/rates"
 
 /* another common card for series, cuz series contains pretty diffferent chars than movies */
 export default function CommonCard({ result, media, variant }) {
@@ -19,11 +19,12 @@ export default function CommonCard({ result, media, variant }) {
   const cardRef = useRef(null)
   const ellipsisBtnRef = useRef(null)
   const [runtime, setRuntime] = useState(null)
+
   const id = result.id
   const title = result.title || result.name
   const linkData = { title, id, media }
 
-  useClickOutside(ellipsisBtnRef, hideOverlay)
+  // useClickOutside(ellipsisBtnRef, hideOverlay)
 
   useEffect(() => {
     if (media === "movie") {
@@ -80,29 +81,14 @@ export default function CommonCard({ result, media, variant }) {
           >
             <h4 className="title">{title}</h4>
             <div className="details">
-              <span className="release-date">
-                {formatReleaseDate(result.release_date || result.first_air_date)}
-              </span>
-              {media === "movie" && (
-                <>
-                  <i className="dot">&#x2022;</i>
-                  <span className="runtime">{formatRuntime(runtime)}</span>
-                </>
-              )}
+              <span className="release-date">{formatReleaseDate(result.release_date)}</span>
               <i className="dot">&#x2022;</i>
-              <span className="vote">
-                <span className="vote-number">{formatRate(result.vote_average)}</span>
-                <i className="icon star-icon">
-                  <StarIcon />
-                </i>
-              </span>
+              <span className="runtime">{formatRuntime(runtime)}</span>
+              <i className="dot">&#x2022;</i>
+              <Rates rate={result.vote_average} variant="star" />
             </div>
             <div className="cta-btns">
-              <button className="main-btn play-btn">
-                <i className="icon play-icon">
-                  <PlayIcon />
-                </i>
-              </button>
+              <WatchButton data={{id, media, prevUrl: location.pathname + location.search}} />
               <LinkButton linkData={linkData} />
               <BookmarkButton item={{id, media}} color="dark" />
             </div>
@@ -127,12 +113,3 @@ export default function CommonCard({ result, media, variant }) {
     </motion.div>
   )
 }
-
-{/* <AnimatePresence>
-  {cardOverlay &&
-    <div
-      className="ambient"
-      style={{backgroundImage: `url(https://image.tmdb.org/t/p/original${result.backdrop_path})`}}
-    />
-  }
-</AnimatePresence> */}

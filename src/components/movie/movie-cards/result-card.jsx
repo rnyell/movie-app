@@ -1,16 +1,19 @@
 import { useState } from "react"
+import { createPortal } from "react-dom"
 import { motion, AnimatePresence, useAnimate } from "framer-motion"
-import { StarIcon, FilmIcon, TvIcon } from "@heroicons/outline"
-import { formatRate, formatRuntime, formatReleaseDate } from "@utils/utils"
+import { FilmIcon, TvIcon } from "@heroicons/outline"
+import { InfoIcon } from "@utils/icons"
+import { formatReleaseDate } from "@utils/utils"
 import { portraitCardOverlayVariants, defaultVariantsLabel } from "@utils/motions"
-import LinkButton from "@components/buttons/link-btn"
 import BookmarkButton from "@components/buttons/bookmark-btn"
+import Overview from "@components/movie/details/overview"
+import MovieInfoModal from "@components/movie/modals/movie-info-modal"
 
 
 export default function ResultCard({ result, media, variant }) {
   const [cardOverlay, setCardOverlay] = useState(false)
+  const [showModal, setShowModal] = useState(false)
   const [scope, animate] = useAnimate()
-
   const id = result.id
   const title = result.title || result.name
   const releaseDate = result?.release_date || result?.first_air_date
@@ -28,18 +31,16 @@ export default function ResultCard({ result, media, variant }) {
 
   function handleHoverStart() {
     setCardOverlay(true)
-    animate(".title", { y: -45 }, { duration: 0.2 })
+    animate(".title", { y: -45, opacity: 0 }, { duration: 0.2 })
     animate(".release-date", { y: -30, opacity: 0 }, { duration: 0.25 })
     animate(".media-icon", { y: -5, opacity: 0 }, { duration: 0.2 })
-    animate(".vote", { y: 0, opacity: 1 }, { duration: 0.2 })
   }
-  
+
   function handleHoverEnd() {
     setCardOverlay(false)
-    animate(".title", { y: 0 }, { duration: 0.2 })
+    animate(".title", { y: 0, opacity: 1 }, { duration: 0.2 })
     animate(".release-date", { y: 0, opacity: 1 }, { duration: 0.25 })
     animate(".media-icon", { y: 0, opacity: 1 }, { duration: 0.2 })
-    animate(".vote", { y: -8, opacity: 0 }, { duration: 0.2 })
   }
 
   return (
@@ -60,14 +61,11 @@ export default function ResultCard({ result, media, variant }) {
         <i className="icon media-icon">
           {media === "movie" ? <FilmIcon /> : <TvIcon />}
         </i>
-        <span className="vote">
-          <i className="icon star-icon"><StarIcon /></i>
-          <span className="vote-number">{formatRate(result.vote_average)}</span>
-        </span>
         <figure>
           <img
             className="poster"
             src={`https://image.tmdb.org/t/p/w500${result.poster_path}`}
+            draggable={false}
             alt="poster"
           />
         </figure>
@@ -78,14 +76,23 @@ export default function ResultCard({ result, media, variant }) {
               variants={portraitCardOverlayVariants}
               {...defaultVariantsLabel}
             >
+              <motion.h4
+                className="overlay-title box-clamp"
+                initial={{y: -7}}
+                animate={{y: 0}}
+                exit={{y: -7}}
+              >{title}</motion.h4>
+              <Overview text={result.overview} />
               <motion.div
-                className="cta-btns"
+                className="cta-btns justify-center absolute-align-center"
                 initial={{y: 12}}
                 animate={{y: 0}}
                 exit={{y: 12}}
               >
-                <LinkButton linkData={{id, title, media}} />
                 <BookmarkButton item={{id, media}} color="dark" />
+                <button className="main-btn info-btn" onClick={() => setShowModal(true)}>
+                  <i className="icon"><InfoIcon /></i>
+                </button>
               </motion.div>
             </motion.div>
           }
@@ -95,6 +102,18 @@ export default function ResultCard({ result, media, variant }) {
         <h4 className="title truncate">{title}</h4>
         <p className="release-date">{formatReleaseDate(releaseDate)}</p>
       </div>
+      {createPortal(
+        <AnimatePresence>
+          {showModal && (
+            <MovieInfoModal
+              result={result}
+              media={media}
+              setModal={setShowModal}
+            />
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </motion.div>
   )
 }

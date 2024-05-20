@@ -8,16 +8,6 @@
     width: 75%;
   }
 
-  & .vote {
-    & .vote-number {
-      margin-inline: 2cqw;
-    }
-  }
-
-  & .dot {
-    scale: 1.35;
-  }
-
   & .hover-overlay {
     position: absolute;
     z-index: var(--z-20);
@@ -132,7 +122,7 @@
 
 /*-------------------------------------------------------------------------------------------------------*/
 .movie-card[data-variant="similar"] {
-  width: clamp(165px, 33vw, 190px);
+  width: clamp(175px, 50vw, 275px);
   /* overflow: hidden; */ /* why crash!? */
 
   & .poster {
@@ -146,12 +136,12 @@
   }
 
   & .title {
-    margin-top: 1rem;
+    width: auto;
     font-size: 1rem;
   }
 
   & .helper-div {
-    margin-top: 1rem;
+    /* margin-top: 1rem; */
   }
 
   & .release-date {
@@ -267,17 +257,6 @@
       & > div {
         width: 100%;
         justify-content: space-between;
-      }
-
-      & .overview {
-        font-size: 0.75rem;
-        font-weight: 500;
-        color: var(--color-neutral-350);
-        -webkit-line-clamp: 3;
-
-        &:hover {
-          -webkit-line-clamp: 5;
-        }
       }
     }
 

@@ -31,7 +31,7 @@
 
 .movie-card[data-variant="similar"] .link-btn {
   margin-inline: auto;
-  margin-block: auto 2rem;
+  margin-block: auto 0;
   padding: var(--space-3);
 
   & svg {

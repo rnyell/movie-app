@@ -21,11 +21,11 @@ export default function Header({ dataset }) {
         <i className="icon bell-icon">
           <BellIcon />
         </i>
-        <Link to="/login" className="btn login-link">
+        <button className="btn login-link">
           <i className="icon user-icon">
             <UserCircleIcon />
           </i>
-        </Link>
+        </button>
       </div>
     </header>
   )

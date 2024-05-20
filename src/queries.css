@@ -93,7 +93,7 @@
       &.is-active {
         color: var(--color-neutral-200);
 
-        & .dot {
+        & .indicator-dot {
           position: absolute;
           width: 4px;
           height: 4px;
@@ -267,7 +267,7 @@
     font-size: 0.65rem;
   }
 
-  .rate {
+  .rate-container {
     grid-column: 5 / 6;
     justify-self: end;
 
@@ -472,8 +472,8 @@
       }
     }
 
-    & .vote-number {
-      font-size: 1rem;
+    & .rate-number {
+      /* font-size: 1rem; */
     }
 
     & .genres {

@@ -4,8 +4,10 @@ import { HeartIcon, ChevronLeftIcon, SpeakerWaveIcon } from "@heroicons/outline"
 import { PlayIcon, PauseIcon } from "@heroicons/solid"
 import { Backward10Icon, Forward10Icon } from "@src/utils/icons"
 
+
 export default function PlayerPage() {
-  const { state } = useLocation()
+  const location = useLocation()
+  const {id, media, prevUrl} = location.state
 
   return (
     <div className="player-page">

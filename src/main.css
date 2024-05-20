@@ -23,14 +23,18 @@
 @import "@styles/movie/movie-card.css" layer;
 @import "@styles/movie/movie-cards/common-card.css" layer;
 @import "@styles/movie/movie-cards/result-card.css" layer;
-@import "@styles/movie/casts.css" layer;
-@import "@styles/movie/rates.css" layer;
+@import "@styles/movie/details/casts.css" layer;
+@import "@styles/movie/details/rates.css" layer;
+@import "@styles/movie/details/overview.css" layer;
+@import "@styles/movie/details/genres.css" layer;
+@import "@styles/movie/modals/movie-details-modal.css" layer;
+@import "@styles/movie/modals/movie-info-modal.css" layer;
 
 @import "@styles/buttons/bookmark-btn.css" layer;
 @import "@styles/buttons/link-btn.css" layer;
 @import "@styles/buttons/back-btn.css" layer;
 @import "@styles/buttons/fave-btn.css" layer;
-/* @import "@styles/buttons/watch-btn.css" layer; */
+@import "@styles/buttons/watch-btn.css" layer;
 
 @import "@styles/header.css" layer;
 @import "@styles/sidenav.css" layer;

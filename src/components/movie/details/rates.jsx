@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { StarIcon } from "@heroicons/outline"
+import { StarIcon } from "@heroicons/solid"
 import {
   IMDBIcon,
   IMDB2Icon,
@@ -17,7 +17,9 @@ export default function Rates({ id, rate, variant }) {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    loadRates()
+    if (variant === "verbose") {
+      loadRates()
+    }
   }, [])
   
   // const [
@@ -37,16 +39,18 @@ export default function Rates({ id, rate, variant }) {
   switch (variant) {
     case "square": {
       return (
-        <div className="rate flex-center" data-variant={variant}>
+        <div className="rate flex-center unselectable" data-variant={variant}>
           <span className="rate-number">{formatRate(rate)}</span>
         </div>
       )
     }
     case "star": {
       return (
-        <div className="rate" data-variant={variant}>
-          <i className="icon"><StarIcon /></i>
+        <div className="rate align-center unselectable" data-variant={variant}>
           <span className="rate-number">{formatRate(rate)}</span>
+          <i className="icon">
+            <StarIcon />
+          </i>
         </div>
       )
     }

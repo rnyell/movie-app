@@ -125,7 +125,7 @@ export default function SideNav() {
                 >
                   <i className="icon">{isActive ? sm_solid_icons[idx] : link.icon}</i>
                   <p className="link-tag">{link.name}</p>
-                  {isActive && <div className="dot"></div>}
+                  {isActive && <div className="indicator-dot" />}
                   {<AnimatePresence>
                     {isSquares && isOpen && <SubMenu setIsOpen={setIsOpen} />}
                   </AnimatePresence>}

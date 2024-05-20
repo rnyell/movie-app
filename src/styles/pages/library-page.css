@@ -79,9 +79,7 @@
   width: clamp(320px, 55%, 600px);
   display: flex;
   flex-direction: column;
-  background-color: var(--color-neutral-700);
   box-shadow: 0 4px 1.25rem rgb(16 21 24 / 50%);
-  border-radius: 1.25rem;
 
   & .btns {
     margin-top: var(--space-10);

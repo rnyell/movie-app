@@ -88,7 +88,7 @@ export default function SearchPage() {
       <main>
         {isInitialMarkup ? (
           <div>
-            some nice animations or ux sentences or pix
+            
           </div>
         ) : (
           <>

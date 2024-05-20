@@ -74,11 +74,19 @@ export function getMovieGenres(genres) {
 
 
 export function getGenresWithIds(type = "movie", ids = []) {
+  let returnValue = ""
+
   if (type === "movie") {
-    return ids.map((id) => MOVIE_GENRES[id])
+    ids.forEach(id => {
+      returnValue += `${MOVIE_GENRES[id]}, `
+    })
   } else if (type === "tv") {
-    return ids.map((id) => TV_GENRES[id])
+    ids.forEach(id => {
+      returnValue += `${TV_GENRES[id]}, `
+    })
   }
+
+  return returnValue.slice(0, -2)
 }
 
 

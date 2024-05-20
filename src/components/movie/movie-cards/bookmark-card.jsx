@@ -8,6 +8,7 @@ import { formatRate, formatRuntime, formatReleaseDate } from "@utils/utils"
 import { portraitCardOverlayVariants, defaultVariantsLabel } from "@utils/motions"
 import { useUserState } from "@src/store/app-context"
 import { PortraitCardLoading } from "@components/skeletons"
+import Overview from "@components/movie/details/overview"
 import LinkButton from "@components/buttons/link-btn"
 import ConfirmModal from "@components/library/confirm-modal"
 
@@ -85,7 +86,7 @@ export default function BookmarkedCard({ result, media, variant }) {
                 <span className="vote-number">{formatRate(vote_average)}</span>
               </span>
             </div>
-            <p className="overview box-clamp">{overview}</p>
+            <Overview text={overview} />
           </div>
           <div className="cta-btns justify-center">
             <button className="main-btn bookmarkslash-btn">

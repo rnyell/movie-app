@@ -1,5 +1,3 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Rokkitt:ital,wght@0,100..900;1,100..900&display=swap'); */
-/* @import "@src/tailwind.css" layer(framework); */
 @layer reset, defaults, typo, custom, components, utilities;
 
 
@@ -60,6 +58,12 @@
     top: 50%;
     left: 50%;
     translate: -50% -50%;
+  }
+
+  .absolute-align-center {
+    position: absolute;
+    left: 50%;
+    translate: -50% 0;
   }
 
   .grid-center {
@@ -138,20 +142,26 @@
   }
 
   .modal {
-    position: absolute;
+    position: fixed;
     z-index: var(--z-50);
     top: 45%;
     left: 50%;
     translate: -50% -50%;
+    background-color: var(--color-neutral-700);
     box-shadow: var(--box-shadow-1);
+    border-radius: 1.25rem;
   }
 
   .modal-backdrop {
-    position: absolute;
+    position: fixed;
     z-index: var(--z-50);
     inset: 0;
     background-color: rgb(37 40 42 / 65%);
     backdrop-filter: blur(5px);
+  }
+  
+  body:has(.modal) {
+    overflow: hidden;
   }
 
   .btn {
@@ -165,12 +175,12 @@
     place-items: center;
     aspect-ratio: 1;
     border-radius: 0.625rem;
-    background-color: color-mix(in srgb, var(--color-neutral-200), transparent 55%);
+    background-color: color-mix(in srgb, var(--color-neutral-200), transparent 50%);
     backdrop-filter: blur(5px);
     transition: background-color var(--duration-1) ease-in;
     
     &:hover {
-      background-color: color-mix(in srgb, var(--color-neutral-200), transparent 40%);
+      background-color: color-mix(in srgb, var(--color-neutral-200), transparent 35%);
     }
   }
 
@@ -221,15 +231,17 @@
     display: flex;
   } */
 
-  & .vote {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-orange-300);
+  .dot {
+    scale: 1.375;
+    color: var(--color-neutral-350);
+  }
 
-    & .star-icon svg {
-      fill: var(--color-orange-300);
-    }
+  .bg-poster {
+    width: 100%;
+    height: 100%;
+    z-index: var(--z-neg10);
+    background-size: cover;
+    background-repeat: no-repeat;
   }
 
   :root {
@@ -322,7 +334,8 @@
 
 @layer typo {
   html {
-    font-size: clamp(12.5px, 55% + 0.7vw, 18.25px);
+    font-size: clamp(12.5px, 55% + 0.725vw, 18.25px);
+    font-size: clamp(14px, 50% + 0.725vw, 18.5px);
     text-rendering: optimizeLegibility;
   }
   
@@ -333,31 +346,30 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    /* font-family: "Rokkitt", Cambria, Cochin, Georgia, serif; */
     font-family: Ubuntu, sans-serif;
     letter-spacing: 0.325px;
     line-height: 1.15;
   }
 
   h1 {
-    font-size: 2rem;
+    font-size: 1.875rem;
     font-weight: 700;
     letter-spacing: 0.4px;
   }
 
   h2 {
-    font-size: 1.725rem;
+    font-size: 1.65rem;
     font-weight: 700;
     letter-spacing: 0.4px;
   }
 
   h3 {
-    font-size: 1.5rem;
+    font-size: 1.35rem;
     font-weight: 500;
   }
 
   h4 {
-    font-size: 1.3rem;
+    font-size: 1.25rem;
     font-weight: 500;
   }
 
@@ -451,7 +463,7 @@
   }
 
   button {
-    font-size: 0.875rem;
+    font-size: 0.9rem;
   }
 }
 
@@ -548,6 +560,7 @@
   font-family: Montserrat;
   font-weight: 400;
   font-style: normal;
+  font-display: fallback;
   src: local("Montserrat"),
     url("/fonts/Montserrat-400.ttf") format("truetype");
 }
@@ -556,6 +569,7 @@
   font-family: Montserrat;
   font-weight: 400;
   font-style: italic;
+  font-display: fallback;
   src: url("/fonts/Montserrat-400-italic.ttf") format("truetype");
 }
 
@@ -563,6 +577,7 @@
   font-family: Montserrat;
   font-weight: 500;
   font-style: normal;
+  font-display: fallback;
   src: local("Montserrat"),
     url("/fonts/Montserrat-500.ttf") format("truetype");
 }
@@ -571,6 +586,7 @@
   font-family: Montserrat;
   font-weight: 600;
   font-style: normal;
+  font-display: fallback;
   src: local("Montserrat"),
     url("/fonts/Montserrat-600.ttf") format("truetype");
 }
@@ -579,6 +595,7 @@
   font-family: Montserrat;
   font-weight: 600;
   font-style: italic;
+  font-display: fallback;
   src: local("Montserrat"),
     url("/fonts/Montserrat-600-italic.ttf") format("truetype");
 }
@@ -587,6 +604,7 @@
   font-family: Montserrat;
   font-weight: 700;
   font-style: normal;
+  font-display: fallback;
   src: local("Montserrat"),
     url("/fonts/Montserrat-700.ttf") format("truetype");
 }
@@ -595,8 +613,8 @@
   font-family: Ubuntu;
   font-weight: 400;
   font-style: normal;
-  /*? font-display: swap;*/
-  src: local("Montserrat"),
+  font-display: fallback;
+  src: local("Ubuntu"),
     url("/fonts/Ubuntu-400.ttf") format("truetype");
 }
 
@@ -604,8 +622,8 @@
   font-family: Ubuntu;
   font-weight: 500;
   font-style: normal;
-  /*? font-display: swap;*/
-  src: local("Montserrat"),
+  font-display: fallback;
+  src: local("Ubuntu"),
     url("/fonts/Ubuntu-500.ttf") format("truetype");
 }
 
@@ -613,7 +631,17 @@
   font-family: Ubuntu;
   font-weight: 700;
   font-style: normal;
-  /*? font-display: swap;*/
-  src: local("Montserrat"),
+  font-display: fallback;
+  src: local("Ubuntu"),
     url("/fonts/Ubuntu-700.ttf") format("truetype");
 }
+
+/*-------------------------------------------*/
+/* @font-face {
+  font-family: Hauora;
+  font-weight: 300;
+  font-style: normal;
+  font-display: fallback;
+  src: local("Hauora"),
+    url("/fonts/Hauora-300.woff2") format("woff2");
+} */

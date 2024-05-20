@@ -21,10 +21,7 @@
 
     & .bg-poster {
       position: relative;
-      z-index: var(--z-neg10);
       background-position: 50% 0;
-      background-size: cover;
-      background-repeat: no-repeat;
     }
   }
 
@@ -36,7 +33,7 @@
   }
 
   & .title {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
     font-size: min(4rem, 60px);
     font-weight: 600;
     color: var(--color-neutral-100);
@@ -51,10 +48,10 @@
     gap: var(--space-2);
     font-size: 0.8rem;
     color: var(--color-neutral-350);
+  }
 
-    & .dot {
-      scale: 1.35;
-    }
+  & .release-date {
+    color: var(--color-neutral-300);
   }
 
   & .icons {
@@ -66,53 +63,35 @@
     }
   }
 
-  & .overview {
-    margin-bottom: 1.5rem;
-    max-width: min(75ch, 60vw);
-    font-size: 0.9rem;
-    color: var(--color-neutral-300);
-  }
-
   & .cta-btns {
     gap: 1rem;
 
     & .btn {
-      display: flex;
-      font-weight: 500;
-      color: var(--color-neutral-250);
       border-radius: var(--full-rounded);
       transition: color var(--duration-1) ease-in,
         background-color var(--duration-1) ease-in;
-    }
-
-    & .btn:hover {
-      color: var(--color-neutral-800);
-      background-color: var(--color-neutral-300);
     }
 
     & .watch-btn {
       padding: 0.85rem 2rem;
       gap: 0.25rem;
       background-color: var(--color-accent-600);
-      cursor: pointer;
-
-      &:hover {
-        & .icon svg {
-          fill: var(--color-neutral-800);
-        }
-      }
 
       & svg {
         margin-left: -8px;
         width: var(--icon-size-5);
-        fill: var(--color-neutral-300);
-        transition: fill var(--duration-1) ease-in;
       }
     }
   
     & .trailer-btn {
+      font-weight: 500;
       padding: 0.85rem 1.75rem;
       border: var(--outline-size-2) solid var(--color-neutral-300);
+
+      &:hover {
+        color: var(--color-neutral-800);
+        background-color: var(--color-neutral-300);
+      }
     }
   }
 
@@ -128,7 +107,7 @@
     grid-row: 2 / 3;
     grid-column: 2 / 3;
     margin-top: 2rem;
-    width: min(400px, 25vw);
+    width: min(380px, 25vw);
     height: 100%;
     
     &::before {
@@ -142,13 +121,12 @@
     
     & .related-movies-container {
       margin-top: 2rem;
-      padding-left: 0.5rem;
       height: 75vh;
       overflow-y: scroll;
       scrollbar-width: none;
       flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
+      align-items: flex-start;
+      gap: 1rem;
     }
   }
 

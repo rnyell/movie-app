@@ -1,0 +1,53 @@
+.watch-btn {
+  grid-auto-flow: column;
+  font-weight: 500;
+  color: var(--color-neutral-250);
+  background-color: var(--color-accent-600);
+  transition: background-color var(--duration-1) ease-in,
+    color var(--duration-1) ease-in;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--color-neutral-800);
+    background-color: var(--color-neutral-300);
+  }
+}
+
+.hero-section .watch-btn {
+  padding: 1.2cqw 1.5cqw;
+  width: 6.5rem;
+  border-radius: 0.7rem;;
+    
+  & span {
+    margin-right: auto;
+  }
+
+  & svg {
+    width: var(--icon-size-4);
+    stroke-width: 2;
+  }
+
+  &:hover {
+    background-color: var(--color-neutral-200);
+    border-color: var(--color-neutral-200);
+  }
+}
+
+.movie-card[data-variant="common"] .watch-btn {
+  padding: var(--space-2);
+  background-color: var(--color-accent-500);
+  border-radius: 0.625rem;
+
+  & span {
+    display: none;
+  }
+
+  & svg {
+    width: var(--space-4);
+    stroke-width: 1.75;
+  }
+
+  &:hover {
+    background-color: color-mix(in srgb, var(--color-neutral-200), transparent 40%);
+  }
+}

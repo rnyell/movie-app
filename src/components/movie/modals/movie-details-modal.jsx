@@ -1,11 +1,14 @@
 import { useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
 import { useMediaDetails } from "@utils/hooks"
-import { formatRate, formatRuntime, formatReleaseDate, getMovieGenres, getMovieDirector } from "@utils/utils"
+import { formatRuntime, formatReleaseDate, getMovieDirector } from "@utils/utils"
 import { modalBackdropVariants, modalVariants, defaultVariantsLabel, modalTransition } from "@utils/motions"
+import Rates from "@components/movie/details/rates"
+import Genres from "@components/movie/details/genres"
+import Overview from "@components/movie/details/overview"
 
 
-export default function MovieModal({ result, setModal, price }) {
+export default function MovieDetailsModal({ result, setModal, price }) {
   const {mediaDetails, isLoading} = useMediaDetails("movie", result.id)
   const navigate = useNavigate()
 
@@ -43,7 +46,7 @@ export default function MovieModal({ result, setModal, price }) {
         {...defaultVariantsLabel}
       />
       <motion.div
-        className="modal movie-modal align-center-col"
+        className="modal movie-details-modal align-center-col"
         variants={modalVariants}
         {...defaultVariantsLabel}
         transition={modalTransition}
@@ -60,25 +63,17 @@ export default function MovieModal({ result, setModal, price }) {
         <div className="modal-body w-100">
           <div className="align-center">
             <h4 className="title">{title}</h4>
-            <span className="vote unselectable">
-              {/* <i className="icon star-icon"><StarIcon /></i> */}
-              <span className="vote-number">{formatRate(vote_average)}</span>
-            </span>
+            <Rates rate={vote_average} variant="square" />
           </div>
           <div className="main-details align-center">
             <span className="release-date">{formatReleaseDate(release_date)}</span>
             <i className="dot">&#x2022;</i>
             <span className="runtime">{formatRuntime(runtime)}</span>
             <i className="dot">&#x2022;</i>
-            <div className="genres">
-              <span>{getMovieGenres(genres)}</span>
-            </div>
+            <Genres genres={genres} media="movie" />
           </div>
           <div className="sub-details">
-            <div className="overview">
-              {/* <h6>Plot</h6> */}
-              <p className="box-clamp">{overview}</p>
-            </div>
+            <Overview text={overview} />
             <div className="credits">
               <div className="director align-center">
                 <h6>Directed by:</h6>
@@ -93,7 +88,7 @@ export default function MovieModal({ result, setModal, price }) {
             </div>
           </div>
           <div className="btns align-center">
-            <span className="price unselectable">{price}$</span>
+            <span className="price unselectable">${price}</span>
             <button className="btn dismiss-btn" onClick={() => setModal(false)}>Dismiss</button>
             <button className="btn buy-btn" onClick={handleBooking}>Buy Ticket</button>
           </div>
