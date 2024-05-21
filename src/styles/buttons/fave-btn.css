@@ -11,7 +11,7 @@
   }
 }
 
-.selected-movie .fave-btn {
+.selected-media .fave-btn {
   backdrop-filter: blur(10px);
   margin-left: auto;
 }

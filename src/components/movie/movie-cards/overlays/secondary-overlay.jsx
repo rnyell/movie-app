@@ -13,6 +13,7 @@ export default function SecondaryOverlay({ result, variant, ...rest }) {
   const id = result.id
   const title = result.title || result.name
 
+
   return (
     <motion.div
       className="secondary-overlay flex-col"
@@ -30,9 +31,9 @@ export default function SecondaryOverlay({ result, variant, ...rest }) {
       {variant === "bookmarked" && (
         <motion.span
           className="release-date"
-          initial={{y: -8}}
+          initial={{y: -9}}
           animate={{y: 0}}
-          exit={{y: -8}}
+          exit={{y: -9}}
         >
           {formatReleaseDate(result.release_date)}
         </motion.span>
@@ -45,17 +46,22 @@ export default function SecondaryOverlay({ result, variant, ...rest }) {
         <Overview text={result.overview} />
       </motion.div>
       <motion.div
-        className="overlay-cta-btns justify-center absolute-align-center"
+        className="overlay-cta-btns justify-center absolute-justify-center"
         initial={{y: 12}}
         animate={{y: 0}}
         exit={{y: 12}}
       >
         {variant === "result" ? (
-          <BookmarkButton item={{id, media}} />
+          <>
+            <BookmarkButton item={{id, media}} />
+            <InfoButton setModal={setModal} />
+          </>
         ) : (
-          <BookmarkDeleteButton setModal={setModal} />
+          <>
+            <BookmarkDeleteButton setModal={setModal} />
+            <LinkButton linkData={{id, media, blank: false}} />
+          </>
         )}
-        <LinkButton linkData={{id, title, media}} />
       </motion.div>
     </motion.div>
   )

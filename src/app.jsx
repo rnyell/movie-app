@@ -7,7 +7,6 @@ import SearchProvider from "@src/store/search-context"
 
 import RootLayout from "@src/routes/layouts/root-layout"
 import SharedLayout from "@src/routes/layouts/shared-layout"
-
 import HomePage from "@src/routes/home-page"
 import PlayerPage from "@src/routes/player-page"
 import Discover from "@src/routes/discover/discover"
@@ -17,6 +16,7 @@ import NewsPage from "@src/routes/discover/news-page"
 import Article from "@src/routes/discover/article"
 import SearchPage from "@src/routes/search-page"
 import SelectedMovie from "@src/routes/selected-movie"
+import SelectedSeries from "@src/routes/selected-series"
 import Reservation from "@src/routes/reservation/reservation"
 import OnScreenPage from "@src/routes/reservation/onscreen-page"
 import Library from "@src/routes/library"
@@ -49,9 +49,10 @@ const routes = [
           <SearchPage />
         </SearchProvider>
       )},
+      { path: "/movies/:id", element: <SelectedMovie /> },
+      { path: "/series/:id", element: <SelectedSeries /> },
       { path: "/player", element: <PlayerPage /> },
       { path: "/booking", element: <BookingPage /> },
-      { path: "/:id", element: <SelectedMovie /> },
     ]
   }
 ]

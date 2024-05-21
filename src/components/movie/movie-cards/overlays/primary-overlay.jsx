@@ -8,12 +8,12 @@ import Rates from "@components/movie/details/rates"
 
 
 export default function PrimaryOverlay({ result, variant }) {
-  const isCommon = variant === "common"
   const id = result.id
   const title = result.title
   const media = "movie"
+  const isCommon = variant === "common"
   const prevUrl = location.pathname + location.search
-  const linkData = { title, id, media, blank: true }
+  const linkData = { id, blank: !isCommon }
 
   return (
     <motion.div

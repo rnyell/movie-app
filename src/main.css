@@ -9,6 +9,7 @@
 @import "@styles/pages/booking-page.css" layer;
 @import "@styles/pages/player-page.css" layer;
 @import "@styles/pages/selected-movie.css" layer;
+@import "@styles/pages/selected-series.css" layer;
 
 /* components */
 @import "@styles/home/hero-section.css" layer;

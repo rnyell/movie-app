@@ -361,9 +361,9 @@
 }
 
 /********************************************************************************************************/
-/** selected movie */
+/** selected media */
 @media (width < 820px) {
-  .selected-movie {
+  .selected-media {
     & .casts-list {
       width: 60vw;
     }
@@ -371,7 +371,7 @@
 }
 
 @media (width < 620px) {
-  .selected-movie {
+  .selected-media {
     & .poster-wrapper {
       height: 80vh;
 
@@ -413,7 +413,7 @@
 }
 
 @media (width < 480px) {
-  .selected-movie {
+  .selected-media {
     & .poster-wrapper {
       height: 70vh;
     }

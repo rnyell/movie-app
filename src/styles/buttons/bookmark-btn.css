@@ -58,7 +58,7 @@
   }
 }
 
-.selected-movie .btns .bookmark-btn {
+.selected-media .btns .bookmark-btn {
   color: var(--color-neutral-200);
   backdrop-filter: blur(10px);
 

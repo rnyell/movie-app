@@ -66,7 +66,14 @@ export default function ResultCard({ result, media, variant }) {
           />
         </figure>
         <AnimatePresence>
-          {cardOverlay && <SecondaryOverlay result={result} variant="result" media={media} setModal={setShowModal} /> }
+          {cardOverlay && (
+            <SecondaryOverlay
+              result={result}
+              variant="result"
+              media={media}
+              setModal={setShowModal}
+            />
+          )}
         </AnimatePresence>
       </motion.div>
       <div className="main-details">

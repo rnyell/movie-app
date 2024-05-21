@@ -24,58 +24,42 @@ const imgUrlInit = {
 }
 
 
-export default function SelectedMovie() {
+export default function SelectedSeries() {
   const {windowWidth} = useWindow()
-  const [recMovies, setRecMovies] = useState([])
-  const [isRecLoading, setIsRecLoading] = useState(true)
   const location = useLocation()
   const prevUrl = location?.state?.prevUrl
   const id = location.pathname.match(/[^\/]+$/)
-  const media = "movie"
-  const {mediaDetails, isLoading} = useMediaDetails(media, id)
+  const media = "series"
+  const {mediaDetails, isLoading} = useMediaDetails("tv", id)
   const [imgUrl, setImgUrl] = useState(imgUrlInit)
 
   const {
-    title,
-    status,
-    release_date,
-    runtime,
+    name,
+    in_production,         // bool
+    status,                // "Ended"
+    episode_run_time,
     poster_path,
     backdrop_path,
-    overview,
-    tagline,
     genres,
-    external_ids,
-    credits,                 // { cast: [], crew: [] }
-    videos,                  // { results: [ id, key ] }
-    images,                  // { backdrops: [ file_path ], posters: [], logos: [] }
-    belongs_to_collection,   // {id, name, poster_path, backdrop_path},
-    recommendations,         // { results: [] }
-    budget,
-    revenue,
-    production_companies,    // [ {id, name, logo_path} ]
-    production_countries,
-    spoken_languages,
+    vote_average,
+    last_air_date,
+    first_air_date,
+    overview,
+    number_of_episodes,
+    number_of_seasons,
+    seasons,               // [{ id, name, poster_path, air_date, vote_average }]
+    credits,               // { cast: [], crew: [] }
+    production_companies,  // [ {id, name, logo_path} ]
+    recommendations,       // { results: [] }
+    videos,                // { results: [ id, key ] }
+    images,                // { backdrops: [], posters: [], logos: [] }
   } = mediaDetails
 
-  // credits is undefined. why??
-  // const { cast } = credits
-  // console.log(cast)
+  // console.log(mediaDetails)
 
-  useEffect(() => {
-    loadRecMovies()
-  }, [])
-  
   useEffect(() => {
     handleResize()
   }, [mediaDetails, windowWidth])
-
-
-  async function loadRecMovies() {
-    const data = await getRecommendedMovies(id)
-    setRecMovies(data)
-    setIsRecLoading(false)
-  }
 
   function handleResize() {
     if (windowWidth < 620) {
@@ -94,13 +78,14 @@ export default function SelectedMovie() {
   }
 
 
+
   if (isLoading) {
     return <SelectedMovieSkeleton />
   }
 
   return (
     <motion.div
-      className="selected-media selected-movie"
+      className="selected-media selected-series"
       variants={pageTransitionVariants}
       {...defaultVariantsLabel}
     >
@@ -109,14 +94,15 @@ export default function SelectedMovie() {
         <FaveButton />
         <BookmarkButton item={{id, media}} />
       </div>
+
       <div className="poster-wrapper isolated-stack ::after-abs">
         <div className="bg-poster" style={{backgroundImage: `url(https://image.tmdb.org/t/p/${imgUrl})`}} />
         <div className="main-details flex-col w-100">
-          <h1 className="title">{title}</h1>
+          <h1 className="title">{name}</h1>
           <div className="details">
-            <span className="release-date">{release_date?.slice(0, 4)}</span>
+            {/* <span className="release-date">{release_date?.slice(0, 4)}</span> */}
             <i className="dot">&#x2022;</i>
-            <span className="runtime">{formatRuntime(runtime)}</span>
+            {/* <span className="runtime">{formatRuntime(runtime)}</span> */}
             <i className="dot">&#x2022;</i>
             <span className="genres">{getMovieGenres(genres)}</span>
           </div>
@@ -129,28 +115,7 @@ export default function SelectedMovie() {
       </div>
 
       <div className="additional-details">
-        <div className="side-content ::before-abs">
-          <h3>Similar Movies</h3>
-          <div className="related-movies-container flex">
-            {!isRecLoading && recMovies.slice(0, 9).map(movie =>
-              <MovieCard key={movie.id} result={movie} media={media} variant="similar" />
-            )}
-          </div>
-        </div>
-        {/* <Rates id={external_ids.imdb_id} variant="verbose" /> */}
-        <div className="information">
-          {/* <figure className="img-poster">
-            <img src={`https://image.tmdb.org/t/p/w500${poster_path})`} />
-          </figure> */}
-          <div className="credits">
-            <Casts casts={credits.cast} mode="list" />
-            <div className="director flex">
-              <h5 className="tag">Directed By:</h5>
-              <p className="director-name">{getMovieDirector(credits.crew)}</p>
-            </div>
-            {/* <Director crew={credits.crew} tag={true} /> */}
-          </div>
-        </div>
+        
       </div>
     </motion.div>
   )

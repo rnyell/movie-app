@@ -8,6 +8,6 @@
   }
 }
 
-.selected-movie .back-btn {
+.selected-media .back-btn {
   backdrop-filter: blur(10px);
 }

@@ -75,6 +75,7 @@ export default function BookmarkedCard({ result, media, variant }) {
             <SecondaryOverlay
               result={mediaDetails}
               variant="bookmarked"
+              media={media}
               setModal={setShowModal}
             />
           )}

@@ -1,8 +1,7 @@
 import { motion } from "framer-motion"
 import { useNavigate } from "react-router-dom"
-// import { useMediaDetails } from "@utils/hooks"
 import { modalBackdropVariants, modalVariants, defaultVariantsLabel, modalTransition } from "@utils/motions"
-import { writeLocalStorage, formatReleaseDate, transformTitleToURL } from "@utils/utils"
+import { formatReleaseDate } from "@utils/utils"
 import Rates from "@components/movie/details/rates"
 import Genres from "@components/movie/details/genres"
 import Overview from "@components/movie/details/overview"
@@ -10,15 +9,12 @@ import Casts from "@components/movie/details/casts"
 
 
 export default function MovieInfoModal({ result, media, setModal }) {
-  // const {mediaDetails, isLoading} = useMediaDetails("movie", result.id)
   const navigate = useNavigate()
+  const id = result.id
   const title = result.title || result.name
-  const href = `/${transformTitleToURL(title)}`
-  const state = {
-    id: result.id,
-    media: media,
-    prevUrl: location.pathname + location.search,
-  }
+  const href = `/${media === "tv" ? "series" : "movies"}/${id}`
+  const prevUrl = location.pathname + location.search
+  const state = { prevUrl }
 
   const {
     poster_path,
@@ -33,7 +29,6 @@ export default function MovieInfoModal({ result, media, setModal }) {
 
   function handleNavigation() {
     navigate(href, { state })
-    writeLocalStorage("linkData", state)
   }
 
 
