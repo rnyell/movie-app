@@ -175,7 +175,7 @@
     place-items: center;
     aspect-ratio: 1;
     border-radius: 0.625rem;
-    background-color: color-mix(in srgb, var(--color-neutral-200), transparent 50%);
+    background-color: color-mix(in srgb, var(--color-neutral-200), transparent 45%);
     backdrop-filter: blur(5px);
     transition: background-color var(--duration-1) ease-in;
     
@@ -231,7 +231,8 @@
     display: flex;
   } */
 
-  .dot {
+  .dot,
+  .overlay-dot {
     scale: 1.375;
     color: var(--color-neutral-350);
   }

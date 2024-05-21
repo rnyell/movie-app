@@ -2,8 +2,8 @@ import { useState } from "react"
 import { createPortal } from "react-dom"
 import { useNavigate } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
-import { InfoIcon } from "@utils/icons"
 import { PRICES } from "@src/store/placeholder-data"
+import InfoButton from "@components/buttons/info-btn"
 import MovieDetailsModal from "../modals/movie-details-modal"
 
 
@@ -50,9 +50,7 @@ export default function ScreenCard({ result, variant, idx }) {
         </div>
         <div className="cta-btns flex">
           <button className="btn book-btn" onClick={handleBooking}>Book Now</button>
-          <button className="btn info-btn" onClick={() => setShowModal(true)}>
-            <i className="icon"><InfoIcon /></i>
-          </button>
+          <InfoButton setModal={setShowModal} />
         </div>
       </div>
       {createPortal(

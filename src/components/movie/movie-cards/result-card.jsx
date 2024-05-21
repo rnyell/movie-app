@@ -2,19 +2,15 @@ import { useState } from "react"
 import { createPortal } from "react-dom"
 import { motion, AnimatePresence, useAnimate } from "framer-motion"
 import { FilmIcon, TvIcon } from "@heroicons/outline"
-import { InfoIcon } from "@utils/icons"
 import { formatReleaseDate } from "@utils/utils"
-import { portraitCardOverlayVariants, defaultVariantsLabel } from "@utils/motions"
-import BookmarkButton from "@components/buttons/bookmark-btn"
-import Overview from "@components/movie/details/overview"
 import MovieInfoModal from "@components/movie/modals/movie-info-modal"
+import SecondaryOverlay from "./overlays/secondary-overlay"
 
 
 export default function ResultCard({ result, media, variant }) {
   const [cardOverlay, setCardOverlay] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const [scope, animate] = useAnimate()
-  const id = result.id
   const title = result.title || result.name
   const releaseDate = result?.release_date || result?.first_air_date
   const is2024 = releaseDate === 2024 ? true : false
@@ -54,7 +50,7 @@ export default function ResultCard({ result, media, variant }) {
       transition={{duration: 0.2}}
     >
       <motion.div
-        className="subset-details"
+        className="wrapper"
         onHoverStart={handleHoverStart}
         onHoverEnd={handleHoverEnd}
       >
@@ -70,32 +66,7 @@ export default function ResultCard({ result, media, variant }) {
           />
         </figure>
         <AnimatePresence>
-          {cardOverlay &&
-            <motion.div
-              className="hover-overlay flex-col"
-              variants={portraitCardOverlayVariants}
-              {...defaultVariantsLabel}
-            >
-              <motion.h4
-                className="overlay-title box-clamp"
-                initial={{y: -7}}
-                animate={{y: 0}}
-                exit={{y: -7}}
-              >{title}</motion.h4>
-              <Overview text={result.overview} />
-              <motion.div
-                className="cta-btns justify-center absolute-align-center"
-                initial={{y: 12}}
-                animate={{y: 0}}
-                exit={{y: 12}}
-              >
-                <BookmarkButton item={{id, media}} color="dark" />
-                <button className="main-btn info-btn" onClick={() => setShowModal(true)}>
-                  <i className="icon"><InfoIcon /></i>
-                </button>
-              </motion.div>
-            </motion.div>
-          }
+          {cardOverlay && <SecondaryOverlay result={result} variant="result" media={media} setModal={setShowModal} /> }
         </AnimatePresence>
       </motion.div>
       <div className="main-details">

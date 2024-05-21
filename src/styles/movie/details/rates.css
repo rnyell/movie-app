@@ -11,10 +11,6 @@
   }
 }
 
-.movie-card[data-variant="similar"] .rate {
-  margin-left: auto;
-}
-
 .movie-details-modal .rate {
   margin-inline: auto 0.25rem;
 

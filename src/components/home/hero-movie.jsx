@@ -157,7 +157,7 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
             <button className="btn btn-shared info-btn" onClick={handleSelectedMovie}>
               <span>More Info</span>
             </button>
-            <BookmarkButton item={{id, media}} color="dark" />
+            <BookmarkButton item={{id, media}} />
           </div>
           <p className="tagline">{tagline}</p>
           <motion.div className="rate-container" variants={itemsBVariants}>

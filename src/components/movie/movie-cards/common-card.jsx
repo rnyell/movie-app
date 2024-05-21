@@ -2,13 +2,8 @@ import { useEffect, useRef, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { EllipsisIcon } from "@utils/icons"
 import { useWindow, useClickOutside } from "@utils/hooks"
-import { formatRuntime, formatReleaseDate } from "@utils/utils"
 import { getMediaRuntime } from "@utils/apis"
-import { landCardOverlayVariants, defaultVariantsLabel } from "@utils/motions"
-import WatchButton from "@components/buttons/watch-btn"
-import LinkButton from "@components/buttons/link-btn"
-import BookmarkButton from "@components/buttons/bookmark-btn"
-import Rates from "@components/movie/details/rates"
+import PrimaryOverlay from "./overlays/primary-overlay"
 
 /* another common card for series, cuz series contains pretty diffferent chars than movies */
 export default function CommonCard({ result, media, variant }) {
@@ -19,10 +14,7 @@ export default function CommonCard({ result, media, variant }) {
   const cardRef = useRef(null)
   const ellipsisBtnRef = useRef(null)
   const [runtime, setRuntime] = useState(null)
-
-  const id = result.id
   const title = result.title || result.name
-  const linkData = { title, id, media }
 
   // useClickOutside(ellipsisBtnRef, hideOverlay)
 
@@ -69,31 +61,10 @@ export default function CommonCard({ result, media, variant }) {
             className="poster"
             src={`https://image.tmdb.org/t/p/original${result.backdrop_path}`}
             draggable={false}
-            alt="poster"
           />
         </figure>
         <AnimatePresence>
-        {cardOverlay && (
-          <motion.div
-            className="hover-overlay flex-col"
-            variants={landCardOverlayVariants}
-            {...defaultVariantsLabel}
-          >
-            <h4 className="title">{title}</h4>
-            <div className="details">
-              <span className="release-date">{formatReleaseDate(result.release_date)}</span>
-              <i className="dot">&#x2022;</i>
-              <span className="runtime">{formatRuntime(runtime)}</span>
-              <i className="dot">&#x2022;</i>
-              <Rates rate={result.vote_average} variant="star" />
-            </div>
-            <div className="cta-btns">
-              <WatchButton data={{id, media, prevUrl: location.pathname + location.search}} />
-              <LinkButton linkData={linkData} />
-              <BookmarkButton item={{id, media}} color="dark" />
-            </div>
-          </motion.div>
-        )}
+          {cardOverlay && <PrimaryOverlay result={result} variant="common" /> }
         </AnimatePresence>
       </div>
       {windowWidth < 520 && (
@@ -102,7 +73,7 @@ export default function CommonCard({ result, media, variant }) {
           <button
             className="btn ellipsis-btn"
             ref={ellipsisBtnRef}
-            onClick={showOverlay}
+            // onClick={showOverlay}
           >
             <i className="icon">
               <EllipsisIcon />

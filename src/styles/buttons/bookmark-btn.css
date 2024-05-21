@@ -1,31 +1,17 @@
 .bookmark-btn {
+  color: var(--color-neutral-800);
+
   & svg {
     width: var(--icon-size-4);
     stroke-width: 1.5;
   }
 
-  &[data-color="light"] {
-    color: var(--color-neutral-200);
-    backdrop-filter: blur(10px);
-
-    &.is-bookmarked {
-      & svg {
-        color: var(--color-neutral-200);
-        fill: var(--color-neutral-200);
-      }
-    }
-  }
-
-  &[data-color="dark"] {
-    color: var(--color-neutral-800);
-  
-    &:hover {
-      background-color: var(--color-neutral-300);
-    }
+  &:hover {
+    background-color: var(--color-neutral-300) !important;
   }
 
   &.is-bookmarked {
-    color: var(--color-neutral-800) !important;
+    color: var(--color-neutral-800);
   
     & svg {
       fill: var(--color-neutral-800);
@@ -66,12 +52,24 @@
   }
 
   &.is-bookmarked {
+    color: var(--color-neutral-800);
     background-color: var(--color-neutral-250);
+    border-color: var(--color-neutral-300);
   }
 }
 
-.selected-movie .bookmark-btn {
+.selected-movie .btns .bookmark-btn {
+  color: var(--color-neutral-200);
+  backdrop-filter: blur(10px);
+
   & svg {
     width: var(--icon-size-6);
+  }
+
+  &.is-bookmarked {
+    & svg {
+      color: var(--color-neutral-200);
+      fill: var(--color-neutral-200);
+    }
   }
 }

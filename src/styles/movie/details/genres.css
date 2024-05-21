@@ -1,3 +1,7 @@
 .genres {
   color: var(--color-neutral-350);
 }
+
+.movie-details-modal .genres {
+  color: var(--color-neutral-400);
+}

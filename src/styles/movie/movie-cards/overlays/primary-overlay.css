@@ -1,0 +1,54 @@
+.primary-overlay {
+  position: absolute;
+  z-index: var(--z-20);
+  inset: 0;
+  font-size: 0.85rem;
+  background-color: rgb(15 18 20 / 65%);
+  
+  & .overlay-title {
+    width: 95%;
+  }
+  
+  & .overlay-details {
+    margin-top: var(--space-2);
+    display: flex;
+    align-items: center;
+    column-gap: 0.5rem;
+    color: var(--color-neutral-300);
+    font-weight: 500;
+  
+    & .overlay-dot {
+      margin-top: -1px; /* hacky */
+    }
+  
+    & .overlay-runtime {
+      letter-spacing: -0.25px;
+    }
+  }
+  
+  & .overlay-cta-btns {
+    margin-block: var(--space-4);
+    display: flex;
+    gap: 0.5rem;
+  }
+}
+
+.movie-card[data-variant="common"] .primary-overlay {
+  padding: 3cqw 6cqw;
+
+  & .overlay-title {
+    margin-top: auto;
+  }
+}
+
+.movie-card[data-variant="similar"] .primary-overlay {
+  padding: 1rem;
+
+  & .overlay-title {
+    font-size: 1.05rem;
+  }
+
+  & .overlay-cta-btns {
+    margin-block: auto 0;
+  }
+}

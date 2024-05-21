@@ -1,24 +1,20 @@
 import { useState } from "react"
 import { createPortal } from "react-dom"
-import { motion, AnimatePresence } from "framer-motion"
-import { StarIcon } from "@heroicons/outline"
-import { BookmarkSlashIcon } from "@heroicons/solid"
+import { motion, AnimatePresence, useAnimate } from "framer-motion"
 import { useMediaDetails } from "@utils/hooks"
-import { formatRate, formatRuntime, formatReleaseDate } from "@utils/utils"
-import { portraitCardOverlayVariants, defaultVariantsLabel } from "@utils/motions"
 import { useUserState } from "@src/store/app-context"
 import { PortraitCardLoading } from "@components/skeletons"
-import Overview from "@components/movie/details/overview"
-import LinkButton from "@components/buttons/link-btn"
 import ConfirmModal from "@components/library/confirm-modal"
+import SecondaryOverlay from "./overlays/secondary-overlay"
 
 
 export default function BookmarkedCard({ result, media, variant }) {
-  /* result: number */
+  /* result-> id: number */
   const {mediaDetails, isLoading} = useMediaDetails(media, result)
   const {userDispatch} = useUserState()
   const [cardOverlay, setCardOverlay] = useState(false)
   const [showModal, setShowModal] = useState(false)
+  const [scope, animate] = useAnimate()
   const confirmText = "Are you sure you want to remove this movie from your watchlist?"
 
   // runtime & release date for tv shows?
@@ -28,20 +24,13 @@ export default function BookmarkedCard({ result, media, variant }) {
     var {
       id,
       title,
-      release_date,
-      runtime,
-      vote_average,
       poster_path,
-      overview
     } = mediaDetails
   } else if (media === "tv") {
     var {
       id,
       name: title,
-      runtime,
-      vote_average,
       poster_path,
-      overview
     } = mediaDetails
   }
 
@@ -50,55 +39,47 @@ export default function BookmarkedCard({ result, media, variant }) {
     setShowModal(false)
   }
 
+  function handleHoverStart() {
+    setCardOverlay(true)
+    animate(".title", { y: -45, opacity: 0 }, { duration: 0.2 })
+  }
+
+  function handleHoverEnd() {
+    setCardOverlay(false)
+    animate(".title", { y: 0, opacity: 1 }, { duration: 0.2 })
+  }
+
 
   if (isLoading) {
     return <PortraitCardLoading />
   }
 
   return (
-    <motion.div className="movie-card" data-variant={variant}>
-      <motion.figure
-        onHoverStart={() => setCardOverlay(true)}
-        onHoverEnd={() => setCardOverlay(false)}
+    <div className="movie-card" data-variant={variant} ref={scope}>
+      <motion.div
+        className="wrapper"
+        onHoverStart={handleHoverStart}
+        onHoverEnd={handleHoverEnd}
       >
-        <img
-          src={`https://image.tmdb.org/t/p/original${poster_path}`}
-          className="poster"
-          draggable={false}
-          alt="poster"
-        />
-      <div className="ambient" style={{backgroundImage: `url(https://image.tmdb.org/t/p/original${poster_path})`}} />
-      <AnimatePresence>
-        {cardOverlay &&
-        <motion.div
-          className="hover-overlay flex-col"
-          variants={portraitCardOverlayVariants}
-          {...defaultVariantsLabel}
-        >
-          <div className="details flex-col">
-            <div className="flex">
-              <span className="release-date">{formatReleaseDate(release_date)}</span>
-              <i className="dot">&#x2022;</i>
-              <span className="runtime">{formatRuntime(runtime)}</span>
-              <i className="dot">&#x2022;</i>
-              <span className="vote">
-                <i className="icon star-icon"><StarIcon /></i>
-                <span className="vote-number">{formatRate(vote_average)}</span>
-              </span>
-            </div>
-            <Overview text={overview} />
-          </div>
-          <div className="cta-btns justify-center">
-            <button className="main-btn bookmarkslash-btn">
-              <i className="icon bookmarkslash-icon" onClick={() => setShowModal(true)}>
-                <BookmarkSlashIcon />
-              </i>
-            </button>
-            <LinkButton linkData={{id, title, media}} />
-          </div>
-        </motion.div>}
-      </AnimatePresence>
-      </motion.figure>
+        <figure>
+          <img
+            src={`https://image.tmdb.org/t/p/original${poster_path}`}
+            className="poster"
+            draggable={false}
+            alt="poster"
+          />
+        </figure>
+        <div className="ambient" style={{backgroundImage: `url(https://image.tmdb.org/t/p/original${poster_path})`}} />
+        <AnimatePresence>
+          {cardOverlay && (
+            <SecondaryOverlay
+              result={mediaDetails}
+              variant="bookmarked"
+              setModal={setShowModal}
+            />
+          )}
+        </AnimatePresence>
+      </motion.div>
       <div className="title-container">
         <h5 className="title truncate">{title}</h5>
       </div>
@@ -114,6 +95,6 @@ export default function BookmarkedCard({ result, media, variant }) {
         </AnimatePresence>,
         document.body
       )}
-    </motion.div>
+    </div>
   )
 }

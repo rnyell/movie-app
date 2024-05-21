@@ -39,6 +39,10 @@
   --scale: 1;
   /* cursor: none; */
 
+  & .pointer {
+    display: none;
+  }
+
   /* & .pointer {
     pointer-events: none;
     width: 1rem;

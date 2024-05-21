@@ -111,7 +111,7 @@ export default function SelectedMovie() {
       <div className="btns flex w-100">
         <BackButton url={prevUrl} />
         <FaveButton />
-        <BookmarkButton item={{id, media}} color="light" />
+        <BookmarkButton item={{id, media}} />
       </div>
       <div className="poster-wrapper isolated-stack ::after-abs">
         <div className="bg-poster" style={{backgroundImage: `url(https://image.tmdb.org/t/p/${imgUrl})`}} />

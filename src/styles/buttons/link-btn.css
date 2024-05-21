@@ -30,11 +30,11 @@
 }
 
 .movie-card[data-variant="similar"] .link-btn {
-  margin-inline: auto;
+  /* margin-inline: auto;
   margin-block: auto 0;
   padding: var(--space-3);
 
   & svg {
     width: var(--icon-size-5);
-  }
+  } */
 }

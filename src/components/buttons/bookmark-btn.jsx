@@ -4,7 +4,7 @@ import { useLocalStorage } from "@utils/hooks"
 import { useUserState } from "@src/store/app-context"
 
 
-export default function BookmarkButton({ item, color }) {
+export default function BookmarkButton({ item }) {
   const {id, media} = item
   const {userState, userDispatch} = useUserState()
   const [, setBookmarkedLS] = useLocalStorage("bookmarked", userState.bookmarked)
@@ -37,7 +37,6 @@ export default function BookmarkButton({ item, color }) {
   return (
     <button
       className={`main-btn bookmark-btn ${isBookmarked ? "is-bookmarked" : null}`}
-      data-color={color}
       onClick={bookmarkMovie}
     >
       <i className="icon">
