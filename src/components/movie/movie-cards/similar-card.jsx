@@ -19,7 +19,7 @@ export default function SimilarCard({ result, media, variant }) {
     >
       <div className="wrapper">
         <figure>
-          <img className="poster" src={`https://image.tmdb.org/t/p/w500${result.backdrop_path}`} />
+          <img className="poster" src={`${IMAGES_URL}w500${result.backdrop_path}`} />
         </figure>
         <AnimatePresence>
           {cardOverlay && <PrimaryOverlay result={result} variant="similar" />}

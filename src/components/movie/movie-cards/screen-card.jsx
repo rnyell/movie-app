@@ -3,6 +3,7 @@ import { createPortal } from "react-dom"
 import { useNavigate } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { PRICES } from "@src/store/placeholder-data"
+import { IMAGES_URL } from "@utils/apis"
 import InfoButton from "@components/buttons/info-btn"
 import MovieDetailsModal from "../modals/movie-details-modal"
 
@@ -38,7 +39,7 @@ export default function ScreenCard({ result, variant, idx }) {
       <figure className="card-img">
         <img
           className="poster"
-          src={`https://image.tmdb.org/t/p/w500${backdrop_path}`} /* original or w500? */
+          src={`${IMAGES_URL}w500${backdrop_path}`} /* original or w500? */
           alt="poster"
           draggable="false"
         />

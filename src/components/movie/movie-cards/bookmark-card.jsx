@@ -2,6 +2,7 @@ import { useState } from "react"
 import { createPortal } from "react-dom"
 import { motion, AnimatePresence, useAnimate } from "framer-motion"
 import { useMediaDetails } from "@utils/hooks"
+import { IMAGES_URL } from "@utils/apis"
 import { useUserState } from "@src/store/app-context"
 import { PortraitCardLoading } from "@components/skeletons"
 import ConfirmModal from "@components/library/confirm-modal"
@@ -63,13 +64,13 @@ export default function BookmarkedCard({ result, media, variant }) {
       >
         <figure>
           <img
-            src={`https://image.tmdb.org/t/p/original${poster_path}`}
+            src={`${IMAGES_URL}original${poster_path}`}
             className="poster"
             draggable={false}
             alt="poster"
           />
         </figure>
-        <div className="ambient" style={{backgroundImage: `url(https://image.tmdb.org/t/p/original${poster_path})`}} />
+        <div className="ambient" style={{backgroundImage: `url(${IMAGES_URL}original${poster_path})`}} />
         <AnimatePresence>
           {cardOverlay && (
             <SecondaryOverlay

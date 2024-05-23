@@ -3,6 +3,7 @@ import { createPortal } from "react-dom"
 import { motion, AnimatePresence, useAnimate } from "framer-motion"
 import { FilmIcon, TvIcon } from "@heroicons/outline"
 import { formatReleaseDate } from "@utils/utils"
+import { IMAGES_URL } from "@utils/apis"
 import MovieInfoModal from "@components/movie/modals/movie-info-modal"
 import SecondaryOverlay from "./overlays/secondary-overlay"
 
@@ -60,7 +61,7 @@ export default function ResultCard({ result, media, variant }) {
         <figure>
           <img
             className="poster"
-            src={`https://image.tmdb.org/t/p/w500${result.poster_path}`}
+            src={`${IMAGES_URL}w500${result.poster_path}`}
             draggable={false}
             alt="poster"
           />

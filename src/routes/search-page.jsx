@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useSearchParams, useLocation } from "react-router-dom"
 // import { motion, AnimatePresence } from "framer-motion"
-import { useWindow } from "@utils/hooks"
+import { useWindowOffsets } from "@utils/hooks"
 import { filterResults, sortResults } from "@utils/utils"
 import { getAllResults } from "@utils/apis"
 import { useSearch } from "@src/store/search-context"
@@ -13,7 +13,7 @@ import SearchResults from "@components/search/search-results"
 export default function SearchPage() {
   const {searchState, searchDispatch, searchOptions} = useSearch()
   const [searchStateCopy, setSearchStateCopy] = useState({results: [], pages: 0})
-  const {windowWidth} = useWindow()
+  const {windowWidth} = useWindowOffsets()
   const isLgScreen = windowWidth >= 620
   const [isLoading, setIsLoading] = useState(true)
   const [searchParams] = useSearchParams()

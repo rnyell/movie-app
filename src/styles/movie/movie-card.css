@@ -16,8 +16,8 @@
   position: relative;
   background-color: var(--color-neutral-750);
   border-radius: calc(var(--space-2) + var(--radius));
-  box-shadow: 0 3px 1.2rem rgb(10 15 17 / 20%),
-    0 2px 0.5rem rgb(10 15 17 / 10%);
+  box-shadow: 0 3px 1.2rem rgb(11 15 17 / 20%),
+    0 2px 0.5rem rgb(11 15 17 / 10%);
   
   & .poster {
     width: 100%;
@@ -84,8 +84,8 @@
   position: relative;
   background-color: color-mix(in srgb, var(--color-neutral-700), transparent 55%);
   border-radius: calc(var(--space-4) + var(--radius));
-  box-shadow: 0 3px 1.24rem rgb(10 15 17 / 50%), 
-    0 2px 0.5rem rgb(10 15 17 / 10%);
+  box-shadow: 0 3px 1.24rem rgb(11 15 17 / 50%), 
+    0 2px 0.5rem rgb(11 15 17 / 10%);
 
   & .poster {
     border-radius: 1.5rem;

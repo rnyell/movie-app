@@ -40,7 +40,7 @@ export function useFetch(url, options = {}) {
 }
 
 
-export function useWindow() {
+export function useWindowOffsets() {
   const [windowSize, setWindowSize] = useState({
     windowWidth: window.innerWidth,
     windowHeight: window.innerHeight

@@ -2,6 +2,7 @@ import { motion } from "framer-motion"
 import { useNavigate } from "react-router-dom"
 import { modalBackdropVariants, modalVariants, defaultVariantsLabel, modalTransition } from "@utils/motions"
 import { formatReleaseDate } from "@utils/utils"
+import { IMAGES_URL } from "@utils/apis"
 import Rates from "@components/movie/details/rates"
 import Genres from "@components/movie/details/genres"
 import Overview from "@components/movie/details/overview"
@@ -50,7 +51,7 @@ export default function MovieInfoModal({ result, media, setModal }) {
           <figure>
             <img
               className="poster w-100 unselectable"
-              src={`https://image.tmdb.org/t/p/w500${backdrop_path}`}
+              src={`${IMAGES_URL}w500${backdrop_path}`}
               draggable={false}
             />
           </figure>

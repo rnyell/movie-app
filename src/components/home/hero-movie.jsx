@@ -10,7 +10,7 @@ import {
   formatReleaseDate,
   transformTitleToURL
 } from "@utils/utils"
-import { getMovieDetails } from "@utils/apis"
+import { getMovieDetails, IMAGES_URL } from "@utils/apis"
 import { defaultVariantsLabel } from "@utils/motions"
 import { useUserState } from "@src/store/app-context"
 import { HeroMovieLoadingSkeleton } from "@components/skeletons"
@@ -131,11 +131,11 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
             animate={{ opacity: 0.6 }}
             exit={{ opacity: 0.1 }}
           >
-            <img className="unselectable" src={`https://image.tmdb.org/t/p/original${bg_path}`} draggable={false} />
+            <img className="unselectable" src={`${IMAGES_URL}original${bg_path}`} draggable={false} />
           </motion.div>
           <motion.div
             className="bg-poster"
-            style={{backgroundImage: `url("https://image.tmdb.org/t/p/original${bg_path}")`}}
+            style={{backgroundImage: `url("${IMAGES_URL}original${bg_path}")`}}
             initial={{ opacity: 0.5 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0.4 }}

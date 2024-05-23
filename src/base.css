@@ -60,6 +60,12 @@
     translate: -50% -50%;
   }
 
+  .absolute-align-center {
+    position: absolute;
+    top: 50%;
+    translate: 0 -50%;
+  }
+
   .absolute-justify-center {
     position: absolute;
     left: 50%;
@@ -113,9 +119,13 @@
     justify-content: center;
   }
 
-  .grid-item,
+  .grid-item {
+    min-width: 0;
+  }
+
   .flex-item {
     min-width: 0;
+    flex-shrink: 0;
   }
 
   .shrink-0 {
@@ -550,6 +560,10 @@
   iframe {
     display: inline-block;
     vertical-align: bottom;
+  }
+
+  iframe {
+    border: 0;
   }
 
   :where(:focus, :active) {

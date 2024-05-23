@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { EllipsisIcon } from "@utils/icons"
-import { useWindow, useClickOutside } from "@utils/hooks"
-import { getMediaRuntime } from "@utils/apis"
+import { useWindowOffsets, useClickOutside } from "@utils/hooks"
+import { IMAGES_URL, getMediaRuntime } from "@utils/apis"
 import PrimaryOverlay from "./overlays/primary-overlay"
 
 /* another common card for series, cuz series contains pretty diffferent chars than movies */
 export default function CommonCard({ result, media, variant }) {
-  const {windowWidth} = useWindow()
+  const {windowWidth} = useWindowOffsets()
   // const initialWidth = {width: windowWidth > 620 ? "clamp(175px, 55vw, 305px)" : "clamp(175px, 55vw, 305px)" }
   const [cardWidth, setCardWidth] = useState()
   const [cardOverlay, setCardOverlay] = useState(false)
@@ -59,7 +59,7 @@ export default function CommonCard({ result, media, variant }) {
         <figure>
           <img
             className="poster"
-            src={`https://image.tmdb.org/t/p/original${result.backdrop_path}`}
+            src={`${IMAGES_URL}original${result.backdrop_path}`}
             draggable={false}
           />
         </figure>

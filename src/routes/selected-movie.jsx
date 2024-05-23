@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
-import { useWindow, useMediaDetails } from "@utils/hooks"
+import { useWindowOffsets, useMediaDetails } from "@utils/hooks"
 import { formatRuntime, getMovieGenres, getMovieDirector } from "@utils/utils"
 import { pageTransitionVariants, defaultVariantsLabel } from "@utils/motions"
 import { getMovieTrailer, getRecommendedMovies } from "@utils/apis"
+import { IMAGES_URL } from "@utils/apis"
 import { SelectedMovieSkeleton } from "@components/skeletons"
 import MovieCard from "@components/movie/movie-card"
 import Overview from "@components/movie/details/overview"
@@ -25,9 +26,9 @@ const imgUrlInit = {
 
 
 export default function SelectedMovie() {
-  const {windowWidth} = useWindow()
-  const [recMovies, setRecMovies] = useState([])
-  const [isRecLoading, setIsRecLoading] = useState(true)
+  const {windowWidth} = useWindowOffsets()
+  // const [recMovies, setRecMovies] = useState([])
+  // const [isRecLoading, setIsRecLoading] = useState(true)
   const location = useLocation()
   const prevUrl = location?.state?.prevUrl
   const id = location.pathname.match(/[^\/]+$/)
@@ -37,13 +38,13 @@ export default function SelectedMovie() {
 
   const {
     title,
-    status,
+    // status,
     release_date,
     runtime,
     poster_path,
     backdrop_path,
     overview,
-    tagline,
+    // tagline,
     genres,
     external_ids,
     credits,                 // { cast: [], crew: [] }
@@ -62,20 +63,20 @@ export default function SelectedMovie() {
   // const { cast } = credits
   // console.log(cast)
 
-  useEffect(() => {
-    loadRecMovies()
-  }, [])
+  // useEffect(() => {
+  //   loadRecMovies()
+  // }, [])
   
   useEffect(() => {
     handleResize()
   }, [mediaDetails, windowWidth])
 
 
-  async function loadRecMovies() {
-    const data = await getRecommendedMovies(id)
-    setRecMovies(data)
-    setIsRecLoading(false)
-  }
+  // async function loadRecMovies() {
+  //   const data = await getRecommendedMovies(id)
+  //   setRecMovies(data)
+  //   setIsRecLoading(false)
+  // }
 
   function handleResize() {
     if (windowWidth < 620) {
@@ -110,7 +111,7 @@ export default function SelectedMovie() {
         <BookmarkButton item={{id, media}} />
       </div>
       <div className="poster-wrapper isolated-stack ::after-abs">
-        <div className="bg-poster" style={{backgroundImage: `url(https://image.tmdb.org/t/p/${imgUrl})`}} />
+        <div className="bg-poster" style={{backgroundImage: `url(${IMAGES_URL}${imgUrl})`}} />
         <div className="main-details flex-col w-100">
           <h1 className="title">{title}</h1>
           <div className="details">
@@ -132,7 +133,7 @@ export default function SelectedMovie() {
         <div className="side-content ::before-abs">
           <h3>Similar Movies</h3>
           <div className="related-movies-container flex">
-            {!isRecLoading && recMovies.slice(0, 9).map(movie =>
+            {recommendations.results.slice(0, 9).map(movie =>
               <MovieCard key={movie.id} result={movie} media={media} variant="similar" />
             )}
           </div>
@@ -140,7 +141,7 @@ export default function SelectedMovie() {
         {/* <Rates id={external_ids.imdb_id} variant="verbose" /> */}
         <div className="information">
           {/* <figure className="img-poster">
-            <img src={`https://image.tmdb.org/t/p/w500${poster_path})`} />
+            <img src={`${IMAGES_URL}w500${poster_path})`} />
           </figure> */}
           <div className="credits">
             <Casts casts={credits.cast} mode="list" />

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
-import { useWindow } from "@utils/hooks"
+import { useWindowOffsets } from "@utils/hooks"
 import Header from "@components/header"
 import SideNav from "@components/sidenav"
 import HeroSection from "@components/home/hero-section"
@@ -9,7 +9,7 @@ import SeriesSection from "@components/home/series-section"
 
 
 export default function HomePage() {
-  const {windowWidth, windowHeight} = useWindow()
+  const {windowWidth, windowHeight} = useWindowOffsets()
   const [mainRefHeight, setMainRefHeight] = useState(300)
   const mainRef = useRef(null)
 

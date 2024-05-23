@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react"
-import { motion, useMotionValue, animate } from "framer-motion"
-import { ChevronUpIcon, ChevronDownIcon } from "@heroicons/outline"
-import { useWindow } from "../../utils/hooks"
+import { motion, useMotionValue } from "framer-motion"
+import { useWindowOffsets } from "@utils/hooks"
+import { IMAGES_URL } from "@utils/apis"
+
 
 export default function Carousel({ 
   images,
@@ -36,7 +37,10 @@ export default function Carousel({
   useEffect(() => {
     handleResize()
     window.addEventListener("resize", handleResize)
-    return () => window.removeEventListener("resize", handleResize)
+
+    return () => {
+      window.removeEventListener("resize", handleResize)
+    }
   }, [imgHeight])
 
   useEffect(() => {
@@ -57,7 +61,7 @@ export default function Carousel({
       showPrevMovie(draggedImageCount)
       setImgIndex(prev => {
         if (prev - draggedImageCount === -1) {
-          return imagesCount
+          return 0
         } else return prev - draggedImageCount
       })
     } else if (dragged < -threshold) {
@@ -86,6 +90,7 @@ export default function Carousel({
     <div className="carousel-container">
       <div className="carousel">
         <motion.div
+          className="images-wrapper"
           ref={wrapRef}
           drag="y"
           dragConstraints={{ top: -constraints, bottom: constraints }}
@@ -93,13 +98,12 @@ export default function Carousel({
           dragMomentum={false}
           dragElastic={0.2}
           onDragEnd={handleDragEnd}
-          onDrag={handleDrag}
+          // onDrag={handleDrag}
           style={{ y: yTranslate }}
           animate={{
             translateY: `${-imgIndex * (imgHeight + gap) + carouselOffsetTop}px`
           }}
           transition={{ type: "tween" }}
-          className="images-wrapper"
         >
           <div className="images-list">
             {images.map((url, idx) =>
@@ -111,7 +115,7 @@ export default function Carousel({
                 <img 
                   draggable={false}
                   ref={imgRef}
-                  src={`https://image.tmdb.org/t/p/original${url}`}
+                  src={`${IMAGES_URL}original${url}`}
                   className="poster"
                 />
               </figure>
@@ -126,7 +130,7 @@ export default function Carousel({
                 <img 
                   draggable={false}
                   ref={imgRef}
-                  src={`https://image.tmdb.org/t/p/original${url}`}
+                  src={`${IMAGES_URL}original${url}`}
                   className="poster"
                 />
               </motion.figure>
@@ -134,16 +138,6 @@ export default function Carousel({
           </div> */}
         </motion.div>
       </div>
-      {/* <button className="up-btn" onClick={() => showPrevMovie(1)}>
-        <i className="icon">
-          <ChevronUpIcon />
-        </i>
-      </button>
-      <button className="down-btn" onClick={() => showNextMovie(1)}>
-        <i className="icon">
-          <ChevronDownIcon />
-        </i>
-      </button> */}
     </div>
   )
 }

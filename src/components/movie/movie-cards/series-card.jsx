@@ -1,5 +1,7 @@
 import { StarIcon, BookmarkIcon } from "@heroicons/outline"
 import { formatRate } from "@utils/utils"
+import { IMAGES_URL } from "@utils/apis"
+
 
 export default function SeriesCard({ result, media, variant }) {
   return (
@@ -7,7 +9,7 @@ export default function SeriesCard({ result, media, variant }) {
       <figure>
         <img
           className="poster"
-          src={`https://image.tmdb.org/t/p/original${result.backdrop_path}`}
+          src={`${IMAGES_URL}original${result.backdrop_path}`}
           alt="poster"
           draggable="false"
         />

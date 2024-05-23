@@ -1,6 +1,6 @@
 import { useEffect, useRef  } from "react"
 import { createPortal } from "react-dom"
-import { useWindow } from "@utils/hooks"
+import { useWindowOffsets } from "@utils/hooks"
 import { filterResults, sortResults } from "@utils/utils"
 import { useSearch } from "@src/store/search-context"
 import TypeList from "./filters/type-list"
@@ -10,7 +10,7 @@ import SortDropdown from "./sorts/sort-dropdown"
 
 export default function SideFilter({ searchStateCopy, setSearchStateCopy }) {
   const {searchState, searchOptions, optionsDispatch} = useSearch()
-  const {windowWidth} = useWindow()
+  const {windowWidth} = useWindowOffsets()
   const portalRef = useRef()
   const params = new URLSearchParams(location.search)
   const query = params.get("query")

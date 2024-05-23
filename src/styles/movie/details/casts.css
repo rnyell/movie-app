@@ -59,14 +59,33 @@
 
 
 .casts[data-mode="names"] {
+  margin-top: 0.5rem;
   flex-wrap: wrap;
+
+  & h6 {
+    font-weight: 600;
+    color: var(--color-neutral-350);
+  }
 
   & .cast-img {
     display: none;
   }
 
   & .cast-name {
+    /* margin-left: 0.275rem; */
+    margin-left: 5px;
     width: auto;
+  }
+
+  & p:last-child span {
+    display: none;
+  }
+}
+
+.selected-series .casts[data-mode="names"] {
+  & h6 {
+    font-size: 1rem;
+    color: var(--color-neutral-400);
   }
 }
 

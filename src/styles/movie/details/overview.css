@@ -1,6 +1,6 @@
 .overview {
   margin-top: 1rem;
-  max-width: min(75ch, 60vw);
+  max-width: min(70ch, 58vw);
   font-size: 0.65rem;
   color: var(--color-neutral-300);
   -webkit-line-clamp: 4;

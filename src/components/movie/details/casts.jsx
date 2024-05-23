@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from "@heroicons/outline"
+import { IMAGES_URL } from "@utils/apis"
 
 
 export default function Casts({ casts, mode }) {
@@ -57,7 +58,7 @@ export default function Casts({ casts, mode }) {
   switch (mode) {
     case "names": {
       return (
-        <div className="casts align-center flex-wrap">
+        <div className="casts align-center flex-wrap" data-mode={mode}>
           <h6>Starring:</h6>
           {casts.slice(0, 4).map(c =>
             <p key={c.name} className="cast-name">{c.name}<span>,</span></p>
@@ -74,7 +75,7 @@ export default function Casts({ casts, mode }) {
             <li className="cast align-center-col" key={i}>
               <img
                 className="cast-img unselectable"
-                src={`https://image.tmdb.org/t/p/w154/${cast.profile_path}`}
+                src={`${IMAGES_URL}w154/${cast.profile_path}`}
                 draggable={false}
               />
               <p className="cast-name">{cast.name}</p>
@@ -101,7 +102,7 @@ export default function Casts({ casts, mode }) {
               >
                 <img
                   className="cast-img unselectable"
-                  src={`https://image.tmdb.org/t/p/w154/${cast.profile_path}`}
+                  src={`${IMAGES_URL}w154/${cast.profile_path}`}
                   draggable={false}
                 />
                 <p className="cast-name">{cast.name}</p>
@@ -121,7 +122,7 @@ export default function Casts({ casts, mode }) {
                   >
                     <img
                       className="cast-img unselectable"
-                      src={`https://image.tmdb.org/t/p/w154/${cast.profile_path}`}
+                      src={`${IMAGES_URL}w154/${cast.profile_path}`}
                       draggable={false}
                     />
                     <p className="cast-name">{cast.name}</p>

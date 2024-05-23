@@ -3,7 +3,7 @@ import { createPortal } from "react-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { PlayIcon } from "@heroicons/solid"
 import { useLocalStorage } from "@utils/hooks"
-import { getMovieDetails, getMediaRuntime } from "@utils/apis"
+import { IMAGES_URL, getMovieDetails, getMediaRuntime } from "@utils/apis"
 import { getGenresWithIds, formatRate, formatRuntime, formatReleaseDate } from "@utils/utils"
 
 
@@ -39,7 +39,7 @@ export default function PlayedCard({ result, media, variant }) {
     >
       <figure>
         <img
-          src={`https://image.tmdb.org/t/p/original${backdrop_path}`}
+          src={`${IMAGES_URL}original${backdrop_path}`}
           className="poster"
           draggable="false"
         />

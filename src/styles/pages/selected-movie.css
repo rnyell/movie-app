@@ -1,7 +1,7 @@
-.selected-media {
+.selected-movie {
   min-height: 100dvh;
   position: relative;
-
+  
   & .btns {
     padding: var(--space-6) var(--space-6);
     position: absolute;
@@ -9,7 +9,7 @@
     z-index: var(--z-50);
     gap: 0.75rem;
   }
-
+  
   & .poster-wrapper {
     height: 90vh;
   
@@ -24,10 +24,7 @@
       background-position: 50% 0;
     }
   }
-}
 
-
-.selected-movie {
   & .main-details {
     padding: 0 var(--space-10) var(--space-4);
     gap: 0.5rem;
@@ -55,15 +52,6 @@
 
   & .release-date {
     color: var(--color-neutral-300);
-  }
-
-  & .icons {
-    margin-left: auto;
-
-    & .icon {
-      margin-inline: var(--space-2);
-      width: var(--icon-size-6);
-    }
   }
 
   & .cta-btns {

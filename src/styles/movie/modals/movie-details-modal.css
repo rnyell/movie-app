@@ -38,20 +38,9 @@
     }
   
     & .director {
+      margin-top: 0.5rem;
       & p {
         margin-left: 5px;
-      }
-    }
-
-    & .casts {
-      margin-top: 0.5rem;
-
-      & p {
-        margin-left: 0.275rem;
-      }
-
-      & p:last-child span {
-        display: none;
       }
     }
   }

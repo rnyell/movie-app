@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { motion, useMotionValue, useTransform, AnimatePresence } from "framer-motion"
+import { IMAGES_URL } from "@utils/apis"
 
 
 const visibleMoviesCount = 5
@@ -137,7 +138,7 @@ function SwiperCard({
     >
       <motion.div className="swiper-card-content" style={{ scale }}>
         <img
-          src={`https://image.tmdb.org/t/p/original${poster_path}`}
+          src={`${IMAGES_URL}original${poster_path}`}
           draggable="false"
           style={{ userSelect: "none" }}
         />

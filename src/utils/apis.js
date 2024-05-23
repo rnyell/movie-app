@@ -1,5 +1,7 @@
 import { request } from "./utils"
 
+export const IMAGES_URL = "https://image.tmdb.org/t/p/"
+
 export const MEDIA_TYPES = ["all", "movie", "tv"]
 
 export const ALL_GENRES = {
@@ -221,7 +223,6 @@ export async function getMediaRuntime(type, mediaId) {
 
 export async function getMovieDetails(movieId) {
   const path = `3/movie/${movieId}`
-  // other append_to_response: reviews,
   const params = {
     append_to_response: "credits,videos,images,recommendations,external_ids",
     api_key: import.meta.env.VITE_MAIN_API_KEY

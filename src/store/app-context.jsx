@@ -120,7 +120,7 @@ export default function AppProvider({ children }) {
   const [moviesState, setMoviesState] = useState(initialMovies)
   const [isInitialLoad, setIsInitialLoad] = useState(true)
   const [isLoading, setIsLoading] = useState(true)
-  const {country} = useGeoLocation()
+  // const {country} = useGeoLocation()
   // const isVPNError = country === "IR"
   const isVPNError = false
 

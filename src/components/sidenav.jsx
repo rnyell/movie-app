@@ -19,7 +19,7 @@ import {
 } from "@heroicons/solid"
 import { CompasIconSolid, CompasIcon } from "@src/utils/icons"
 import logo from "@src/assets/logo.png"
-import { useWindow } from "@utils/hooks"
+import { useWindowOffsets } from "@utils/hooks"
 
 
 const lg_links = [
@@ -65,7 +65,7 @@ const sm_solid_icons = [
 export default function SideNav() {
   const [isOpen, setIsOpen] = useState(false)
   const location = useLocation()
-  const { windowWidth } = useWindow()
+  const { windowWidth } = useWindowOffsets()
   const submenuLinkRef = useRef()
   
   useEffect(() => {

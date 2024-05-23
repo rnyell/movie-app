@@ -2,10 +2,12 @@ import { useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
 import { useMediaDetails } from "@utils/hooks"
 import { formatRuntime, formatReleaseDate, getMovieDirector } from "@utils/utils"
+import { IMAGES_URL } from "@utils/apis"
 import { modalBackdropVariants, modalVariants, defaultVariantsLabel, modalTransition } from "@utils/motions"
 import Rates from "@components/movie/details/rates"
 import Genres from "@components/movie/details/genres"
 import Overview from "@components/movie/details/overview"
+import Casts from "../details/casts"
 
 
 export default function MovieDetailsModal({ result, setModal, price }) {
@@ -55,7 +57,7 @@ export default function MovieDetailsModal({ result, setModal, price }) {
           <figure>
             <img
               className="poster w-100 unselectable"
-              src={`https://image.tmdb.org/t/p/w500${backdrop_path}`}
+              src={`${IMAGES_URL}w500${backdrop_path}`}
               draggable="false"
             />
           </figure>
@@ -75,15 +77,10 @@ export default function MovieDetailsModal({ result, setModal, price }) {
           <div className="sub-details">
             <Overview text={overview} />
             <div className="credits">
+              <Casts casts={credits.cast} mode="names" />
               <div className="director align-center">
                 <h6>Directed by:</h6>
                 <p className="director-name">{getMovieDirector(credits.crew)}</p>
-              </div>
-              <div className="casts align-center flex-wrap">
-                <h6>Starring:</h6>
-                {credits.cast.slice(0, 4).map(c =>
-                  <p key={c.name} className="cast-name">{c.name}<span>,</span></p>
-                )}
               </div>
             </div>
           </div>
