@@ -224,7 +224,7 @@ export async function getMediaRuntime(type, mediaId) {
 export async function getMovieDetails(movieId) {
   const path = `3/movie/${movieId}`
   const params = {
-    append_to_response: "credits,videos,images,recommendations,external_ids",
+    append_to_response: "credits,videos,images,recommendations",
     api_key: import.meta.env.VITE_MAIN_API_KEY
   }
   const data = await request(path, params)
@@ -234,7 +234,7 @@ export async function getMovieDetails(movieId) {
 export async function getSeriesDetails(seriesId) {
   const path = `3/tv/${seriesId}`
   const params = {
-    append_to_response: "credits,videos,images,recommendations",
+    append_to_response: "credits,videos,images,recommendations,episode_groups",
     api_key: import.meta.env.VITE_MAIN_API_KEY
   }
   const data = await request(path, params)
@@ -273,20 +273,6 @@ export async function getSimilarMovies(movieId) {
   const params = { language: "en-US", api_key: import.meta.env.VITE_MAIN_API_KEY }
   const data = await request(path, params)
   return data
-}
-
-export async function getMovieTrailer(movieId) {
-  const path = `3/movie/${movieId}/videos`
-  const params = { api_key: import.meta.env.VITE_MAIN_API_KEY }
-  const data = await request(path, params)
-  let officialTrailers = data.results.filter(res => 
-    res.type === "Trailer" && 
-    res.official === true
-  )
-
-  let latestTrailer = officialTrailers[0].key
-  let trailerUrl = `https://www.youtube.com/watch?v=${latestTrailer}`
-  return trailerUrl
 }
 
 export async function getSomeNews() {

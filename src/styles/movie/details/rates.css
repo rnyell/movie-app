@@ -94,3 +94,13 @@
     fill: dodgerblue;
   }
 }
+
+@media (width < 820px) {
+  .rates[data-variant="verbose"] {
+    font-size: 1rem;
+
+    & .box {
+      gap: 0.75rem;
+    }
+  }
+}

@@ -4,6 +4,8 @@ import { IMAGES_URL } from "@utils/apis"
 
 
 export default function SeriesCard({ result, media, variant }) {
+
+
   return (
     <div data-variant={variant} className="movie-card">
       <figure>

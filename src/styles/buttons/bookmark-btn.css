@@ -59,7 +59,6 @@
 }
 
 .selected-media .btns .bookmark-btn {
-  color: var(--color-neutral-200);
   backdrop-filter: blur(10px);
 
   & svg {
@@ -68,8 +67,8 @@
 
   &.is-bookmarked {
     & svg {
-      color: var(--color-neutral-200);
-      fill: var(--color-neutral-200);
+      color: var(--color-neutral-150);
+      fill: var(--color-neutral-150);
     }
   }
 }

@@ -1,0 +1,27 @@
+.trailers {
+  overflow: hidden;
+
+  & .heading {
+    margin-bottom: 1rem;
+  }
+  
+  & .container {
+    padding-inline: 1rem;
+    min-height: 65%;
+    /* width: 50vw; */
+    overflow-x: scroll;
+    scrollbar-width: none;
+    gap: 15px;
+  }
+
+  & iframe {
+    flex: 1;
+    width: 305px;
+    aspect-ratio: 16 / 9;
+    border-radius: 1.5rem;
+  }
+
+  & .ytp-title-channel {
+    display: none !important;
+  }
+}

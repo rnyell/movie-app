@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { createPortal } from "react-dom"
 import { motion, AnimatePresence } from "framer-motion"
+import { IMAGES_URL } from "@utils/apis"
 import PrimaryOverlay from "./overlays/primary-overlay"
 import MovieInfoModal from "@components/movie/modals/movie-info-modal"
 

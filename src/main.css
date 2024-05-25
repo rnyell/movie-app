@@ -41,10 +41,12 @@
 @import "@styles/buttons/watch-btn.css" layer;
 @import "@styles/buttons/info-btn.css" layer;
 
+@import "@styles/selected-movie/network-logo.css" layer;
+@import "@styles/selected-movie/trailers.css" layer;
 @import "@styles/selected-movie/pictures.css" layer;
 
 @import "@styles/header.css" layer;
-@import "@styles/sidenav.css" layer;
+@import "@styles/sidenav.css";
 @import "@styles/errors.css" layer;
 @import "@styles/skeletons.css" layer;
 

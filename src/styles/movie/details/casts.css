@@ -8,32 +8,33 @@
     & > * {
       flex-shrink: 0;
     }
+  }
 
-    & .cast {
-      text-align: center;
-      border-radius: var(--full-rounded);
-    }
+  & .cast {
+    text-align: center;
+    border-radius: var(--full-rounded);
+  }
 
-    & .cast-img {
-      aspect-ratio: 1;
-      border-radius: var(--full-rounded);
-      outline: 2.5px solid var(--color-neutral-700);
-      outline-offset: 0;
-    }
-    
-    & .cast-img {
-      object-position: 0 15%;
-    }
+  & .cast-img {
+    aspect-ratio: 1;
+    border-radius: var(--full-rounded);
+    outline: 2.5px solid var(--color-neutral-700);
+    outline-offset: 0;
+  }
   
-    & .cast-name {
-      margin-top: 0.25rem;
-      width: fit-content;
-    }
+  & .cast-img {
+    object-position: 0 15%;
+  }
+
+  & .cast-name {
+    margin-top: 0.25rem;
+    width: fit-content;
   }
 }
 
-
 .casts[data-mode="list"] {
+  overflow: hidden;
+
   & .casts-list {
     height: 120px;
     max-width: 80vw;
@@ -42,22 +43,55 @@
     gap: 0.625rem;
   }
 
+  & .heading {
+    margin-bottom: 1rem;
+  }
+
   & .cast {
     /* min-width: 80px; */
-    width: 5rem;
+    width: 7rem;
   }
 
   & .cast-img {
-    width: 4.25rem;
+    width: 5rem;
   }
 
   & .cast-name {
-    height: 1rem;
-    font-size: 0.6rem;
+    margin-top: 0.5rem;
+    /* height: 1rem; */
+    font-size: 0.75rem;
   }
 }
 
+@media (width < 620px) {
+  .selected-movie .casts[data-mode="list"] {
+    & .casts-list {
+      gap: 1.2rem;
+    }
 
+    & .cast {
+      min-width: 50px;
+    }
+
+    & .cast-img {
+      width: 4.5rem;
+    }
+
+    & .cast-name {
+      font-size: 0.6rem;
+    }
+  }
+}
+
+@media (width < 520px) {
+  .selected-movie .casts[data-mode="list"] {
+    & .cast {
+      width: 5rem;
+    }
+  }
+}
+
+/******************************************************************************************/
 .casts[data-mode="names"] {
   margin-top: 0.5rem;
   flex-wrap: wrap;
@@ -72,7 +106,6 @@
   }
 
   & .cast-name {
-    /* margin-left: 0.275rem; */
     margin-left: 5px;
     width: auto;
   }
@@ -89,9 +122,9 @@
   }
 }
 
-
+/******************************************************************************************/
 .casts[data-mode="drawer"] {
-  & .tag {
+  & .heading {
     margin-bottom: 1.5cqw;
     font-size: 1rem;
     font-weight: 500;
@@ -154,5 +187,11 @@
     &:hover {
       background-color: rgb(31 34 37 / 75%);
     }
+  }
+}
+
+@container grid-container (width < 820px) {
+  .casts {
+    display: none;
   }
 }

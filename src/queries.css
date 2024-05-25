@@ -4,44 +4,6 @@
 
 /********************************************************************************************************/
 /** on home page */
-@media (width < 1300px) {
-  .sidenav {
-    width: min(200px, 20vw);
-  }
-}
-
-@media (width < 820px) {  
-  .sidenav {
-    width: 75px;
-
-    & .logo-wrapper {
-      background-color: unset;
-      
-      & a {
-        display: flex;
-        justify-content: center;
-      }
-
-      & .logo {
-        width: 90%;
-      }
-    }
-
-    & .nav-links {
-      gap: var(--space-4);
-    }
-
-    & .link {
-      grid-template-columns: 1fr;
-      justify-items: center;
-
-      .link-tag {
-        display: none;
-      }
-    }
-  }
-}
-
 @media (width < 520px) {
   .home-page {
     grid-template-columns: 1fr;
@@ -50,74 +12,6 @@
   .home-content {
     grid-column: 1 / -1;
     padding-bottom: var(--safe-space-to-scroll-bottom-nav);
-  }
-
-  .sidenav {
-    width: 95%;
-    height: unset;
-    position: fixed;
-    z-index: var(--z-100);
-    bottom: 0;
-    left: 50%;
-    translate: -50% 0;
-    border-radius: 3.5rem;
-    /* outline: var(--outline-size-2) color-mix(in srgb, var(--color-neutral-400), transparent) solid;
-    outline-offset: 0; */
-    
-    &::after {
-      display: none;
-    }
-
-    &::before {
-      content: "";
-      position: absolute;
-      z-index: var(--z-0);
-      inset: 0;
-      background-color: color-mix(in srgb, var(--color-neutral-700) 85%, transparent);
-      backdrop-filter: blur(30px);
-      border-radius: 3.5rem;
-    }
-
-    & .nav-links {
-      margin-top: unset;
-      flex-direction: row;
-      justify-content: space-around;
-    }
-
-    & .link {
-      padding: var(--space-3);
-      width: unset;
-      background-color: unset;
-      color: var(--color-neutral-400);
-
-      &.is-active {
-        color: var(--color-neutral-200);
-
-        & .indicator-dot {
-          position: absolute;
-          width: 4px;
-          height: 4px;
-          bottom: -1.15px;
-          left: 50%;
-          translate: -50% 0;
-          border-radius: 100%;
-          background-color: var(--color-neutral-300);
-        }
-      }
-
-      & .icon {
-        width: var(--icon-size-7);
-      }
-      
-      & .icon:hover svg {
-        stroke-width: 1pt;
-        stroke-miterlimit: 10;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-        stroke-dasharray: 400;
-        animation: stroks 1s reverse ease-out;
-      }
-    }
   }
 }
 
@@ -144,13 +38,6 @@
     & .title {
       font-size: 1.35rem;
     }
-  }
-}
-
-
-@keyframes stroks {
-  100% {
-    stroke-dashoffset: 400;
   }
 }
 
@@ -290,10 +177,6 @@
       font-size: 0.75rem;
     }
   }
-
-  .casts {
-    display: none;
-  }
 }
 
 @container grid-container (width < 600px) {
@@ -360,80 +243,6 @@
   }
 }
 
-/********************************************************************************************************/
-/** selected media */
-@media (width < 820px) {
-  .selected-media {
-    & .casts-list {
-      width: 60vw;
-    }
-  }
-}
-
-@media (width < 620px) {
-  .selected-media {
-    & .poster-wrapper {
-      height: 80vh;
-
-      &::after {
-        background-image: linear-gradient(rgb(10 13 15 / 10%), var(--color-neutral-800) 90%);
-      }
-    }
-
-    & .title {
-      font-size: 3rem;
-    }
-
-    & .overview {
-      max-width: 360px;
-    }
-
-    & .credits {
-      border-top: 1px solid var(--color-neutral-600);
-    }
-
-    & .casts {
-      & .casts-list {
-        gap: 1.2rem;
-      }
-
-      & .cast {
-        min-width: 50px;
-      }
-
-      & .cast-img {
-        width: 4.5rem;
-      }
-  
-      & .cast-name {
-        font-size: 0.6rem;
-      }
-    }
-  }
-}
-
-@media (width < 480px) {
-  .selected-media {
-    & .poster-wrapper {
-      height: 70vh;
-    }
-  }
-}
-
-
-/********************************************************************************************************/
-@media (width < 620px) {
-  .movie-card[data-variant="common"] {
-    & .wrapper {
-      box-shadow: none;
-    }
-
-    &:hover {
-      outline-color: transparent;
-    }
-  }
-}
-
 
 /********************************************************************************************************/
 /** on results page */
@@ -470,10 +279,6 @@
       @media (width < 520px) {
         font-size: 1.5rem;
       }
-    }
-
-    & .rate-number {
-      /* font-size: 1rem; */
     }
 
     & .genres {

@@ -1,18 +1,26 @@
 .pictures {
   max-width: 620px;
-  position: relative;
+  
+  & .heading {
+    margin-bottom: 1rem;
+  }
   
   & .preview {
+    min-height: 65%;
+    min-height: 200px;
+    position: relative;
     overflow: hidden;
     display: grid;
-    grid-template-columns: auto auto auto;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    grid-auto-flow: dense;
-    gap: 4px;
+    /* grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); */
+    /* grid-auto-flow: dense; */
+    /* grid-template-columns: auto auto auto; */
+    grid-template-columns: 1fr 1fr 2fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 4px; /* same with border-width */
     border-radius: 2rem;
     background-color: color-mix(in srgb, var(--color-neutral-500), transparent);
     border: 4px solid color-mix(in srgb, var(--color-neutral-600), transparent);
-    box-shadow: 0 2px 1rem rgb(10 13 15 / 70%);
+    box-shadow: 0 2px 1rem rgb(11 15 17 / 70%);
   
     & figure {
       overflow: hidden;
@@ -27,14 +35,9 @@
         scale: 1.2;
       }
   
-      &:nth-child(1) {
-        grid-column: span 2;
-        grid-row: span 2;
-      }
-  
-      &:nth-child(4) {
-        grid-column: span 2;
-        grid-row: span 2;
+      &:nth-child(5) {
+        grid-row: 1 / 3;
+        grid-column: 3 / 4;
       }
     }
   }
@@ -50,7 +53,7 @@
     backdrop-filter: blur(5px);
     border-radius: var(--full-rounded);
     transition: background-color var(--duration-2);
-    box-shadow: 0 2px 1rem rgb(10 13 15 / 75%);
+    box-shadow: 0 2px 1rem rgb(11 15 17 / 75%);
     cursor: pointer;
 
     & span {
@@ -76,7 +79,7 @@
 
 .gallery {
   padding: 1.25rem;
-  width: clamp(330px, 65vw, 990px);
+  width: clamp(350px, 65vw, 990px);
   top: 8%;
   translate: -50% 0%;
   box-shadow: 0 2px 1rem rgb(11 15 17 / 80%);
@@ -151,6 +154,7 @@
   
   & .images {
     grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+    grid-auto-rows: 100px;
 
     & figure:nth-child(5n - 2) {
       grid-column: span 2;
@@ -167,7 +171,8 @@
   inset: 0;
   translate: none;
   border-radius: 0;
-  /* these 3 properties are reset from default values (which are set in `base.css`) */
+  /* these 3 properties are reseting default values (which are set in `base.css`) */
+  z-index: var(--z-max);
   background-color: var(--color-neutral-750);
 
   & .selected-image-container {

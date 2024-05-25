@@ -1,17 +1,20 @@
 .fave-btn {
+  margin-left: auto;
+  backdrop-filter: blur(5px);
+
   & svg {
     width: var(--icon-size-6);
+    color: var(--color-neutral-800);
   }
-  
-  &.is-faved {
+
+  &:hover {
+    background-color: var(--color-neutral-300);
+  }
+
+  &.is-faved{
     & svg {
-      color: var(--color-neutral-200);
-      fill: var(--color-neutral-200);
+      color: crimson;
+      fill: crimson;
     }
   }
-}
-
-.selected-media .fave-btn {
-  backdrop-filter: blur(10px);
-  margin-left: auto;
 }

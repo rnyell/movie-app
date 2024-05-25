@@ -69,9 +69,9 @@ export default function Casts({ casts, mode }) {
     case "list": {
       return (
         <div className="casts" data-mode={mode}>
-          <h5 className="tag">Casts</h5>
+          <h4 className="heading">Casts</h4>
           <ul className="casts-list">
-          {casts.slice(0, 7).map((cast, i) =>
+          {casts.slice(0, 8).map((cast, i) =>
             <li className="cast align-center-col" key={i}>
               <img
                 className="cast-img unselectable"
@@ -88,7 +88,7 @@ export default function Casts({ casts, mode }) {
     case "drawer": {
       return (
         <div className="casts" data-mode={mode}>
-          <h5 className="tag">Casts</h5>
+          <h5 className="heading">Casts</h5>
           <motion.ul className={`casts-list ${castsNumber !== 4 ? "show-more" : ""}`}>
             <AnimatePresence>
               {casts.slice(0, 4).map((cast, i) =>

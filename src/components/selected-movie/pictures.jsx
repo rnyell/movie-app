@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { createPortal } from "react-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { PhotoIcon, XMarkIcon } from "@heroicons/solid"
-import { modalVariants, defaultVariantsLabel, modalBackdropVariants, modalTransition } from "@utils/motions"
+import { defaultVariantsLabel, modalBackdropVariants } from "@utils/motions"
 import { IMAGES_URL } from "@utils/apis"
 import ImageSlider from "./image-slider"
 
@@ -14,18 +14,18 @@ export default function Pictures({ images }) {
 
   return (
     <div className="pictures">
-      <h4 className="heading">Images</h4>
+      <h4 className="heading">Photos</h4>
       <div className="preview">
-        {backdrops.slice(0, 3).map(img => (
+        {backdrops.slice(0, 5).map(img => (
           <figure key={img.file_path}>
             <img src={`${IMAGES_URL}w500${img.file_path}`} />
           </figure>
         ))}
+        <button className="btn photo-btn" onClick={() => setIsOpen(true)}>
+          <div className="icon"><PhotoIcon /></div>
+          <span>More Images</span>
+        </button>
       </div>
-      <button className="btn photo-btn" onClick={() => setIsOpen(true)}>
-        <div className="icon"><PhotoIcon /></div>
-        <span>More Images</span>
-      </button>
       {createPortal(
         <AnimatePresence>
           {isOpen && <Gallery images={images} setModal={setIsOpen} />}

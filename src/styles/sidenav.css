@@ -106,3 +106,120 @@
     font-size: 0.5rem;
   }
 }
+
+@media (width < 1300px) {
+  .sidenav {
+    width: min(200px, 20vw);
+  }
+}
+
+@media (width < 820px) {  
+  .sidenav {
+    width: 75px;
+
+    & .logo-wrapper {
+      background-color: unset;
+      
+      & a {
+        display: flex;
+        justify-content: center;
+      }
+  
+      & .logo {
+        width: 90%;
+      }
+    }
+  
+    & .nav-links {
+      gap: var(--space-4);
+    }
+  
+    & .link {
+      grid-template-columns: 1fr;
+      justify-items: center;
+    }
+
+    & .link-tag {
+      display: none;
+    }
+  }
+}
+
+@media (width < 520px) {
+  .sidenav {
+    width: 92%;
+    height: unset;
+    position: fixed;
+    z-index: var(--z-100);
+    bottom: 0;
+    left: 50%;
+    translate: -50% 0;
+    border-radius: 3.5rem;
+    
+    &::after {
+      display: none;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      z-index: var(--z-0);
+      inset: 0;
+      background-color: color-mix(in srgb, var(--color-neutral-700) 85%, transparent);
+      backdrop-filter: blur(30px);
+      border-radius: 3.5rem;
+    }
+
+    & .nav-links {
+      margin-top: unset;
+      flex-direction: row;
+      justify-content: space-around;
+    }
+  
+    & .link {
+      padding: var(--space-3);
+      width: unset;
+      background-color: unset;
+      color: var(--color-neutral-400);
+  
+      &.is-active {
+        background-color: transparent;
+      }
+  
+      & .indicator-dot {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        bottom: -1.15px;
+        left: 50%;
+        translate: -50% 0;
+        border-radius: 100%;
+        background-color: var(--color-neutral-300);
+      }
+  
+      & .icon {
+        width: var(--icon-size-7);
+      }
+      
+      & .icon:hover svg {
+        stroke-width: 1pt;
+        stroke-miterlimit: 10;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-dasharray: 400;
+        animation: stroks 1s reverse ease-out;
+      }
+    }
+
+    & .footer {
+      display: none;
+    }
+  }
+}
+
+
+@keyframes stroks {
+  100% {
+    stroke-dashoffset: 400;
+  }
+}

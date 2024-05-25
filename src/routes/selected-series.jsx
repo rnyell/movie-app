@@ -4,9 +4,9 @@ import { motion, AnimatePresence } from "framer-motion"
 import { useWindowOffsets, useMediaDetails } from "@utils/hooks"
 import { formatReleaseDate, formatRuntime, getMovieGenres, getMovieDirector } from "@utils/utils"
 import { pageTransitionVariants, defaultVariantsLabel } from "@utils/motions"
-import { getMovieTrailer, getRecommendedMovies } from "@utils/apis"
-import { IMAGES_URL } from "@utils/apis"
+import { IMAGES_URL, getRecommendedMovies } from "@utils/apis"
 import { SelectedMovieSkeleton } from "@components/skeletons"
+import SideNav from "@components/sidenav"
 import MovieCard from "@components/movie/movie-card"
 import Overview from "@components/movie/details/overview"
 import Rates from "@components/movie/details/rates"
@@ -14,8 +14,10 @@ import Casts from "@components/movie/details/casts"
 import WatchButton from "@components/buttons/watch-btn"
 import BackButton from "@components/buttons/back-btn"
 import FaveButton from "@components/buttons/fave-btn"
+import NetworkLogo from "@components/selected-movie/network-logo"
 import BookmarkButton from "@components/buttons/bookmark-btn"
 import Pictures from "@components/selected-movie/pictures"
+import Trailers from "@components/selected-movie/trailers"
 
 const imgUrlInit = {
   width: "w500",
@@ -57,21 +59,17 @@ export default function SelectedSeries() {
     recommendations,       // { results: [] }
     videos,                // { results: [ id, key ] }
     images,                // { backdrops: [{ file_path }], posters: [], logos: [] }
+    production_countries,
+    spoken_languages,
   } = mediaDetails
 
   console.log(mediaDetails)
-
-  const urls = videos?.results.map(res => res)
-  let officialTrailers = urls?.filter(res => 
-    res.type === "Trailer" && 
-    res.official === true
-  )
-  console.log(officialTrailers)
 
   useEffect(() => {
     handleResize()
   }, [mediaDetails, windowWidth])
 
+  // TODO: handle it with just windowWidth: conditional path...
   function handleResize() {
     if (windowWidth < 620) {
       setImgUrl({
@@ -101,9 +99,7 @@ export default function SelectedSeries() {
     >
       <div className="btns align-center w-100">
         {/* {prevUrl && <BackButton url={prevUrl} /> } */}
-        <div className="network flex-center">
-          <img className="network-logo" src={`${IMAGES_URL}w500${networks[0].logo_path}`} alt="logo" />
-        </div>
+        <NetworkLogo networks={networks} />
         <FaveButton />
         <BookmarkButton item={{id, media}} />
       </div>
@@ -131,10 +127,9 @@ export default function SelectedSeries() {
           </div>
         </div>
       </section>
-
-      <section className="details-wrapper flex-col">
+      <section className="details-wrapper grid">
         <div className="seasons-container">
-          <h4 className="heading">Seasons</h4>
+          <h4 className="heading">Seasons {in_production && <p className="in-production-tag">(Season {seasons.length} is in production)</p>}</h4>
           <div className="seasons flex">
             {seasons.map(season => (
               <div className="season flex-item" key={season.name}>
@@ -146,22 +141,53 @@ export default function SelectedSeries() {
         </div>
         <hr />
         <div className="visuals">
-          <div className="trailers">
-            <h4 className="heading">Trailers</h4>
-            {/* {officialTrailers.map(t => (
-              <iframe
-                key={t.key}
-                src={`https://www.youtube.com/embed/${t.key}?controls=0&modestbranding=1&rel=0&showInfo=0`}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerPolicy="strict-origin-when-cross-origin"
-              ></iframe>
-            ))} */}
-          </div>
+          <Trailers videos={videos} />
           <Pictures images={images} />
         </div>
         <hr />
-        <div className="additional-information"></div>
+        <Casts casts={credits.cast} mode="list" />
+        <div className="information-table">
+          <div className="col col-1">
+            <dl>
+              <div className="td">
+                <dt>First Air Date:</dt>
+                <dd>{first_air_date}</dd>
+              </div>
+              <div className="td">
+                <dt>Episode Runtime:</dt>
+                <dd>{episode_run_time}</dd>
+              </div>
+              <div className="td">
+                <dt>Country:</dt>
+                <dd>
+                  {production_countries.map(pc =>
+                    <span key={pc.name}>{pc.name === "United States of America" ? "US" : pc.name}</span>
+                  )}
+                </dd>
+              </div>
+              <div className="td">
+                <dt>Languages:</dt>
+                <dd>{spoken_languages.map(lang => <span key={lang.english_name}>{lang.english_name}</span>)}</dd>
+              </div>
+            </dl>
+          </div>
+          <div className="col col-2">
+            <figure className="img-poster">
+              <img src={`${IMAGES_URL}w500${poster_path})`} />
+            </figure>
+          </div>
+        </div>
+        <hr />
+        <div className="related-content">
+          <h4 className="heading">More Like This</h4>
+          <div className="related-movies-container flex">
+            {recommendations.results.slice(0, 9).map(movie =>
+              <MovieCard key={movie.id} result={movie} media={media} variant="series" />
+            )}
+          </div>
+        </div>
       </section>
+      {windowWidth < 520 && <SideNav />}
     </motion.div>
   )
 }

@@ -1,13 +1,8 @@
 .back-btn {  
+  backdrop-filter: blur(10px);
+
   & svg {
     width: var(--icon-size-6);
+    stroke-width: 2;
   }
-
-  &[data-variant="dark"] {
-    
-  }
-}
-
-.selected-media .back-btn {
-  backdrop-filter: blur(10px);
 }

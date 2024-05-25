@@ -32,4 +32,11 @@
   margin-top: 0;
   margin-bottom: 2rem;
   font-size: 1rem;
+  -webkit-line-clamp: unset;
+}
+
+@media (width < 480px) {
+  .selected-media .overview {
+    max-width: 75vw;
+  }
 }

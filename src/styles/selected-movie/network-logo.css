@@ -1,0 +1,15 @@
+.network {
+  padding: 0.5rem;
+
+  & .network-logo {
+    width: 100px;
+  }
+}
+
+/* .network[data-logoname="Netflix"] {
+
+}
+
+.network[data-logoname="HBO"] {
+  background-color: aliceblue;
+} */
