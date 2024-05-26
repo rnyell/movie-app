@@ -37,6 +37,8 @@ const routes = [
         { path: "/reservation", element: <Reservation /> },
         { path: "/onscreen", element: <OnScreenPage /> },
         { path: "/library", element: <Library /> },
+        { path: "/movies/:id", element: <SelectedMovie /> },
+        { path: "/series/:id", element: <SelectedSeries /> },
         { path: "/discover", element: <Discover />, children: [
           { path: "/discover/movies", element: <MoviesPage /> },
           { path: "/discover/series", element: <SeriesPage /> },
@@ -49,8 +51,6 @@ const routes = [
           <SearchPage />
         </SearchProvider>
       )},
-      { path: "/movies/:id", element: <SelectedMovie /> },
-      { path: "/series/:id", element: <SelectedSeries /> },
       { path: "/player", element: <PlayerPage /> },
       { path: "/booking", element: <BookingPage /> },
     ]

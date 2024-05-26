@@ -59,7 +59,7 @@ export default function Casts({ casts, mode }) {
     case "names": {
       return (
         <div className="casts align-center flex-wrap" data-mode={mode}>
-          <h6>Starring:</h6>
+          <h6 className="heading">Starring:</h6>
           {casts.slice(0, 4).map(c =>
             <p key={c.name} className="cast-name">{c.name}<span>,</span></p>
           )}

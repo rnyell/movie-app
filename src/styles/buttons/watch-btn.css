@@ -24,7 +24,7 @@
 
   & svg {
     width: var(--icon-size-4);
-    stroke-width: 2;
+    stroke-width: 2; /* has effect? cuz it's solid */
   }
 
   &:hover {
@@ -49,5 +49,15 @@
 
   &:hover {
     background-color: color-mix(in srgb, var(--color-neutral-200), transparent 40%);
+  }
+}
+
+.selected-media .watch-btn {
+  padding: 0.85rem 2.5rem;
+  gap: 0.325rem;
+
+  & svg {
+    margin-left: -8px;
+    width: var(--icon-size-5);
   }
 }

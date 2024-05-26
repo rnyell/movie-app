@@ -6,10 +6,9 @@ import { formatReleaseDate, formatRuntime, getMovieGenres, getMovieDirector } fr
 import { pageTransitionVariants, defaultVariantsLabel } from "@utils/motions"
 import { IMAGES_URL, getRecommendedMovies } from "@utils/apis"
 import { SelectedMovieSkeleton } from "@components/skeletons"
-import SideNav from "@components/sidenav"
 import MovieCard from "@components/movie/movie-card"
 import Overview from "@components/movie/details/overview"
-import Rates from "@components/movie/details/rates"
+// import Rates from "@components/movie/details/rates"
 import Casts from "@components/movie/details/casts"
 import WatchButton from "@components/buttons/watch-btn"
 import BackButton from "@components/buttons/back-btn"
@@ -63,7 +62,7 @@ export default function SelectedSeries() {
     spoken_languages,
   } = mediaDetails
 
-  console.log(mediaDetails)
+  // console.log(mediaDetails)
 
   useEffect(() => {
     handleResize()
@@ -97,17 +96,10 @@ export default function SelectedSeries() {
       variants={pageTransitionVariants}
       {...defaultVariantsLabel}
     >
-      <div className="btns align-center w-100">
-        {/* {prevUrl && <BackButton url={prevUrl} /> } */}
-        <NetworkLogo networks={networks} />
-        <FaveButton />
-        <BookmarkButton item={{id, media}} />
-      </div>
-
       <section className="poster-wrapper isolated-stack ::after-abs">
         <div className="bg-poster" style={{backgroundImage: `url(${IMAGES_URL}${imgUrl})`}} />
         <div className="main-details flex-col w-100">
-          <h1 className="title">{name}</h1>
+          <h1 className="main-title">{name}</h1>
           <div className="details">
             <span className="release-date">{formatReleaseDate(first_air_date)}</span>
             <i className="dot">&#x2022;</i>
@@ -121,7 +113,7 @@ export default function SelectedSeries() {
           <div className="sm-credits">
             <Casts casts={credits.cast} mode="names" />
             <div className="creators flex">
-              <h6>Creators:</h6>
+              <h6 className="heading">Creators:</h6>
               {created_by.map(creator => <p className="creator-name" key={creator.name}>{creator.name}<span>,</span></p>)}
             </div>
           </div>
@@ -147,6 +139,7 @@ export default function SelectedSeries() {
         <hr />
         <Casts casts={credits.cast} mode="list" />
         <div className="information-table">
+          {/* <h5>More Details</h5> */}
           <div className="col col-1">
             <dl>
               <div className="td">
@@ -187,7 +180,6 @@ export default function SelectedSeries() {
           </div>
         </div>
       </section>
-      {windowWidth < 520 && <SideNav />}
     </motion.div>
   )
 }

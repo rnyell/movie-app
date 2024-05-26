@@ -1,51 +1,12 @@
 .main-header {
   padding: var(--space-4) var(--space-6); /* the `padding-block` matches the `padding-block` of <SideNav /> */
   width: 100%;
-  display: flex;
-  align-items: center;
-  
-  & .flex-item {
+
+  & .search-box-wrapper {
     margin-inline: auto var(--space-6);
   }
 
-  &[data-set~="sticky"] {
-    position: sticky;
-    top: 0;
-    z-index: var(--z-50);
-    background-color: var(--color-neutral-800);
-  }
-
-  &[data-set~="expanded"] {
-    grid-column: 1 / -1;
-    grid-row: 1 / 2;
-    background-color: color-mix(in srgb, var(--color-neutral-700) 80%, transparent);
-    backdrop-filter: blur(20px);
-
-    & .flex-item {
-      margin-inline: var(--space-6) auto;
-      width: max(300px, 45%);
-    }
-  }
-
-  &[data-set~="sm-screen"] {
-    --icon-size-6: 1.75rem;
-    position: sticky;
-    top: 0;
-    z-index: var(--z-50);
-    background-color: color-mix(in srgb, var(--color-neutral-700) 80%, transparent);
-    backdrop-filter: blur(20px);
-
-    & .flex-item {
-      flex: 1;
-    }
-
-    & .icons {
-      margin-left: 1rem;
-    }
-  }
-
-  /* selects every icon in header except search-icon in search-box */
-  & > *:not(.flex-item) .icon {
+  & .icon:not(.search-icon) {
     padding: var(--space-2);
     color: var(--color-neutral-350);
     border-radius: var(--full-rounded);
@@ -60,22 +21,62 @@
     }
   }
 
-  & .icons {
-    display: flex;
-    align-items: center;
-  
-    & .bell-icon,
-    & .login-link {
-      margin-inline: var(--space-1);
+  & .bell-icon,
+  & .login-link {
+    margin-inline: var(--space-1);
+  }
+
+  &[data-set~="sticky"] {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-50);
+    background-color: var(--color-neutral-800);
+  }
+
+  &[data-set~="stretched"] {
+    grid-column: 1 / -1;
+    grid-row: 1 / 2;
+    background-color: color-mix(in srgb, var(--color-neutral-700) 80%, transparent);
+    backdrop-filter: blur(20px);
+
+    & .search-box-wrapper {
+      margin-inline: var(--space-6) auto;
+      width: max(300px, 45%);
+    }
+  }
+
+  &[data-set~="transparent"] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: var(--z-50);
+    background-color: transparent !important;
+    backdrop-filter: unset !important;
+
+    & .search-box-wrapper {
+      margin-inline: 1rem auto;
+    }
+
+    & .icon:not(.search-icon) {
+      padding: var(--space-2);
+      color: var(--color-neutral-250);
+
+      & svg {
+        width: var(--icon-size-7);
+      }
+
+      &:hover {
+        background-color: color-mix(in srgb, var(--color-neutral-200) 30%, transparent);
+      }
     }
   }
 }
-
 
 .search-box {
   --box-width: 2.25rem;
   --box-height: 2.5rem;
   
+  width: 14rem;
   height: var(--box-height);
   min-height: 38px;
   position: relative;
@@ -90,13 +91,10 @@
     outline-color: var(--color-neutral-350);
   }
 
-  &[data-set~="default"] {
-    width: 14rem;
-  }
-
-  &[data-set~="expanded"] {
+  &[data-set~="stretched"] {
     --box-height: 2.75rem;
-    
+    width: unset;
+
     & .icon-wrapper {
       --icon-size-4: 1.5rem;
       height: 100%;
@@ -111,9 +109,89 @@
     }
   }
 
-  &[data-set~="sm-screen"] {
+  &[data-set~="transparent"] {
+    & .search-input {
+      background-color: color-mix(in srgb, var(--color-neutral-500), transparent 60%);
+      backdrop-filter: blur(5px);
+    }
+
+    & .search-icon {
+      color: var(--color-neutral-350);
+    }
+  }
+
+  & .icon-wrapper {
+    width: var(--box-width);
+    height: var(--box-height);
+    position: absolute;
+    z-index: var(--z-10);
+    top: calc(50% - var(--box-height) / 2);
+    display: inline-grid;
+    place-items: center;
+    cursor: pointer;
+  }
+
+  & .search-icon {
+    width: var(--icon-size-4);
+    position: absolute;
+    left: calc(50% - (var(--icon-size-4) / 2));
+    top: calc(50% - (var(--icon-size-4) / 2));
+    color: var(--color-neutral-400);
+    border-radius: var(--full-rounded);
+  }
+
+  & label {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: var(--full-rounded);
+  }
+
+  & .search-input {
+    width: 100%;
+    height: 100%;
+    padding-left: calc(var(--box-width) + 0.5vw);
+    font-size: 0.75rem;
+    color: var(--color-neutral-200);
+    background-color: color-mix(in srgb, var(--color-neutral-600) 55%, transparent);
+    transition: var(--duration-1) ease-in;
+
+    &::placeholder {
+      color: rgb(217 230 237 / 50%);
+      letter-spacing: -0.875px;
+    }
+  }
+}
+
+/* sm-screen */
+@media (width <= 460px) {
+  .main-header {
+    --icon-size-6: 1.75rem;
+    position: sticky;
+    top: 0;
+    z-index: var(--z-50);
+    background-color: color-mix(in srgb, var(--color-neutral-700) 80%, transparent) !important;
+    backdrop-filter: blur(20px) !important;
+
+    & .search-box-wrapper {
+      flex: 1;
+      margin-inline: 0 auto;
+    }
+
+    & .icons {
+      margin-left: 1rem;
+    }
+
+    &[data-set~="transparent"] {
+      & .search-box-wrapper {
+        margin-inline: 0 auto;
+      }
+    }
+  }
+
+  .search-box {
     --box-width: 3rem;
-    --box-height: 3.5rem;
+    --box-height: 3.25rem;
     --icon-size-4: 1.5rem;
     width: unset;
     
@@ -125,47 +203,10 @@
       font-size: 0.85rem;
     }
   }
+}
 
-  & .icon-wrapper {
-    width: var(--box-width);
-    height: var(--box-height);
-    position: absolute;
-    z-index: 10;
-    top: calc(50% - var(--box-height) / 2);
-    display: inline-grid;
-    place-items: center;
-    cursor: pointer;
-  }
-  
-  & .search-icon {
-    width: var(--icon-size-4);
-    position: absolute;
-    left: calc(50% - (var(--icon-size-4) / 2));
-    top: calc(50% - (var(--icon-size-4) / 2));
-    color: var(--color-neutral-400);
-    border-radius: var(--full-rounded);
-  }
-  
-  & label {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    border-radius: var(--full-rounded);
-    transition: var(--duration-1) ease-in;
-  }
-  
-  & .search-input {
-    width: 100%;
-    height: 100%;
-    padding-left: calc(var(--box-width) + 0.5vw);
-    font-size: 0.75rem;
-    color: var(--color-neutral-200);
-    background-color: color-mix(in srgb, var(--color-neutral-600) 55%, transparent);
-    transition: var(--duration-1) ease-in;
-  
-    &::placeholder {
-      color: rgb(217 230 237 / 50%);
-      letter-spacing: -0.875px;
-    }
+@media (width <= 420px) {
+  .main-header {
+    padding: var(--space-4);
   }
 }

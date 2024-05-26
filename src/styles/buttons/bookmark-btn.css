@@ -58,11 +58,26 @@
   }
 }
 
-.selected-media .btns .bookmark-btn {
-  backdrop-filter: blur(10px);
+.selected-media .cta-btns .bookmark-btn {
+  width: 3.25rem;
+  flex-shrink: 0;
+  color: var(--color-neutral-200);
+  background-color: transparent;
+  /* backdrop-filter: blur(10px); */
+  border: 1px solid var(--color-neutral-200);
+  border-radius: var(--full-rounded);
+  transition: background-color var(--duration-1) ease-in,
+    border-color var(--duration-1) ease-in,
+    color var(--duration-1) ease-in !important;
 
   & svg {
     width: var(--icon-size-6);
+  }
+
+  &:hover {
+    color: var(--color-neutral-800);
+    background-color: var(--color-neutral-350);
+    border-color: var(--color-neutral-800);
   }
 
   &.is-bookmarked {

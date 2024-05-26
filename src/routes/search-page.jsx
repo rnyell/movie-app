@@ -40,10 +40,8 @@ export default function SearchPage() {
       })
 
       if (searchOptions.isFiltered && searchOptions.isSorted) {
-        const {
-          filters: {type, genres},
-          sorts: {sortby, order}
-        } = searchOptions
+        const {type, genres} = searchOptions.filters
+        const {sortby, order} = searchOptions.sorts
 
         const {results: unsortedResults, pages} = filterResults(data.results, type, genres)
         const sortedResults = sortResults(unsortedResults, sortby, order)
@@ -81,7 +79,7 @@ export default function SearchPage() {
 
   return (
     <div className="search-page">
-      <Header dataset="sticky expanded" />
+      <Header />
       <aside data-screen={isLgScreen ? "lg-screen" : "sm-screen"}>
         <FilterBox searchStateCopy={searchStateCopy} setSearchStateCopy={setSearchStateCopy} />
       </aside>
@@ -95,7 +93,7 @@ export default function SearchPage() {
             {isLgScreen && (
               <header className="align-center ::after-abs">
                 <h2 className="heading">
-                  Results for: <span className="searched-title">{query}</span>
+                  Results for: <span className="searched-title">{query.replaceAll("-", " ")}</span>
                 </h2>
                 <div className="sort-dropdown-portal"></div>
               </header>

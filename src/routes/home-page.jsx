@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { useWindowOffsets } from "@utils/hooks"
 import Header from "@components/header"
@@ -42,7 +42,7 @@ export default function HomePage() {
       <main ref={mainRef} className="home-content">
         {windowWidth > 460 ? (
           <>
-            <Header dataset="default lg-screen" />
+            <Header />
             <motion.div
               style={{
                 opacity: heroOpacity,
@@ -72,7 +72,7 @@ export default function HomePage() {
           </>
         ) : (
           <>
-            <Header dataset="default sm-screen" />
+            <Header />
             <HeroSection />
             <MoviesSection />
             <SeriesSection />

@@ -41,6 +41,7 @@
 @import "@styles/buttons/watch-btn.css" layer;
 @import "@styles/buttons/info-btn.css" layer;
 
+@import "@styles/selected-movie/shared-styles.css" layer;
 @import "@styles/selected-movie/network-logo.css" layer;
 @import "@styles/selected-movie/trailers.css" layer;
 @import "@styles/selected-movie/pictures.css" layer;

@@ -60,7 +60,8 @@
     }
 
     &:hover {
-      background-color: var(--color-neutral-600);
+      color: var(--color-neutral-300);
+      background-color: var(--color-neutral-650);
     }
 
     & p {
@@ -113,7 +114,7 @@
   }
 }
 
-@media (width < 820px) {  
+@media (width < 780px) {  
   .sidenav {
     width: 75px;
 
@@ -198,7 +199,7 @@
       }
   
       & .icon {
-        width: var(--icon-size-7);
+        width: var(--icon-size-6);
       }
       
       & .icon:hover svg {

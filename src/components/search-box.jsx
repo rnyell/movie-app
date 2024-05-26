@@ -6,18 +6,18 @@ import { transformTitleToURL } from "@utils/utils"
 
 
 export default function SearchBox({ dataset }) {
-  const [params, setParams] = useSearchParams()
   const [userInput, setUserInput] = useState("")
+  const inputRef = useRef(null)
+  const boxRef = useRef(null)
+  const [params, setParams] = useSearchParams()
   const navigate = useNavigate()
   const location = useLocation()
-  const boxRef = useRef(null)
-  const inputRef = useRef(null)
 
   useClickOutside(boxRef, handleClickOutside)
 
   useEffect(() => {
     if (params.get("query")) {
-      setUserInput(params.get("query"))
+      setUserInput(params.get("query").replaceAll("-", " "))
     } else {
       setUserInput("")
     }
@@ -32,7 +32,7 @@ export default function SearchBox({ dataset }) {
       navigate("/search")
       setParams({query: title, page: 1})
       return
-    } else if (title && dataset.includes("expanded")) {
+    } else if (title && dataset.includes("stretched")) {
       setParams({query: title, page: 1})
       return
     }
@@ -83,14 +83,14 @@ export default function SearchBox({ dataset }) {
       </div>
       <label htmlFor="search-input">
         <input
-          ref={inputRef}
-          onChange={handleInput}
-          value={userInput}
-          type="text"
           id="search-input"
           className="search-input"
-          placeholder="Search . . ."
+          type="text"
+          ref={inputRef}
           spellCheck={true}
+          placeholder="Search . . ."
+          value={userInput}
+          onChange={handleInput}
         />
       </label>
     </div>

@@ -18,7 +18,7 @@ export default function FilterBox({ searchStateCopy, setSearchStateCopy }) {
       ) : query !== null ? (
         <>
           <h2 className="heading">
-            Results for: <span className="searched-title">{query}</span>
+            Results for: <span className="searched-title">{query.replaceAll("-", " ")}</span>
           </h2>
           <SmFilter
             searchStateCopy={searchStateCopy}

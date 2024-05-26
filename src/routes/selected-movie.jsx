@@ -6,7 +6,6 @@ import { pageTransitionVariants, defaultVariantsLabel } from "@utils/motions"
 import { formatRuntime, getMovieGenres, getMovieDirector } from "@utils/utils"
 import { IMAGES_URL } from "@utils/apis"
 import { SelectedMovieSkeleton } from "@components/skeletons"
-import SideNav from "@components/sidenav"
 import MovieCard from "@components/movie/movie-card"
 import Overview from "@components/movie/details/overview"
 import Rates from "@components/movie/details/rates"
@@ -95,15 +94,10 @@ export default function SelectedMovie() {
       variants={pageTransitionVariants}
       {...defaultVariantsLabel}
     >
-      <div className="btns flex w-100">
-        {prevUrl && <BackButton url={prevUrl} /> }
-        <FaveButton />
-        <BookmarkButton item={{id, media}} />
-      </div>
       <section className="poster-wrapper isolated-stack ::after-abs">
         <div className="bg-poster" style={{backgroundImage: `url(${IMAGES_URL}${imgUrl})`}} />
         <div className="main-details flex-col w-100">
-          <h1 className="title">{title}</h1>
+          <h1 className="main-title">{title}</h1>
           <div className="details">
             <span className="release-date">{release_date?.slice(0, 4)}</span>
             <i className="dot">&#x2022;</i>
@@ -114,7 +108,8 @@ export default function SelectedMovie() {
           <Overview text={overview} />
           <div className="cta-btns flex">
             <WatchButton data={{id, media, prevUrl}} />
-            <button className="btn trailer-btn">Trailer</button>
+            <FaveButton />
+            <BookmarkButton item={{id, media}} />
           </div>
         </div>
       </section>
@@ -176,7 +171,6 @@ export default function SelectedMovie() {
           </div>
         </div>
       </section>
-      {windowWidth < 520 && <SideNav />}
     </motion.div>
   )
 }

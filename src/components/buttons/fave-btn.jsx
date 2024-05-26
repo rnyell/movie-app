@@ -10,7 +10,7 @@ export default function FaveButton() {
 
   return (
     <button
-      className={`main-btn fave-btn ${isFaved ? "is-faved" : ""}`}
+      className={`btn fave-btn ${isFaved ? "is-faved" : ""}`}
       onClick={() => setIsFaved(!isFaved)}
     >
       <i className="icon">
