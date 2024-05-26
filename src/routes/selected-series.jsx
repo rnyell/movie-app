@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import { useLocation } from "react-router-dom"
-import { motion, AnimatePresence } from "framer-motion"
+import { useLocation, useParams } from "react-router-dom"
+import { motion } from "framer-motion"
 import { useWindowOffsets, useMediaDetails } from "@utils/hooks"
 import { formatReleaseDate, formatRuntime, getMovieGenres, getMovieDirector } from "@utils/utils"
 import { pageTransitionVariants, defaultVariantsLabel } from "@utils/motions"
@@ -30,9 +30,9 @@ const imgUrlInit = {
 export default function SelectedSeries() {
   const {windowWidth} = useWindowOffsets()
   const location = useLocation()
-  const prevUrl = location?.state?.prevUrl
-  const id = location.pathname.match(/[^\/]+$/)
+  const {id} = useParams()
   const media = "series"
+  const prevUrl = location?.state?.prevUrl
   const {mediaDetails, isLoading} = useMediaDetails("tv", id)
   const [imgUrl, setImgUrl] = useState(imgUrlInit)
 

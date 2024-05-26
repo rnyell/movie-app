@@ -4,15 +4,18 @@ import { UserCircleIcon, BellIcon, HomeIcon } from "@heroicons/outline"
 import SearchBox from "./search-box"
 
 
-export default function Header() {
+export default function Header({ hasSearchbox = true }) {
   const [dataset, setDataset] = useState("default")
   const pathname = location.pathname
 
+  /* TODO: better ways to handle dataset for searchbox */
   useEffect(() => {
     if (pathname === "/") {
       setDataset("default normal")
-    } else if (pathname.startsWith("/search")) {
+    } else if (pathname.startsWith("/search") && hasSearchbox) {
       setDataset("stretched sticky")
+    } else if (pathname.startsWith("/search") && !hasSearchbox) {
+      setDataset("animated")
     } else if (pathname.startsWith("/movies") || pathname.startsWith("/series")) {
       setDataset("default transparent")
     } else {
@@ -23,7 +26,7 @@ export default function Header() {
 
   return (
     <header className="main-header align-center" data-set={dataset}>
-      {dataset.includes("stretched") && (
+      {dataset.includes("stretched") || dataset.includes("animated") && (
         <Link to="/" className="btn home-link">
           <i className="icon home-icon">
             <HomeIcon />

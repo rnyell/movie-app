@@ -14,7 +14,7 @@ export default function Pagination({ currentPage, allPagesArray }) {
   }
   
   return (
-    <div className="pagination">
+    <div className="pagination align-center">
       <Link
         to={createLinkUrl(currentPage - 1)} 
         className={

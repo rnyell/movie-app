@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react"
 import { useSearchParams, useLocation } from "react-router-dom"
-// import { motion, AnimatePresence } from "framer-motion"
 import { useWindowOffsets } from "@utils/hooks"
 import { filterResults, sortResults } from "@utils/utils"
 import { getAllResults } from "@utils/apis"
 import { useSearch } from "@src/store/search-context"
 import Header from "@components/header"
+import AnimatedHeaedr from "@components/search/animated-header"
 import FilterBox from "@components/search/toolbar/filterbox"
 import SearchResults from "@components/search/search-results"
 
@@ -79,15 +79,13 @@ export default function SearchPage() {
 
   return (
     <div className="search-page">
-      <Header />
+      {isLgScreen ? <Header /> : <AnimatedHeaedr />}
       <aside data-screen={isLgScreen ? "lg-screen" : "sm-screen"}>
         <FilterBox searchStateCopy={searchStateCopy} setSearchStateCopy={setSearchStateCopy} />
       </aside>
       <main>
         {isInitialMarkup ? (
-          <div>
-            
-          </div>
+          <div></div>
         ) : (
           <>
             {isLgScreen && (

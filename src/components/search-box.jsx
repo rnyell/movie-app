@@ -35,6 +35,9 @@ export default function SearchBox({ dataset }) {
     } else if (title && dataset.includes("stretched")) {
       setParams({query: title, page: 1})
       return
+    } else if (title && dataset.includes("animated")) {
+      setParams({query: title, page: 1})
+      return
     }
   }
 
@@ -73,8 +76,8 @@ export default function SearchBox({ dataset }) {
       className="search-box"
       data-set={dataset}
       ref={boxRef}
-      onKeyDown={keyPressHandler}
       tabIndex={0}
+      onKeyDown={keyPressHandler}
     >
       <div className="icon-wrapper" onClick={handleSearchTitle}>
         <i className="icon search-icon">
