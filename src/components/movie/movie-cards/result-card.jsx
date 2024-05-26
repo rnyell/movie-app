@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { createPortal } from "react-dom"
 import { motion, AnimatePresence, useAnimate } from "framer-motion"
 import { FilmIcon, TvIcon } from "@heroicons/outline"
 import { formatReleaseDate } from "@utils/utils"
@@ -81,18 +80,15 @@ export default function ResultCard({ result, media, variant }) {
         <h4 className="title truncate">{title}</h4>
         <p className="release-date">{formatReleaseDate(releaseDate)}</p>
       </div>
-      {createPortal(
-        <AnimatePresence>
-          {showModal && (
-            <MovieInfoModal
-              result={result}
-              media={media}
-              setModal={setShowModal}
-            />
-          )}
-        </AnimatePresence>,
-        document.body
-      )}
+      {<AnimatePresence>
+        {showModal && (
+          <MovieInfoModal
+            result={result}
+            media={media}
+            setModal={setShowModal}
+          />
+        )}
+      </AnimatePresence>}
     </motion.div>
   )
 }

@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { createPortal } from "react-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { IMAGES_URL } from "@utils/apis"
 import PrimaryOverlay from "./overlays/primary-overlay"
@@ -26,12 +25,9 @@ export default function SimilarCard({ result, media, variant }) {
           {cardOverlay && <PrimaryOverlay result={result} variant="similar" />}
         </AnimatePresence>
       </div>
-      {/* {createPortal(
-        <AnimatePresence>
+      {/* {<AnimatePresence>
           {showModal && <MovieInfoModal result={result} setModal={setShowModal} /> }
-        </AnimatePresence>,
-        document.body
-      )} */}
+        </AnimatePresence>} */}
     </motion.div>
   )
 }

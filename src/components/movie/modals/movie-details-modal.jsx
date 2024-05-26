@@ -1,3 +1,4 @@
+import { createPortal } from "react-dom"
 import { useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
 import { useMediaDetails } from "@utils/hooks"
@@ -39,7 +40,7 @@ export default function MovieDetailsModal({ result, setModal, price }) {
     return <div>loading...</div>
   }
 
-  return (
+  return createPortal(
     <>
       <motion.div
         className="modal-backdrop"
@@ -91,6 +92,7 @@ export default function MovieDetailsModal({ result, setModal, price }) {
           </div>
         </div>
       </motion.div>
-    </>
+    </>,
+    document.getElementById("portal")
   )
 }

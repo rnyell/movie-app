@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react"
+import { createPortal } from "react-dom"
 import { motion, animate, useAnimate, useMotionValue } from "framer-motion"
 import { XMarkIcon } from "@heroicons/solid"
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/outline"
@@ -119,7 +120,7 @@ export default function ImageSlider({ images, currIndex, setCurrIndex, setModal 
   }
 
 
-  return (
+  return createPortal(
     <motion.div
       className="modal slider-modal flex-col align-center"
       tabIndex={0}
@@ -199,6 +200,7 @@ export default function ImageSlider({ images, currIndex, setCurrIndex, setModal 
           ))}
         </motion.div>
       </div>
-    </motion.div>
+    </motion.div>,
+    document.getElementById("portal")
   )
 }

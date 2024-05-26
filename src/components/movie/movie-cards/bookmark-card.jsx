@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { createPortal } from "react-dom"
 import { motion, AnimatePresence, useAnimate } from "framer-motion"
 import { useMediaDetails } from "@utils/hooks"
 import { IMAGES_URL } from "@utils/apis"
@@ -85,18 +84,15 @@ export default function BookmarkedCard({ result, media, variant }) {
       <div className="title-container">
         <h5 className="title truncate">{title}</h5>
       </div>
-      {createPortal(
-        <AnimatePresence>
-          {showModal && (
-            <ConfirmModal
-              confirmText={confirmText}
-              setModal={setShowModal}
-              handleSubmittedAction={handleSubmittedAction}
-            />
-          )}
-        </AnimatePresence>,
-        document.body
-      )}
+      {<AnimatePresence>
+        {showModal && (
+          <ConfirmModal
+            confirmText={confirmText}
+            setModal={setShowModal}
+            handleSubmittedAction={handleSubmittedAction}
+          />
+        )}
+      </AnimatePresence>}
     </div>
   )
 }

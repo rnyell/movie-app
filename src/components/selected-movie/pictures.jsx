@@ -26,12 +26,9 @@ export default function Pictures({ images }) {
           <span>More Images</span>
         </button>
       </div>
-      {createPortal(
-        <AnimatePresence>
-          {isOpen && <Gallery images={images} setModal={setIsOpen} />}
-        </AnimatePresence>,
-        document.getElementById("root")
-      )}
+      {<AnimatePresence>
+        {isOpen && <Gallery images={images} setModal={setIsOpen} />}
+      </AnimatePresence>}
     </div>
   )
 }
@@ -64,7 +61,7 @@ function Gallery({ images, setModal }) {
   }
 
 
-  return (
+  return createPortal(
     <>
       <motion.div
         className="modal-backdrop"
@@ -136,20 +133,18 @@ function Gallery({ images, setModal }) {
             )}
           </div>
         </div>
-        {createPortal(
-          <AnimatePresence>
-            {isFullsize && (
-              <ImageSlider
-                images={selectedTab === "Images" ? backdrops : posters}
-                currIndex={currIndex}
-                setCurrIndex={setCurrIndex}
-                setModal={setIsFullsize}
-              />
-            )}
-          </AnimatePresence>,
-          document.getElementById("root")
-        )}
+        {<AnimatePresence>
+          {isFullsize && (
+            <ImageSlider
+              images={selectedTab === "Images" ? backdrops : posters}
+              currIndex={currIndex}
+              setCurrIndex={setCurrIndex}
+              setModal={setIsFullsize}
+            />
+          )}
+        </AnimatePresence>}
       </motion.div>
-    </>
+    </>,
+    document.getElementById("portal")
   )
 }

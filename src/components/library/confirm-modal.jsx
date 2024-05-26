@@ -1,3 +1,4 @@
+import { createPortal } from "react-dom"
 import { motion } from "framer-motion"
 import { modalBackdropVariants, modalVariants, defaultVariantsLabel, modalTransition } from "@utils/motions"
 
@@ -5,7 +6,7 @@ import { modalBackdropVariants, modalVariants, defaultVariantsLabel, modalTransi
 export default function ConfirmModal(props) {
   const { confirmText, setModal, handleSubmittedAction } = props
   
-  return (
+  return createPortal(
     <>
       <motion.div
         className="modal-backdrop"
@@ -26,6 +27,7 @@ export default function ConfirmModal(props) {
           <button className="btn del-btn" onClick={handleSubmittedAction}>Delete</button>
         </div>
       </motion.div>
-    </>
+    </>,
+    document.getElementById("portal")
   )
 }

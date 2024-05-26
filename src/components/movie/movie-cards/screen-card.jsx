@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { createPortal } from "react-dom"
 import { useNavigate } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { PRICES } from "@src/store/placeholder-data"
@@ -54,18 +53,15 @@ export default function ScreenCard({ result, variant, idx }) {
           <InfoButton setModal={setShowModal} />
         </div>
       </div>
-      {createPortal(
-        <AnimatePresence>
-          {showModal && (
-            <MovieDetailsModal
-              result={result}
-              price={PRICES[idx]}
-              setModal={setShowModal}
-            />
-          )}
-        </AnimatePresence>,
-        document.body
-      )}
+      {<AnimatePresence>
+        {showModal && (
+          <MovieDetailsModal
+            result={result}
+            price={PRICES[idx]}
+            setModal={setShowModal}
+          />
+        )}
+      </AnimatePresence>}
     </motion.div>
   )
 }

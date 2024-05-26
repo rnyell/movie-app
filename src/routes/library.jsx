@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { createPortal } from "react-dom"
 import { AnimatePresence } from "framer-motion"
 import { useLocalStorage } from "@utils/hooks"
 import { useUserState } from "@src/store/app-context"
@@ -122,18 +121,15 @@ export default function Library() {
           </div>
         )}
       </section>*/}
-      {createPortal(
-        <AnimatePresence>
-          {showModal && (
-            <ConfirmModal
-              confirmText={confirmText}
-              setModal={setShowModal}
-              handleSubmittedAction={handleSubmittedAction}
-            />
-          )}
-        </AnimatePresence>,
-        document.body
-      )}
+      {<AnimatePresence>
+        {showModal && (
+          <ConfirmModal
+            confirmText={confirmText}
+            setModal={setShowModal}
+            handleSubmittedAction={handleSubmittedAction}
+          />
+        )}
+      </AnimatePresence>}
     </div>
   )
 }

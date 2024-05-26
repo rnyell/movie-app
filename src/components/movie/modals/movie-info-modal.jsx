@@ -1,5 +1,6 @@
-import { motion } from "framer-motion"
+import { createPortal } from "react-dom"
 import { useNavigate } from "react-router-dom"
+import { motion } from "framer-motion"
 import { modalBackdropVariants, modalVariants, defaultVariantsLabel, modalTransition } from "@utils/motions"
 import { formatReleaseDate } from "@utils/utils"
 import { IMAGES_URL } from "@utils/apis"
@@ -33,7 +34,7 @@ export default function MovieInfoModal({ result, media, setModal }) {
   }
 
 
-  return (
+  return createPortal(
     <>
       <motion.div
         className="modal-backdrop"
@@ -76,6 +77,7 @@ export default function MovieInfoModal({ result, media, setModal }) {
           </div>
         </div>
       </motion.div>
-    </>
+    </>,
+    document.getElementById("portal")
   )
 }
