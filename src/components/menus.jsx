@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react"
+import { createPortal } from "react-dom"
 import { Link, useLocation } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import {
@@ -18,8 +19,8 @@ import {
   Squares2X2Icon as Squares2X2IconSolid,
 } from "@heroicons/solid"
 import { CompasIconSolid, CompasIcon } from "@src/utils/icons"
-import logo from "@src/assets/logo.png"
 import { useWindowOffsets } from "@utils/hooks"
+import logo from "@src/assets/logo.png"
 
 
 const lg_links = [
@@ -62,19 +63,19 @@ const sm_solid_icons = [
 ]
 
 
-export default function SideNav() {
-  const [isOpen, setIsOpen] = useState(false)
-  const location = useLocation()
-  const { windowWidth } = useWindowOffsets()
+export function SideNav() {
+  const {windowWidth} = useWindowOffsets()
+  const [showSubMenu, setShowSubMenu] = useState(false)
   const submenuLinkRef = useRef()
+  const location = useLocation()
   
   useEffect(() => {
     const handleClickOutside = (e) => {
       const target = e.target
       const element = submenuLinkRef?.current
       if (!element?.contains(target)) {
-        // console.log(isOpen) //! logs true
-        setIsOpen(false)
+        // console.log(showSubMenu) //! logs true
+        setShowSubMenu(false)
       }
     }
 
@@ -121,13 +122,13 @@ export default function SideNav() {
                   className={`link ${
                     isActive && "is-active"
                   }`}
-                  onClick={() => { isSquares && setIsOpen(!isOpen) }}
+                  onClick={() => { isSquares && setShowSubMenu(!showSubMenu) }}
                 >
                   <i className="icon">{isActive ? sm_solid_icons[idx] : link.icon}</i>
                   <p className="link-tag">{link.name}</p>
                   {isActive && <div className="indicator-dot" />}
                   {<AnimatePresence>
-                    {isSquares && isOpen && <SubMenu setIsOpen={setIsOpen} />}
+                    {isSquares && showSubMenu && <SubMenu setShowSubMenu={setShowSubMenu} />}
                   </AnimatePresence>}
                 </Element>
               )
@@ -145,9 +146,11 @@ function SubMenu() {
       initial={{ y: 50, opacity: 0.6 }}
       animate={{ y: 0, opacity: 1 }}
       exit={{ 
-        y: 60, opacity: 0.1,
+        y: 60,
+        opacity: 0.1,
         transition: {
-          type: "tween", duration: 0.15
+          type: "tween",
+          duration: 0.15
         }
       }}
     >
@@ -162,5 +165,68 @@ function SubMenu() {
         </Link>
       )}
     </motion.div>
+  )
+}
+
+export function SideMenu({ isOpen, setIsOpen }) {
+
+  if (!isOpen) {
+    return null
+  }
+
+  return createPortal(
+    <>
+      <motion.div
+        className="menu-backdrop"
+        initial={{opacity: 0.8}}
+        animate={{opacity: 1}}
+        exit={{opacity: 0.8}}
+        transition={{duration: 0.2}}
+        onClick={() => setIsOpen(false)}
+        />
+      <motion.div
+        className="side-menu"
+        initial={{x: "-100%", opacity: 0.65}}
+        animate={{x: 0, opacity: 1}}
+        exit={{x: "-100%", opacity: 0.7}}
+        transition={{duration: 0.35, type: "spring"}}
+      >
+        <div className="logo-wrapper align-center">
+          <img src={logo} className="logo" />
+        </div>
+        <nav className="menu-links">
+          <div className="group group-1 flex-col">
+            {lg_links.slice(0, 4).map(link => (
+              <Link
+                className="link"
+                key={link.href}
+                to={link.href}
+              >
+                <i className="icon">{link.icon}</i>
+                <p className="link-tag">{link.name}</p>
+              </Link>
+            ))}
+          </div>
+          <hr />
+          <div className="group group-2 flex-col">
+            {lg_links.slice(4, 6).map(link => (
+              <Link
+                className="link"
+                key={link.href}
+                to={link.href}
+              >
+                <i className="icon">{link.icon}</i>
+                <p className="link-tag">{link.name}</p>
+              </Link>
+            ))}
+          </div>
+          <div className="empty-link" />
+          <div className="footer">
+            <span>Dad's Best Movie App</span>
+          </div>
+        </nav>
+      </motion.div>
+    </>,
+    document.getElementById("portal")
   )
 }

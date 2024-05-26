@@ -100,6 +100,13 @@
     align-items: center;
   }
 
+  .flex-col-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
   .align-center {
     display: flex;
     align-items: center;
@@ -320,6 +327,7 @@
     --color-neutral-800: rgb(26 28 31);
     --color-neutral-850: rgb(22 24 26);
     --color-neutral-900: rgb(17 19 21);
+    /* --c: #161b22; */
     --color-accent-100: #E48A94;
     --color-accent-200: #DA697A;
     --color-accent-300: #D3546A;

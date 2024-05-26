@@ -20,7 +20,7 @@ export default function AnimatedHeaedr() {
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious()
   
-    if (latest > previous && latest > 65) {
+    if (latest > previous && latest > 60) {
       animate(headerRef.current, { y: -headerHeight }, { duration: 0.35, ease: "backOut" })
       animate(searchboxRef.current, { y: -headerHeight, scaleX: 1.04 }, { duration: 0.35, ease: "backOut" })
     } else if (latest < previous) {

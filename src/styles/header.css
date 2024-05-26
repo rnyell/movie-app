@@ -26,6 +26,17 @@
     margin-inline: var(--space-1);
   }
 
+  & .hamber-icon {
+    cursor: pointer;
+
+    & .line {
+      height: 1.5px;
+      border-radius: 10px;
+      background-color: var(--color-neutral-350);
+      transform-origin: center;
+    }
+  }
+
   &[data-set~="sticky"] {
     position: sticky;
     top: 0;
@@ -144,16 +155,8 @@
   }
 
   &[data-set~="stretched"] {
-    --box-height: 2.75rem;
+    --box-height: 3rem;
     width: unset;
-
-    & .icon-wrapper {
-      --icon-size-4: 1.5rem;
-      height: 100%;
-      aspect-ratio: 1.25;
-      right: 0.5rem;
-      top: 0;
-    }
 
     & .search-input {
       padding-inline: var(--space-4);
@@ -162,13 +165,26 @@
   }
 
   &[data-set~="transparent"] {
+    border-color: var(--color-neutral-600);
+    
     & .search-input {
-      background-color: color-mix(in srgb, var(--color-neutral-500), transparent 60%);
-      backdrop-filter: blur(5px);
+      background-color: color-mix(in srgb, var(--color-neutral-700), transparent 65%) !important;
+      backdrop-filter: blur(15px);
     }
 
     & .search-icon {
       color: var(--color-neutral-350);
+    }
+  }
+
+  &[data-set~="stretched"],
+  &[data-set~="animated"] {
+    & .icon-wrapper {
+      --icon-size-4: 1.5rem;
+      height: 100%;
+      aspect-ratio: 1.25;
+      right: 0.5rem;
+      top: 0;
     }
   }
 
@@ -178,28 +194,27 @@
     --icon-size-4: 1.5rem;
     margin-inline: auto;
     width: min(88%, 460px);
-    color: var(--color-neutral-800);
-    background-color: color-mix(in srgb, var(--color-neutral-150), transparent 15%);
-    backdrop-filter: blur(20px);
     border: none;
-
+    
     &:focus-within {
       outline-color: var(--color-accent-600);
     }
     
     & .search-input {
+      padding-inline: var(--space-4);
       font-size: 1rem;
       font-weight: 500;
-      color: inherit;
-      background-color: transparent;
+      color: var(--color-neutral-800);
+      background-color: color-mix(in srgb, var(--color-neutral-150), transparent 20%);
+      backdrop-filter: blur(20px);
 
       &::placeholder {
-        color: inherit;
+        color: var(--color-neutral-500);
       }
     }
 
     & .icon {
-      color: inherit;
+      color: var(--color-neutral-800);
     }
   }
 }

@@ -47,7 +47,7 @@
 @import "@styles/selected-movie/pictures.css" layer;
 
 @import "@styles/header.css" layer;
-@import "@styles/sidenav.css";
+@import "@styles/menus.css";
 @import "@styles/errors.css" layer;
 @import "@styles/skeletons.css" layer;
 
