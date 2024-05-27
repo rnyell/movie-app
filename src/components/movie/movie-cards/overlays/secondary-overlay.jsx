@@ -1,5 +1,5 @@
 import { motion } from "framer-motion"
-import { formatReleaseDate } from "@utils/utils"
+import { formatReleaseDate } from "@services/movie-utils"
 import { portraitCardOverlayVariants, defaultVariantsLabel } from "@utils/motions"
 import Overview from "@components/movie/details/overview"
 import BookmarkButton from "@components/buttons/bookmark-btn"

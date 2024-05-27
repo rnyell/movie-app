@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useReducer, useState } from "reac
 import { AnimatePresence } from "framer-motion"
 import { useGeoLocation } from "@utils/hooks"
 import { readLocalStorage } from "@utils/utils"
-import { getPopularMovies, getOnScreenMovies, getTrendingMovies, getTrendingSeries } from "@utils/apis"
+import { getPopularMovies, getOnScreenMovies, getTrendingMovies, getTrendingSeries } from "@services"
 import { InitialLoading, AppLoading } from "@components/skeletons"
 import { VPNError } from "@components/errors"
 

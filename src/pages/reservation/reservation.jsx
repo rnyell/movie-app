@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { readLocalStorage } from "@utils/utils"
-import { getMovieDetails } from "@utils/apis"
+import { getMovieDetails } from "@services"
 import { useUserState } from "@src/store/app-context"
 import EmptyTickets from "@components/library/empty-tickets"
 

@@ -151,6 +151,10 @@
   }
 
   & .hover-overlay {
+    position: absolute;
+    z-index: var(--z-20);
+    inset: 0;
+    font-size: 0.85rem;
     background-color: rgb(11 15 17 / 45%);
 
     & button {

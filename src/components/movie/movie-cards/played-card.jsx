@@ -1,32 +1,27 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { useNavigate } from "react-router-dom"
 import { PlayIcon } from "@heroicons/solid"
-import { useLocalStorage } from "@utils/hooks"
-import { IMAGES_URL, getMovieDetails, getMediaRuntime } from "@utils/apis"
-import { getGenresWithIds, formatRate, formatRuntime, formatReleaseDate } from "@utils/utils"
+import { IMAGES_URL } from "@services"
+import { useMediaDetails } from "@services/hooks"
 
 
 export default function PlayedCard({ result, media, variant }) {
   const [cardOverlay, setCardOverlay] = useState(false)
-  const [movieDetails, setMovieDetails] = useState({})
-  const [isLoading, setIsLoading] = useState(true)
-
-  async function loadMovieDetails() {
-    const data = await getMovieDetails(result)
-    setMovieDetails(data)
-    setIsLoading(false)
-  }
-
-  useEffect(() => {
-    loadMovieDetails()
-  }, [])
+  const {isLoading, mediaDetails} = useMediaDetails("movie", result)
+  const prevUrl = location.pathname + location.search
+  const navigate = useNavigate()
 
   const {
     id,
     title,
     runtime,
     backdrop_path,
-  } = movieDetails
+  } = mediaDetails
+
+  function handleRewatch() {
+    navigate("/player", { state: { id, media, prevUrl } })
+  }
 
 
   return (
@@ -52,7 +47,7 @@ export default function PlayedCard({ result, media, variant }) {
             exit={{ opacity: 0 }}
             transition={{ type: "tween", duration: 0.2, ease: "easeOut" }}
           >
-            <button className="btn justify-center">
+            <button className="btn justify-center" onClick={handleRewatch}>
               <i className="icon">
                 <PlayIcon />
               </i>

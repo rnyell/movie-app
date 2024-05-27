@@ -1,5 +1,5 @@
 import { motion } from "framer-motion"
-import { formatRuntime, formatReleaseDate } from "@utils/utils"
+import { formatRuntime, formatReleaseDate } from "@services/movie-utils"
 import { landCardOverlayVariants, defaultVariantsLabel } from "@utils/motions"
 import WatchButton from "@components/buttons/watch-btn"
 import LinkButton from "@components/buttons/link-btn"

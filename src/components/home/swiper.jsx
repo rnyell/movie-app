@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { motion, useMotionValue, useTransform, AnimatePresence } from "framer-motion"
-import { IMAGES_URL } from "@utils/apis"
+import { IMAGES_URL } from "@services"
 
 
 const visibleMoviesCount = 5

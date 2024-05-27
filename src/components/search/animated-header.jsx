@@ -17,15 +17,18 @@ export default function AnimatedHeaedr() {
     }
   }, [])
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    const previous = scrollY.getPrevious()
+  useMotionValueEvent(scrollY, "change", (latestValue) => {
+    const previousValue = scrollY.getPrevious()
+    const headerEl = headerRef.current
+    const searchboxEl = searchboxRef.current
+    const transition = { duration: 0.35, ease: "backOut" }
   
-    if (latest > previous && latest > 60) {
-      animate(headerRef.current, { y: -headerHeight }, { duration: 0.35, ease: "backOut" })
-      animate(searchboxRef.current, { y: -headerHeight, scaleX: 1.04 }, { duration: 0.35, ease: "backOut" })
-    } else if (latest < previous) {
-      animate(headerRef.current, { y: 0 }, { duration: 0.35, ease: "backOut"  })
-      animate(searchboxRef.current, { y: 0, scaleX: 1 }, { duration: 0.35, ease: "backOut"  })
+    if (latestValue > previousValue && latestValue > 60) {
+      animate(headerEl, { y: -headerHeight }, transition)
+      animate(searchboxEl, { y: -headerHeight, scaleX: 1.04 }, transition)
+    } else if (latestValue < previousValue) {
+      animate(headerEl, { y: 0 }, transition)
+      animate(searchboxEl, { y: 0, scaleX: 1 }, transition)
     }
   })
 

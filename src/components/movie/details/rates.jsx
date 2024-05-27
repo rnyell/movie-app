@@ -8,8 +8,8 @@ import {
   MetacriticIcon,
   PrimeVideoIcon
 } from "@utils/icons"
-import { formatRate } from "@utils/utils"
-import { getAdditionalDetails } from "@utils/apis"
+import { getAdditionalDetails } from "@services"
+import { formatRate } from "@services/movie-utils"
 
 
 export default function Rates({ id, rate, variant }) {

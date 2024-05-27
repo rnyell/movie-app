@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/outline"
 import { FireIconSolid } from "@src/utils/icons"
-import { getSomeNews } from "@utils/apis"
+import { getSomeNews } from "@services"
 
 export default function NewsSction() {
   const [news, setNews] = useState()

@@ -1,6 +1,6 @@
 import { StarIcon, BookmarkIcon } from "@heroicons/outline"
-import { formatRate } from "@utils/utils"
-import { IMAGES_URL } from "@utils/apis"
+import { IMAGES_URL } from "@services"
+import { formatRate } from "@services/movie-utils"
 
 
 export default function SeriesCard({ result, media, variant }) {

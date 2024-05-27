@@ -1,24 +1,24 @@
 import { Link } from "react-router-dom"
 import { ChevronRightIcon } from "@heroicons/outline"
 import { FireIconSolid } from "@src/utils/icons"
-import { seriesDisplayedGenres } from "@utils/apis"
+import { displayedMovieGenres } from "@services"
 import GenreList from "@components/movie/genre-list"
 
 
-export default function SeriesPage() {
+export default function MoviesPage() {
   return (
     <>
-      <section className="hot-series-section">
+      <section className="hot-movies-section">
         <header>
-          <h4>Hot Series</h4>
+          <h4>Hot Movies</h4>
           <i className="icon fire-icon">
             <FireIconSolid />
           </i>
         </header>
-        <GenreList media="tv" />
+        <GenreList media="movie" />
       </section>
 
-      {seriesDisplayedGenres.map(genreObj => 
+      {displayedMovieGenres.map(genreObj => 
         <section key={genreObj.id}>
           <header>
             <h4>{genreObj.name}</h4>
@@ -29,7 +29,7 @@ export default function SeriesPage() {
               </i>
             </Link>
           </header>
-          <GenreList media="tv" genreId={genreObj.id} />
+          <GenreList media="movie" genreId={genreObj.id} />
         </section>
       )}
     </>

@@ -168,12 +168,7 @@ function SubMenu() {
   )
 }
 
-export function SideMenu({ isOpen, setIsOpen }) {
-
-  if (!isOpen) {
-    return null
-  }
-
+export function SideMenu({ setIsOpen }) {
   return createPortal(
     <>
       <motion.div

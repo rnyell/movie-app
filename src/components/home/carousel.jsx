@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { motion, useMotionValue } from "framer-motion"
 import { useWindowOffsets } from "@utils/hooks"
-import { IMAGES_URL } from "@utils/apis"
+import { IMAGES_URL } from "@services"
 
 
 export default function Carousel({ 

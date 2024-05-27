@@ -1,8 +1,8 @@
 import { useState } from "react"
 import { motion, AnimatePresence, useAnimate } from "framer-motion"
 import { FilmIcon, TvIcon } from "@heroicons/outline"
-import { formatReleaseDate } from "@utils/utils"
-import { IMAGES_URL } from "@utils/apis"
+import { IMAGES_URL } from "@services"
+import { formatReleaseDate } from "@services/movie-utils"
 import MovieInfoModal from "@components/movie/modals/movie-info-modal"
 import SecondaryOverlay from "./overlays/secondary-overlay"
 

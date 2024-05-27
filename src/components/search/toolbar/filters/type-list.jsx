@@ -1,4 +1,4 @@
-import { MEDIA_TYPES } from "@utils/apis"
+import { MEDIA_TYPES } from "@services"
 import TypeCheckbox from "./type-checkbox"
 
 export default function TypeList() {

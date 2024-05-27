@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react"
 import { readLocalStorage, writeLocalStorage } from "./utils"
-import { getMovieDetails, getSeriesDetails } from "./apis"
+
 
 export function useFetch(url, options = {}) {
   const [data, setData] = useState(null)
@@ -78,37 +78,37 @@ export function useLocalStorage(key, fallbackValue = "") {
 }
 
 
-export function useBroadcastChannel(type, name, message) {
-  // type: "receiver" | "sender"
-  const channel = useRef(null)
-  const [state, setState] = useState(message)
+// export function useBroadcastChannel(type, name, message) {
+//   // type: "receiver" | "sender"
+//   const channel = useRef(null)
+//   const [state, setState] = useState(message)
 
-  function handleMessage(event) {
-    setState(event.data)
-  }
+//   function handleMessage(event) {
+//     setState(event.data)
+//   }
 
-  useEffect(() => {
-    channel.current = new BroadcastChannel(name)
-    channel.current.addEventListener("message", handleMessage)
+//   useEffect(() => {
+//     channel.current = new BroadcastChannel(name)
+//     channel.current.addEventListener("message", handleMessage)
 
-    if (type === "sender") {
-      channel.current.postMessage(message)
-    }
+//     if (type === "sender") {
+//       channel.current.postMessage(message)
+//     }
 
-    return () => {
-      channel.current.removeEventListener("message", handleMessage)
-      channel.current.close()
-    }
-  }, [name, type])
+//     return () => {
+//       channel.current.removeEventListener("message", handleMessage)
+//       channel.current.close()
+//     }
+//   }, [name, type])
 
-  function sendMessage() {
-    if (channel.current && type === "sender") {
-      channel.current.postMessage(message)
-    }
-  }
+//   function sendMessage() {
+//     if (channel.current && type === "sender") {
+//       channel.current.postMessage(message)
+//     }
+//   }
 
-  return [state, sendMessage]
-}
+//   return [state, sendMessage]
+// }
 
 
 export function useGeoLocation() {
@@ -159,32 +159,4 @@ export function useClickOutside(ref, callback) {
       document.removeEventListener("click", handler)
     }
   }, [element])
-}
-
-
-export function useMediaDetails(media, id) {
-  const [mediaDetails, setMediaDetails] = useState({})
-  const [isLoading, setIsLoading] = useState(true)
-
-  async function loadMovieDetails() {
-    const data = await getMovieDetails(id)
-    setMediaDetails(data)
-    setIsLoading(false)
-  }
-
-  async function loadSeriesDetails() {
-    const data = await getSeriesDetails(id)
-    setMediaDetails(data)
-    setIsLoading(false)
-  }
-
-  useEffect(() => {
-    if (media === "movie") {
-      loadMovieDetails()
-    } else if (media === "tv") {
-      loadSeriesDetails()
-    }
-  }, [])
-
-  return { mediaDetails, isLoading }
 }

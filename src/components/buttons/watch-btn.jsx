@@ -12,15 +12,13 @@ export default function WatchButton({ data }) {
   const navigate = useNavigate()
 
   useEffect(() => {
-    return () => {
-    
-    }
-  }, [])
+    setPlayedLS(userState.played)
+  }, [location])
   
   function playMovie() {
     userDispatch({ type: "played", id })
-    setPlayedLS(userState.played)
     navigate("/player", { state: { id, media, prevUrl } })
+    // setPlayedLS(userState.played) //? has no effect!
   }
 
 

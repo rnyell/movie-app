@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from "@heroicons/outline"
-import { IMAGES_URL } from "@utils/apis"
+import { IMAGES_URL } from "@services"
 
 
 export default function Casts({ casts, mode }) {

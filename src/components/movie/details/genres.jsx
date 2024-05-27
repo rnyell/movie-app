@@ -1,4 +1,4 @@
-import { getMovieGenres, getGenresWithIds } from "@utils/utils"
+import { getMovieGenres, getGenresWithIds } from "@services/movie-utils"
 
 
 export default function Genres({ genres = [], media }) {

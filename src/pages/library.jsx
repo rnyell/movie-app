@@ -66,7 +66,7 @@ export default function Library() {
           ) : (
             userState.played.map(id =>
               <div key={id} className="grid-item">
-                <MovieCard result={id} media="unknown" variant="played" />
+                <MovieCard result={id} media="movie" variant="played" />
               </div>
             )
           )}

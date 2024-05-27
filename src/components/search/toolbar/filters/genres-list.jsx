@@ -1,4 +1,4 @@
-import { ALL_GENRES } from "@utils/apis"
+import { ALL_GENRES } from "@services"
 import GenreCheckbox from "./genre-checkbox"
 
 const ALL_GENRES_ARRAY = []

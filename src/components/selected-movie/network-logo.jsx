@@ -1,4 +1,4 @@
-import { IMAGES_URL } from "@utils/apis"
+import { IMAGES_URL } from "@services"
 
 const logos_variants = {
   "Netflix": "transparent",

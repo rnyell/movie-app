@@ -5,7 +5,7 @@ import { XMarkIcon } from "@heroicons/solid"
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/outline"
 import { useWindowOffsets } from "@utils/hooks"
 import { defaultVariantsLabel, modalTransition } from "@utils/motions"
-import { IMAGES_URL } from "@utils/apis"
+import { IMAGES_URL } from "@services"
 
 
 export default function ImageSlider({ images, currIndex, setCurrIndex, setModal }) {

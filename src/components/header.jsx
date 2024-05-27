@@ -31,14 +31,14 @@ export default function Header({ hasSearchbox = true }) {
       {(dataset.includes("stretched") || dataset.includes("animated")) && (
         <i className="icon hamber-icon flex-col-center" onClick={() => setIsOpen(!isOpen)}>
           <motion.span
-            className="line line-1"
+            className="line"
             style={{width: 20}}
             animate={isOpen ? {rotateZ: 45} : {rotateZ: 0}}
           ></motion.span>
           <motion.span
-            className="line line-2"
+            className="line"
             style={{marginRight: "auto", marginTop: 4, width: 16}}
-            animate={isOpen ? {rotateZ: -45, width: 20, marginTop: 0} : {rotateZ: 0}}
+            animate={isOpen ? {rotateZ: -45, width: 20, marginTop: -1.5} : {rotateZ: 0}}
           ></motion.span>
         </i>
       )}
@@ -56,7 +56,7 @@ export default function Header({ hasSearchbox = true }) {
         </button>
       </div>
       <AnimatePresence>
-        {isOpen && <SideMenu isOpen={isOpen} setIsOpen={setIsOpen} />}
+        {isOpen && <SideMenu setIsOpen={setIsOpen} />}
       </AnimatePresence>
     </header>
   )

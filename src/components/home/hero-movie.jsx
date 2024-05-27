@@ -1,16 +1,10 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
-import { StarIcon, PlayIcon, ChevronRightIcon, ChevronLeftIcon } from "@heroicons/outline"
-import { useLocalStorage } from "@utils/hooks"
-import {
-  getMovieGenres,
-  getMovieDirector,
-  formatRate,
-  formatReleaseDate,
-  transformTitleToURL
-} from "@utils/utils"
-import { getMovieDetails, IMAGES_URL } from "@utils/apis"
+import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/outline"
+import { transformTitleToURL } from "@utils/utils"
+import { getMovieDetails, IMAGES_URL } from "@services"
+import { getMovieGenres, getMovieDirector, formatReleaseDate } from "@services/movie-utils"
 import { defaultVariantsLabel } from "@utils/motions"
 import { useUserState } from "@src/store/app-context"
 import { HeroMovieLoadingSkeleton } from "@components/skeletons"
@@ -24,7 +18,6 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
   const {userState, userDispatch} = useUserState()
   const [isLoading, setIsLoading] = useState(true)
   const [movieDetails, setMovieDetails] = useState({}) //? useState({}) is fine but useState() caues error!
-  const [, setPlayedLS] = useLocalStorage("played", userState.played)
   const [key, setKey] = useState(0) // for <AnimatePresence> purposes
   const location = useLocation()
   const navigate = useNavigate()
@@ -32,13 +25,9 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
   const media = "movie"
 
   useEffect(() => {
-    console.log("hero movie re-rendered")
     loadData()
     setKey(key + 1)
-
-    // return () => {
-    //   setPlayedLS(userState.played)
-    // }
+    console.log("hero movie re-rendered")
   }, [movie.id])
 
   async function loadData() {

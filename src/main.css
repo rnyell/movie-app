@@ -1,4 +1,4 @@
-@import "@src/base.css" layer(base);
+@import "@styles/base.css" layer(base);
 
 /* pages */
 @import "@styles/pages/home-page.css" layer;
@@ -36,7 +36,6 @@
 @import "@styles/buttons/bookmark-btn.css" layer;
 @import "@styles/buttons/bookmark-del-btn.css" layer;
 @import "@styles/buttons/link-btn.css" layer;
-@import "@styles/buttons/back-btn.css" layer;
 @import "@styles/buttons/fave-btn.css" layer;
 @import "@styles/buttons/watch-btn.css" layer;
 @import "@styles/buttons/info-btn.css" layer;

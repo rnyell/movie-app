@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { EllipsisIcon } from "@utils/icons"
 import { useWindowOffsets, useClickOutside } from "@utils/hooks"
-import { IMAGES_URL, getMediaRuntime } from "@utils/apis"
+import { IMAGES_URL, getMediaRuntime } from "@services"
 import PrimaryOverlay from "./overlays/primary-overlay"
 
 /* another common card for series, cuz series contains pretty diffferent chars than movies */

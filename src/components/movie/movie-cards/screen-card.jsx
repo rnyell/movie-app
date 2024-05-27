@@ -2,7 +2,7 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { PRICES } from "@src/store/placeholder-data"
-import { IMAGES_URL } from "@utils/apis"
+import { IMAGES_URL } from "@services"
 import InfoButton from "@components/buttons/info-btn"
 import MovieDetailsModal from "../modals/movie-details-modal"
 

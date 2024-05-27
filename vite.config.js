@@ -3,6 +3,7 @@ import { defineConfig } from "vite"
 import react from "@vitejs/plugin-react"
 import autoprefixer from "autoprefixer"
 
+
 export default defineConfig({
   server: {
     port: 5000
@@ -13,6 +14,7 @@ export default defineConfig({
       // "@src": path.resolve(__dirname, "./src")
       "@src": "/src",
       "@components": "/src/components",
+      "@services": "/src/services",
       "@utils": "/src/utils",
       "@styles": "/src/styles",
       "@heroicons/outline": "@heroicons/react/24/outline",
