@@ -1,11 +1,7 @@
 .secondary-overlay {
   padding: var(--space-3);
-  position: absolute;
-  z-index: var(--z-20);
-  inset: 0;
   gap: 0.5rem;
   background-image: linear-gradient(rgb(11 15 17 / 80%) 10%, rgb(11 15 17 / 35%));
-  transition: var(--duration-1);
   
   & .overlay-title {
     margin-top: var(--space-2);

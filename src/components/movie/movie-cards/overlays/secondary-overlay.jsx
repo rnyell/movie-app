@@ -16,7 +16,7 @@ export default function SecondaryOverlay({ result, variant, ...rest }) {
 
   return (
     <motion.div
-      className="secondary-overlay flex-col"
+      className="overlay secondary-overlay"
       variants={portraitCardOverlayVariants}
       {...defaultVariantsLabel}
     >

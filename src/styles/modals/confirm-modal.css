@@ -1,0 +1,24 @@
+.confirm-modal {
+  padding: var(--space-6);
+  width: clamp(320px, 55%, 600px);
+  box-shadow: 0 4px 1.25rem rgb(11 15 17 / 40%);
+
+  & .btns {
+    margin-top: var(--space-10);
+    margin-inline: auto var(--space-2);
+    gap: 1rem;
+  }
+
+  & .btn {
+    padding: var(--space-2) var(--space-3);
+    border-radius: 0.5rem;
+  }
+
+  & .cancel-btn {
+    background-color: var(--color-neutral-500);
+  }
+
+  & .del-btn {
+    background-color: var(--color-red-300);
+  }
+}

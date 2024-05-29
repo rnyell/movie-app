@@ -10,7 +10,7 @@ export default function MoviesSection() {
   return (
     <section className="movies-section">
       <header>
-        <h3 className="heading">Currently In Theatres</h3>
+        <h2 className="heading">Currently In Theatres</h2>
         <Link to="/onscreen">Explore more <ChevronRightIcon /></Link>
       </header>
       <div className="draggable-wrapper">

@@ -146,7 +146,6 @@
   }
 
   & .cta-btns {
-    display: inline-flex;
     gap: 1.5cqw;
     font-size: 0.8rem;
   }

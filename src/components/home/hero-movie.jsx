@@ -125,7 +125,7 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
               {getMovieGenres(genres)}
             </motion.p>
           </motion.div>
-          <div className="cta-btns">
+          <div className="cta-btns flex">
             <WatchButton data={{id, media, prevUrl: location.pathname + location.search}} />
             <button className="btn btn-shared info-btn" onClick={handleSelectedMovie}>
               <span>More Info</span>

@@ -15,14 +15,14 @@ export default function ConfirmModal(props) {
         {...defaultVariantsLabel}
       />
       <motion.div
-        className="modal confirm-modal"
+        className="modal confirm-modal flex-col"
         variants={modalVariants}
         {...defaultVariantsLabel}
         transition={modalTransition}
       >
         <p>{confirmText}</p>
         {/* <button>Add to watched</button> */}
-        <div className="btns">
+        <div className="btns flex">
           <button className="btn cancel-btn" onClick={() => setModal(false)}>Cancel</button>
           <button className="btn del-btn" onClick={handleSubmittedAction}>Delete</button>
         </div>

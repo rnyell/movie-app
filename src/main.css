@@ -30,18 +30,22 @@
 @import "@styles/movie/movie-cards/result-card.css" layer;
 @import "@styles/movie/movie-cards/overlays/primary-overlay.css" layer;
 @import "@styles/movie/movie-cards/overlays/secondary-overlay.css" layer;
+@import "@styles/movie/movie-cards/overlays/series-overlay.css" layer;
 @import "@styles/movie/details/casts.css" layer;
 @import "@styles/movie/details/rates.css" layer;
 @import "@styles/movie/details/overview.css" layer;
 @import "@styles/movie/details/genres.css" layer;
-@import "@styles/movie/modals/movie-details-modal.css" layer;
-@import "@styles/movie/modals/movie-info-modal.css" layer;
 
 /* selected-movie */
 @import "@styles/selected-movie/shared-styles.css" layer;
 @import "@styles/selected-movie/network-logo.css" layer;
 @import "@styles/selected-movie/trailers.css" layer;
 @import "@styles/selected-movie/pictures.css" layer;
+
+/* modals */
+@import "@styles/modals/movie-details-modal.css" layer;
+@import "@styles/modals/movie-info-modal.css" layer;
+@import "@styles/modals/confirm-modal.css" layer;
 
 /* buttons */
 @import "@styles/buttons/bookmark-btn.css" layer;

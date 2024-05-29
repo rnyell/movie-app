@@ -1,7 +1,4 @@
 .primary-overlay {
-  position: absolute;
-  z-index: var(--z-20);
-  inset: 0;
   font-size: 0.85rem;
   background-image: linear-gradient(rgb(15 18 20 / 15%), rgb(15 18 20 / 70%) 70%);
   
@@ -13,7 +10,6 @@
     margin-top: var(--space-2);
     column-gap: 0.5rem;
     color: var(--color-neutral-300);
-    font-weight: 500;
   
     & .overlay-dot {
       margin-top: -1px; /* hacky */
@@ -26,7 +22,6 @@
   
   & .overlay-cta-btns {
     margin-block: var(--space-4);
-    display: flex;
     gap: 0.5rem;
   }
 }
@@ -38,6 +33,10 @@
 
   & .overlay-title {
     width: 85%;
+  }
+
+  & .overlay-cta-btns {
+    margin-block: var(--space-3);
   }
 }
 

@@ -6,7 +6,7 @@ import WatchButton from "@components/buttons/watch-btn"
 import LinkButton from "@components/buttons/link-btn"
 import BookmarkButton from "@components/buttons/bookmark-btn"
 import Rates from "@components/movie/details/rates"
-import Genres from "@components/movie/details/genres"
+// import Genres from "@components/movie/details/genres"
 
 
 export default function PrimaryOverlay({ result, media, variant }) {
@@ -28,7 +28,7 @@ export default function PrimaryOverlay({ result, media, variant }) {
 
       return (
         <motion.div
-          className="primary-overlay primary-movie-overlay flex-col"
+          className="overlay primary-overlay primary-movie-overlay"
           variants={landCardOverlayVariants}
           {...defaultVariantsLabel}
         >
@@ -57,7 +57,7 @@ export default function PrimaryOverlay({ result, media, variant }) {
             <Rates rate={vote_average} variant="star" />
           </motion.div>
           <motion.div
-            className="overlay-cta-btns"
+            className="overlay-cta-btns flex"
             initial={{y: 12}}
             animate={{y: 0}}
             exit={{y: 12}}
@@ -83,7 +83,7 @@ export default function PrimaryOverlay({ result, media, variant }) {
 
       return (
         <motion.div
-          className="primary-overlay primary-series-overlay flex-col"
+          className="overlay primary-overlay primary-series-overlay"
           variants={landCardOverlayVariants}
           {...defaultVariantsLabel}
         >
@@ -105,15 +105,15 @@ export default function PrimaryOverlay({ result, media, variant }) {
             exit={{y: -5}}
           >
             <span className="overlay-release-date">
-              {in_production ? formatReleaseDate(first_air_date) : `${formatReleaseDate(first_air_date)} - ${formatReleaseDate(last_air_date)}`}
+              {in_production ? formatReleaseDate(first_air_date) : `${formatReleaseDate(first_air_date)} ‒ ${formatReleaseDate(last_air_date)}`}
             </span>
             <i className="overlay-dot">&#x2022;</i>
-            <span>{number_of_seasons} {number_of_seasons > 1 ? "Seasons" : "Seasons"}</span>
+            <span>{number_of_seasons} {number_of_seasons > 1 ? "Seasons" : "Season"}</span>
             {/* <i className="overlay-dot">&#x2022;</i>
             <Genres media={media} genres={genres} /> */}
           </motion.div>
           <motion.div
-            className="overlay-cta-btns"
+            className="overlay-cta-btns flex"
             initial={{y: 12}}
             animate={{y: 0}}
             exit={{y: 12}}

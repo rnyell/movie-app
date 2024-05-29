@@ -13,13 +13,38 @@
     z-index: var(--z-20);
     top: 7.5cqw;
     left: 7.5cqw;
-    background-color: rgb(220 220 220 / 62.5%);
-    backdrop-filter: blur(5px);
+    background-color: rgb(220 220 220 / 65%);
+    backdrop-filter: blur(10px);
     border-radius: var(--full-rounded);
     transition: opacity var(--duration-1), translate var(--duration-2);
     
     & svg {
       width: 60%;
+      stroke-width: 1.5;
+      stroke: var(--color-neutral-800);
+    }
+  }
+
+  & .ellipsis-btn {
+    width: 22cqw;
+    max-width: 45px;
+    aspect-ratio: 1;
+    position: absolute;
+    top: 7.5cqw;
+    right: 7.5cqw;
+    z-index: var(--z-50);
+    color: var(--color-neutral-800);
+    background-color: rgb(220 220 220 / 65%);
+    backdrop-filter: blur(10px);
+    border-radius: var(--full-rounded);
+    /* padding: 5px; */
+    /* top: 1rem; */
+    /* right: 1rem; */
+    /* border-radius: 0.5rem; */
+    /* background-color: color-mix(in srgb, var(--color-neutral-350), transparent); */
+
+    & svg {
+      width: var(--icon-size-5);
       stroke-width: 1.5;
       stroke: var(--color-neutral-800);
     }

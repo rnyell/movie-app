@@ -80,15 +80,17 @@
   flex-shrink: 0;
   position: relative;
   border-radius: 1.25rem;
-  
-  & .poster {
+
+  & .card-img {
+    position: relative;
+    overflow: hidden;
     border-radius: 1.25rem;
     box-shadow: 0 3px 1.24rem rgb(11 15 17 / 50%), 
       0 2px 0.5rem rgb(11 15 17 / 10%);
   }
 
   & .card-body {
-    padding: 0.5rem 0.75rem 0 0;
+    padding: 0.5rem 0.5rem 0;
     width: 100%;
     font-size: 0.85rem;
   }
@@ -96,9 +98,29 @@
   & .title {
     width: 70%;
     text-align: start;
-    font-size: 0.9rem;
+    font-size: 1rem;
+  }
+
+  & .is-mobile {
+    & .ellipsis-btn,
+    & .close-btn {
+      margin-left: auto;
+      padding: 5px;
+      color: var(--color-neutral-200);
+      background-color: var(--color-neutral-550);
+      backdrop-filter: blur(10px);
+      border-radius: 0.5rem;
+      cursor: pointer;
+      rotate: z 90deg;
+
+      & svg {
+        width: var(--icon-size-4);
+        stroke-width: 2;
+      }
+    }
   }
 }
+
 
 .selected-series .movie-card[data-variant="series"] {
   width: clamp(175px, 50vw, 275px);

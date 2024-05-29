@@ -25,7 +25,7 @@ export default function AnimatedHeaedr() {
   
     if (latestValue > previousValue && latestValue > 60) {
       animate(headerEl, { y: -headerHeight }, transition)
-      animate(searchboxEl, { y: -headerHeight, scaleX: 1.04 }, transition)
+      animate(searchboxEl, { y: -headerHeight - 8, scaleX: 1.04 }, transition)
     } else if (latestValue < previousValue) {
       animate(headerEl, { y: 0 }, transition)
       animate(searchboxEl, { y: 0, scaleX: 1 }, transition)

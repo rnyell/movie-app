@@ -1,19 +1,25 @@
 import { useState } from "react"
 import { motion, AnimatePresence, useAnimate } from "framer-motion"
-import { FilmIcon, TvIcon } from "@heroicons/outline"
+import { FilmIcon, TvIcon, XMarkIcon } from "@heroicons/outline"
+import { EllipsisIcon } from "@utils/icons"
 import { IMAGES_URL } from "@services"
 import { formatReleaseDate } from "@services/movie-utils"
+import { useWindowOffsets, useClickOutside } from "@utils/hooks"
 import MovieInfoModal from "@components/modals/movie-info-modal"
 import SecondaryOverlay from "./overlays/secondary-overlay"
 
 
 export default function ResultCard({ result, media, variant }) {
+  const {windowWidth} = useWindowOffsets()
+  const [cardRef, animate] = useAnimate()
   const [cardOverlay, setCardOverlay] = useState(false)
   const [showModal, setShowModal] = useState(false)
-  const [scope, animate] = useAnimate()
   const title = result.title || result.name
   const releaseDate = result?.release_date || result?.first_air_date
   const is2024 = releaseDate === 2024 ? true : false
+  const isTouchDevice = windowWidth <= 520
+
+  useClickOutside(cardRef, handleHoverEnd)
 
   // const {
   //   id,
@@ -43,7 +49,7 @@ export default function ResultCard({ result, media, variant }) {
     <motion.div
       className="movie-card"
       data-variant={variant}
-      ref={scope}
+      ref={cardRef}
       layout
       initial={{opacity: 0.5}}
       animate={{opacity: 1}}
@@ -51,12 +57,22 @@ export default function ResultCard({ result, media, variant }) {
     >
       <motion.div
         className="wrapper"
-        onHoverStart={handleHoverStart}
-        onHoverEnd={handleHoverEnd}
+        onHoverStart={!isTouchDevice && handleHoverStart}
+        onHoverEnd={!isTouchDevice && handleHoverEnd}
       >
         <i className="icon media-icon">
           {media === "movie" ? <FilmIcon /> : <TvIcon />}
         </i>
+        {isTouchDevice && (
+          <button className="btn ellipsis-btn" onClick={handleHoverStart}>
+            <i className="icon">
+              <EllipsisIcon />
+              {/* why??????????????????????????????????????????????????????????????????? */}
+              {/* {cardOverlay ? "op" : "cl"} */}
+              {/* {cardOverlay ? <EllipsisIcon /> : <XMarkIcon />} */}
+            </i>
+          </button>
+        )}
         <figure>
           <img
             className="poster"
