@@ -35,7 +35,7 @@ export default function PlayedCard({ result, media, variant }) {
         <img
           src={`${IMAGES_URL}original${backdrop_path}`}
           className="poster"
-          draggable="false"
+          draggable={false}
         />
       <div className="bar" />
       <AnimatePresence>

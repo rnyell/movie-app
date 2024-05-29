@@ -139,7 +139,7 @@ function SwiperCard({
       <motion.div className="swiper-card-content" style={{ scale }}>
         <img
           src={`${IMAGES_URL}original${poster_path}`}
-          draggable="false"
+          draggable={false}
           style={{ userSelect: "none" }}
         />
       </motion.div>

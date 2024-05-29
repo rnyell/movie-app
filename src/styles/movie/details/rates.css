@@ -52,6 +52,18 @@
   color: currentColor;
 }
 
+.primary-series-overlay .rate {
+  margin-left: auto;
+
+  & .rate-number {
+    font-size: 1rem;
+  }
+}
+
+.movie-card[data-variant="series"] .rate {
+  margin-left: auto;
+}
+
 .hero-section .rate {
   display: inline-flex;
   align-items: center;
@@ -95,7 +107,7 @@
   }
 }
 
-@media (width < 820px) {
+@media (width <= 820px) {
   .rates[data-variant="verbose"] {
     font-size: 1rem;
 

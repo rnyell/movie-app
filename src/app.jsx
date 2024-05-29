@@ -26,36 +26,34 @@ import { ErrorPage } from "@components/errors"
 import "./main.css"
 
 
-const routes = [
-  {
-    path: "/",
-    element: <RootLayout />,
-    errorElement: <ErrorPage />,
-    children: [
+const routes = [{
+  path: "/",
+  element: <RootLayout />,
+  errorElement: <ErrorPage />,
+  children: [
+    { path: "/", element: <SharedLayout />, children: [
       { path: "/", element: <HomePage />, },
-      { path: "/", element: <SharedLayout />, children: [
-        { path: "/reservation", element: <Reservation /> },
-        { path: "/onscreen", element: <OnScreenPage /> },
-        { path: "/library", element: <Library /> },
-        { path: "/movies/:id", element: <SelectedMovie /> },
-        { path: "/series/:id", element: <SelectedSeries /> },
-        { path: "/discover", element: <Discover />, children: [
-          { path: "/discover/movies", element: <MoviesPage /> },
-          { path: "/discover/series", element: <SeriesPage /> },
-          { path: "/discover/news", element: <NewsPage /> },
-          { path: "/discover/news/:id", element: <Article /> },
-        ] },
+      { path: "/discover", element: <Discover />, children: [
+        { path: "/discover/movies", element: <MoviesPage /> },
+        { path: "/discover/series", element: <SeriesPage /> },
+        { path: "/discover/news", element: <NewsPage /> },
+        { path: "/discover/news/:id", element: <Article /> },
       ] },
-      { path: "/search", element: (
-        <SearchProvider>
-          <SearchPage />
-        </SearchProvider>
-      )},
-      { path: "/player", element: <PlayerPage /> },
-      { path: "/booking", element: <BookingPage /> },
-    ]
-  }
-]
+      { path: "/reservation", element: <Reservation /> },
+      { path: "/onscreen", element: <OnScreenPage /> },
+      { path: "/library", element: <Library /> },
+      { path: "/movies/:id", element: <SelectedMovie /> },
+      { path: "/series/:id", element: <SelectedSeries /> },
+    ] },
+    { path: "/search", element: (
+      <SearchProvider>
+        <SearchPage />
+      </SearchProvider>
+    )},
+    { path: "/player", element: <PlayerPage /> },
+    { path: "/booking", element: <BookingPage /> },
+  ]
+}]
 
 const router = createBrowserRouter(routes)
 

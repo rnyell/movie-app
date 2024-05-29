@@ -1,3 +1,4 @@
+/* reset, default, global, utilities */
 @import "@styles/base.css" layer(base);
 
 /* pages */
@@ -7,20 +8,23 @@
 @import "@styles/pages/library-page.css" layer;
 @import "@styles/pages/reservation-page.css" layer;
 @import "@styles/pages/booking-page.css" layer;
-@import "@styles/pages/player-page.css" layer;
 @import "@styles/pages/selected-movie.css" layer;
 @import "@styles/pages/selected-series.css" layer;
+@import "@styles/pages/player-page.css" layer;
 
-/* components */
+/* home */
 @import "@styles/home/hero-section.css" layer;
 
+/* search */
 @import "@styles/search/filterbox.css" layer;
 @import "@styles/search/side-filter.css" layer;
 @import "@styles/search/sm-filter.css" layer;
-@import "@styles/search/pagination.css" layer;
+@import "@styles/search/pagination.css";
 
+/* booking */
 @import "@styles/booking/ticket.css" layer;
 
+/* movie */
 @import "@styles/movie/movie-card.css" layer;
 @import "@styles/movie/movie-cards/common-card.css" layer;
 @import "@styles/movie/movie-cards/result-card.css" layer;
@@ -33,6 +37,13 @@
 @import "@styles/movie/modals/movie-details-modal.css" layer;
 @import "@styles/movie/modals/movie-info-modal.css" layer;
 
+/* selected-movie */
+@import "@styles/selected-movie/shared-styles.css" layer;
+@import "@styles/selected-movie/network-logo.css" layer;
+@import "@styles/selected-movie/trailers.css" layer;
+@import "@styles/selected-movie/pictures.css" layer;
+
+/* buttons */
 @import "@styles/buttons/bookmark-btn.css" layer;
 @import "@styles/buttons/bookmark-del-btn.css" layer;
 @import "@styles/buttons/link-btn.css" layer;
@@ -40,15 +51,11 @@
 @import "@styles/buttons/watch-btn.css" layer;
 @import "@styles/buttons/info-btn.css" layer;
 
-@import "@styles/selected-movie/shared-styles.css" layer;
-@import "@styles/selected-movie/network-logo.css" layer;
-@import "@styles/selected-movie/trailers.css" layer;
-@import "@styles/selected-movie/pictures.css" layer;
-
-@import "@styles/header.css" layer;
+/* other */
+@import "@styles/header.css";
 @import "@styles/menus.css";
-@import "@styles/errors.css" layer;
-@import "@styles/skeletons.css" layer;
+@import "@styles/errors.css";
+@import "@styles/skeletons.css";
 
 /* media/conrainer queries */
 @import "@src/queries.css";

@@ -1,10 +1,10 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
-import { PRICES } from "@src/store/placeholder-data"
 import { IMAGES_URL } from "@services"
+import { PRICES } from "@services/placeholder-data"
 import InfoButton from "@components/buttons/info-btn"
-import MovieDetailsModal from "../modals/movie-details-modal"
+import MovieDetailsModal from "@components/modals/movie-details-modal"
 
 
 export default function ScreenCard({ result, variant, idx }) {
@@ -27,6 +27,7 @@ export default function ScreenCard({ result, variant, idx }) {
     })
   }
 
+
   return (
     <motion.div
       className="movie-card"
@@ -38,9 +39,9 @@ export default function ScreenCard({ result, variant, idx }) {
       <figure className="card-img">
         <img
           className="poster"
-          src={`${IMAGES_URL}w500${backdrop_path}`} /* original or w500? */
+          src={`${IMAGES_URL}w500${backdrop_path}`}
+          draggable={false}
           alt="poster"
-          draggable="false"
         />
       </figure>
       <div className="card-body flex-col">

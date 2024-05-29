@@ -134,7 +134,7 @@ export function SideNav() {
               )
             })}
       </nav>
-      <div className="footer">Dad's best movie app <span>&trade;</span></div>
+      <div className="footer unselectable">Dad's best movie app <span>&trade;</span></div>
     </div>
   );
 }
@@ -169,6 +169,15 @@ function SubMenu() {
 }
 
 export function SideMenu({ setIsOpen }) {
+  useEffect(() => {
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        setIsOpen(false)
+      }
+    })
+  }, [])
+
+
   return createPortal(
     <>
       <motion.div
@@ -216,7 +225,7 @@ export function SideMenu({ setIsOpen }) {
             ))}
           </div>
           <div className="empty-link" />
-          <div className="footer">
+          <div className="footer unselectable">
             <span>Dad's Best Movie App</span>
           </div>
         </nav>

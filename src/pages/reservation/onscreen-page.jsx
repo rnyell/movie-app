@@ -1,6 +1,6 @@
 import { useReducer, useRef } from "react"
 import { ArrowUpRightIcon } from "@heroicons/outline"
-import { useMovieState } from "@src/store/app-context"
+import { useMoviesState } from "@src/store/app-context"
 import MovieCard from "@components/movie/movie-card"
 
 const initialPosition = { 
@@ -49,7 +49,7 @@ const reducer = (state, action) => {
 
 
 export default function OnScreenPage() {
-  const [moviesState] = useMovieState()
+  const [moviesState] = useMoviesState()
   const [pointer, dispatch] = useReducer(reducer, initialPosition)
   const pageRef = useRef(null)
   const containerRef = useRef(null)

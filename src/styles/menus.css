@@ -57,6 +57,15 @@
     &.is-active {
       color: var(--color-neutral-200);
       background-color: var(--color-neutral-600);
+
+      /* & .icon svg {
+        stroke-width: 1pt;
+        stroke-miterlimit: 10;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-dasharray: 400;
+        animation: stroks 1s reverse ease-out;
+      } */
     }
 
     &:hover {
@@ -108,13 +117,13 @@
   }
 }
 
-@media (width < 1300px) {
+@media (width <= 1300px) {
   .sidenav {
     width: min(200px, 20vw);
   }
 }
 
-@media (width < 780px) {  
+@media (width <= 780px) {  
   .sidenav {
     width: 75px;
 
@@ -143,10 +152,14 @@
     & .link-tag {
       display: none;
     }
+
+    & .footer {
+      display: none;
+    }
   }
 }
 
-@media (width < 520px) {
+@media (width <= 520px) {
   .sidenav {
     width: 92%;
     height: unset;
@@ -201,19 +214,6 @@
       & .icon {
         width: var(--icon-size-6);
       }
-      
-      & .icon:hover svg {
-        stroke-width: 1pt;
-        stroke-miterlimit: 10;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-        stroke-dasharray: 400;
-        animation: stroks 1s reverse ease-out;
-      }
-    }
-
-    & .footer {
-      display: none;
     }
   }
 }
@@ -233,14 +233,13 @@ body:has(.side-menu) {
   position: fixed;
   inset: 0;
   background-color: rgb(20 25 28 / 25%);
-  /* backdrop-filter: grayscale(0.1); */
   z-index: var(--z-50);
 }
 
 .side-menu {
   width: clamp(235px, 25vw, 260px);
   position: fixed;
-  top: 70px;
+  top: calc(60px + 1.75vw);
   z-index: var(--z-max);
   font-size: 0.9rem;
   background-color: var(--color-neutral-700);
@@ -249,7 +248,7 @@ body:has(.side-menu) {
   padding: 0.4rem;
 
   & .logo-wrapper {
-    padding: 0.65rem 1rem;
+    padding: 0.65rem;
     gap: 0.5rem;
 
     & img {
@@ -302,7 +301,7 @@ body:has(.side-menu) {
   }
 }
 
-@media (width < 780px) {
+@media (width <= 780px) {
   .side-menu {
     padding: 0.625rem;
 

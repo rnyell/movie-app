@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { useLocation } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { UserCircleIcon, BellIcon } from "@heroicons/outline"
 import SearchBox from "./search-box"
@@ -8,6 +9,7 @@ import { SideMenu } from "./menus"
 export default function Header({ hasSearchbox = true }) {
   const [isOpen, setIsOpen] = useState(false)
   const [dataset, setDataset] = useState("default")
+  const location = useLocation()
   const pathname = location.pathname
 
   /* TODO: better ways to handle dataset for searchbox */
@@ -32,13 +34,13 @@ export default function Header({ hasSearchbox = true }) {
         <i className="icon hamber-icon flex-col-center" onClick={() => setIsOpen(!isOpen)}>
           <motion.span
             className="line"
-            style={{width: 20}}
-            animate={isOpen ? {rotateZ: 45} : {rotateZ: 0}}
+            style={{height: 1.5, width: 20, y: -1}}
+            animate={isOpen ? {rotateZ: 45, y: 1} : {rotateZ: 0}}
           ></motion.span>
           <motion.span
             className="line"
-            style={{marginRight: "auto", marginTop: 4, width: 16}}
-            animate={isOpen ? {rotateZ: -45, width: 20, marginTop: -1.5} : {rotateZ: 0}}
+            style={{marginRight: "auto", height: 1.5, width: 16, y: 1.5}}
+            animate={isOpen ? {rotateZ: -45, width: 20, y: -1.5} : {rotateZ: 0}}
           ></motion.span>
         </i>
       )}

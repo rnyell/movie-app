@@ -27,10 +27,11 @@
   }
 
   & .hamber-icon {
+    position: relative;
+    gap: 1px;
     cursor: pointer;
 
     & .line {
-      height: 1.5px;
       border-radius: 10px;
       background-color: var(--color-neutral-350);
       transform-origin: center;
@@ -165,7 +166,7 @@
   }
 
   &[data-set~="transparent"] {
-    border-color: var(--color-neutral-600);
+    border: none;
     
     & .search-input {
       background-color: color-mix(in srgb, var(--color-neutral-700), transparent 65%) !important;

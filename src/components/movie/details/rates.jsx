@@ -62,21 +62,21 @@ export default function Rates({ id, rate, variant }) {
       return (
         <div className="rates flex" data-variant={variant}>
           <div className="box align-center-col imdb">
-            <span>{ratings[0].Value}</span>
+            <span>{ratings[0]?.Value}</span>
             <i className="icon imdb-icon" title="IMDb rate">
               <IMDBIcon />
               {/* <IMDB2Icon /> */}
             </i>
           </div>
           <div className="box align-center-col rotten">
-            <span>{ratings[1].Value}</span>
+            <span>{ratings[1]?.Value}</span>
             <i className="icon rotten-icon" title="Rotten Tomatoes rate">
               <RottenTomatoesIcon />
               {/* <RottenTomatoesGreenIcon /> */}
             </i>
           </div>
           <div className="box align-center-col metacritic">
-            <span>{ratings[2].Value}</span>
+            <span>{ratings[2]?.Value}</span>
             <i className="icon metacritic-icon" title="Metacritic rate">
               {/* <PrimeVideoIcon /> */}
               <MetacriticIcon />

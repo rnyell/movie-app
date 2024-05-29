@@ -3,6 +3,7 @@ import { motion } from "framer-motion"
 import { ExclamationCircleIcon} from "@heroicons/outline"
 import { modalVariants, defaultVariantsLabel, modalTransition } from "@utils/motions"
 
+
 export function ErrorPage() {
   return (
     <div className="error-page">

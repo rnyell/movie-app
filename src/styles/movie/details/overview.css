@@ -20,6 +20,7 @@
 
 .movie-details-modal .overview {
   margin-block: var(--space-8) var(--space-6);
+  font-size: 0.85rem;
   -webkit-line-clamp: 3;
 }
 

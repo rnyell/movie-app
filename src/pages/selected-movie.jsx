@@ -166,7 +166,7 @@ export default function SelectedMovie() {
           <h4 className="heading">More Like This</h4>
           <div className="related-movies-container flex">
             {recommendations.results.slice(0, 9).map(movie =>
-              <MovieCard key={movie.id} result={movie} media={media} variant="similar" />
+              <MovieCard key={movie.id} result={movie} media={media} variant="common" />
             )}
           </div>
         </div>

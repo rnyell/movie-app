@@ -3,7 +3,7 @@ import { motion, AnimatePresence, useAnimate } from "framer-motion"
 import { FilmIcon, TvIcon } from "@heroicons/outline"
 import { IMAGES_URL } from "@services"
 import { formatReleaseDate } from "@services/movie-utils"
-import MovieInfoModal from "@components/movie/modals/movie-info-modal"
+import MovieInfoModal from "@components/modals/movie-info-modal"
 import SecondaryOverlay from "./overlays/secondary-overlay"
 
 

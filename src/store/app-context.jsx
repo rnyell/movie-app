@@ -14,7 +14,7 @@ export function useUserState() {
   return useContext(UserContext)
 }
 
-export function useMovieState() {
+export function useMoviesState() {
   return useContext(MoviesContext)
 }
 
@@ -130,7 +130,6 @@ export default function AppProvider({ children }) {
 
   //? move it to home-page since it's not a global state
   async function loadMovies() {
-    // TODO: Promise.all ?
     const populargMovies = await getPopularMovies()
     const screenMovies = await getOnScreenMovies()
     const trendingMovies = await getTrendingMovies()

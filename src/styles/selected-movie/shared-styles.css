@@ -133,7 +133,8 @@
     overflow: hidden;
 
     & .related-movies-container {
-      width: 90vw;
+      margin-top: -0.5rem;  /* it's a fix for vertical spaces added by padding that is a fix for overflow issue! */
+      padding: 0.5rem;      /* to prevent overflow issue when hovering the movie-card */
       overflow-x: scroll;
       scrollbar-width: none;
       gap: 1.5rem;

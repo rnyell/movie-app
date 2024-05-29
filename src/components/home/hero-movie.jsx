@@ -2,11 +2,10 @@ import { useEffect, useState } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/outline"
-import { transformTitleToURL } from "@utils/utils"
-import { getMovieDetails, IMAGES_URL } from "@services"
+import { IMAGES_URL } from "@services"
+import { useMediaDetails } from "@services/hooks"
 import { getMovieGenres, getMovieDirector, formatReleaseDate } from "@services/movie-utils"
 import { defaultVariantsLabel } from "@utils/motions"
-import { useUserState } from "@src/store/app-context"
 import { HeroMovieLoadingSkeleton } from "@components/skeletons"
 import Casts from "@components/movie/details/casts"
 import BookmarkButton from "@components/buttons/bookmark-btn"
@@ -15,29 +14,19 @@ import Rates from "@components/movie/details/rates"
 
 
 export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
-  const {userState, userDispatch} = useUserState()
-  const [isLoading, setIsLoading] = useState(true)
-  const [movieDetails, setMovieDetails] = useState({}) //? useState({}) is fine but useState() caues error!
-  const [key, setKey] = useState(0) // for <AnimatePresence> purposes
+  const id = movie.id
+  const media = "movie"
+  const {isLoading, mediaDetails} = useMediaDetails(media, id)
+  const [key, setKey] = useState(0) // used by <AnimatePresence>
   const location = useLocation()
   const navigate = useNavigate()
 
-  const media = "movie"
-
   useEffect(() => {
-    loadData()
     setKey(key + 1)
     console.log("hero movie re-rendered")
   }, [movie.id])
 
-  async function loadData() {
-    const data = await getMovieDetails(movie.id)
-    setMovieDetails(data)
-    setIsLoading(false)
-  }
-
   const {
-    id,
     title,
     release_date,
     // runtime,
@@ -48,18 +37,13 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
     poster_path,
     backdrop_path: bg_path,
     credits,
-  } = movieDetails
+  } = mediaDetails
 
-  // console.log(movieDetails)
+  // console.log(mediaDetails)
 
-  // better name?
   function handleSelectedMovie() {
-    navigate(`/${transformTitleToURL(title)}`, {
-      state: {
-        id,
-        media,
-        prevUrl: location.pathname + location.search,
-      }
+    navigate(`/movies/${(id)}`, {
+      state: { prevUrl: location.pathname + location.search }
     })
   }
 

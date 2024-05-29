@@ -76,25 +76,25 @@
 
 
 /*-------------------------------------------------------------------------------------------------------*/
-.movie-card[data-variant="series"] {
-  --radius: 1.2rem;
-  --padding: var(--space-3);
-
+.movie-card[data-variant="series"] {  
   flex-shrink: 0;
-  padding: var(--padding) var(--padding) var(--space-4);
   position: relative;
-  background-color: color-mix(in srgb, var(--color-neutral-700), transparent 55%);
-  border-radius: calc(var(--space-4) + var(--radius));
-  box-shadow: 0 3px 1.24rem rgb(11 15 17 / 50%), 
-    0 2px 0.5rem rgb(11 15 17 / 10%);
-
+  border-radius: 1.25rem;
+  
   & .poster {
-    border-radius: 1.5rem;
+    border-radius: 1.25rem;
+    box-shadow: 0 3px 1.24rem rgb(11 15 17 / 50%), 
+      0 2px 0.5rem rgb(11 15 17 / 10%);
+  }
+
+  & .card-body {
+    padding: 0.5rem 0.75rem 0 0;
+    width: 100%;
+    font-size: 0.85rem;
   }
 
   & .title {
-    margin-top: 1cqh;
-    margin-left: 2cqw;
+    width: 70%;
     text-align: start;
     font-size: 0.9rem;
   }
@@ -108,7 +108,7 @@
 /*-------------------------------------------------------------------------------------------------------*/
 .movie-card[data-variant="similar"] {
   flex-shrink: 0;
-  width: clamp(175px, 50vw, 275px);
+  width: clamp(195px, 50vw, 275px);
   border-radius: 1.5rem;
   
   & .wrapper {

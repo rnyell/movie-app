@@ -8,7 +8,7 @@ import { modalBackdropVariants, modalVariants, defaultVariantsLabel, modalTransi
 import Rates from "@components/movie/details/rates"
 import Genres from "@components/movie/details/genres"
 import Overview from "@components/movie/details/overview"
-import Casts from "../details/casts"
+import Casts from "../movie/details/casts"
 
 
 export default function MovieDetailsModal({ result, setModal, price }) {
@@ -59,7 +59,7 @@ export default function MovieDetailsModal({ result, setModal, price }) {
             <img
               className="poster w-100 unselectable"
               src={`${IMAGES_URL}w500${backdrop_path}`}
-              draggable="false"
+              draggable={false}
             />
           </figure>
         </div>

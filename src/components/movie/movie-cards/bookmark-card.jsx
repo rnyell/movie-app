@@ -4,7 +4,7 @@ import { IMAGES_URL } from "@services"
 import { useMediaDetails } from "@services/hooks"
 import { useUserState } from "@src/store/app-context"
 import { PortraitCardLoading } from "@components/skeletons"
-import ConfirmModal from "@components/library/confirm-modal"
+import ConfirmModal from "@components/modals/confirm-modal"
 import SecondaryOverlay from "./overlays/secondary-overlay"
 
 

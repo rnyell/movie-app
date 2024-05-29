@@ -141,7 +141,6 @@ export function useClickOutside(ref, callback) {
     event.stopPropagation()
     const target = event.target
     const isOutside = !element?.contains(target)
-    // console.log(element, target) //? too many cals
     
     if (isOutside) {
       callbackRef.current(event)
@@ -150,7 +149,7 @@ export function useClickOutside(ref, callback) {
 
   useEffect(() => {
     callbackRef.current = callback
-}, [callback])
+  }, [callback])
 
   useEffect(() => {
     document.addEventListener("click", handler)

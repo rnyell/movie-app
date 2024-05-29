@@ -32,6 +32,9 @@ export default function PlayerPage() {
           <i className="icon fave-icon">
             <HeartIcon />
           </i>
+          <i className="icon dl-icon">
+            <ArrowDownTrayIcon />
+          </i>
           <i className="icon share-icon">
             <ShareIcon />
           </i>
@@ -39,9 +42,7 @@ export default function PlayerPage() {
         <div className="bottombar flex-col-center">
           <div className="progressbar" />
           <div className="action-btns flex-center w-100">
-            <i className="icon dl-icon">
-              <ArrowDownTrayIcon />
-            </i>
+            <i className="empty"></i>
             <div className="controls flex">
               <i className="icon bfw-icon bw-icon">
                 <BackwardIcon />

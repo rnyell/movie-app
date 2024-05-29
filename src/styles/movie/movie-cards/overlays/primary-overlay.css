@@ -3,7 +3,7 @@
   z-index: var(--z-20);
   inset: 0;
   font-size: 0.85rem;
-  background-color: rgb(15 18 20 / 65%);
+  background-image: linear-gradient(rgb(15 18 20 / 15%), rgb(15 18 20 / 70%) 70%);
   
   & .overlay-title {
     width: 95%;
@@ -11,8 +11,6 @@
   
   & .overlay-details {
     margin-top: var(--space-2);
-    display: flex;
-    align-items: center;
     column-gap: 0.5rem;
     color: var(--color-neutral-300);
     font-weight: 500;
@@ -33,7 +31,18 @@
   }
 }
 
+.primary-series-overlay {
+  & .overlay-title-wrapper {
+    margin-top: auto;
+  }
+
+  & .overlay-title {
+    width: 85%;
+  }
+}
+
 .movie-card[data-variant="common"] .primary-overlay {
+  /* padding: 0.625rem 1.25rem; */
   padding: 3cqw 6cqw;
 
   & .overlay-title {
@@ -45,6 +54,7 @@
   padding: 1rem;
 
   & .overlay-title {
+    margin-top: auto;
     font-size: 1.05rem;
   }
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-import { useMovieState } from "@src/store/app-context"
+import { useMoviesState } from "@src/store/app-context"
 import { useWindowOffsets } from "@utils/hooks"
 import HeroMovie from "@components/home/hero-movie"
 import Carousel from "@components/home/carousel"
@@ -9,7 +9,7 @@ import Swiper from "@components/home/swiper"
 
 export default function HeroSection() {
   const {windowWidth} = useWindowOffsets()
-  const [moviesState] = useMovieState()
+  const [moviesState] = useMoviesState()
   const [currIndex, setCurrIndex] = useState(0)
   const popularMoviesCount = moviesState.popular.length
 

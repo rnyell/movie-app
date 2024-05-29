@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
 import { getRecommendedMovies } from "@services"
 import MovieCard from "@components/movie/movie-card"
 
+
 export default function RecommendedSection() {
   const [recMovies, setRecMovies] = useState(null)
+  const [recSeries, setRecSeries] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -28,6 +29,9 @@ export default function RecommendedSection() {
             <MovieCard key={movie.id} result={movie} media="movie" variant="common" />
           )
         )}
+      </div>
+      <div className="movie-list snap-x-proximity">
+        
       </div>
     </section>
   )

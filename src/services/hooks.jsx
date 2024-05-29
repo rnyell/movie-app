@@ -24,7 +24,7 @@ export function useMediaDetails(media, id) {
     } else if (media === "tv") {
       loadSeriesDetails()
     }
-  }, [])
+  }, [id])
 
   return { mediaDetails, isLoading }
 }

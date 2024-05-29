@@ -3,6 +3,7 @@
 } */
 
 .movie-card[data-variant="common"] {
+  flex-shrink: 0;
   /* width: clamp(175px, 55vw, 300px); */ /* this is set inline by JS */
   scroll-margin-left: 3px; /* related to the visibility of the left-outline. it works with 1.5px but 3px is safer */
   border-radius: 1.5rem;
@@ -26,39 +27,51 @@
     aspect-ratio: 1.65;
   }
 
-  & .active-on-mobile {
-    padding: 8px 0;
+  & .close-btn,
+  & .ellipsis-btn {
+    padding: 5px;
+    color: var(--color-neutral-200);
+    background-color: color-mix(in srgb, var(--color-neutral-350), transparent);
+    backdrop-filter: blur(10px);
+    border-radius: 0.5rem;
+    cursor: pointer;
 
-    & .ellipsis-btn {
-      margin-left: auto;
-      padding: 5px;
-      color: var(--color-neutral-200);
-      border-radius: 0.5rem;
-      cursor: pointer;
-  
-      & svg {
-        width: var(--icon-size-4);
-        stroke-width: 2;
-      }
-
-      &:hover {
-        background-color: var(--color-neutral-600);
-      }
+    & svg {
+      width: var(--icon-size-4);
+      stroke-width: 2;
     }
   }
 
-  /* & .ambient {
+  & .close-btn {
     position: absolute;
-    inset: 0;
-    z-index: var(--z-neg5);
-    background-size: cover;
-    background-position: center;
-    opacity: 0.35;
-    filter: blur(15px);
-  } */
+    top: 1rem;
+    right: 1rem;
+    z-index: var(--z-50);
+  }
 }
 
-@media (width < 620px) {
+.movie-card[data-variant="common"].is-mobile {
+  & .wrapper::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: var(--z-5);
+    background-image: linear-gradient(transparent, rgb(11 15 17 / 75%));
+  }
+
+  & .active-on-mobile {
+    padding: 1rem 0.75rem;
+    position: absolute;
+    bottom: 0;
+    z-index: var(--z-10);
+
+    & .ellipsis-btn {
+      margin-left: auto;
+    }
+  }
+}
+
+@media (width <= 620px) {
   .movie-card[data-variant="common"] {
     & .wrapper {
       box-shadow: none;
