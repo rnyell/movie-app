@@ -19,18 +19,16 @@ export default function Discover() {
       {isNestedRoute ? <Outlet /> :
         <>
           <section className="intro-section">
-            <div className="container">
-              {/* <p className="intro-text">Explore ...</p> */}
-              <div className="wrapper">
-                {intro_topics.map(elem => (
-                  <Link to={elem.href} key={elem.href}>
-                    <div className="box flex-col">
-                      <p className="tag">{elem.tag}</p>
-                      <p className="desc">{elem.desc}</p>
-                    </div>
-                  </Link>
-                ))}
-              </div>
+            {/* <h3>Explore Movies</h3> */}
+            <div className="boxes">
+              {intro_topics.map(elem => (
+                <Link to={elem.href} key={elem.href}>
+                  <div className="box flex-col">
+                    <p className="tag">{elem.tag}</p>
+                    <p className="desc">{elem.desc}</p>
+                  </div>
+                </Link>
+              ))}
             </div>
           </section>
           <NewsSction />

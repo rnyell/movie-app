@@ -65,6 +65,10 @@
     bottom: 0;
     z-index: var(--z-10);
 
+    & .title {
+      color: var(--color-neutral-250);
+    }
+
     & .ellipsis-btn {
       margin-left: auto;
     }

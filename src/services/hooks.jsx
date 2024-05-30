@@ -26,5 +26,23 @@ export function useMediaDetails(media, id) {
     }
   }, [id])
 
-  return { mediaDetails, isLoading }
+  return {isLoading, mediaDetails}
+}
+
+
+export function useNewsService() {
+  const [news, setNews] = useState({})
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    fetchNews()
+  }, [])
+  
+  async function fetchNews() {
+    const data = await getSomeNews()
+    setNews(data)
+    setIsLoading(false)
+  }
+
+  return {isLoading, news}
 }

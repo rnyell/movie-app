@@ -240,12 +240,18 @@
       & section > header {
         margin-bottom: var(--space-6);
       }
+
+      @media (width <= 780px) {
+        section {
+
+        }
+
+        section > header {
+
+        }
+      }
     }
   }
-
-  /* .cta-btns {
-    display: flex;
-  } */
 
   .main-btn {
     padding: var(--space-2);
@@ -254,7 +260,7 @@
     aspect-ratio: 1;
     border-radius: 0.625rem;
     background-color: color-mix(in srgb, var(--color-neutral-200), transparent 45%);
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(6px);
     transition: background-color var(--duration-1) ease-in;
     
     &:hover {

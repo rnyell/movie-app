@@ -21,7 +21,7 @@ export default function MoviesPage() {
       {displayedMovieGenres.map(genreObj => 
         <section key={genreObj.id}>
           <header>
-            <h4>{genreObj.name}</h4>
+            <h3>{genreObj.name}</h3>
             <Link to="/">
               More
               <i className="icon">

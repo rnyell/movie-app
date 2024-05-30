@@ -3,22 +3,12 @@ import { Link } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/outline"
 import { FireIconSolid } from "@src/utils/icons"
-import { getSomeNews } from "@services"
+import { useNewsService } from "@services/hooks"
+
 
 export default function NewsSction() {
-  const [news, setNews] = useState()
-  const [isLoading, setIsLoading] = useState(true)
+  // const {isLoading, news} = useNewsService()
   const [description, setDescription] = useState(false)
-
-  useEffect(() => {
-    // loadData()
-  }, [])
-  
-  async function loadData() {
-    const data = await getSomeNews()
-    setNews(data)
-    setIsLoading(false)
-  }
 
 
   return (
@@ -38,13 +28,7 @@ export default function NewsSction() {
               <p className="description">Despite his major ending in Avengers: Endgame, Robert Downey Jr. is more than game to return to the Marvel Cinematic Universe as Tony Stark/Iron Man.</p>
             </div>
           </article>
-          <div className="side-news justify-center-col ::before-abs">
-            <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos, aperiam?</div>
-            <div>Adipisicing elit. Vitae, ad reiciendis voluptatem itaque labore rerum quis aut minima deserunt suscipit eum iusto voluptatibus tempora similique!</div>
-            <div>Lorem ipsum dolor sit amet.</div>
-          </div>
         </div>
-
         <div className="hot-news">
           <div className="news-card ::before-abs">
             <article>

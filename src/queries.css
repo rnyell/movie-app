@@ -6,7 +6,7 @@
 
 /********************************************************************************************************/
 /** on home page */
-@media (width < 520px) {
+@media (width <= 520px) {
   .home-page {
     grid-template-columns: 1fr;
   }
@@ -17,7 +17,7 @@
   }
 }
 
-@media (width < 460px) {
+@media (width <= 460px) {
   .library-page {
     & .heading {
       font-size: 1.5rem;
@@ -44,7 +44,7 @@
 }
 
 
-@container home-content-container (width < 1300px) {
+@container home-content-container (width <= 1300px) {
   .hero-section {
     padding-inline: var(--space-6);
   }
@@ -68,7 +68,7 @@
   }
 }
 
-@container home-content-container (width < 1150px) { 
+@container home-content-container (width <= 1150px) { 
   .hero-section {
     grid-template-columns: repeat(5, 1fr);
   }
@@ -92,7 +92,7 @@
   }
 }
 
-@container home-content-container (width < 900px) {
+@container home-content-container (width <= 900px) {
   .hero-section {
     padding-inline: var(--space-5);
   }
@@ -106,13 +106,13 @@
   }
 }
 
-@container home-content-container (width < 620px) {
+@container home-content-container (width <= 620px) {
   .draggable-wrapper .draggable {
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 180px), 1fr));
   }
 }
 
-@media (width < 520px) {
+@media (width <= 520px) {
   .home-page {
     & .draggable-wrapper .draggable {
       grid-auto-flow: column;
@@ -123,7 +123,7 @@
 }
 
 
-@container grid-container (width < 820px) {
+@container grid-container (width <= 820px) {
   .grid-item-title {
     grid-column: 1 / 5;
   }
@@ -181,7 +181,7 @@
   }
 }
 
-@container grid-container (width < 600px) {
+@container grid-container (width <= 600px) {
   .cta-btns {
     grid-column: 1 / 5;
     grid-row: 5 / 6;
@@ -192,7 +192,7 @@
   }
 }
 
-@container grid-container (width < 450px) {
+@container grid-container (width <= 450px) {
   .grid-item-title {
     grid-column: 1 / 4;
     margin-top: 1rem;
@@ -221,22 +221,54 @@
 }
 
 /********************************************************************************************************/
-@container discover-page (width < 750px) {
-  .wrapper {
-    grid-template-columns: repeat(2, minmax(20vw, 1fr));
-    grid-template-rows: repeat(2, calc(100px + 4vmin));
-  }
-}
+@container discover-page (inline-size <= 780px) {
+  .news-container {
+    flex-direction: column-reverse;
 
-@media (width < 520px) {
-  .discover-page {
-    & section {
-      height: clamp(250px, 45vh, 400px);
+    & .hot-news {
+      margin-top: 2rem;
+      margin-inline: auto;
+      width: 90%;
+      max-width: none;
     }
   }
 }
 
-@media (width < 720px) {
+
+@container discover-page (inline-size <= 620px) {
+  .discover-page {
+    
+  }
+}
+
+@container discover-page (inline-size <= 400px) {
+  .discover-page {
+    & section {
+      height: clamp(250px, 45vh, 400px);
+    }
+
+    & .boxes {
+      padding-inline: 1.5rem;
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+/* isTouchDevice */
+@media (width <= 520px) {
+  .discover-page {
+    & section {
+      margin-block: var(--space-8);
+      height: auto;
+    }
+
+    & .genre-list {
+      height: auto;
+    }
+  }
+}
+
+@media (width <= 720px) {
   .onscreen-page {
     & .movies-container {
       /* grid-template-columns: repeat(auto-fill, minmax(min(100%, 175px), 1fr)); */
@@ -248,7 +280,7 @@
 
 /********************************************************************************************************/
 /** on results page */
-@media (width < 620px) {
+@media (width <= 620px) {
   .search-page {
     grid-template-columns: 1fr;
     grid-template-rows: auto auto auto;
@@ -278,7 +310,7 @@
     & .title {
       font-size: calc(1rem + 1cqw);
 
-      @media (width < 520px) {
+      @media (width <= 520px) {
         font-size: 1.5rem;
       }
     }

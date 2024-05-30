@@ -21,7 +21,7 @@ export default function SeriesPage() {
       {seriesDisplayedGenres.map(genreObj => 
         <section key={genreObj.id}>
           <header>
-            <h4>{genreObj.name}</h4>
+            <h3 className="genre-name">{genreObj.name}</h3>
             <Link to="/">
               More
               <i className="icon">
