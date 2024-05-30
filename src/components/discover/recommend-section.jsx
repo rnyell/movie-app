@@ -3,7 +3,7 @@ import { getRecommendedMovies } from "@services"
 import MovieCard from "@components/movie/movie-card"
 
 
-export default function RecommendedSection() {
+export default function RecommendSection() {
   const [recMovies, setRecMovies] = useState(null)
   const [recSeries, setRecSeries] = useState(null)
   const [isLoading, setIsLoading] = useState(true)

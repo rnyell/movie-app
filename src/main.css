@@ -36,6 +36,9 @@
 @import "@styles/movie/details/overview.css" layer;
 @import "@styles/movie/details/genres.css" layer;
 
+/* discover */
+@import "@styles/discover/news.css";
+
 /* selected-movie */
 @import "@styles/selected-movie/shared-styles.css" layer;
 @import "@styles/selected-movie/network-logo.css" layer;

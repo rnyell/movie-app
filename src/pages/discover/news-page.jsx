@@ -1,4 +1,6 @@
+import { useNewsService } from "@services/hooks"
 import { weekObj, monthObj } from "@utils/utils"
+
 
 export default function NewsPage() {
   const date = new Date()
@@ -7,9 +9,26 @@ export default function NewsPage() {
   const dayOfMonth = date.getDate()
   const currentDate = `${weekObj[dayOfWeek]}, ${monthObj[month]} ${dayOfMonth}`
 
+  const {isLoading, news} = useNewsService()
+
+
   return (
-    <div>
-      <p className="date">{currentDate}</p>
+    <div className="news-page grid">
+      <header>
+        <span className="date">{currentDate}</span>
+      </header>
+
+      <div className="hero">
+        
+      </div>
+
+      <div className="main">
+
+      </div>
+
+      <aside className="side">
+
+      </aside>
     </div>
   )
 }

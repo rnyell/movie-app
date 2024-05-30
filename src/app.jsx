@@ -11,8 +11,8 @@ import HomePage from "@src/pages/home-page"
 import Discover from "@src/pages/discover/discover"
 import MoviesPage from "@src/pages/discover/movies-page"
 import SeriesPage from "@src/pages/discover/series-page"
-import NewsPage from "@src/pages/discover/news-page"
-import Article from "@src/pages/discover/article"
+// import NewsPage from "@src/pages/discover/news-page"
+// import Article from "@src/pages/discover/article"
 import SearchPage from "@src/pages/search-page"
 import SelectedMovie from "@src/pages/selected-movie"
 import SelectedSeries from "@src/pages/selected-series"
@@ -36,8 +36,8 @@ const routes = [{
       { path: "/discover", element: <Discover />, children: [
         { path: "/discover/movies", element: <MoviesPage /> },
         { path: "/discover/series", element: <SeriesPage /> },
-        { path: "/discover/news", element: <NewsPage /> },
-        { path: "/discover/news/:id", element: <Article /> },
+        // { path: "/discover/news", element: <NewsPage /> },
+        // { path: "/discover/news/:id", element: <Article /> },
       ] },
       { path: "/reservation", element: <Reservation /> },
       { path: "/onscreen", element: <OnScreenPage /> },
@@ -58,9 +58,9 @@ const routes = [{
 const router = createBrowserRouter(routes)
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <AppProvider>
-    <RouterProvider router={router} />
-  </AppProvider>
-  // <React.StrictMode>
-  // </React.StrictMode>
+  <React.StrictMode>
+    <AppProvider>
+      <RouterProvider router={router} />
+    </AppProvider>
+  </React.StrictMode>
 )

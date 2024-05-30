@@ -72,6 +72,10 @@
     translate: -50% 0;
   }
 
+  .overflow-none {
+    overflow: hidden;
+  }
+
   .grid {
     display: grid;
   }
@@ -234,7 +238,7 @@
 
       & section {
         margin-block: var(--space-7);
-        padding-inline: var(--space-6);
+        padding-inline: var(--space-7);
       }
     
       & section > header {

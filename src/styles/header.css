@@ -231,7 +231,7 @@
   }
 }
 
-@media (width <= 460px) {
+@media (width <= 520px) {
   .main-header {
     --icon-size-6: 1.75rem;
     position: sticky;

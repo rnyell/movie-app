@@ -1,59 +1,29 @@
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
-import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/outline"
-import { FireIconSolid } from "@src/utils/icons"
 import { useNewsService } from "@services/hooks"
+import HotNews from "./news/hot-news"
+import LatestNews from "./news/latest-news"
 
 
 export default function NewsSction() {
-  // const {isLoading, news} = useNewsService()
-  const [description, setDescription] = useState(false)
+  const {isLoading, news} = useNewsService()
+  const hotNews = isLoading ? [] : news.slice(0, 5)
+  const latestNews = isLoading ? [] : news.slice(5, 10)
 
+
+  if (isLoading) {
+    return null
+  }
 
   return (
     <section className="news-section">
       <header>
         <h3>Highlights</h3>
       </header>
-
       <div className="news-container">
-        <div className="latest-news">
-          <article>
-            <figure className="article-img">
-              <img src="https://static1.srcdn.com/wordpress/wp-content/uploads/2024/03/tony-stark-suiting-up-as-iron-man-in-iron-man.jpg?q=49&fit=crop&w=680&h=400&dpr=2" />
-            </figure>
-            <div className="article-body">
-              <h5 className="title">Robert Downey Jr. Opens Up On Potential MCU Return As Iron Man: "It&#x2019;s Too Integral A Part Of My DNA"</h5>
-              <p className="description">Despite his major ending in Avengers: Endgame, Robert Downey Jr. is more than game to return to the Marvel Cinematic Universe as Tony Stark/Iron Man.</p>
-            </div>
-          </article>
-        </div>
-        <div className="hot-news">
-          <div className="news-card ::before-abs">
-            <article>
-              <header className="article-header align-center">
-                <i className="icon fire-icon">
-                  <FireIconSolid />
-                </i>
-                <h6>Hot News</h6>
-              </header>
-              <figure className="article-img">
-                <img src="https://static1.colliderimages.com/wordpress/wp-content/uploads/2024/02/duneparttwo1.jpg?q=70&fit=contain&w=1140&h=&dpr=2" />
-              </figure>
-              <div className="article-body">
-                <h5 className="title">&#x2018;Dune: Part Two&#x2019; Is Unstoppable as it Destroys New Global Box Office Milestone</h5>
-              </div>
-            </article>
-
-            <div className="cta">
-              <div className="date">8 April</div>
-              {/* <i className="icon"><ArrowLeftIcon /></i> */}
-              <div>1/5</div>
-              <i className="icon"><ArrowRightIcon /></i>
-            </div>
-          </div>
-        </div>
+        <LatestNews latestNews={latestNews} />
+        <HotNews hotNews={hotNews} />
       </div>
       <div className="flex">
         <Link to="/discover/news">

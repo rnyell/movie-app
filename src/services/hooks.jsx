@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { getMovieDetails, getSeriesDetails } from "./movies-services"
+import { getSomeNews } from "./news-services"
 
 
 export function useMediaDetails(media, id) {

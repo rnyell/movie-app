@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
-import { Link, Outlet, useLocation } from "react-router-dom"
+import { Outlet, Link, useLocation } from "react-router-dom"
 import NewsSction from "@components/discover/news-section"
-import RecommendedSection from "@components/discover/recommended-section"
+import RecommendSection from "@components/discover/recommend-section"
 import GenreList from "@components/movie/genre-list"
 
 const intro_topics = [
@@ -10,12 +10,14 @@ const intro_topics = [
   // { href: "/discover/news", tag: "Series", desc: "Get the latest news and gossips" },
 ]
 
+
 export default function Discover() {
   const { pathname } = useLocation()
   const isNestedRoute = pathname === "/discover/movies" || pathname === "/discover/series"
-  
+
+
   return (
-    <div className="discover-page">
+    <div className="discover-page flex-col">
       {isNestedRoute ? <Outlet /> :
         <>
           <section className="intro-section">
@@ -31,8 +33,8 @@ export default function Discover() {
               ))}
             </div>
           </section>
-          <NewsSction />
-          <RecommendedSection />
+          {/* <NewsSction /> */}
+          <RecommendSection />
         </>
       }
     </div>
