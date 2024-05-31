@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react"
 
+
 export default function Row({ children, seatCounts }) {
   const [rowWidth, setRowWidth] = useState(0)
   const rowRef = useRef(250)

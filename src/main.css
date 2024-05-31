@@ -1,5 +1,5 @@
-@import "@utils/lib.css" layer(lib);
 @import "@styles/base.css" layer(base);
+@import "@utils/lib.css" layer(lib);
 
 /* pages */
 @import "@styles/pages/home-page.css" layer;
@@ -16,25 +16,25 @@
 @import "@styles/home/hero-section.css" layer;
 
 /* search */
-@import "@styles/search/filterbox.css" layer;
-@import "@styles/search/side-filter.css" layer;
-@import "@styles/search/sm-filter.css" layer;
+@import "@styles/search/filterbox.css";
+@import "@styles/search/side-filter.css";
+@import "@styles/search/sm-filter.css";
 @import "@styles/search/pagination.css";
 
 /* booking */
-@import "@styles/booking/ticket.css" layer;
+@import "@styles/booking/ticket.css";
 
 /* movie */
-@import "@styles/movie/movie-card.css" layer;
+@import "@styles/movie/movie-card.css";
 @import "@styles/movie/cards/common.css";
 @import "@styles/movie/cards/result.css";
 @import "@styles/movie/cards/overlays/primary-overlay.css";
 @import "@styles/movie/cards/overlays/secondary-overlay.css";
 @import "@styles/movie/cards/overlays/series-overlay.css";
-@import "@styles/movie/details/casts.css" layer;
-@import "@styles/movie/details/rates.css" layer;
-@import "@styles/movie/details/overview.css" layer;
-@import "@styles/movie/details/genres.css" layer;
+@import "@styles/movie/details/casts.css";
+@import "@styles/movie/details/rates.css";
+@import "@styles/movie/details/overview.css";
+@import "@styles/movie/details/genres.css";
 
 /* discover */
 /* @import "@styles/discover/news.css"; */

@@ -1,12 +1,13 @@
-import { useNavigate } from "react-router-dom"
-import { weekObjShort, monthObj } from "@utils/utils"
+import { weekObjShort, monthObj, weekObj } from "@utils/utils"
 import Day from "./day"
 
-export default function DateTime({ ticketsCount }) {
+
+export default function DateTime({ ticketsCount, price }) {
   const date = new Date()
   const month = date.getMonth()
   const dayOfWeek = date.getDay()
   const dayOfMonth = date.getDate()
+  const currentDate = `${weekObj[dayOfWeek]}, ${monthObj[month]} ${dayOfMonth}`
   const daysArray = []
 
   for (let i = 0; i <= 6; i++) {
@@ -16,23 +17,22 @@ export default function DateTime({ ticketsCount }) {
   function submitHandler(e) {
     e.preventDefault()
     const data = new FormData(e.target)
-    console.log(ticketsCount)
     console.log(Object.fromEntries(data))
   }
 
   return (
-    <div className="datetime">
-      <h2>Select Date</h2>
-      <form onSubmit={submitHandler}>
-        <div className="dates">
-          <h4>{monthObj[month]}</h4>
+    <div className="datetime flex-col">
+      <h2 className="heading">Select Date</h2>
+      <form onSubmit={submitHandler} className="flex-col">
+        <div className="dates align-center-col">
+          <h6>{currentDate}</h6>
           <div className="days">
             {daysArray.map((day, idx) => (
               <Day key={idx} dayOfWeek={day} dayOfMonth={dayOfMonth + idx} />
             ))}
           </div>
         </div>
-        <div className="times">
+        <div className="times flex-wrap">
           <label htmlFor="s-1">
             <span>11:30 AM</span>
             <input type="radio" name="time" id="s-1" value="11:30 AM" />
@@ -55,13 +55,10 @@ export default function DateTime({ ticketsCount }) {
           </label>
         </div>
 
-        <div className="cta">
+        <div className="cta align-center">
           <div>
-            <p className="price">43$</p>
-            <p className="count">
-              {ticketsCount < 2
-                ? `${ticketsCount} Ticket`
-                : `${ticketsCount} Tickets`}
+            <p className="price">$ {ticketsCount * price}</p>
+            <p className="count">{ticketsCount < 2 ? `${ticketsCount} Ticket` : `${ticketsCount} Tickets`}
             </p>
           </div>
           <button type="submit" className="buy-ticket-btn">Buy Ticket</button>

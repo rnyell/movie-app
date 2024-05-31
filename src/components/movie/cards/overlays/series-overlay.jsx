@@ -4,9 +4,8 @@ import { formatReleaseDate } from "@services/movie-utils"
 import { landCardOverlayVariants, defaultVariantsLabel } from "@utils/motions"
 import LinkButton from "@components/buttons/link-btn"
 import BookmarkButton from "@components/buttons/bookmark-btn"
-import Overview from "@components/movie/details/overview"
+// import Overview from "@components/movie/details/overview"
 import Genres from "@components/movie/details/genres"
-// import Genres from "@components/movie/details/genres"
 
 
 export default function SeriesOverlay({ result }) {
@@ -16,12 +15,12 @@ export default function SeriesOverlay({ result }) {
   const {isLoading, mediaDetails} = useMediaDetails(media, id)
 
   const {
-    name,
+    // name,
     first_air_date,
     last_air_date,
     in_production,
     number_of_seasons,
-    overview,
+    // overview,
     vote_average,
     genres
   } = mediaDetails
@@ -41,7 +40,9 @@ export default function SeriesOverlay({ result }) {
         exit={{y: -5}}
       >
         <span className="overlay-release-date">
-          {in_production ? formatReleaseDate(first_air_date) : `${formatReleaseDate(first_air_date)} ‒ ${formatReleaseDate(last_air_date)}`}
+          {(in_production || number_of_seasons === 1) ? 
+            formatReleaseDate(first_air_date) : 
+            `${formatReleaseDate(first_air_date)} ‒ ${formatReleaseDate(last_air_date)}`}
         </span>
         <i className="overlay-dot">&#x2022;</i>
         <span>{number_of_seasons} {number_of_seasons > 1 ? "Seasons" : "Season"}</span>

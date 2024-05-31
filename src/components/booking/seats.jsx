@@ -27,9 +27,10 @@ export default function Seats({ ticketsCount, setTicketsCount }) {
     return
   }
 
+
   return (
-    <div className="seats">
-      <h2>Select Your Seat</h2>
+    <div className="seats align-center-col ::after-abs">
+      <h2 className="heading">Select Your Seat</h2>
       <div className="screen">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
           <path d="M 60 340 Q 400 260 740 340 C 740 340 720 360 720 360 Q 400 260 80 360 C 80 360 60 340 60 340" />
@@ -121,7 +122,7 @@ export default function Seats({ ticketsCount, setTicketsCount }) {
         </Row>
       </div>
 
-      <div className="seats-states">
+      <div className="seats-states flex">
         <div className="reserved">
           <div className="seat-color"></div>
           <p>Reserved</p>

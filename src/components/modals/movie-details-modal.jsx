@@ -8,7 +8,7 @@ import { modalBackdropVariants, modalVariants, defaultVariantsLabel, modalTransi
 import Rates from "@components/movie/details/rates"
 import Genres from "@components/movie/details/genres"
 import Overview from "@components/movie/details/overview"
-import Casts from "../movie/details/casts"
+import Casts from "@components/movie/details/casts"
 
 
 export default function MovieDetailsModal({ result, setModal, price }) {
@@ -16,6 +16,7 @@ export default function MovieDetailsModal({ result, setModal, price }) {
   const navigate = useNavigate()
 
   const {
+    id,
     title,
     poster_path,
     backdrop_path,
@@ -30,7 +31,11 @@ export default function MovieDetailsModal({ result, setModal, price }) {
   function handleBooking() {
     navigate("/booking", {
       state: {
-        title, poster_path, backdrop_path
+        id,
+        title,
+        poster_path,
+        backdrop_path,
+        price,
       }
     })
   }

@@ -212,7 +212,6 @@
 
 .grid-container {
   & .bg-poster {
-    position: absolute;
     inset: 0;
     background-position: 50% 50%;
     border-radius: 2.75rem;

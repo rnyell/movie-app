@@ -21,7 +21,7 @@
   
     & .bg-poster {
       position: relative;
-      background-position: 50% 0;
+      /* background-position: 50% 0; */
       background-position: 50% 20%;
     }
   }

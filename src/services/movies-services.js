@@ -21,8 +21,8 @@ export const ALL_GENRES = {
   10402: "Music",
   // 10759: "Action & Adventure",
   10759: "Adventure",
-  10765: "Sci-Fi & Fantasy",
-  // 10765: "Fantasy",
+  // 10765: "Sci-Fi & Fantasy",
+  10765: "Fantasy",
   10768: "War & Politics",
   99: "Documentary",
   37: "Western",
@@ -155,8 +155,8 @@ export async function getTrendingMovies() {
 }
 
 export async function getTrendingSeries() {
-  // const path = "3/trending/tv/week"
-  const path = "3/discover/tv"
+  // const path = "3/discover/tv"
+  const path = "3/trending/tv/week"
   const params = {
     page: 1,
     language: "en-US",
@@ -250,15 +250,13 @@ export async function getAdditionalDetails(id) {
   return {ratings}
 }
 
-//+ series
+
 //+ https://developer.themoviedb.org/reference/tv-series-on-the-air-list
 //+ https://api.themoviedb.org/3/tv/{series_id}
 /*
 Note: "similar" is built by looking for items based on their keywords and genres. "recommendations" are built by looking at user ratings. Very different approaches. Similar does not tend to yield very good results.
---------------------------
 recommended movies
 Oppenheimer 872585
-Napoleon 753342
 The Batman 2022 414906
 */
 export async function getRecommendedMovies(movieId) {

@@ -11,6 +11,7 @@ export default function ScreenCard({ result, variant, idx }) {
   const [showModal, setShowModal] = useState(false)
   const navigate = useNavigate()
   const {
+    id,
     title,
     poster_path,
     backdrop_path
@@ -20,9 +21,11 @@ export default function ScreenCard({ result, variant, idx }) {
   function handleBooking() {
     navigate("/booking", {
       state: {
+        id,
         title,
         poster_path,
-        backdrop_path
+        backdrop_path,
+        price: PRICES[idx]
       }
     })
   }
