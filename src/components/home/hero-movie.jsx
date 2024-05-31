@@ -127,7 +127,7 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
           </motion.div>
           <div className="cta-btns flex">
             <WatchButton data={{id, media, prevUrl: location.pathname + location.search}} />
-            <button className="btn btn-shared info-btn" onClick={handleSelectedMovie}>
+            <button className="btn btn-shared" onClick={handleSelectedMovie}>
               <span>More Info</span>
             </button>
             <BookmarkButton item={{id, media}} />

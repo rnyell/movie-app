@@ -15,13 +15,15 @@ export default function CommonCard({ result, media, variant }) {
   const wrapperRef = useRef(null)
   const title = result.title || result.name
   const isTouchDevice = windowWidth <= 520
+  const isGenrePage = location.pathname.startsWith("/discover/movies/") || location.pathname.startsWith("/discover/series/")
+  const isScalable = !isTouchDevice && !isGenrePage
 
   useEffect(() => {
     if (cardRef.current) {
       setCardWidth(cardRef.current.offsetWidth)
     }
   }, [windowWidth, cardWidth])
-  
+
   useClickOutside(wrapperRef, hideOverlay)
 
   /* showOverlay() & hideOverlay() are created for touch devices to hide/show the overlay */
@@ -41,8 +43,8 @@ export default function CommonCard({ result, media, variant }) {
       className={`movie-card ${isTouchDevice ? "is-mobile" : ""}`}
       data-variant={variant}
       ref={cardRef}
-      style={{width: "clamp(175px, 55vw, 305px)"}}
-      whileHover={!isTouchDevice && {width: 1.15 * cardWidth}}
+      style={{width: "clamp(215px, 55vw, 300px)"}}
+      whileHover={isScalable && {width: 1.15 * cardWidth}}
       onHoverStart={() => !isTouchDevice && setCardOverlay(true)}
       onHoverEnd={() => !isTouchDevice && setCardOverlay(false)}
     >

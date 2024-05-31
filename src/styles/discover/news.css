@@ -1,7 +1,5 @@
-
-.news-section {
+/* .news-section {
   --img-radius-1: 1rem;
-  /* padding-inline: var(--space-8) !important; */
   height: auto !important;
 
   & > header {
@@ -37,7 +35,6 @@
 
       & .title {
         margin-top: var(--space-2);
-        /* max-width: 500px; */
       }
 
       & p {
@@ -191,3 +188,33 @@
     }
   }
 }
+
+@container main-container (inline-size <= 720px) {
+  .news-container {
+    flex-direction: column-reverse;
+
+    & .hot-news {
+      margin-top: 2rem;
+      margin-inline: auto;
+      width: 90%;
+      max-width: none;
+    }
+  }
+}
+
+
+@container main-container (inline-size <= 460px) {
+  .discover-page {
+    & .latest-news {
+      margin-top: 1rem;
+    }
+
+    & [href="/discover/news"] {
+      margin-top: var(--space-8);
+      margin-inline: unset;
+      padding: 1.25rem 1rem;
+      flex: 1;
+      border-radius: 1.5rem;
+    }
+  }
+} */

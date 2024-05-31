@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react"
-import { Outlet, Link, useLocation } from "react-router-dom"
-import NewsSction from "@components/discover/news-section"
+// import { useEffect, useState } from "react"
+import { Outlet, Link, useLocation, useParams } from "react-router-dom"
+// import NewsSction from "@components/discover/news-section"
 import RecommendSection from "@components/discover/recommend-section"
-import GenreList from "@components/movie/genre-list"
 
 const intro_topics = [
   { href: "/search", tag: "Search", desc: "Find your next movie or tv show to watch" },
@@ -13,30 +12,37 @@ const intro_topics = [
 
 export default function Discover() {
   const { pathname } = useLocation()
-  const isNestedRoute = pathname === "/discover/movies" || pathname === "/discover/series"
+  const { id } = useParams()
+  let isNestedRoute
+
+  if (pathname === "/discover/movies" || pathname === "/discover/series") {
+    isNestedRoute = true
+  } else if (id) {
+    isNestedRoute = true
+  }
 
 
   return (
-    <div className="discover-page flex-col">
-      {isNestedRoute ? <Outlet /> :
-        <>
-          <section className="intro-section">
-            {/* <h3>Explore Movies</h3> */}
-            <div className="boxes">
-              {intro_topics.map(elem => (
-                <Link to={elem.href} key={elem.href}>
-                  <div className="box flex-col">
-                    <p className="tag">{elem.tag}</p>
-                    <p className="desc">{elem.desc}</p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </section>
-          {/* <NewsSction /> */}
-          <RecommendSection />
-        </>
-      }
-    </div>
+    isNestedRoute ? (
+      <Outlet />
+    ) : (
+      <div className="page discover-page">
+        <section className="intro-section">
+          {/* <h3>Explore Movies</h3> */}
+          <div className="boxes">
+            {intro_topics.map(elem => (
+              <Link to={elem.href} key={elem.href}>
+                <div className="box flex-col">
+                  <p className="tag">{elem.tag}</p>
+                  <p className="desc">{elem.desc}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+        {/* <NewsSction /> */}
+        <RecommendSection />
+      </div>
+    )
   )
 }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getRecommendedMovies } from "@services"
+import { getRecommendedMovies, getRecommendedSeries } from "@services"
 import MovieCard from "@components/movie/movie-card"
 
 
@@ -13,26 +13,40 @@ export default function RecommendSection() {
   }, [])
 
   async function loadData() {
-    const data = await getRecommendedMovies(872585)
-    setRecMovies(data)
+    const movies = await getRecommendedMovies(872585)
+    const series = await getRecommendedSeries(1396)
+    setRecMovies(movies)
+    setRecSeries(series)
     setIsLoading(false)
   }
 
+
   return (
-    <section className="recommended-section">
-      <header>
-        <h4>Recommended movies</h4>
-      </header>
-      <div className="movie-list snap-x-proximity">
-        {isLoading ? <h2>loading</h2> : (
-          recMovies.map(movie => 
-            <MovieCard key={movie.id} result={movie} media="movie" variant="common" />
-          )
-        )}
-      </div>
-      <div className="movie-list snap-x-proximity">
-        
-      </div>
-    </section>
+    <>
+      <section className="recommend-section">
+        <header>
+          <h4 className="heading">Recommended movies</h4>
+        </header>
+        <div className="movie-list snap-x-proximity">
+          {isLoading ? <h2>loading</h2> : (
+            recMovies.map(movie => 
+              <MovieCard key={movie.id} result={movie} media="movie" variant="common" />
+            )
+          )}
+        </div>
+      </section>
+      <section className="recommend-section">
+        <header>
+          <h4 className="heading">Recommended movies</h4>
+        </header>
+        <div className="movie-list snap-x-proximity">
+          {isLoading ? <h2>loading</h2> : (
+            recSeries.map(movie => 
+              <MovieCard key={movie.id} result={movie} media="tv" variant="common" />
+            )
+          )}
+        </div>
+      </section>
+    </>
   )
 }

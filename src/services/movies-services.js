@@ -76,9 +76,9 @@ export const TV_GENRES = {
 }
 
 export const displayedMovieGenres = [
+  { name: "Action", id: "28" },
   { name: "Drama", id: "18" },
   { name: "Thrillers", id: "53" },
-  { name: "Action", id: "28" },
   { name: "Crime", id: "80" },
   { name: "Sci-Fi", id: "878" },
   { name: "Comedy", id: "35" },
@@ -263,6 +263,13 @@ The Batman 2022 414906
 */
 export async function getRecommendedMovies(movieId) {
   const path = `3/movie/${movieId}/recommendations`
+  const params = { language: "en-US", api_key: import.meta.env.VITE_MAIN_API_KEY }
+  const data = await request(path, params)
+  return data.results
+}
+
+export async function getRecommendedSeries(seriesId) {
+  const path = `3/tv/${seriesId}/recommendations`
   const params = { language: "en-US", api_key: import.meta.env.VITE_MAIN_API_KEY }
   const data = await request(path, params)
   return data.results

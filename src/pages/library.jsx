@@ -55,10 +55,10 @@ export default function Library() {
 
 
   return (
-    <div className="library-page">
+    <div className="page library-page">
       <section className="played-section">
         <header>
-          <h4 className="heading">Played History</h4>
+          <h2 className="heading">Played History</h2>
         </header>
         <div className="played-container container">
           {userState.played.length === 0 ? (
@@ -80,7 +80,7 @@ export default function Library() {
       <hr style={{marginInline: "auto"}} />
       <section className="watchlist-section">
         <header>
-          <h4 className="heading">Watchlist</h4>
+          <h2 className="heading">Watchlist</h2>
         </header>
         <div className="movies-container container">
           {userState.bookmarked.length === 0 ? (
@@ -104,7 +104,7 @@ export default function Library() {
       {/* <hr style={{marginInline: "auto"}} /> */}
       {/*<section className="faved-section">
         <header>
-          <h4 className="heading">Faved</h4>
+          <h2 className="heading">Faved</h2>
         </header>
         <div className="faved-container container">
           {userState.faved.length === 0 ? (

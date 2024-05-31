@@ -17,7 +17,7 @@ export default function SortDropdown({ searchStateCopy, setSearchStateCopy }) {
 
   return (
     <div
-      className={`sort-dropdown ${sortIsOpen && "is-open"}`}
+      className={`sort-dropdown ${sortIsOpen ? "is-open" : ""}`}
       ref={ref}
       onClick={() => setSortIsOpen(true)}
     >

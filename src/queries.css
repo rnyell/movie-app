@@ -3,7 +3,6 @@
 
 📢 TODO: this file will be shrinked as much as possible soon
 */
-
 /********************************************************************************************************/
 /** on home page */
 @media (width <= 520px) {
@@ -47,10 +46,6 @@
 @container home-content-container (width <= 1300px) {
   .hero-section {
     padding-inline: var(--space-6);
-  }
-
-  .sections-container {
-    /* margin-top: var(--space-8); */
   }
 
   .screen-scetion {
@@ -221,68 +216,9 @@
 }
 
 /********************************************************************************************************/
-@container main-container (inline-size <= 720px) {
-  .news-container {
-    flex-direction: column-reverse;
-
-    & .hot-news {
-      margin-top: 2rem;
-      margin-inline: auto;
-      width: 90%;
-      max-width: none;
-    }
-  }
-}
-
-
-@container main-container (inline-size <= 460px) {
-  .discover-page {
-    & .latest-news {
-      margin-top: 1rem;
-    }
-
-    & [href="/discover/news"] {
-      margin-top: var(--space-8);
-      margin-inline: unset;
-      padding: 1.25rem 1rem;
-      flex: 1;
-      /* border-radius: var(--full-rounded); */
-      border-radius: 1.5rem;
-    }
-  }
-}
-
-@container main-container (inline-size <= 400px) {
-  .discover-page {
-    & section {
-      height: clamp(250px, 45vh, 400px);
-    }
-
-    & .boxes {
-      padding-inline: 1.5rem;
-      grid-template-columns: 1fr;
-    }
-  }
-}
-
-/* isTouchDevice */
-@media (width <= 520px) {
-  .discover-page {
-    & section {
-      margin-block: var(--space-8);
-      height: auto;
-    }
-
-    & .genre-list {
-      height: auto;
-    }
-  }
-}
-
 @media (width <= 720px) {
   .onscreen-page {
     & .movies-container {
-      /* grid-template-columns: repeat(auto-fill, minmax(min(100%, 175px), 1fr)); */
       gap: 1.5rem 1.25rem;
     }
   }

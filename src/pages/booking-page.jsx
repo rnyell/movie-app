@@ -11,7 +11,7 @@ export default function BookingPage() {
   // console.log('re-render') //+ unnecessary renders after selecting seats
 
   return (
-    <div className="booking-page">
+    <div className="page booking-page">
       <header>
         <Link to={-1} className="back-btn">
           <i className="icon">

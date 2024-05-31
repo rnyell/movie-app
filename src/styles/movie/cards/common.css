@@ -4,8 +4,8 @@
 
 .movie-card[data-variant="common"] {
   flex-shrink: 0;
-  /* width: clamp(175px, 55vw, 300px); */ /* this is set inline by JS */
-  scroll-margin-left: 3px; /* related to the visibility of the left-outline. it works with 1.5px but 3px is safer */
+  /* width: clamp(215px, 56vw, 305px); */ /* this is set inline by JS */
+  scroll-margin-left: 5px; /* related to the visibility of the left-outline */
   border-radius: 1.5rem;
   outline: 1.5px solid transparent;
   outline-offset: 0;
@@ -74,6 +74,11 @@
     }
   }
 }
+
+.genre-movies-container .movie-card[data-variant="common"] {
+  width: auto !important;
+}
+
 
 @media (width <= 620px) {
   .movie-card[data-variant="common"] {

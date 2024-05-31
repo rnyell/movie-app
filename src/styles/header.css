@@ -62,7 +62,8 @@
     top: 0;
     right: 0;
     z-index: var(--z-50);
-    background-color: transparent !important;
+    /* background-color: transparent !important; */
+    background-image: linear-gradient(rgb(11 15 17 / 25%) 20%, transparent) !important;
     backdrop-filter: unset !important;
 
     & .search-box-wrapper {
@@ -169,7 +170,7 @@
     border: none;
     
     & .search-input {
-      background-color: color-mix(in srgb, var(--color-neutral-700), transparent 65%) !important;
+      background-color: color-mix(in srgb, var(--color-neutral-700), transparent 65%);
       backdrop-filter: blur(15px);
     }
 

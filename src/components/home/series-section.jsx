@@ -17,7 +17,12 @@ export default function SeriesSection() {
       <div className="draggable-wrapper">
         <div className="draggable snap-x-proximity">
           {moviesState.series.slice(0, 12).map(movie =>
-            <MovieCard result={movie} media="tv" variant="series" />
+            <MovieCard
+              key={movie.id}
+              result={movie}
+              media="tv"
+              variant="series"
+            />
           )}
         </div>
       </div>

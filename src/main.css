@@ -1,16 +1,16 @@
-/* reset, default, global, utilities */
+@import "@utils/lib.css" layer(lib);
 @import "@styles/base.css" layer(base);
 
 /* pages */
 @import "@styles/pages/home-page.css" layer;
-@import "@styles/pages/discover-page.css" layer;
+@import "@styles/pages/discover.css" layer;
 @import "@styles/pages/search-page.css" layer;
-@import "@styles/pages/library-page.css" layer;
+@import "@styles/pages/library.css" layer;
 @import "@styles/pages/reservation-page.css" layer;
 @import "@styles/pages/booking-page.css" layer;
 @import "@styles/pages/selected-movie.css" layer;
 @import "@styles/pages/selected-series.css" layer;
-@import "@styles/pages/player-page.css" layer;
+@import "@styles/pages/player.css" layer;
 
 /* home */
 @import "@styles/home/hero-section.css" layer;
@@ -26,37 +26,37 @@
 
 /* movie */
 @import "@styles/movie/movie-card.css" layer;
-@import "@styles/movie/movie-cards/common-card.css" layer;
-@import "@styles/movie/movie-cards/result-card.css" layer;
-@import "@styles/movie/movie-cards/overlays/primary-overlay.css" layer;
-@import "@styles/movie/movie-cards/overlays/secondary-overlay.css" layer;
-@import "@styles/movie/movie-cards/overlays/series-overlay.css" layer;
+@import "@styles/movie/cards/common.css";
+@import "@styles/movie/cards/result.css";
+@import "@styles/movie/cards/overlays/primary-overlay.css";
+@import "@styles/movie/cards/overlays/secondary-overlay.css";
+@import "@styles/movie/cards/overlays/series-overlay.css";
 @import "@styles/movie/details/casts.css" layer;
 @import "@styles/movie/details/rates.css" layer;
 @import "@styles/movie/details/overview.css" layer;
 @import "@styles/movie/details/genres.css" layer;
 
 /* discover */
-@import "@styles/discover/news.css";
+/* @import "@styles/discover/news.css"; */
 
 /* selected-movie */
-@import "@styles/selected-movie/shared-styles.css" layer;
-@import "@styles/selected-movie/network-logo.css" layer;
-@import "@styles/selected-movie/trailers.css" layer;
-@import "@styles/selected-movie/pictures.css" layer;
+@import "@styles/selected-movie/shared-styles.css";
+@import "@styles/selected-movie/network-logo.css";
+@import "@styles/selected-movie/trailers.css";
+@import "@styles/selected-movie/pictures.css";
 
 /* modals */
-@import "@styles/modals/movie-details-modal.css" layer;
-@import "@styles/modals/movie-info-modal.css" layer;
-@import "@styles/modals/confirm-modal.css" layer;
+@import "@styles/modals/movie-details-modal.css";
+@import "@styles/modals/movie-info-modal.css";
+@import "@styles/modals/confirm-modal.css";
 
 /* buttons */
-@import "@styles/buttons/bookmark-btn.css" layer;
-@import "@styles/buttons/bookmark-del-btn.css" layer;
-@import "@styles/buttons/link-btn.css" layer;
-@import "@styles/buttons/fave-btn.css" layer;
-@import "@styles/buttons/watch-btn.css" layer;
-@import "@styles/buttons/info-btn.css" layer;
+@import "@styles/buttons/bookmark-btn.css";
+@import "@styles/buttons/bookmark-del-btn.css";
+@import "@styles/buttons/link-btn.css";
+@import "@styles/buttons/fave-btn.css";
+@import "@styles/buttons/watch-btn.css";
+@import "@styles/buttons/info-btn.css";
 
 /* other */
 @import "@styles/header.css";

@@ -10,10 +10,10 @@ export default function Reservation() {
   const {userState} = useUserState()
 
   return (
-    <div className="reservation-page">
+    <div className="page reservation-page">
       <section className="watchlist-section">
-        <header>
-          <h4 className="heading">Reserved Tickets</h4>
+        <header className="page-header">
+          <h2 className="heading">Reserved Tickets</h2>
         </header>
         <div className="tickets-container">
           {userState.reserved.length === 0 ? (

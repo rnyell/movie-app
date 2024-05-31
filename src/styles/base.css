@@ -1,164 +1,5 @@
-@layer reset, defaults, typo, global, components, utilities;
+@layer defaults, typo, global, components;
 
-
-@layer utilities {  
-  .isolated-stack {
-    position: relative;
-    isolation: isolate;
-  }
-
-  .truncate {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-
-  .box-clamp {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    /* setting a default line-clamp */
-    -webkit-line-clamp: 3;
-  }
-
-  .unselectable {
-    pointer-events: none;
-    user-select: none;
-  }
-
-  .snap-x-proximity {
-    overflow-x: scroll;
-    scroll-snap-type: x proximity;
-    scrollbar-width: none;
-
-    /* setting a default snap-align for direct children */
-    & > * {
-      scroll-snap-align: start;
-    }
-  }
-
-  .\:\:before-abs {
-    position: relative;
-    &::before {
-      content: "";
-      position: absolute;
-    }
-  }
-
-  .\:\:after-abs {
-    position: relative;
-    &::after {
-      content: "";
-      position: absolute;
-    }
-  }
-
-  .absolute-center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    translate: -50% -50%;
-  }
-
-  .absolute-align-center {
-    position: absolute;
-    top: 50%;
-    translate: 0 -50%;
-  }
-
-  .absolute-justify-center {
-    position: absolute;
-    left: 50%;
-    translate: -50% 0;
-  }
-
-  .overflow-none {
-    overflow: hidden;
-  }
-
-  .grid {
-    display: grid;
-  }
-
-  .grid-center {
-    display: grid;
-    place-items: center;
-  }
-
-  .grid-item {
-    min-width: 0;
-  }
-
-  .flex {
-    display: flex;
-  }
-
-  .flex-wrap {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  .flex-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .flex-col-center {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .align-center {
-    display: flex;
-    align-items: center;
-  }
-
-  .justify-center {
-    display: flex;
-    justify-content: center;
-  }
-
-  .flex-col {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .align-center-col {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .justify-center-col {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .flex-item {
-    min-width: 0;
-    flex-shrink: 0;
-  }
-
-  .shrink-0 {
-    flex-shrink: 0;
-  }
-
-  .w-100 {
-    width: 100%;
-  }
-
-  .h-100 {
-    height: 100%;
-  }
-
-  .mx-center {
-    margin-inline: center;
-  }
-}
 
 @layer components {
   #root {
@@ -222,11 +63,12 @@
     grid-template-columns: auto 1fr;
 
     & main {
-      grid-column: 2 / 3;
       padding-bottom: var(--safe-space-to-scroll-bottom-nav);
       width: 100%;
+      grid-column: 2 / 3;
+      container-name: main-container;
+      container-type: inline-size;
       position: relative;
-      container: main-container / inline-size;
       overflow-x: scroll;
       scrollbar-width: none;
       display: flex;
@@ -235,25 +77,17 @@
       & > * {
         flex-shrink: 0;
       }
+    }
+  }
 
-      & section {
-        margin-block: var(--space-7);
-        padding-inline: var(--space-7);
-      }
-    
-      & section > header {
-        margin-bottom: var(--space-6);
-      }
+  .page {
+    padding-top: var(--space-6);
+    padding-inline: var(--space-7);
+    display: flex;
+    flex-direction: column;
 
-      @media (width <= 780px) {
-        section {
-
-        }
-
-        section > header {
-
-        }
-      }
+    & .page-header {
+      margin-bottom: var(--space-6);
     }
   }
 
@@ -370,7 +204,8 @@
     --icon-size-8: 2rem;
     --poster-landscape-ratio: 1.75;
     --poster-portrait-ratio: 0.665;
-    --safe-space-to-scroll-bottom-nav: 85px;
+    --side-padding: 1.75rem;
+    --safe-space-to-scroll-bottom-nav: 90px;
   }
 }
 
@@ -513,98 +348,6 @@
   }
 }
 
-@layer reset {
-  *,
-  *::after,
-  *::before {
-    margin: 0;
-    padding: 0;
-    box-sizing: inherit;
-  }
-
-  html {
-    scroll-behavior: smooth;
-  }
-
-  body {
-    box-sizing: border-box;
-  }
-
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  ul,
-  ol {
-    list-style: none;
-  }
-
-  table {
-    text-indent: 0;
-    border-color: inherit;
-    border-collapse: collapse;
-  }
-
-  input,
-  textarea,
-  select,
-  optgroup,
-  option {
-    font-family: inherit;
-    font-weight: inherit;
-    line-height: inherit;
-    color: inherit;
-    border: none;
-  }
-
-  input::placeholder,
-  textarea::placeholder {
-    font-size: inherit;
-    font-weight: inherit;
-  }
-
-  button {
-    text-align: center;
-    font-family: inherit;
-    font-size: 100%;
-    font-weight: inherit;
-    line-height: inherit;
-    color: inherit;
-    background-color: transparent;
-    background-image: none;
-    border: none;
-  }
-
-  img {
-    max-width: 100%;
-    height: auto;
-    object-fit: cover;
-  }
-
-  video {
-    max-width: 100%;
-    height: auto;
-  }
-
-  img,
-  svg,
-  canvas,
-  video,
-  audio,
-  iframe {
-    display: inline-block;
-    vertical-align: bottom;
-  }
-
-  iframe {
-    border: 0;
-  }
-
-  :where(:focus, :active) {
-    outline: none;
-  }
-}
 
 @font-face {
   font-family: Montserrat;

@@ -13,7 +13,7 @@ export default function HomePage() {
   
   useEffect(() => {
     scrollContainer.current = document.querySelector(".shared-layout main")
-  }, [])
+  }, [windowWidth])
 
   const { scrollY } = useScroll({
     container: scrollContainer,
@@ -67,7 +67,6 @@ export default function HomePage() {
           >
             <SeriesSection />
           </motion.div>
-          <div style={{height: "100px"}} />
           <div className="bg-effect" />
         </>
       ) : (

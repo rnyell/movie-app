@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { getMediaByGenre } from "@services"
 import MovieCard from "./movie-card"
 
+
 export default function GenreList({ media, genreId }) {
   const [isLoading, setIsLoading] = useState(true)
   const [results, setResults] = useState([])

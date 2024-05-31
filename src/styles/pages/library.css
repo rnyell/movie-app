@@ -1,4 +1,10 @@
 .library-page {
+  gap: 3rem;
+
+  & header {
+    margin-bottom: 1.5rem;
+  }
+
   & .container {
     padding: var(--space-10);
     padding-bottom: 4rem;

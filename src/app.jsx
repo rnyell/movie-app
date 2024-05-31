@@ -11,6 +11,7 @@ import HomePage from "@src/pages/home-page"
 import Discover from "@src/pages/discover/discover"
 import MoviesPage from "@src/pages/discover/movies-page"
 import SeriesPage from "@src/pages/discover/series-page"
+import GenrePage from "@src/pages/discover/genre-page"
 // import NewsPage from "@src/pages/discover/news-page"
 // import Article from "@src/pages/discover/article"
 import SearchPage from "@src/pages/search-page"
@@ -36,6 +37,8 @@ const routes = [{
       { path: "/discover", element: <Discover />, children: [
         { path: "/discover/movies", element: <MoviesPage /> },
         { path: "/discover/series", element: <SeriesPage /> },
+        { path: "/discover/movies/:id", element: <GenrePage /> },
+        { path: "/discover/series/:id", element: <GenrePage /> },
         // { path: "/discover/news", element: <NewsPage /> },
         // { path: "/discover/news/:id", element: <Article /> },
       ] },

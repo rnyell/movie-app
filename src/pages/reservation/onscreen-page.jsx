@@ -92,7 +92,7 @@ export default function OnScreenPage() {
 
   return (
     <div
-      className="onscreen-page"
+      className="page onscreen-page"
       ref={pageRef}
       // style={styles}
       // onMouseEnter={handlePointerEnter}
@@ -100,8 +100,8 @@ export default function OnScreenPage() {
       // onMouseLeave={handlePointerLeave}
     >
       <section>
-        <header>
-          <h4>Currently In Cinema</h4>
+        <header className="page-header">
+          <h2>Currently In Cinema</h2>
           <p>Grab Your Popcorn!🍿</p>
         </header>
         <div className="movies-container" ref={containerRef}>

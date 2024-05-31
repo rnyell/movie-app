@@ -1,10 +1,10 @@
-import CommonCard from "./movie-cards/common-card"
-import ScreenCard from "./movie-cards/screen-card"
-import SeriesCard from "./movie-cards/series-card"
-import SimilarCard from "./movie-cards/similar-card"
-import PlayedCard from "./movie-cards/played-card"
-import BookmarkedCard from "./movie-cards/bookmark-card"
-import ResultCard from "./movie-cards/result-card"
+import CommonCard from "./cards/common"
+import ResultCard from "./cards/result"
+import ScreenCard from "./cards/screen"
+import SeriesCard from "./cards/series"
+import SimilarCard from "./cards/similar"
+import PlayedCard from "./cards/played"
+import BookmarkedCard from "./cards/bookmarked"
 
 
 export default function MovieCard({ result, media, variant, ...rest }) {

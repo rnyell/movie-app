@@ -9,7 +9,7 @@ import { useMediaDetails } from "@services/hooks"
 export default function PlayerPage() {
   const videoRef = useRef(null)
   const location = useLocation()
-  const {id, media, prevUrl} = location.state
+  const {id, media} = location.state
   const {isLoading, mediaDetails} = useMediaDetails(media, id)
 
   const {title, backdrop_path} = mediaDetails
@@ -23,7 +23,7 @@ export default function PlayerPage() {
         </video> */}
         <img className="video-placeholder" src="/vhs/blue1.gif" />
         <div className="topbar align-center">
-          <Link className="btn" to={prevUrl}>
+          <Link className="btn" to={-1}>
             <i className="icon back-icon">
               <ChevronLeftIcon />
             </i>
