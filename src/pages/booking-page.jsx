@@ -1,13 +1,15 @@
-import { useState } from "react"
+import { useEffect } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { ChevronLeftIcon } from "@heroicons/outline"
 import { IMAGES_URL } from "@services"
+import { useBookingData } from "@src/store/booking-context"
 import Seats from "@components/booking/seats"
 import DateTime from "@components/booking/date-time"
 
 
+
 export default function BookingPage() {
-  const [ticketsCount, setTicketsCount] = useState(0)
+  const {ticketDispatch} = useBookingData()
   const location = useLocation()
   const {
     id,
@@ -16,6 +18,16 @@ export default function BookingPage() {
     backdrop_path,
     price
   } = location.state
+
+  useEffect(() => {
+    ticketDispatch({
+      type: "select_movie",
+      id,
+      title,
+      poster: poster_path,
+      price,
+    })
+  }, [])
 
 
   return (
@@ -33,8 +45,9 @@ export default function BookingPage() {
         <h1 className="movie-title">{title}</h1>
       </header>
       <section>
-        <Seats ticketsCount={ticketsCount} setTicketsCount={setTicketsCount} />
-        <DateTime ticketsCount={ticketsCount} price={price} />
+        <Seats />
+        <hr />
+        <DateTime />
       </section>
     </div>
   )

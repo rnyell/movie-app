@@ -2,10 +2,10 @@ import { motion } from "framer-motion"
 import { formatReleaseDate } from "@services/movie-utils"
 import { portraitCardOverlayVariants, defaultVariantsLabel } from "@utils/motions"
 import Overview from "@components/movie/details/overview"
-import BookmarkButton from "@components/buttons/bookmark-btn"
-import BookmarkDeleteButton from "@components/buttons/bookmark-del-btn"
-import InfoButton from "@components/buttons/info-btn"
-import LinkButton from "@components/buttons/link-btn"
+import BookmarkButton from "@components/ui/buttons/bookmark-btn"
+import BookmarkDeleteButton from "@components/ui/buttons/bookmark-del-btn"
+import InfoButton from "@components/ui/buttons/info-btn"
+import LinkButton from "@components/ui/buttons/link-btn"
 
 
 export default function SecondaryOverlay({ result, variant, ...rest }) {

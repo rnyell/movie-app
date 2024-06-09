@@ -6,10 +6,10 @@ import { IMAGES_URL } from "@services"
 import { useMediaDetails } from "@services/hooks"
 import { getMovieGenres, getMovieDirector, formatReleaseDate } from "@services/movie-utils"
 import { defaultVariantsLabel } from "@utils/motions"
-import { HeroMovieLoadingSkeleton } from "@components/skeletons"
+import { HeroMovieLoadingSkeleton } from "@components/ui/skeletons"
 import Casts from "@components/movie/details/casts"
-import BookmarkButton from "@components/buttons/bookmark-btn"
-import WatchButton from "@components/buttons/watch-btn"
+import BookmarkButton from "@components/ui/buttons/bookmark-btn"
+import WatchButton from "@components/ui/buttons/watch-btn"
 import Rates from "@components/movie/details/rates"
 
 

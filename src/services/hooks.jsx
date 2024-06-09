@@ -20,11 +20,15 @@ export function useMediaDetails(media, id) {
   }
 
   useEffect(() => {
+    const controller = new AbortController()
+
     if (media === "movie") {
       loadMovieDetails()
     } else if (media === "tv") {
       loadSeriesDetails()
     }
+
+    return () => controller.abort()
   }, [id])
 
   return {isLoading, mediaDetails}
@@ -36,7 +40,10 @@ export function useNewsService() {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
+    const controller = new AbortController()
     fetchNews()
+
+    return () => controller.abort()
   }, [])
   
   async function fetchNews() {

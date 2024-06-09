@@ -21,8 +21,7 @@
     }
   }
 
-  & .bell-icon,
-  & .login-link {
+  & .bell-icon {
     margin-inline: var(--space-1);
   }
 

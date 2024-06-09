@@ -56,7 +56,7 @@
 }
 
 @layer global {
-  .shared-layout {
+  .main-layout {
     height: 100vh;
     overflow: hidden;
     display: grid;
@@ -76,6 +76,14 @@
 
       & > * {
         flex-shrink: 0;
+      }
+    }
+
+    @media (width <= 520px) {
+      grid-template-columns: 1fr;
+
+      & main {
+        grid-column: unset;
       }
     }
   }

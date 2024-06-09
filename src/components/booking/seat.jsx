@@ -1,31 +1,28 @@
 import { useState } from "react"
+import { isValidSeatSeletion, reservedSeatsNumbers } from "@services/placeholder-data"
+import { useBookingData } from "@src/store/booking-context"
 
 
-export default function Seat({
-  seatSelecttHandler,
-  validSeatSeletion,
-  reservedSeatsNumbers,
-  id,
-  dx,
-  dy,
-}) {
-  const [select, setSelect] = useState(false)
+export default function Seat({ id, dx, dy }) {
+  const {ticketData, ticketDispatch} = useBookingData()
+  const [isSelected, setIsSelected] = useState(false)
 
   function selectedHandler(id) {
-    if (validSeatSeletion(id)) {
-      setSelect(!select)
-      seatSelecttHandler(id, select)
+    if (isValidSeatSeletion(id)) {
+      setIsSelected(!isSelected)
+      ticketDispatch({
+        type: "select_seat",
+        seatNumber: id,
+      })
     }
   }
 
+
   return (
     <div
-      onClick={() => selectedHandler(id)}
-      className={`
-        seat ${select ? "selected" : ""}
-        ${reservedSeatsNumbers.includes(id) && "reserved"}
-      `}
+      className={`seat ${reservedSeatsNumbers.has(id) ? "reserved" : "available"} ${isSelected ? "selected" : ""}`}
       style={{ "--dx": dx, "--dy": `${dy}deg` }}
+      onClick={() => selectedHandler(id)}
     ></div>
   )
 }

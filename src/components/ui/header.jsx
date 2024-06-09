@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { UserCircleIcon, BellIcon } from "@heroicons/outline"
 import SearchBox from "./search-box"
-import { SideMenu } from "./menus"
+import SideMenu from "./menus/sidemenu"
 
 
 export default function Header({ hasSearchbox = true }) {
@@ -51,11 +51,11 @@ export default function Header({ hasSearchbox = true }) {
         <i className="icon bell-icon">
           <BellIcon />
         </i>
-        <button className="btn login-link">
+        {/* <button className="btn login-link">
           <i className="icon user-icon">
             <UserCircleIcon />
           </i>
-        </button>
+        </button> */}
       </div>
       <AnimatePresence>
         {isOpen && <SideMenu setIsOpen={setIsOpen} />}

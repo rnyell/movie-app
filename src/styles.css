@@ -1,5 +1,5 @@
 @import "@styles/base.css" layer(base);
-@import "@utils/lib.css" layer(lib);
+@import "@utils/utilities.css" layer(utilities);
 
 /* pages */
 @import "@styles/pages/home-page.css" layer;
@@ -45,24 +45,22 @@
 @import "@styles/selected-movie/trailers.css";
 @import "@styles/selected-movie/pictures.css";
 
-/* modals */
-@import "@styles/modals/movie-details-modal.css";
-@import "@styles/modals/movie-info-modal.css";
-@import "@styles/modals/confirm-modal.css";
+/* ui */
+@import "@styles/ui/buttons/bookmark-btn.css";
+@import "@styles/ui/buttons/bookmark-del-btn.css";
+@import "@styles/ui/buttons/link-btn.css";
+@import "@styles/ui/buttons/fave-btn.css";
+@import "@styles/ui/buttons/watch-btn.css";
+@import "@styles/ui/buttons/info-btn.css";
+@import "@styles/ui/modals/movie-details-modal.css";
+@import "@styles/ui/modals/movie-info-modal.css";
+@import "@styles/ui/modals/confirm-modal.css";
+@import "@styles/ui/menus/sidenav.css";
+@import "@styles/ui/menus/sidemenu.css";
+@import "@styles/ui/header.css";
+@import "@styles/ui/errors.css";
+@import "@styles/ui/skeletons.css";
 
-/* buttons */
-@import "@styles/buttons/bookmark-btn.css";
-@import "@styles/buttons/bookmark-del-btn.css";
-@import "@styles/buttons/link-btn.css";
-@import "@styles/buttons/fave-btn.css";
-@import "@styles/buttons/watch-btn.css";
-@import "@styles/buttons/info-btn.css";
-
-/* other */
-@import "@styles/header.css";
-@import "@styles/menus.css";
-@import "@styles/errors.css";
-@import "@styles/skeletons.css";
 
 /* media/conrainer queries */
-@import "@src/queries.css";
+@import "@styles/queries.css";

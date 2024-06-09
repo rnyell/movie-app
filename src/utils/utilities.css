@@ -1,7 +1,4 @@
-/* @layer utilities; */
-
-
-@layer utilities {  
+@layer utilities {
   .isolated-stack {
     position: relative;
     isolation: isolate;
@@ -51,6 +48,10 @@
       content: "";
       position: absolute;
     }
+  }
+
+  .absolute {
+    position: absolute;
   }
 
   .absolute-center {

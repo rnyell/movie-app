@@ -9,15 +9,15 @@ export default function SearchBox({ dataset }) {
   const [userInput, setUserInput] = useState("")
   const inputRef = useRef(null)
   const boxRef = useRef(null)
-  const [params, setParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams()
   const navigate = useNavigate()
   const location = useLocation()
 
   useClickOutside(boxRef, handleClickOutside)
 
   useEffect(() => {
-    if (params.get("query")) {
-      setUserInput(params.get("query").replaceAll("-", " "))
+    if (searchParams.get("query")) {
+      setUserInput(searchParams.get("query").replaceAll("-", " "))
     } else {
       setUserInput("")
     }
@@ -30,13 +30,13 @@ export default function SearchBox({ dataset }) {
   function handleSearchMovie(title) {
     if (title && dataset.includes("default")) {
       navigate("/search")
-      setParams({query: title, page: 1})
+      setSearchParams({query: title, page: 1})
       return
     } else if (title && dataset.includes("stretched")) {
-      setParams({query: title, page: 1})
+      setSearchParams({query: title, page: 1})
       return
     } else if (title && dataset.includes("animated")) {
-      setParams({query: title, page: 1})
+      setSearchParams({query: title, page: 1})
       return
     }
   }

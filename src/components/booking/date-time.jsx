@@ -1,8 +1,17 @@
+import { useState, useEffect, useRef } from "react"
 import { weekObjShort, monthObj, weekObj } from "@utils/utils"
+import { useBookingData } from "@src/store/booking-context"
 import Day from "./day"
+import Ticket from "./ticket"
 
 
-export default function DateTime({ ticketsCount, price }) {
+export default function DateTime() {
+  const {ticketData, ticketDispatch} = useBookingData()
+  const {count, price} = ticketData
+  const [showTicket, setShowTicket] = useState(false)
+  const seatsRef = useRef(null)
+  const formRef = useRef(null)
+
   const date = new Date()
   const month = date.getMonth()
   const dayOfWeek = date.getDay()
@@ -14,16 +23,38 @@ export default function DateTime({ ticketsCount, price }) {
     daysArray.push(weekObjShort[(dayOfWeek + i) % 7])
   }
 
+  useEffect(() => {
+    seatsRef.current = document.querySelector(".seats .wrapper")
+  }, [])
+
   function submitHandler(e) {
     e.preventDefault()
-    const data = new FormData(e.target)
-    console.log(Object.fromEntries(data))
+    const formData = new FormData(e.target)
+    const selectedDate = formData.get("date")
+    const selectedTime = formData.get("time")
+    console.log(ticketData)
+    ticketDispatch({
+      type: "select_datetime",
+      date: selectedDate,
+      time: selectedTime
+    })
+
+    if (ticketData.count === 0) {
+      seatsRef.current.classList.add("invalid")
+      return
+    } else if (selectedDate === null || selectedTime === null) {
+      formRef.current.classList.add("invalid")
+      return
+    }
+  
+    setShowTicket(true)
   }
+
 
   return (
     <div className="datetime flex-col">
       <h2 className="heading">Select Date</h2>
-      <form onSubmit={submitHandler} className="flex-col">
+      <form onSubmit={submitHandler} className="flex-col" ref={formRef}>
         <div className="dates align-center-col">
           <h6>{currentDate}</h6>
           <div className="days">
@@ -32,7 +63,7 @@ export default function DateTime({ ticketsCount, price }) {
             ))}
           </div>
         </div>
-        <div className="times flex-wrap">
+        <div className="times flex">
           <label htmlFor="s-1">
             <span>11:30 AM</span>
             <input type="radio" name="time" id="s-1" value="11:30 AM" />
@@ -57,13 +88,15 @@ export default function DateTime({ ticketsCount, price }) {
 
         <div className="cta align-center">
           <div>
-            <p className="price">$ {ticketsCount * price}</p>
-            <p className="count">{ticketsCount < 2 ? `${ticketsCount} Ticket` : `${ticketsCount} Tickets`}
+            <p className="price">${count * price}</p>
+            <p className="count">{count < 2 ? `${count} Ticket` : `${count} Tickets`}
             </p>
           </div>
           <button type="submit" className="buy-ticket-btn">Buy Ticket</button>
         </div>
       </form>
+
+      {showTicket && <Ticket setModal={setShowTicket} />}
     </div>
   )
 }

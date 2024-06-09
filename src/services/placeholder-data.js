@@ -25,9 +25,7 @@ const availabeSeatsNumbers = updatedSeats
   .filter((seat) => (!seat.isReserved ? seat.id : null))
   .map((seat) => seat.id);
 
-reservedSeatsNumbers = [...reservedSeatsNumbers];
-
-function validSeatSeletion(id) {
+function isValidSeatSeletion(id) {
   if (availabeSeatsNumbers.includes(id)) {
     return true;
   } else {
@@ -50,6 +48,6 @@ export {
   updatedSeats,
   reservedSeatsNumbers,
   availabeSeatsNumbers,
-  validSeatSeletion,
+  isValidSeatSeletion,
   PRICES,
 };

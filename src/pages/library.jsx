@@ -5,7 +5,7 @@ import { useUserState } from "@src/store/app-context"
 import MovieCard from "@components/movie/movie-card"
 import EmptyHistory from "@components/library/empty-history"
 import EmptyWatchlist from "@components/library/empty-watchlist"
-import ConfirmModal from "@components/modals/confirm-modal"
+import ConfirmModal from "@components/ui/modals/confirm-modal"
 
 /*
 TODO:

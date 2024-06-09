@@ -12,7 +12,7 @@ export default function HomePage() {
   const heroWrapper = useRef(null)
   
   useEffect(() => {
-    scrollContainer.current = document.querySelector(".shared-layout main")
+    scrollContainer.current = document.querySelector(".main-layout main")
   }, [windowWidth])
 
   const { scrollY } = useScroll({

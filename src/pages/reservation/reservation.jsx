@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
 import { readLocalStorage } from "@utils/utils"
 import { getMovieDetails } from "@services"
 import { useUserState } from "@src/store/app-context"
@@ -8,6 +7,9 @@ import EmptyTickets from "@components/library/empty-tickets"
 
 export default function Reservation() {
   const {userState} = useUserState()
+  const r = readLocalStorage("reserved")
+  console.log(r)
+
 
   return (
     <div className="page reservation-page">
@@ -16,10 +18,10 @@ export default function Reservation() {
           <h2 className="heading">Reserved Tickets</h2>
         </header>
         <div className="tickets-container">
-          {userState.reserved.length === 0 ? (
+          {userState.reserved?.length === 0 ? (
             <EmptyTickets />
           ) : (
-            userState.reserved.map(res => 
+            userState.reserved?.map(res => 
               <div className="ticket">
                 <h6>{res.title}</h6>
                 <div></div>

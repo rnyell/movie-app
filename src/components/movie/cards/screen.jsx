@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { IMAGES_URL } from "@services"
 import { PRICES } from "@services/placeholder-data"
-import InfoButton from "@components/buttons/info-btn"
-import MovieDetailsModal from "@components/modals/movie-details-modal"
+import InfoButton from "@components/ui/buttons/info-btn"
+import MovieDetailsModal from "@components/ui/modals/movie-details-modal"
 
 
 export default function ScreenCard({ result, variant, idx }) {

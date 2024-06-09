@@ -5,7 +5,7 @@ import { EllipsisIcon } from "@utils/icons"
 import { IMAGES_URL } from "@services"
 import { formatReleaseDate } from "@services/movie-utils"
 import { useWindowOffsets, useClickOutside } from "@utils/hooks"
-import MovieInfoModal from "@components/modals/movie-info-modal"
+import MovieInfoModal from "@components/ui/modals/movie-info-modal"
 import SecondaryOverlay from "./overlays/secondary-overlay"
 
 

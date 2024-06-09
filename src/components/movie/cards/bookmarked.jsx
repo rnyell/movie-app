@@ -3,8 +3,8 @@ import { motion, AnimatePresence, useAnimate } from "framer-motion"
 import { IMAGES_URL } from "@services"
 import { useMediaDetails } from "@services/hooks"
 import { useUserState } from "@src/store/app-context"
-import { PortraitCardLoading } from "@components/skeletons"
-import ConfirmModal from "@components/modals/confirm-modal"
+import { PortraitCardLoading } from "@components/ui/skeletons"
+import ConfirmModal from "@components/ui/modals/confirm-modal"
 import SecondaryOverlay from "./overlays/secondary-overlay"
 
 

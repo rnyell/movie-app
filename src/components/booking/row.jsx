@@ -2,8 +2,8 @@ import { useEffect, useState, useRef } from "react"
 
 
 export default function Row({ children, seatCounts }) {
-  const [rowWidth, setRowWidth] = useState(0)
   const rowRef = useRef(250)
+  const [rowWidth, setRowWidth] = useState(0)
 
   useEffect(() => {
     setRowWidth(rowRef.current.clientWidth)
@@ -14,6 +14,7 @@ export default function Row({ children, seatCounts }) {
   function handleResize() {
     setRowWidth(rowRef.current.clientWidth)
   }
+
 
   return (
     <div

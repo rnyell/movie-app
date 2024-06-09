@@ -4,15 +4,20 @@ import { useWindowOffsets } from "@utils/hooks"
 import { filterResults, sortResults } from "@utils/utils"
 import { getAllResults } from "@services"
 import { useSearch } from "@src/store/search-context"
-import Header from "@components/header"
-import AnimatedHeaedr from "@components/search/animated-header"
+import Header from "@components/ui/header"
+import AnimatedHeader from "@components/ui/animated-header"
 import FilterBox from "@components/search/toolbar/filterbox"
 import SearchResults from "@components/search/search-results"
 
 
+const searchStateInitial = {
+  results: [{}],
+  pages: 0
+}
+
 export default function SearchPage() {
   const {searchState, searchDispatch, searchOptions} = useSearch()
-  const [searchStateCopy, setSearchStateCopy] = useState({results: [], pages: 0})
+  const [searchStateCopy, setSearchStateCopy] = useState(searchStateInitial)
   const {windowWidth} = useWindowOffsets()
   const isLgScreen = windowWidth >= 620
   const [isLoading, setIsLoading] = useState(true)
@@ -26,7 +31,7 @@ export default function SearchPage() {
       loadResults()
     }
   }, [location])
-  
+
   async function loadResults() {
     setIsLoading(true)
     const title = query
@@ -79,7 +84,7 @@ export default function SearchPage() {
 
   return (
     <div className="search-page">
-      {isLgScreen ? <Header /> : <AnimatedHeaedr />}
+      {isLgScreen ? <Header /> : <AnimatedHeader />}
       <aside data-screen={isLgScreen ? "lg-screen" : "sm-screen"}>
         <FilterBox searchStateCopy={searchStateCopy} setSearchStateCopy={setSearchStateCopy} />
       </aside>

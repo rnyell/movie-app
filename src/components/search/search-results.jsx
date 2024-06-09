@@ -3,9 +3,9 @@ import { motion } from "framer-motion"
 import { devideItemsIntoPages, generatePagination } from "@utils/utils"
 import { useSearch } from "@src/store/search-context"
 import MovieCard from "@components/movie/movie-card"
-import Pagination from "@components/search/pagination"
-import { SearchResultsSkeleton } from "@components/skeletons"
-import { NotFoundResult } from "@components/errors"
+import Pagination from "@components/ui/pagination"
+import { SearchResultsSkeleton } from "@components/ui/skeletons"
+import { NotFoundResult } from "@components/ui/errors"
 
 
 export default function SearchResults({ isLoading, searchStateCopy }) {

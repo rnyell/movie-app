@@ -3,8 +3,8 @@ import { AnimatePresence } from "framer-motion"
 import { useGeoLocation } from "@utils/hooks"
 import { readLocalStorage } from "@utils/utils"
 import { getPopularMovies, getOnScreenMovies, getTrendingMovies, getTrendingSeries } from "@services"
-import { InitialLoading, AppLoading } from "@components/skeletons"
-import { VPNError } from "@components/errors"
+import { InitialLoading, AppLoading } from "@components/ui/skeletons"
+import { VPNError } from "@components/ui/errors"
 
 
 const UserContext = createContext()
@@ -20,16 +20,16 @@ export function useMoviesState() {
 
 
 function userStateInitializer() {
-  const reserved = readLocalStorage("reserved") ?? []
   const played = readLocalStorage("played") ?? []
   const bookmarked = readLocalStorage("bookmarked") ?? []
+  const reserved = readLocalStorage("reserved") ?? []
 
   return {
     name: "guest",
     country: "unknown",
-    reserved,
     played,
-    bookmarked
+    bookmarked,
+    reserved,
   }
 }
 
@@ -39,27 +39,6 @@ function userStateReducer(state, action) {
       return {
         ...state,
         country: action.country
-      }
-    }
-    case "reserved": {
-      const info = {
-        id: action.id,
-        title: action.title,
-        imgUrl: action.imgUrl,
-        count: action.count,
-        price: action.price,
-        place: action.place
-      }
-      return {
-        ...state,
-        reserved: [...state.reserved, info],
-      }
-    }
-    case "cancel_reserved": {
-      const filtered = state.reserved.filter(res => res.id !== action.id)
-      return {
-        ...state,
-        reserved: [...filtered],
       }
     }
     case "played": {
