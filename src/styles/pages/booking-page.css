@@ -39,7 +39,7 @@
     margin-top: 2rem;
     padding-inline: var(--space-6);
     display: flex;
-    align-items: center;
+    /* align-items: center; */
 
     & > * {
       width: 50%;
@@ -100,9 +100,10 @@
     padding-block: 1rem;
 
     &.invalid {
-      outline: 1px solid red;
+      outline: 1px solid transparent;
       outline-offset: 5px;
       border-radius: 1rem;
+      animation: invalid-state 0.75ms ease;
     }
   }
   
@@ -188,7 +189,7 @@
       width: 0.725rem;
       height: 0.725rem;
       justify-self: end;
-      border-radius: 9999px;
+      border-radius: var(--full-rounded)
     }
   
     & .available .seat-color {
@@ -209,10 +210,21 @@
   }
 }
 
+@keyframes invalid-state {
+  0% {
+    outline-color: transparent;
+    translate: 100px 0;
+  }
+
+  100% {
+    outline-color: crimson;
+  }
+}
+
 
 .datetime {
   margin-inline: auto;
-  padding: 1.5rem 0;
+  padding: 1.5rem 6px;
   overflow: hidden;
   border-radius: 2rem;
 
@@ -221,10 +233,13 @@
     text-align: center;
     color: var(--color-neutral-300);
   }
+
+  & .empty-space {
+    height: 100px;
+  }
 }
 
 .datetime form {
-  margin-top: 1rem;
   gap: 1rem;
 
   &.invalid {
@@ -377,6 +392,16 @@
         display: block;
       }
     }
+
+    .datetime {
+      & .empty-space {
+        height: auto;
+      }
+
+      & form {
+        margin-top: 1rem;
+      }
+    }
   }
 }
 
@@ -390,4 +415,10 @@
       }
     }
   }
+}
+
+.ticket {
+  padding: 1rem;
+  width: clamp(340px, 55vw, 440px);
+  gap: 1rem;
 }

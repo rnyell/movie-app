@@ -48,7 +48,7 @@ export default function SeriesCard({ result, variant }) {
         <div className={`details align-center ${isTouchDevice ? "is-mobile" : ""}`}>
           <h4 className="title truncate">{result.name}</h4>
           {isTouchDevice ? (
-            <button className="btn ellipsis-btn" onClick={() => setCardOverlay(!cardOverlay)}>
+            <button className="btn ellipsis-btn" type="button" onClick={() => setCardOverlay(!cardOverlay)}>
               <i className="icon">
                 {/* {!cardOverlay ? <EllipsisIcon /> : <XMarkIcon />} //? doesn't work */}
                 <EllipsisIcon />

@@ -89,8 +89,12 @@ function SwiperCard({
   }
 
   const backsTransition = {
-    scale: { duration: 0.2 },
-    opacity: { duration: 0.4 }
+    scale: {
+      duration: 0.2,
+    },
+    opacity: {
+      duration: 0.4,
+    }
   }
 
   function handleDragEnd(_, info) {
@@ -114,9 +118,7 @@ function SwiperCard({
 
   return (
     <motion.div
-      className={
-        `swiper-card ${isFront ? "front-card" : null}`
-      }
+      className={`swiper-card ${isFront ? "front-card" : null}`}
       style={{
         x: xTranslate,
         rotate,

@@ -6,7 +6,7 @@ import { IMAGES_URL } from "@services"
 import { useMediaDetails } from "@services/hooks"
 
 
-export default function PlayerPage() {
+export default function Player() {
   const videoRef = useRef(null)
   const location = useLocation()
   const {id, media} = location.state

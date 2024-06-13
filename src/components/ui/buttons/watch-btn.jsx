@@ -2,12 +2,12 @@ import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { PlayIcon } from "@heroicons/solid"
 import { useLocalStorage } from "@utils/hooks"
-import { useUserState } from "@src/store/app-context"
+import { useUserContext } from "@src/store/user-context"
 
 
 export default function WatchButton({ data }) {
   const {id, media, prevUrl} = data
-  const {userState, userDispatch} = useUserState()
+  const {userState, userDispatch} = useUserContext()
   const [, setPlayedLS] = useLocalStorage("played", userState.played)
   const navigate = useNavigate()
 
@@ -23,7 +23,7 @@ export default function WatchButton({ data }) {
 
 
   return (
-    <button className="btn watch-btn" onClick={playMovie}>
+    <button className="btn watch-btn" type="button" onClick={playMovie}>
       <i className="icon">
         <PlayIcon />
       </i>

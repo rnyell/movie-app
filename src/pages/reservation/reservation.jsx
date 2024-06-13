@@ -1,15 +1,9 @@
-import { useEffect, useState } from "react"
-import { readLocalStorage } from "@utils/utils"
-import { getMovieDetails } from "@services"
-import { useUserState } from "@src/store/app-context"
-import EmptyTickets from "@components/library/empty-tickets"
+import { readLocalStorage, monthObj } from "@utils/utils"
+import EmptyTickets from "@components/account/empty-tickets"
 
 
-export default function Reservation() {
-  const {userState} = useUserState()
-  const r = readLocalStorage("reserved")
-  console.log(r)
-
+export default function Tickets() {
+  const reservedMovies = readLocalStorage("reserved")
 
   return (
     <div className="page reservation-page">
@@ -18,13 +12,15 @@ export default function Reservation() {
           <h2 className="heading">Reserved Tickets</h2>
         </header>
         <div className="tickets-container">
-          {userState.reserved?.length === 0 ? (
+          {reservedMovies?.length === 0 ? (
             <EmptyTickets />
           ) : (
-            userState.reserved?.map(res => 
-              <div className="ticket">
-                <h6>{res.title}</h6>
-                <div></div>
+            reservedMovies?.map(res => 
+              <div className="ticket flex-col">
+                <h5 className="title">{res.title}</h5>
+                <div className="date-time">{res.date} {monthObj[new Date().getMonth()]} | {res.time}</div>
+                <div>{res.count} {`${res.count > 1 ? "Seats" : "Seat"}`}</div>
+                <div>{res.seats.map(seat => <span key={seat}>{seat}</span>)}</div>
               </div>
             )
           )}

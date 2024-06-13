@@ -31,7 +31,10 @@ export function writeLocalStorage(key, value) {
 
 
 export function strCapitalizer(word) {
-  return word.split(" ").map(el => el.substring(0, 1).toUpperCase() + el.substring(1, el.length)).join(" ")
+  return word
+    .split(" ")
+    .map(el => el.substring(0, 1).toUpperCase() + el.substring(1, el.length))
+    .join(" ")
 }
 
 

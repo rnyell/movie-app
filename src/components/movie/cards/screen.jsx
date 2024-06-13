@@ -53,7 +53,7 @@ export default function ScreenCard({ result, variant, idx }) {
           <span className="price">${PRICES[idx]}</span>
         </div>
         <div className="cta-btns flex">
-          <button className="btn book-btn" onClick={handleBooking}>Book Now</button>
+          <button className="btn book-btn" type="button" onClick={handleBooking}>Book Now</button>
           <InfoButton setModal={setShowModal} />
         </div>
       </div>

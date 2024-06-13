@@ -1,14 +1,11 @@
-import { useRef, useState } from "react"
+import { useState } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { motion, AnimatePresence, useAnimate } from "framer-motion"
-import { useWindowOffsets, useClickOutside } from "@utils/hooks"
 import {
   HomeIcon,
   TicketIcon,
   FilmIcon,
   TvIcon,
-  BookmarkIcon,
-  Squares2X2Icon,
   Cog6ToothIcon,
   UserCircleIcon,
 } from "@heroicons/outline"
@@ -17,86 +14,39 @@ import {
   TicketIcon as TicketIconSolid,
   FilmIcon as FilmIconSolid,
   TvIcon as TvIconSolid,
-  BookmarkIcon as BookmarkIconSolid,
   Squares2X2Icon as Squares2X2IconSolid,
 } from "@heroicons/solid"
 import { CompasIconSolid, CompasIcon, WideChevronLeftIcon } from "@src/utils/icons"
 import logo from "@src/assets/logo.png"
 
+import { useWindowOffsets } from "@utils/hooks"
+import { breakpoints } from "@src/utils/configs"
+import AccountDropdown from "@components/ui/account-dropdown"
+
 
 const lg_links = [
-  { tag: "Home", href: "/", icon: <HomeIcon /> },
-  { tag: "Discover", href: "/discover", icon: <CompasIcon /> },
-  { tag: "Movies", href: "/discover/movies", icon: <FilmIcon /> },
-  { tag: "TV Shows", href: "/discover/series", icon: <TvIcon /> },
-  { tag: "Reservation", href: "/reservation", icon: <TicketIcon /> },
-  // { tag: null, href: null, icon: null },
-  { tag: "Library", href: "/library", icon: <BookmarkIcon /> },
-  { tag: "Settings", href: "/setting", icon: <Cog6ToothIcon /> },
-  { tag: "Log In", href: "", icon: <UserCircleIcon /> },
+  { tag: "Home", href: "/", type: "link", icon: <HomeIcon />, activeIcon: <HomeIconSolid /> },
+  { tag: "Discover", href: "/discover", type: "link", icon: <CompasIcon />, activeIcon: <CompasIconSolid /> },
+  { tag: "Movies", href: "/discover/movies", type: "link", icon: <FilmIcon />, activeIcon: <FilmIconSolid /> },
+  { tag: "TV Shows", href: "/discover/series", type: "link", icon: <TvIcon />, activeIcon: <TvIconSolid /> },
+  { tag: "Tickets", href: "/tickets", type: "link", icon: <TicketIcon />, activeIcon: <TicketIconSolid /> },
+  // { tag: "Settings", href: "/setting", type: "button", icon: <Cog6ToothIcon />, activeIcon:  },
 ]
-
-const sm_links = [
-  { tag: "TV Shows", href: "/discover/series", element: Link, icon: <TvIcon /> },
-  { tag: "Movies", href: "/discover/movies", element: Link, icon: <FilmIcon /> },
-  { tag: "Home", href: "/", element: Link, icon: <HomeIcon /> },
-  { tag: "Discover", href: "/discover", element: Link, icon: <CompasIcon /> },
-  { tag: "", href: null, element: "div", icon: <Squares2X2Icon /> },
-]
-
-const sub_links = [
-  { tag: "Reservation", href: "/reservation", icon: <TicketIcon /> },
-  { tag: "Library", href: "/library", icon: <BookmarkIcon /> }
-]
-
-const lg_solid_icons = [
-  <HomeIconSolid />,
-  <CompasIconSolid />,
-  <FilmIconSolid />,
-  <TvIconSolid />,
-  <TicketIconSolid />,
-  <BookmarkIconSolid />
-]
-
-const sm_solid_icons = [
-  <TvIconSolid />,
-  <FilmIconSolid />,
-  <HomeIconSolid />,
-  <CompasIconSolid />,
-  <Squares2X2IconSolid />
-]
-
-const breakpoints = {
-  xs: 460,
-  sm: 520,
-  md: 760,
-  lg: 1300,
-  xl: 1540,
-}
 
 
 export default function SideNav() {
+  const location = useLocation()
   const {windowWidth} = useWindowOffsets()
+  const isCollapsable = windowWidth < breakpoints.md ? false : true
   const [sidenavRef, animate] = useAnimate()
   const [isCollapsed, setIsCollapsed] = useState(false)
-  const isCollapsable = windowWidth < breakpoints.md ? false : true
-  const [showSubMenu, setShowSubMenu] = useState(false)
-  const submenuLinkRef = useRef(null)
-  const location = useLocation()
   const sidenavWidth = {
     open: windowWidth > breakpoints.lg ?
       "min(235px, 20vw)" : 
       windowWidth > breakpoints.md ? 
       "min(215px, 22vw)" : 
-      windowWidth > breakpoints.sm ?
-      "auto" : "92%",
+      "auto",
     collapsed: "auto",
-  }
-
-  useClickOutside(sidenavRef, handleClickOutside)
-
-  function handleClickOutside() {
-    setShowSubMenu(false)
   }
 
   function toggleSidenav() {
@@ -114,9 +64,11 @@ export default function SideNav() {
 
   return (
     <motion.div
-      className={`sidenav ${isCollapsed ? "is-collapsed" : ""}`}
+      className="menu"
+      data-variant="sidenav"
+      data-state={isCollapsed}
       ref={sidenavRef}
-      // layout
+      // layout="size"
       animate={isCollapsed ? {width: sidenavWidth.collapsed} : {width: sidenavWidth.open}}
       transition={{duration: 0.25, type: "tween", ease: [0.17, 0.67, 0.83, 0.67]}}
     >
@@ -127,82 +79,29 @@ export default function SideNav() {
           </i>
         </button>
       )}
-      {windowWidth > breakpoints.sm && (
-        <div className="logo-wrapper">
-          <img className="logo" src={logo} />
-          {windowWidth > breakpoints.md && <p className="tagline">Your Dad's Best Movie App</p>}
-        </div>
-      )}
+      <div className="logo-wrapper">
+        <img className="logo" src={logo} draggable={false} />
+        {windowWidth > breakpoints.md && <p className="tagline unselectable">Your Dad's Best Movie App</p>}
+      </div>
       <nav className="nav-links">
-        {windowWidth > 520
-          ? lg_links.map((link, idx) => {
-              const isActive = location.pathname === link.href
-              return (
-                <Link
-                  to={link.href}
-                  key={link.href}
-                  className={`link ${isActive && "is-active"}`}
-                >
-                  <i className="icon">{isActive ? lg_solid_icons[idx] : link.icon}</i>
-                  <p className="link-tag">
-                    {link.tag}
-                  </p>
-                </Link>
-            )})
-          : sm_links.map((link, idx) => {
-              const isSquares = sm_links.length - 1 === idx
-              const isActive = location.pathname === link.href
-              const Element = link.element
-              return (
-                <Element
-                  ref={isSquares ? submenuLinkRef : null}
-                  to={link.href}
-                  key={link.href}
-                  className={`link ${
-                    isActive && "is-active"
-                  }`}
-                  onClick={() => { isSquares && setShowSubMenu(!showSubMenu) }}
-                >
-                  <i className="icon">{isActive ? sm_solid_icons[idx] : link.icon}</i>
-                  <p className="link-tag">{link.tag}</p>
-                  {isActive && <div className="indicator-dot" />}
-                  {<AnimatePresence>
-                    {isSquares && showSubMenu && <SubMenu setShowSubMenu={setShowSubMenu} />}
-                  </AnimatePresence>}
-                </Element>
-              )
-            })}
+        {lg_links.map(link => {
+          const isActive = location.pathname === link.href
+
+          return (
+            <Link
+              className={`link ${isActive && "is-active"}`}
+              to={link.href}
+              key={link.href}
+            >
+              <i className="icon">{isActive ? link.activeIcon : link.icon}</i>
+              <p className="link-tag">
+                {link.tag}
+              </p>
+            </Link>
+          )
+        })}
+        <AccountDropdown />
       </nav>
-    </motion.div>
-  );
-}
-
-
-function SubMenu() {
-  return (
-    <motion.div 
-      className="submenu"
-      initial={{ y: 50, opacity: 0.6 }}
-      animate={{ y: 0, opacity: 1 }}
-      exit={{
-        y: 60,
-        opacity: 0.1,
-        transition: {
-          type: "tween",
-          duration: 0.15
-        }
-      }}
-    >
-      {sub_links.map(link =>
-        <Link
-          to={link.href}
-          key={link.href}
-          className="link sub-link"
-        >
-          <i className="icon">{link.icon}</i>
-          <p className="link-tag">{link.tag}</p>
-        </Link>
-      )}
     </motion.div>
   )
 }

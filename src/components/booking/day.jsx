@@ -1,7 +1,7 @@
 export default function Day({ dayOfWeek, dayOfMonth }) {
   const dateObject = {
     toString() {
-      return `${dayOfWeek}: ${dayOfMonth}`;
+      return `${dayOfWeek}, ${dayOfMonth}`;
     },
   };
 

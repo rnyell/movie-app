@@ -26,12 +26,12 @@ export default function LatestNews({ latestNews }) {
           <figure className="article-img">
             <img src={latestNews[index]?.urlToImage} />
             <div className="btns justify-center">
-              <button className="btn prev-btn" onClick={showPrevNews}>
+              <button className="btn prev-btn" type="button" onClick={showPrevNews}>
                 <i className="icon">
                   <ArrowLeftIcon />
                 </i>
               </button>
-              <button className="btn" onClick={showNextNews}>
+              <button className="btn" type="button" onClick={showNextNews}>
                 <i className="icon">
                   <ArrowRightIcon />
                 </i>

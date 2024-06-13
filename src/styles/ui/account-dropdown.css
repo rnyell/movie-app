@@ -1,0 +1,160 @@
+.account-dropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  & .user-avatar {
+    width: 2rem;
+    border-radius: var(--full-rounded);
+  }
+}
+
+[data-variant="sidenav"] .account-dropdown {
+  margin-block: auto 1rem;
+  padding: 1rem;
+  width: 100%;
+  justify-items: start;
+  gap: 0.75rem;
+  background-color: var(--color-neutral-750);
+  border-radius: 1rem;
+  transition: background-color var(--duration-1) ease-in;
+  /* border: 1.2px solid var(--color-neutral-650); */
+
+  & > * {
+    flex-shrink: 0;
+  }
+
+  & .user-name {
+    font-size: min(0.75rem, 16px); /* same as `.link-tag` of the `sidenav` */
+  }
+
+  & .icon {
+    margin-left: auto;
+    width: var(--icon-size-5);
+  }
+
+  &:hover {
+    background-color: var(--color-neutral-650);
+  }
+}
+
+
+.account-dropdown-options {
+  padding: 0.25rem;
+  width: 100%;
+  left: 0;
+  bottom: 108%;
+  z-index: var(--z-50);
+  background-color: var(--color-neutral-750);
+  border-radius: 1rem;
+  border: 1.2px solid var(--color-neutral-650);
+  cursor: default;
+
+  & .options {
+    gap: 0.325rem;
+  }
+
+  & .option {
+    padding: 0.675rem 1rem;
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    grid-auto-rows: min(var(--icon-size-5), 18px);
+    justify-items: start;
+    align-items: center;
+    gap: 0.75rem;
+    border-radius: 0.75rem;
+
+    & svg {
+      width: 1.125rem;
+    }
+
+    & .tag {
+      font-size: min(0.725rem, 15px);
+    }
+
+    &:hover {
+      background-color: var(--color-neutral-700);
+    }
+
+    &:last-child {
+      color: var(--color-red-600);
+    }
+  }
+}
+
+.side-menu .account-dropdown {
+  display: none;
+}
+
+.main-header .account-dropdown,
+.main-header .link {
+  display: none;
+}
+
+@media (width <= 520px) {
+  .main-header .link {
+    display: block;
+
+    & .icon {
+      padding: var(--space-2);
+      color: var(--color-neutral-350);
+      border-radius: var(--full-rounded);
+
+      & svg {
+        width: var(--icon-size-6);
+      }
+    }
+
+    & .link-tag {
+      display: none;
+    }
+  }
+
+  .main-header .account-dropdown {
+    padding: var(--space-2);
+    display: block;
+    border-radius: var(--full-rounded);
+    transition: background-color var(--duration-1) ease-in;
+
+    & .user-name,
+    & > .icon {
+      display: none;
+    }
+
+    &:hover {
+      background-color: var(--color-neutral-600);
+    }
+
+    & .account-dropdown-options {
+      padding: 0.5rem;
+      width: 145px;
+      bottom: unset;
+      left: unset;
+      top: 110%;
+      right: 0;
+      border-radius: 1.175rem;
+
+      & .options {
+        gap: 0.5rem;
+      }
+      
+      & .option {
+        padding: 0.75rem 1rem;
+        border-radius: 0.675rem;
+      }
+
+      & .icon {
+        padding: 0;
+      }
+
+      & svg {
+        width: 15px;
+      }
+  
+      & .tag {
+        font-size: 12px;
+      }
+    }
+  }
+}

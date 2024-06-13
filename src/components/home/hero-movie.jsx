@@ -127,7 +127,7 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
           </motion.div>
           <div className="cta-btns flex">
             <WatchButton data={{id, media, prevUrl: location.pathname + location.search}} />
-            <button className="btn btn-shared" onClick={handleSelectedMovie}>
+            <button className="btn btn-shared" type="button" onClick={handleSelectedMovie}>
               <span>More Info</span>
             </button>
             <BookmarkButton item={{id, media}} />
@@ -144,10 +144,10 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
             <Casts casts={credits.cast} mode="drawer" />
           </div>
           <div className="next-prev-btns">
-            <button className="btn btn-shared" onClick={() => showPrevMovie(1)}>
+            <button className="btn btn-shared" type="button" onClick={() => showPrevMovie(1)}>
               <ChevronLeftIcon />
             </button>
-            <button className="btn btn-shared" onClick={() => showNextMovie(1)}>
+            <button className="btn btn-shared" type="button" onClick={() => showNextMovie(1)}>
               <ChevronRightIcon />
             </button>
           </div>

@@ -201,6 +201,7 @@
     --color-orange-500: rgb(255 165 00);
     --color-red-300: rgb(182 38 43);
     --color-red-500: rgb(151 28 32);
+    --color-red-600: brown;
     --color-aliceblue-200: rgb(240 248 255);
   
     --rgb-opaque-dark: (11 15 17);
@@ -251,7 +252,7 @@
   }
 
   h3 {
-    font-size: 1.35rem;
+    font-size: 1.375rem;
     font-weight: 500;
   }
 

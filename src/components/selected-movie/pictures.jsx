@@ -21,7 +21,7 @@ export default function Pictures({ images }) {
             <img src={`${IMAGES_URL}w500${img.file_path}`} />
           </figure>
         ))}
-        <button className="btn photo-btn" onClick={() => setIsOpen(true)}>
+        <button className="btn photo-btn" type="button" onClick={() => setIsOpen(true)}>
           <div className="icon"><PhotoIcon /></div>
           <span>More Images</span>
         </button>
@@ -91,7 +91,7 @@ function Gallery({ images, setModal }) {
         {...defaultVariantsLabel}
         transition={{duration: 0.35, ease: "easeOut"}}
       >
-        <button className="btn close-btn" onClick={() => setModal(false)}>
+        <button className="btn close-btn" type="button" onClick={() => setModal(false)}>
           <i className="icon"><XMarkIcon /></i>
         </button>
         <h3>Gallery</h3>

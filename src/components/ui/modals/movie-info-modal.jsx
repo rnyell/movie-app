@@ -72,8 +72,8 @@ export default function MovieInfoModal({ result, media, setModal }) {
           <Overview text={overview} />
           <Casts moda="names" />
           <div className="btns flex">
-            <button className="btn dismiss-btn" onClick={() => setModal(false)}>Dismiss</button>
-            <button className="btn info-btn" onClick={handleNavigation}>See More</button>
+            <button className="btn dismiss-btn" type="button" onClick={() => setModal(false)}>Dismiss</button>
+            <button className="btn info-btn" type="button" onClick={handleNavigation}>See More</button>
           </div>
         </div>
       </motion.div>

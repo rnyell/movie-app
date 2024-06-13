@@ -47,7 +47,7 @@ export default function PlayedCard({ result, media, variant }) {
             exit={{ opacity: 0 }}
             transition={{ type: "tween", duration: 0.2, ease: "easeOut" }}
           >
-            <button className="btn justify-center" onClick={handleRewatch}>
+            <button className="btn justify-center" type="button" onClick={handleRewatch}>
               <i className="icon">
                 <PlayIcon />
               </i>

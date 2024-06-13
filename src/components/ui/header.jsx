@@ -1,16 +1,17 @@
 import { useState, useEffect } from "react"
 import { useLocation } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
-import { UserCircleIcon, BellIcon } from "@heroicons/outline"
+import { BellIcon } from "@heroicons/outline"
+import AccountDropdown from "./account-dropdown"
 import SearchBox from "./search-box"
 import SideMenu from "./menus/sidemenu"
 
 
 export default function Header({ hasSearchbox = true }) {
-  const [isOpen, setIsOpen] = useState(false)
-  const [dataset, setDataset] = useState("default")
   const location = useLocation()
   const pathname = location.pathname
+  const [isOpen, setIsOpen] = useState(false)
+  const [dataset, setDataset] = useState("default")
 
   /* TODO: better ways to handle dataset for searchbox */
   useEffect(() => {
@@ -31,18 +32,7 @@ export default function Header({ hasSearchbox = true }) {
   return (
     <header className="main-header align-center" data-set={dataset}>
       {(dataset.includes("stretched") || dataset.includes("animated")) && (
-        <i className="icon hamber-icon flex-col-center" onClick={() => setIsOpen(!isOpen)}>
-          <motion.span
-            className="line"
-            style={{height: 1.5, width: 20, y: -1}}
-            animate={isOpen ? {rotateZ: 45, y: 1} : {rotateZ: 0}}
-          ></motion.span>
-          <motion.span
-            className="line"
-            style={{marginRight: "auto", height: 1.5, width: 16, y: 1.5}}
-            animate={isOpen ? {rotateZ: -45, width: 20, y: -1.5} : {rotateZ: 0}}
-          ></motion.span>
-        </i>
+        <HamberIcon setIsOpen={setIsOpen} isOpen={isOpen} />
       )}
       <div className="search-box-wrapper flex-item">
         <SearchBox dataset={dataset} />
@@ -51,15 +41,28 @@ export default function Header({ hasSearchbox = true }) {
         <i className="icon bell-icon">
           <BellIcon />
         </i>
-        {/* <button className="btn login-link">
-          <i className="icon user-icon">
-            <UserCircleIcon />
-          </i>
-        </button> */}
+        <AccountDropdown />
       </div>
       <AnimatePresence>
         {isOpen && <SideMenu setIsOpen={setIsOpen} />}
       </AnimatePresence>
     </header>
+  )
+}
+
+function HamberIcon({setIsOpen, isOpen}) {
+  return (
+    <i className="icon hamber-icon flex-col-center" onClick={() => setIsOpen(!isOpen)}>
+      <motion.span
+        className="line"
+        style={{height: 1.5, width: 20, y: -1}}
+        animate={isOpen ? {rotateZ: 45, y: 1} : {rotateZ: 0}}
+      />
+      <motion.span
+        className="line"
+        style={{marginRight: "auto", height: 1.5, width: 16, y: 1.5}}
+        animate={isOpen ? {rotateZ: -45, width: 20, y: -1.5} : {rotateZ: 0}}
+      />
+    </i>
   )
 }

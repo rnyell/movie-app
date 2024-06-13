@@ -14,17 +14,14 @@ import {
 } from "@heroicons/outline"
 import { CompasIcon } from "@src/utils/icons"
 import logo from "@src/assets/logo.png"
+import AccountDropdown from "../account-dropdown"
 
 const links = [
   { tag: "Home", href: "/", icon: <HomeIcon /> },
   { tag: "Discover", href: "/discover", icon: <CompasIcon /> },
   { tag: "Movies", href: "/discover/movies", icon: <FilmIcon /> },
   { tag: "TV Shows", href: "/discover/series", icon: <TvIcon /> },
-  { tag: "Reservation", href: "/reservation", icon: <TicketIcon /> },
-  { tag: null, href: null, icon: null },
-  { tag: "Library", href: "/library", icon: <BookmarkIcon /> },
-  { tag: "Settings", href: "/setting", icon: <Cog6ToothIcon /> },
-  // { tag: "Log In", href: "", icon: <UserCircleIcon /> },
+  { tag: "Tickets", href: "/tickets", icon: <TicketIcon /> },
 ]
 
 export default function SideMenu({ setIsOpen }) {
@@ -47,7 +44,7 @@ export default function SideMenu({ setIsOpen }) {
         transition={{duration: 0.2}}
         onClick={() => setIsOpen(false)}
       />
-      <motion.div
+      <motion.aside
         className="side-menu"
         initial={{x: "-100%", opacity: 0.65}}
         animate={{x: 0, opacity: 1}}
@@ -57,30 +54,25 @@ export default function SideMenu({ setIsOpen }) {
         <div className="logo-wrapper align-center">
           <img src={logo} className="logo" />
         </div>
-        <nav className="menu-links">
-          <div className="group group-1 flex-col">
-            {links.map(link => {
-              const isDividerLine = link.href === null
-              if (isDividerLine) {
-                return <hr />
-              } else return (
-                <Link
-                  className="link"
-                  key={link.href}
-                  to={link.href}
-                >
-                  <i className="icon">{link.icon}</i>
-                  <p className="link-tag">{link.tag}</p>
-                </Link>
-              )
-            })}
-          </div>
+        <nav className="menu-links flex-col">
+          {links.map(link => (
+            <Link
+              className="link"
+              key={link.href}
+              to={link.href}
+            >
+              <i className="icon">{link.icon}</i>
+              <p className="link-tag">{link.tag}</p>
+            </Link>
+          ))}
+          <hr />
+          <AccountDropdown />
           <div className="empty-link" />
           <div className="footer unselectable">
             <span>Dad's Best Movie App</span>
           </div>
         </nav>
-      </motion.div>
+      </motion.aside>
     </>,
     document.getElementById("portal")
   )

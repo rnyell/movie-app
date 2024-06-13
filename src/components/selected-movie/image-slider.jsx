@@ -144,11 +144,11 @@ export default function ImageSlider({ images, currIndex, setCurrIndex, setModal 
       {...defaultVariantsLabel}
       transition={modalTransition}
     >
-      <button className="btn close-btn" onClick={() => setModal(false)}>
+      <button className="btn close-btn" type="button" onClick={() => setModal(false)}>
         <i className="icon"><XMarkIcon /></i>
       </button>
       <div className="selected-image-container">
-        <button className="btn prev-btn absolute-align-center" onClick={() => showPrevImage(1)}>
+        <button className="btn prev-btn absolute-align-center" type="button" onClick={() => showPrevImage(1)}>
           <i className="icon">
             <ChevronLeftIcon />
           </i>
@@ -156,7 +156,7 @@ export default function ImageSlider({ images, currIndex, setCurrIndex, setModal 
         <figure>
           <img className="selected-image" src={`${IMAGES_URL}original${images[currIndex].file_path}`} />
         </figure>
-        <button className="btn next-btn absolute-align-center" onClick={() => showNextImage(1)}>
+        <button className="btn next-btn absolute-align-center" type="button" onClick={() => showNextImage(1)}>
           <i className="icon">
             <ChevronRightIcon />
           </i>

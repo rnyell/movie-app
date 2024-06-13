@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
 import { BookmarkIcon } from "@heroicons/outline"
 import { useLocalStorage } from "@utils/hooks"
-import { useUserState } from "@src/store/app-context"
+import { useUserContext } from "@src/store/user-context"
 
 
 export default function BookmarkButton({ item }) {
   const {id, media} = item
-  const {userState, userDispatch} = useUserState()
+  const {userState, userDispatch} = useUserContext()
   const [, setBookmarkedLS] = useLocalStorage("bookmarked", userState.bookmarked)
   const [isBookmarked, setIsBookmarked] = useState()
 
@@ -37,6 +37,7 @@ export default function BookmarkButton({ item }) {
   return (
     <button
       className={`main-btn bookmark-btn ${isBookmarked ? "is-bookmarked" : null}`}
+      type="button"
       onClick={bookmarkMovie}
     >
       <i className="icon">

@@ -6,7 +6,8 @@
     margin-inline: auto var(--space-6);
   }
 
-  & .icon:not(.search-icon) {
+  & .bell-icon,
+  & .hamber-icon {
     padding: var(--space-2);
     color: var(--color-neutral-350);
     border-radius: var(--full-rounded);
@@ -21,8 +22,8 @@
     }
   }
 
-  & .bell-icon {
-    margin-inline: var(--space-1);
+  & .icons {
+    gap: 0.325rem;
   }
 
   & .hamber-icon {

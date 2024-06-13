@@ -4,10 +4,10 @@ import { useBookingData } from "@src/store/booking-context"
 
 
 export default function Seat({ id, dx, dy }) {
-  const {ticketData, ticketDispatch} = useBookingData()
+  const {ticketDispatch} = useBookingData()
   const [isSelected, setIsSelected] = useState(false)
 
-  function selectedHandler(id) {
+  function handleSeatSelection(id) {
     if (isValidSeatSeletion(id)) {
       setIsSelected(!isSelected)
       ticketDispatch({
@@ -17,12 +17,11 @@ export default function Seat({ id, dx, dy }) {
     }
   }
 
-
   return (
     <div
       className={`seat ${reservedSeatsNumbers.has(id) ? "reserved" : "available"} ${isSelected ? "selected" : ""}`}
       style={{ "--dx": dx, "--dy": `${dy}deg` }}
-      onClick={() => selectedHandler(id)}
-    ></div>
+      onClick={() => handleSeatSelection(id)}
+    />
   )
 }

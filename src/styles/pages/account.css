@@ -1,14 +1,29 @@
-.library-page {
+.account {
   gap: 3rem;
 
   & header {
     margin-bottom: 1.5rem;
+
+    & .option-btn {
+      margin-inline: auto 1rem;
+      padding: 0.2rem;
+      border-radius: 0.5rem;
+      background-color: var(--color-neutral-700);
+
+      & svg {
+        width: var(--icon-size-5);
+      }
+
+      &:hover {
+        background-color: var(--color-neutral-600);
+      }
+    }
   }
 
   & .container {
     padding: var(--space-10);
     padding-bottom: 4rem;
-    background-color: color-mix(in srgb, rgb(37 40 42 / 75%), rgb(47 137 227 / 50%) 10%);
+    background-color: rgb(36 49 59 / 0.5);
     border-radius: 2rem;
     box-shadow: 0 5px 2rem rgb(11 15 17 / 20%);
   }

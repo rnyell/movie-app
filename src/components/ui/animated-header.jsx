@@ -45,7 +45,7 @@ export default function AnimatedHeader() {
           width: "100%",
           position: "fixed",
           top: 0,
-          zIndex: "100",
+          zIndex: "105",
         }}
       >
         <Header hasSearchbox={false} />

@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { HeartIcon } from "@heroicons/outline"
 import { useLocalStorage } from "@utils/hooks"
-import { useUserState } from "@src/store/app-context"
+import { useUserContext } from "@src/store/user-context"
 
 
 export default function FaveButton() {
@@ -11,6 +11,7 @@ export default function FaveButton() {
   return (
     <button
       className={`btn fave-btn ${isFaved ? "is-faved" : ""}`}
+      type="button"
       onClick={() => setIsFaved(!isFaved)}
     >
       <i className="icon">

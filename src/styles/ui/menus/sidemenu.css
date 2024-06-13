@@ -31,9 +31,6 @@ body:has(.side-menu) {
 
   & .menu-links {
     margin-top: 1rem;
-  }
-
-  & .group {
     gap: 0.25rem;
   }
 
@@ -78,7 +75,7 @@ body:has(.side-menu) {
   .side-menu {
     padding: 0.625rem;
 
-    & .group {
+    & .menu-links {
       gap: 0.4rem;
     }
   }

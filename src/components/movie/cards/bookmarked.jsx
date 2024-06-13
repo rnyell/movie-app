@@ -2,7 +2,7 @@ import { useState } from "react"
 import { motion, AnimatePresence, useAnimate } from "framer-motion"
 import { IMAGES_URL } from "@services"
 import { useMediaDetails } from "@services/hooks"
-import { useUserState } from "@src/store/app-context"
+import { useUserContext } from "@src/store/user-context"
 import { PortraitCardLoading } from "@components/ui/skeletons"
 import ConfirmModal from "@components/ui/modals/confirm-modal"
 import SecondaryOverlay from "./overlays/secondary-overlay"
@@ -11,7 +11,7 @@ import SecondaryOverlay from "./overlays/secondary-overlay"
 export default function BookmarkedCard({ result, media, variant }) {
   /* result-> id: number */
   const {mediaDetails, isLoading} = useMediaDetails(media, result)
-  const {userDispatch} = useUserState()
+  const {userDispatch} = useUserContext()
   const [cardOverlay, setCardOverlay] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const [scope, animate] = useAnimate()

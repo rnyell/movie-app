@@ -9,7 +9,7 @@ export default function DateTime() {
   const {ticketData, ticketDispatch} = useBookingData()
   const {count, price} = ticketData
   const [showTicket, setShowTicket] = useState(false)
-  const seatsRef = useRef(null)
+  // const seatsRef = useRef(null)
   const formRef = useRef(null)
 
   const date = new Date()
@@ -24,7 +24,7 @@ export default function DateTime() {
   }
 
   useEffect(() => {
-    seatsRef.current = document.querySelector(".seats .wrapper")
+    // seatsRef.current = document.querySelector(".seats .wrapper")
   }, [])
 
   function submitHandler(e) {
@@ -32,7 +32,6 @@ export default function DateTime() {
     const formData = new FormData(e.target)
     const selectedDate = formData.get("date")
     const selectedTime = formData.get("time")
-    console.log(ticketData)
     ticketDispatch({
       type: "select_datetime",
       date: selectedDate,
@@ -40,20 +39,20 @@ export default function DateTime() {
     })
 
     if (ticketData.count === 0) {
-      seatsRef.current.classList.add("invalid")
-      return
+      // seatsRef.current.classList.add("invalid")
     } else if (selectedDate === null || selectedTime === null) {
-      formRef.current.classList.add("invalid")
-      return
+      // formRef.current.classList.add("invalid")
+    } else {
+      setShowTicket(true)
+      ticketDispatch({ type: "confirm_ticket" })
     }
-  
-    setShowTicket(true)
   }
 
 
   return (
     <div className="datetime flex-col">
       <h2 className="heading">Select Date</h2>
+      <div className="empty-space" />
       <form onSubmit={submitHandler} className="flex-col" ref={formRef}>
         <div className="dates align-center-col">
           <h6>{currentDate}</h6>

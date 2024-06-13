@@ -1,4 +1,5 @@
 import { createContext, useContext, useReducer } from "react"
+import { writeLocalStorage, readLocalStorage } from "@utils/utils"
 
 const BookingCntext = createContext(null)
 
@@ -54,13 +55,22 @@ function ticketReducer(state, action) {
         time: action.time,
       }
     }
+    case "confirm_ticket": {
+      const reserved = readLocalStorage("reserved")
+      if (reserved) {
+        writeLocalStorage("reserved", [...reserved, state])
+      } else {
+        writeLocalStorage("reserved", [state])
+      }
+
+      return { ...state }
+    }
   }
 }
 
 
 export default function BookingProvider({ children }) {
   const [ticketData, ticketDispatch] = useReducer(ticketReducer, initialTicketData)
-  console.log(ticketData)
 
   return (
     <BookingCntext.Provider value={{ticketData, ticketDispatch}}>

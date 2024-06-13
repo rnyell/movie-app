@@ -48,7 +48,7 @@ const reducer = (state, action) => {
 }
 
 
-export default function OnScreenPage() {
+export default function ScreenMovies() {
   const [moviesState] = useMoviesState()
   const [pointer, dispatch] = useReducer(reducer, initialPosition)
   const pageRef = useRef(null)
@@ -92,7 +92,7 @@ export default function OnScreenPage() {
 
   return (
     <div
-      className="page onscreen-page"
+      className="page screen-movies"
       ref={pageRef}
       // style={styles}
       // onMouseEnter={handlePointerEnter}

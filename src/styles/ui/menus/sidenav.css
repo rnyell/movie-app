@@ -1,4 +1,25 @@
-.sidenav {
+.menu {
+  & .nav-links {
+    display: flex;
+  }
+  
+  & .link {
+    position: relative;
+    border-radius: 0.5rem;
+    transition: background-color var(--duration-2);
+
+    &:hover {
+      color: var(--color-neutral-300);
+      background-color: var(--color-neutral-700);
+    }
+
+    &.is-active {
+      color: var(--color-neutral-200);
+    }
+  }
+}
+
+[data-variant="sidenav"] {
   grid-column: 1 / 2;
   padding: 0.75rem 0.875rem;
   height: 100vh;
@@ -7,6 +28,7 @@
   flex-direction: column;
   color: var(--color-neutral-350);
 
+  /* roles as border-right */
   &::after {
     content: "";
     width: 1.5px;
@@ -15,37 +37,12 @@
     right: -0.75px; /* (width ÷ 2) */
     top: 50%;
     translate: 0 -50%;
-    background-image: linear-gradient(180deg, transparent, var(--color-neutral-600), transparent);
-  }
-
-  &.is-collapsed {
-    & .toggle-btn {
-      top: 5.5rem;
-    }
-
-    & .logo-wrapper {
-      background-color: unset;
-      gap: 0;
-
-      & .tagline {
-        display: none;
-      }
-    }
-  
-    & .nav-links {
-      gap: var(--space-3);
-    }
-  
-    & .link {
-      grid-template-columns: max-content 0;
-      gap: 0;
-    }
+    background-image: linear-gradient(180deg, transparent, var(--color-neutral-500), transparent);
   }
 
   & .logo-wrapper {
     padding-inline: 0.5rem;
     flex-basis: 15%;
-    /* width: 100%; */
     position: relative;
     display: grid;
     grid-auto-flow: column;
@@ -56,7 +53,6 @@
     border-radius: 1rem;
 
     & .logo {
-      /* width: min(5rem, 42px); */
       width: 2rem;
     }
 
@@ -76,7 +72,7 @@
     transition: background-color var(--duration-1);
 
     & svg {
-      width: var(--icon-size-5);
+      width: var(--icon-size-4);
     }
 
     &:hover {
@@ -87,42 +83,23 @@
   & .nav-links {
     flex: 1 1;
     margin-top: var(--space-8);
-    display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: var(--space-2);
   }
 
-  & hr {
-    width: 95%;
-    border-top: 2px solid var(--color-neutral-600);
-  }
-
   & .link {
     padding: 0.625rem var(--space-4);
     width: 100%;
-    position: relative;
     display: grid;
     grid-template-columns: max-content 1fr;
     grid-auto-rows: min(var(--icon-size-5), 18px);
     justify-items: start;
     align-items: center;
     gap: var(--space-3);
-    border-radius: 0.5rem;
-    transition: background-color var(--duration-2);
 
-    &.is-active {
-      color: var(--color-neutral-200);
-      background-color: var(--color-neutral-600);
-
-      /* & svg {
-        stroke-width: 1pt;
-        stroke-miterlimit: 10;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-        stroke-dasharray: 400;
-        animation: stroks 1s reverse ease-out;
-      } */
+    &:last-child {
+      margin-block: auto 1rem;
     }
 
     & svg {
@@ -133,53 +110,44 @@
       font-size: min(0.75rem, 16px);
     }
 
-    /* selecting last two link: `settings` and `login/account` */
-    &:nth-last-child(2) {
-      margin-top: auto;
-    }
-
-    &:nth-last-child(1) {
-      margin-bottom: 1rem;
-    }
-
-    &:hover {
-      color: var(--color-neutral-300);
+    &.is-active {
       background-color: var(--color-neutral-650);
     }
   }
 
-  & .submenu {
-    padding: var(--space-2);
-    position: absolute;
-    z-index: var(--z-10);
-    bottom: 115%;
-    right: -1rem;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-    background-color: color-mix(in srgb, var(--color-neutral-700) 90%, transparent);
-    backdrop-filter: blur(15px);
-    border-radius: 1rem;
-    
-    &::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-    }
+  /* & hr {
+    width: 95%;
+    border-top: 2px solid var(--color-neutral-600);
+  } */
+}
 
-    & .sub-link {
-      grid-template-columns: max-content 1fr !important;
-      justify-items: start !important;
-    }
+.menu[data-state="true"] {
+  & .toggle-btn {
+    top: 5.5rem;
+  }
 
-    & .link-tag {
-      display: block !important;
+  & .logo-wrapper {
+    background-color: unset;
+    gap: 0;
+
+    & .tagline {
+      display: none;
     }
+  }
+
+  & .nav-links {
+    gap: var(--space-3);
+  }
+
+  & .link {
+    grid-template-columns: max-content 0;
+    gap: 0;
   }
 }
 
+
 @media (width <= 760px) {
-  .sidenav {
+  [data-variant="sidenav"] {
     & .logo-wrapper {
       background-color: unset;
       gap: 0;
@@ -200,66 +168,16 @@
   }
 }
 
-@media (width <= 520px) {
-  .sidenav {
-    height: unset;
-    position: fixed;
-    z-index: var(--z-100);
-    bottom: 0;
-    left: 50%;
-    translate: -50% 0;
-    border-radius: 3.5rem;
-    
-    &::after {
-      display: none;
-    }
-
-    &::before {
-      content: "";
-      position: absolute;
-      z-index: var(--z-0);
-      inset: 0;
-      background-color: color-mix(in srgb, var(--color-neutral-700) 85%, transparent);
-      backdrop-filter: blur(30px);
-      border-radius: 3.5rem;
-    }
-
-    & .nav-links {
-      margin-top: unset;
-      flex-direction: row;
-      justify-content: space-around;
-    }
-  
-    & .link {
-      padding: var(--space-3);
-      width: unset;
-      background-color: unset;
-      color: var(--color-neutral-400);
-  
-      &.is-active {
-        background-color: transparent;
-      }
-  
-      & .indicator-dot {
-        position: absolute;
-        width: 4px;
-        height: 4px;
-        bottom: -1.15px;
-        left: 50%;
-        translate: -50% 0;
-        border-radius: 100%;
-        background-color: var(--color-neutral-300);
-      }
-  
-      & svg {
-        width: var(--icon-size-6);
-      }
-    }
-  }
-}
-
-@keyframes stroks {
+/* & svg {
+  stroke-width: 1pt;
+  stroke-miterlimit: 10;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 400;
+  animation: stroks 1s reverse ease-out;
+} */
+/* @keyframes stroks {
   100% {
     stroke-dashoffset: 400;
   }
-}
+} */

@@ -92,8 +92,8 @@ export default function MovieDetailsModal({ result, setModal, price }) {
           </div>
           <div className="btns align-center">
             <span className="price unselectable">${price}</span>
-            <button className="btn dismiss-btn" onClick={() => setModal(false)}>Dismiss</button>
-            <button className="btn buy-btn" onClick={handleBooking}>Buy Ticket</button>
+            <button className="btn dismiss-btn" type="button" onClick={() => setModal(false)}>Dismiss</button>
+            <button className="btn buy-btn" type="button" onClick={handleBooking}>Buy Ticket</button>
           </div>
         </div>
       </motion.div>

@@ -18,7 +18,7 @@
   }
 }
 
-.onscreen-page {
+.screen-movies {
   & header {
     & p {
       margin-top: 0.5rem;
@@ -34,7 +34,7 @@
   }
 }
 
-.onscreen-page {
+.screen-movies {
   --opacity: 0;
   --scale: 1;
   /* cursor: none; */

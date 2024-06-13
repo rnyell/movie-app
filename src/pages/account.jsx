@@ -1,10 +1,11 @@
 import { useState } from "react"
 import { AnimatePresence } from "framer-motion"
+import { EllipsisVerticalIcon } from "@heroicons/outline"
 import { useLocalStorage } from "@utils/hooks"
-import { useUserState } from "@src/store/app-context"
+import { useUserContext } from "@src/store/user-context"
 import MovieCard from "@components/movie/movie-card"
-import EmptyHistory from "@components/library/empty-history"
-import EmptyWatchlist from "@components/library/empty-watchlist"
+import EmptyHistory from "@components/account/empty-history"
+import EmptyWatchlist from "@components/account/empty-watchlist"
 import ConfirmModal from "@components/ui/modals/confirm-modal"
 
 /*
@@ -12,10 +13,11 @@ TODO:
   1. change view: list or grid
   2. sort base on the time movie is watched
   3. filter movie or tv show on watchlist
+  4. a dropdown menu for these (sorting filtering etc.) also with a "delete all" option for `handleClearAllBookmarksBtn`
 */
 
-export default function Library() {
-  const {userState, userDispatch} = useUserState()
+export default function Account() {
+  const {userState, userDispatch} = useUserContext()
   const [, setBookmarksOnLS] = useLocalStorage("bookmarked", userState.bookmarked)
   const [, setPlayedOnLS] = useLocalStorage("played", userState.played)
   const [showModal, setShowModal] = useState(false)
@@ -55,10 +57,15 @@ export default function Library() {
 
 
   return (
-    <div className="page library-page">
+    <div className="page account">
       <section className="played-section">
-        <header>
-          <h2 className="heading">Played History</h2>
+        <header className="align-center">
+          <h3 className="heading">Played History</h3>
+          <button className="btn option-btn" type="button">
+            <i className="icon">
+              <EllipsisVerticalIcon />
+            </i>
+          </button>
         </header>
         <div className="played-container container">
           {userState.played.length === 0 ? (
@@ -73,14 +80,19 @@ export default function Library() {
         </div>
         {userState.played.length !== 0 && (
           <div className="cta">
-            <button className="btn" onClick={handleClearHistoryBtn}>Clear History</button>
+            <button className="btn" type="button" onClick={handleClearHistoryBtn}>Clear History</button>
           </div>
         )}
       </section>
       <hr style={{marginInline: "auto"}} />
       <section className="watchlist-section">
-        <header>
-          <h2 className="heading">Watchlist</h2>
+        <header className="flex">
+          <h3 className="heading">Watchlist</h3>
+          <button className="btn option-btn" type="button">
+            <i className="icon">
+              <EllipsisVerticalIcon />
+            </i>
+          </button>
         </header>
         <div className="movies-container container">
           {userState.bookmarked.length === 0 ? (
@@ -97,14 +109,14 @@ export default function Library() {
         </div>
         {userState.bookmarked.length !== 0 && (
           <div className="cta">
-            <button className="btn" onClick={handleClearAllBookmarksBtn}>Delete All</button>
+            <button className="btn" type="button" onClick={handleClearAllBookmarksBtn}>Delete All</button>
           </div>
         )}
       </section>
       {/* <hr style={{marginInline: "auto"}} /> */}
       {/*<section className="faved-section">
         <header>
-          <h2 className="heading">Faved</h2>
+          <h3 className="heading">Faved</h3>
         </header>
         <div className="faved-container container">
           {userState.faved.length === 0 ? (
@@ -117,7 +129,7 @@ export default function Library() {
         </div>
         {userState.faved.length !== 0 && (
           <div className="cta">
-            <button className="btn">Unlike All</button>
+            <button className="btn" type="button">Unlike All</button>
           </div>
         )}
       </section>*/}

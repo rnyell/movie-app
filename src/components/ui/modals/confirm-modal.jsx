@@ -23,8 +23,8 @@ export default function ConfirmModal(props) {
         <p>{confirmText}</p>
         {/* <button>Add to watched</button> */}
         <div className="btns flex">
-          <button className="btn cancel-btn" onClick={() => setModal(false)}>Cancel</button>
-          <button className="btn del-btn" onClick={handleSubmittedAction}>Delete</button>
+          <button className="btn cancel-btn" type="button" onClick={() => setModal(false)}>Cancel</button>
+          <button className="btn del-btn" type="button" onClick={handleSubmittedAction}>Delete</button>
         </div>
       </motion.div>
     </>,

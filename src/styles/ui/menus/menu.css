@@ -1,0 +1,44 @@
+[data-variant="menu"] {
+  padding: 0.75rem 0.875rem;
+  width: 88%;
+  position: fixed;
+  z-index: var(--z-100);
+  bottom: 0;
+  left: 50%;
+  translate: -50% 0;
+  border-radius: 3.5rem;
+
+  /* bg effect */
+  &::before {
+    content: "";
+    position: absolute;
+    z-index: var(--z-0);
+    inset: 0;
+    background-color: color-mix(in srgb, var(--color-neutral-700) 85%, transparent);
+    backdrop-filter: blur(30px);
+    border-radius: 3.5rem;
+  }
+
+  & .nav-links {
+    justify-content: space-around;
+  }
+
+  & .link {
+    padding: 0.825rem;
+    display: inline-flex;
+    color: var(--color-neutral-400);
+
+    & svg {
+      width: 1.625rem;
+      stroke-width: 1.75;
+    }
+
+    & .indicator-dot {
+      width: 4px;
+      height: 4px;
+      bottom: -1.15px;
+      border-radius: 100%;
+      background-color: var(--color-neutral-300);
+    }
+  }
+}

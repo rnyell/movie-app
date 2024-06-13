@@ -42,7 +42,7 @@ export default function SimilarCard({ result, media, variant }) {
         {isTouchDevice && (
           <div className="active-on-mobile align-center w-100">
             <h4 className="title truncate">{result.title}</h4>
-            <button className="btn ellipsis-btn" onClick={showOverlay}>
+            <button className="btn ellipsis-btn" type="button" onClick={showOverlay}>
               <i className="icon">
                 <EllipsisIcon />
               </i>

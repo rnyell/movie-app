@@ -5,8 +5,8 @@
 @import "@styles/pages/home-page.css" layer;
 @import "@styles/pages/discover.css" layer;
 @import "@styles/pages/search-page.css" layer;
-@import "@styles/pages/library.css" layer;
-@import "@styles/pages/reservation-page.css" layer;
+@import "@styles/pages/account.css" layer;
+@import "@styles/pages/tickets.css" layer;
 @import "@styles/pages/booking-page.css" layer;
 @import "@styles/pages/selected-movie.css" layer;
 @import "@styles/pages/selected-series.css" layer;
@@ -20,9 +20,6 @@
 @import "@styles/search/side-filter.css";
 @import "@styles/search/sm-filter.css";
 @import "@styles/search/pagination.css";
-
-/* booking */
-@import "@styles/booking/ticket.css";
 
 /* movie */
 @import "@styles/movie/movie-card.css";
@@ -52,11 +49,16 @@
 @import "@styles/ui/buttons/fave-btn.css";
 @import "@styles/ui/buttons/watch-btn.css";
 @import "@styles/ui/buttons/info-btn.css";
+
 @import "@styles/ui/modals/movie-details-modal.css";
 @import "@styles/ui/modals/movie-info-modal.css";
 @import "@styles/ui/modals/confirm-modal.css";
+
+@import "@styles/ui/account-dropdown.css";
 @import "@styles/ui/menus/sidenav.css";
+@import "@styles/ui/menus/menu.css";
 @import "@styles/ui/menus/sidemenu.css";
+
 @import "@styles/ui/header.css";
 @import "@styles/ui/errors.css";
 @import "@styles/ui/skeletons.css";

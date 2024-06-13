@@ -26,7 +26,7 @@ export function VPNError() {
       >
         <p>Due to some restrictions in your area, accessing some domains has been limited. Unfortunately to access our app, you must use a <b>VPN</b>.</p>
         <p>Once connected, please <u>reload the page</u> or <u>press the button bellow</u> to continue.</p>
-        <button onClick={() => window.location.reload()}>
+        <button type="button" onClick={() => window.location.reload()}>
           Reload
         </button>
         <i className="icon">
