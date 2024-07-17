@@ -1,29 +1,36 @@
-import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { PlayIcon } from "@heroicons/solid"
-import { useLocalStorage } from "@utils/hooks"
-import { useUserContext } from "@src/store/user-context"
+import {
+  updatePlayedMoviesOnProfiles,
+  updatePlayedSeriesOnProfiles,
+  upsertPlayedMovies,
+  upsertPlayedSeries,
+} from "@src/lib/supabase/db"
 
 
-export default function WatchButton({ data }) {
-  const {id, media, prevUrl} = data
-  const {userState, userDispatch} = useUserContext()
-  const [, setPlayedLS] = useLocalStorage("played", userState.played)
+export default function WatchButton({ item }) {
+  const { id, title, media } = item
   const navigate = useNavigate()
 
-  useEffect(() => {
-    setPlayedLS(userState.played)
-  }, [location])
-  
-  function playMovie() {
-    userDispatch({ type: "played", id })
-    navigate("/player", { state: { id, media, prevUrl } })
-    // setPlayedLS(userState.played) //? has no effect!
+  async function playMovie() {
+    if (media === "movie") {
+      updatePlayedMoviesOnProfiles("add", id)
+      upsertPlayedMovies(id, title)
+    } else if (media === "tv") {
+      updatePlayedSeriesOnProfiles("add", id)
+      upsertPlayedSeries(id, title)
+    }
+
+    navigate("/player", { state: { id, media } })
   }
 
 
   return (
-    <button className="btn watch-btn" type="button" onClick={playMovie}>
+    <button
+      className="btn watch-btn"
+      type="button"
+      onClick={playMovie}
+    >
       <i className="icon">
         <PlayIcon />
       </i>

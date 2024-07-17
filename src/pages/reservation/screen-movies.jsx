@@ -1,6 +1,8 @@
 import { useReducer, useRef } from "react"
 import { ArrowUpRightIcon } from "@heroicons/outline"
 import { useMoviesState } from "@src/store/app-context"
+import ViewTransition from "@lib/motion/view-transition"
+import Page from "@src/components/ui/layouts/page"
 import MovieCard from "@components/movie/movie-card"
 
 const initialPosition = { 
@@ -70,11 +72,11 @@ export default function ScreenMovies() {
       scale: pointer.scale
     }
 
-    if (!event.target.closest(".movie-card figure")) {
-      dispatch({ type: "move", x, y })
+    if (event.target.closest(".movie-card figure")) {
+      dispatch({ type: "hover", x, y })
       cursorRef.current.animate(frames, transition)
     } else {
-      dispatch({ type: "hover", x, y })
+      dispatch({ type: "move", x, y })
       cursorRef.current.animate(frames, transition)
     }
   }
@@ -91,36 +93,39 @@ export default function ScreenMovies() {
 
 
   return (
-    <div
-      className="page screen-movies"
-      ref={pageRef}
-      // style={styles}
-      // onMouseEnter={handlePointerEnter}
-      // onPointerMove={handlePointerMove}
-      // onMouseLeave={handlePointerLeave}
-    >
-      <section>
-        <header className="page-header">
-          <h2>Currently In Cinema</h2>
-          <p>Grab Your Popcorn!🍿</p>
-        </header>
-        <div className="movies-container" ref={containerRef}>
-          {moviesState.screen.map((movie, idx) => (
-            <MovieCard
-              key={movie.id}
-              result={movie}
-              idx={idx}
-              media="movie"
-              variant="screen"
-            />
-          ))}
+    <ViewTransition>
+      <Page pageName="screen-movies">
+        <div
+          ref={pageRef}
+          style={styles}
+          // onMouseEnter={handlePointerEnter}
+          // onPointerMove={handlePointerMove}
+          // onMouseLeave={handlePointerLeave}
+        >
+          <section>
+            <header className="page-header">
+              <h2>Currently In Cinema</h2>
+              <p>Grab Your Popcorn!🍿</p>
+            </header>
+            <div className="movies-container" ref={containerRef}>
+              {moviesState.screen.map((movie, idx) => (
+                <MovieCard
+                  key={movie.id}
+                  result={movie}
+                  idx={idx}
+                  media="movie"
+                  variant="screen"
+                />
+              ))}
+            </div>
+          </section>
+          {/* <div ref={cursorRef} className="pointer">
+            <div className={`${pointer.hover ? "is-hover" : ""} flex-col-center`}>
+              <ArrowUpRightIcon /><span>Buy Ticket</span>
+            </div>
+          </div> */}
         </div>
-      </section>
-      <div ref={cursorRef} className="pointer">
-        <div className={`${pointer.hover ? "is-hover" : ""}`}>
-          <ArrowUpRightIcon /><span>Buy Ticket</span>
-        </div>
-      </div>
-    </div>
+      </Page>
+    </ViewTransition>
   )
 }

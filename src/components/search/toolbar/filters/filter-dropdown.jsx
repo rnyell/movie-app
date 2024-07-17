@@ -1,7 +1,7 @@
 import { useRef, useState } from "react"
 import { AnimatePresence } from "framer-motion"
 import { FunnelIcon } from "@heroicons/outline"
-import { useClickOutside } from "@utils/hooks"
+import { useClickOutside } from "@lib/hooks"
 import FilterItems from "./filter-items"
 
 

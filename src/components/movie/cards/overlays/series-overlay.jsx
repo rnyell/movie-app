@@ -1,7 +1,7 @@
 import { motion } from "framer-motion"
 import { useMediaDetails } from "@services/hooks"
 import { formatReleaseDate } from "@services/movie-utils"
-import { landCardOverlayVariants, defaultVariantsLabel } from "@utils/motions"
+import { landCardOverlayVariants, defaultVariantsLabel } from "@lib/motion/motions"
 import LinkButton from "@components/ui/buttons/link-btn"
 import BookmarkButton from "@components/ui/buttons/bookmark-btn"
 // import Overview from "@components/movie/details/overview"
@@ -15,7 +15,7 @@ export default function SeriesOverlay({ result }) {
   const {isLoading, mediaDetails} = useMediaDetails(media, id)
 
   const {
-    // name,
+    name: title,
     first_air_date,
     last_air_date,
     in_production,

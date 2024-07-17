@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { motion, useMotionValue } from "framer-motion"
-import { useWindowOffsets } from "@utils/hooks"
+import { useWindowOffsets } from "@lib/hooks"
 import { IMAGES_URL } from "@services"
 
 

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import {
@@ -9,8 +9,8 @@ import {
   Squares2X2Icon,
   Cog6ToothIcon,
 } from "@heroicons/outline"
-import { supabase } from "@src/auth/supabase"
-import { useClickOutside, useWindowOffsets } from "@src/utils/hooks"
+import { supabase, signInWithGoogle } from "@src/lib/supabase/auth"
+import { useClickOutside, useWindowOffsets } from "@lib/hooks"
 import { useUserContext } from "@src/store/user-context"
 
 const dropdown_options = [
@@ -21,7 +21,7 @@ const dropdown_options = [
 
 export default function AccountDropdown() {
   const {session} = useUserContext()
-  const [userData, setUserData] = useState({})
+  const [userData, setUserData] = useState({}) // move it to context
   const [showDropdown, setShowDropdown] = useState(false)
   const ref = useRef(null)
 
@@ -41,7 +41,7 @@ export default function AccountDropdown() {
   }
 
   function handleLogin() {
-    supabase.auth.signInWithOAuth({ provider: "google" })
+    signInWithGoogle()
   }
 
 
@@ -76,6 +76,18 @@ export default function AccountDropdown() {
         <p className="link-tag">Log In</p>
       </button>
     )
+  }
+}
+
+
+function DropdownVariants({ variant }) {
+  switch (variant) {
+    case "full": {
+
+    }
+    case "image": {
+
+    }
   }
 }
 

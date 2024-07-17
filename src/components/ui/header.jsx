@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react"
 import { useLocation } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
-import { BellIcon } from "@heroicons/outline"
-import AccountDropdown from "./account-dropdown"
+import { BellIcon, Cog6ToothIcon } from "@heroicons/outline"
+import AccountDropdown from "@components/account/account-dropdown"
 import SearchBox from "./search-box"
 import SideMenu from "./menus/sidemenu"
 
@@ -40,6 +40,9 @@ export default function Header({ hasSearchbox = true }) {
       <div className="icons align-center">
         <i className="icon bell-icon">
           <BellIcon />
+        </i>
+        <i className="icon setting-icon">
+          <Cog6ToothIcon />
         </i>
         <AccountDropdown />
       </div>

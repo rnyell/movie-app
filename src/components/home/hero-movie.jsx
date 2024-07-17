@@ -1,24 +1,28 @@
 import { useEffect, useState } from "react"
-import { useNavigate, useLocation } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/outline"
 import { IMAGES_URL } from "@services"
 import { useMediaDetails } from "@services/hooks"
 import { getMovieGenres, getMovieDirector, formatReleaseDate } from "@services/movie-utils"
-import { defaultVariantsLabel } from "@utils/motions"
+import { defaultVariantsLabel } from "@lib/motion/motions"
 import { HeroMovieLoadingSkeleton } from "@components/ui/skeletons"
 import Casts from "@components/movie/details/casts"
 import BookmarkButton from "@components/ui/buttons/bookmark-btn"
 import WatchButton from "@components/ui/buttons/watch-btn"
 import Rates from "@components/movie/details/rates"
+import ListsModal from "@components/ui/modals/lists-modal"
+import { useUserContext } from "@src/store/user-context"
 
 
 export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
+  const {userState} = useUserContext()
+  console.log(userState.session, '??')
   const id = movie.id
   const media = "movie"
   const {isLoading, mediaDetails} = useMediaDetails(media, id)
   const [key, setKey] = useState(0) // used by <AnimatePresence>
-  const location = useLocation()
+  const [listsModal, setListsModal] = useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -42,9 +46,7 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
   // console.log(mediaDetails)
 
   function handleSelectedMovie() {
-    navigate(`/movies/${(id)}`, {
-      state: { prevUrl: location.pathname + location.search }
-    })
+    navigate(`/movies/${(id)}`)
   }
 
   const staggerChildren = {
@@ -98,20 +100,12 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
         {...defaultVariantsLabel}
       >
         <div className="grid-container">
-          <motion.div
-            className="ambient"
-            initial={{ opacity: 0.2 }}
-            animate={{ opacity: 0.6 }}
-            exit={{ opacity: 0.1 }}
-          >
+          <div className="ambient">
             <img className="unselectable" src={`${IMAGES_URL}original${bg_path}`} draggable={false} />
-          </motion.div>
-          <motion.div
+          </div>
+          <div
             className="bg-poster"
             style={{backgroundImage: `url("${IMAGES_URL}original${bg_path}")`}}
-            initial={{ opacity: 0.5 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0.4 }}
           />
           <motion.div
             className="grid-item-title"
@@ -126,11 +120,11 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
             </motion.p>
           </motion.div>
           <div className="cta-btns flex">
-            <WatchButton data={{id, media, prevUrl: location.pathname + location.search}} />
+            <WatchButton item={{id, title, media}} />
             <button className="btn btn-shared" type="button" onClick={handleSelectedMovie}>
               <span>More Info</span>
             </button>
-            <BookmarkButton item={{id, media}} />
+            <BookmarkButton item={{id, media}} setModal={setListsModal} />
           </div>
           <p className="tagline">{tagline}</p>
           <motion.div className="rate-container" variants={itemsBVariants}>
@@ -153,6 +147,7 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
           </div>
         </div>
       </motion.div>
+      {listsModal && <ListsModal item={{id, media}} setModal={setListsModal} />}
     </AnimatePresence>
   )
 }

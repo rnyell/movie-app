@@ -1,7 +1,7 @@
 import { createPortal } from "react-dom"
 import { useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
-import { modalBackdropVariants, modalVariants, defaultVariantsLabel, modalTransition } from "@utils/motions"
+import { modalBackdropVariants, modalVariants, defaultVariantsLabel, modalTransition } from "@lib/motion/motions"
 import { IMAGES_URL } from "@services"
 import { formatReleaseDate } from "@services/movie-utils"
 import Rates from "@components/movie/details/rates"
@@ -15,8 +15,6 @@ export default function MovieInfoModal({ result, media, setModal }) {
   const id = result.id
   const title = result.title || result.name
   const href = `/${media === "tv" ? "series" : "movies"}/${id}`
-  const prevUrl = location.pathname + location.search
-  const state = { prevUrl }
 
   const {
     poster_path,
@@ -30,7 +28,7 @@ export default function MovieInfoModal({ result, media, setModal }) {
   } = result
 
   function handleNavigation() {
-    navigate(href, { state })
+    navigate(href)
   }
 
 

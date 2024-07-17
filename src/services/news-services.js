@@ -1,4 +1,4 @@
-import { request } from "../utils/utils"
+import { request } from "../lib/utils"
 
 
 export async function getSomeNews() {

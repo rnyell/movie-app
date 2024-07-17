@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/outline"
-import { FireIconSolid } from "@src/utils/icons"
+import { FireIconSolid } from "@lib/icons"
 
 
 export default function HotNews({ hotNews }) {

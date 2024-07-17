@@ -1,9 +1,10 @@
-import { useState, useEffect, useRef } from "react"
+import { useRef } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { HeartIcon, ChevronLeftIcon, SpeakerWaveIcon, SpeakerXMarkIcon, ShareIcon, ArrowPathIcon } from "@heroicons/outline"
 import { PlayIcon, PauseIcon, ForwardIcon, BackwardIcon, ArrowDownTrayIcon, LanguageIcon } from "@heroicons/solid"
 import { IMAGES_URL } from "@services"
 import { useMediaDetails } from "@services/hooks"
+import ViewTransition from "@lib/motion/view-transition"
 
 
 export default function Player() {
@@ -15,51 +16,57 @@ export default function Player() {
   const {title, backdrop_path} = mediaDetails
 
 
+  if (isLoading) {
+    return null
+  }
+
   return (
-    <div className="player-page">
-      <div className="player">
-        {/* <video controls>
-          <source src="/" />
-        </video> */}
-        <img className="video-placeholder" src="/vhs/blue1.gif" />
-        <div className="topbar align-center">
-          <Link className="btn" to={-1}>
-            <i className="icon back-icon">
-              <ChevronLeftIcon />
+    <ViewTransition>
+      <div className="player-page">
+        <div className="player">
+          {/* <video controls>
+            <source src="/" />
+          </video> */}
+          <img className="video-placeholder" src="/vhs/blue1.gif" />
+          <div className="topbar align-center">
+            <Link className="btn" to={-1}>
+              <i className="icon back-icon">
+                <ChevronLeftIcon />
+              </i>
+            </Link>
+            <h4 className="title">{title}</h4>
+            <i className="icon fave-icon">
+              <HeartIcon />
             </i>
-          </Link>
-          <h4 className="title">{title}</h4>
-          <i className="icon fave-icon">
-            <HeartIcon />
-          </i>
-          <i className="icon dl-icon">
-            <ArrowDownTrayIcon />
-          </i>
-          <i className="icon share-icon">
-            <ShareIcon />
-          </i>
-        </div>
-        <div className="bottombar flex-col-center">
-          <div className="progressbar" />
-          <div className="action-btns flex-center w-100">
-            <i className="empty"></i>
-            <div className="controls flex">
-              <i className="icon bfw-icon bw-icon">
-                <BackwardIcon />
-              </i>
-              <i className="icon play-icon">
-                <PlayIcon />
-              </i>
-              <i className="icon bfw-icon fw-icon">
-                <ForwardIcon />
+            <i className="icon dl-icon">
+              <ArrowDownTrayIcon />
+            </i>
+            <i className="icon share-icon">
+              <ShareIcon />
+            </i>
+          </div>
+          <div className="bottombar flex-col-center">
+            <div className="progressbar" />
+            <div className="action-btns flex-center w-100">
+              <i className="empty"></i>
+              <div className="controls flex">
+                <i className="icon bfw-icon bw-icon">
+                  <BackwardIcon />
+                </i>
+                <i className="icon play-icon">
+                  <PlayIcon />
+                </i>
+                <i className="icon bfw-icon fw-icon">
+                  <ForwardIcon />
+                </i>
+              </div>
+              <i className="icon speaker-icon">
+                <SpeakerWaveIcon />
               </i>
             </div>
-            <i className="icon speaker-icon">
-              <SpeakerWaveIcon />
-            </i>
           </div>
         </div>
       </div>
-    </div>
+    </ViewTransition>
   )
 }

@@ -1,5 +1,5 @@
 .movie-info-modal {
-  width: clamp(325px, 65%, 380px);
+  width: clamp(335px, 65%, 420px);
   top: 10%;
   translate: -50% 0;
   background-color: var(--color-neutral-700);

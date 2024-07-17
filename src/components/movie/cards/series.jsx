@@ -1,9 +1,9 @@
 import { useRef, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 // import { XMarkIcon } from "@heroicons/outline"
-import { EllipsisIcon } from "@utils/icons"
+import { EllipsisIcon } from "@lib/icons"
 import { IMAGES_URL } from "@services"
-import { useWindowOffsets, useClickOutside } from "@utils/hooks"
+import { useWindowOffsets, useClickOutside } from "@lib/hooks"
 import Rates from "@components/movie/details/rates"
 import SeriesOverlay from "./overlays/series-overlay"
 

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { createPortal } from "react-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { PhotoIcon, XMarkIcon } from "@heroicons/solid"
-import { defaultVariantsLabel, modalBackdropVariants } from "@utils/motions"
+import { defaultVariantsLabel, modalBackdropVariants } from "@lib/motion/motions"
 import { IMAGES_URL } from "@services"
 import ImageSlider from "./image-slider"
 

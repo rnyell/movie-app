@@ -1,4 +1,4 @@
-import { useWindowOffsets } from "@utils/hooks"
+import { useWindowOffsets } from "@lib/hooks"
 import SideFilter from "./side-filter"
 import SmFilter from "./sm-filter"
 

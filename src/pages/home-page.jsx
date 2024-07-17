@@ -1,6 +1,8 @@
 import { useEffect, useRef } from "react"
 import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion"
-import { useWindowOffsets } from "@utils/hooks"
+import { useWindowOffsets } from "@lib/hooks"
+import ViewTransition from "@lib/motion/view-transition"
+import Page from "@src/components/ui/layouts/page"
 import HeroSection from "@components/home/hero-section"
 import MoviesSection from "@components/home/movies-section"
 import SeriesSection from "@components/home/series-section"
@@ -38,44 +40,46 @@ export default function HomePage() {
 
 
   return (
-    <div className="home-page">
-      {windowWidth > 460 ? (
-        <>
-          <motion.div
-            className="hero-wrapper"
-            ref={heroWrapper}
-            style={{
-              opacity: heroOpacity,
-              scale: heroScale,
-            }}
-          >
+    <ViewTransition>
+      <div className="home-page">
+        {windowWidth > 460 ? (
+          <>
+            <motion.div
+              className="hero-wrapper"
+              ref={heroWrapper}
+              style={{
+                opacity: heroOpacity,
+                scale: heroScale,
+              }}
+            >
+              <HeroSection />
+            </motion.div>
+            <motion.div
+              initial={{opacity: 0, scale: 0.97, y: 10}}
+              whileInView={{opacity: 1, scale: 1, y: 0}}
+              viewport={{amount: 0.15}}
+              transition={{duration: 0.25}}
+            >
+              {/* <MoviesSection /> */}
+            </motion.div>
+            <motion.div
+              initial={{opacity: 0, scale: 0.97}}
+              whileInView={{opacity: 1, scale: 1}}
+              viewport={{amount: 0.15}}
+              transition={{duration: 0.25}}
+            >
+              {/* <SeriesSection /> */}
+            </motion.div>
+            <div className="bg-effect" />
+          </>
+        ) : (
+          <>
             <HeroSection />
-          </motion.div>
-          <motion.div
-            initial={{opacity: 0, scale: 0.97, y: 10}}
-            whileInView={{opacity: 1, scale: 1, y: 0}}
-            viewport={{amount: 0.15}}
-            transition={{duration: 0.25}}
-          >
-            <MoviesSection />
-          </motion.div>
-          <motion.div
-            initial={{opacity: 0, scale: 0.97}}
-            whileInView={{opacity: 1, scale: 1}}
-            viewport={{amount: 0.15}}
-            transition={{duration: 0.25}}
-          >
-            <SeriesSection />
-          </motion.div>
-          <div className="bg-effect" />
-        </>
-      ) : (
-        <>
-          <HeroSection />
-          <MoviesSection />
-          <SeriesSection />
-        </>
-      )}
-    </div>
+            {/* <MoviesSection />
+            <SeriesSection /> */}
+          </>
+        )}
+      </div>
+    </ViewTransition>
   )
 }

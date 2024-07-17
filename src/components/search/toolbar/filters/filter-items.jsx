@@ -1,5 +1,5 @@
 import { motion } from "framer-motion"
-import { filterResults, sortResults } from "@utils/utils"
+import { filterResults, sortResults } from "@lib/utils"
 import { useSearch } from "@src/store/search-context"
 import TypeList from "./type-list"
 import GenresList from "./genres-list"

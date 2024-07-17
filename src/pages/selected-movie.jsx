@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react"
-import { useLocation, useParams } from "react-router-dom"
-import { motion } from "framer-motion"
-import { useWindowOffsets } from "@utils/hooks"
+import { useParams } from "react-router-dom"
+import { useWindowOffsets } from "@lib/hooks"
 import { IMAGES_URL } from "@services"
-import { useMediaDetails } from "@services/hooks"
 import { formatRuntime, getMovieGenres, getMovieDirector } from "@services/movie-utils"
-import { pageTransitionVariants, defaultVariantsLabel } from "@utils/motions"
+import { useMediaDetails } from "@services/hooks"
 import { SelectedMovieSkeleton } from "@components/ui/skeletons"
+import ViewTransition from "@lib/motion/view-transition"
 import MovieCard from "@components/movie/movie-card"
 import Overview from "@components/movie/details/overview"
 import Rates from "@components/movie/details/rates"
@@ -27,12 +26,10 @@ const imgUrlInit = {
 
 
 export default function SelectedMovie() {
-  const {windowWidth} = useWindowOffsets()
-  const location = useLocation()
-  const {id} = useParams()
   const media = "movie"
-  const prevUrl = location?.state?.prevUrl
-  const {mediaDetails, isLoading} = useMediaDetails(media, id)
+  const { id } = useParams()
+  const { mediaDetails, isLoading } = useMediaDetails(media, id)
+  const { windowWidth } = useWindowOffsets()
   const [imgUrl, setImgUrl] = useState(imgUrlInit)
 
   const {
@@ -89,88 +86,86 @@ export default function SelectedMovie() {
   }
 
   return (
-    <motion.div
-      className="selected-media selected-movie"
-      variants={pageTransitionVariants}
-      {...defaultVariantsLabel}
-    >
-      <section className="poster-wrapper isolated-stack ::after-abs">
-        <div className="bg-poster" style={{backgroundImage: `url(${IMAGES_URL}${imgUrl})`}} />
-        <div className="main-details flex-col w-100">
-          <h1 className="main-title">{title}</h1>
-          <div className="details">
-            <span className="release-date">{release_date?.slice(0, 4)}</span>
-            <i className="dot">&#x2022;</i>
-            <span className="runtime">{formatRuntime(runtime)}</span>
-            <i className="dot">&#x2022;</i>
-            <span className="genres">{getMovieGenres(genres)}</span>
+    <ViewTransition>
+      <div className="selected-media selected-movie">
+        <section className="poster-wrapper isolated-stack ::after-abs">
+          <div className="bg-poster" style={{backgroundImage: `url(${IMAGES_URL}${imgUrl})`}} />
+          <div className="main-details flex-col w-100">
+            <h1 className="main-title">{title}</h1>
+            <div className="details">
+              <span className="release-date">{release_date?.slice(0, 4)}</span>
+              <i className="dot">&#x2022;</i>
+              <span className="runtime">{formatRuntime(runtime)}</span>
+              <i className="dot">&#x2022;</i>
+              <span className="genres">{getMovieGenres(genres)}</span>
+            </div>
+            <Overview text={overview} />
+            <div className="cta-btns flex">
+              <WatchButton item={{id, title, media}} />
+              <FaveButton />
+              <BookmarkButton item={{id, media}} />
+            </div>
           </div>
-          <Overview text={overview} />
-          <div className="cta-btns flex">
-            <WatchButton data={{id, media, prevUrl}} />
-            <FaveButton />
-            <BookmarkButton item={{id, media}} />
+        </section>
+        <section className="details-wrapper grid">
+          <div className="information-table">
+            <div className="col col-1">
+              <Rates id={imdb_id} variant="verbose" />
+              <dl>
+                <div className="td">
+                  <dt>Director:</dt>
+                  <dd>{getMovieDirector(credits.crew)}</dd>
+                </div>
+                <div className="td">
+                  <dt>Writer:</dt>
+                  <dd>{getMovieDirector(credits.crew)}</dd>
+                </div>
+                <div className="td">
+                  <dt>Country:</dt>
+                  <dd>
+                    {production_countries.map(pc =>
+                      <span key={pc.name}>{pc.name === "United States of America" ? "US" : pc.name}</span>
+                    )}
+                  </dd>
+                </div>
+                <div className="td">
+                  <dt>Languages:</dt>
+                  <dd>{spoken_languages.map(lang => <span key={lang.english_name}>{lang.english_name}</span>)}</dd>
+                </div>
+                <div className="td">
+                  <dt>Budget:</dt>
+                  <dd>{budget}</dd>
+                </div>
+                <div className="td">
+                  <dt>Revenue:</dt>
+                  <dd>{revenue}</dd>
+                </div>
+              </dl>
+            </div>
+            <div className="col col-2">
+              <figure className="img-poster">
+                <img src={`${IMAGES_URL}w500${poster_path})`} />
+              </figure>
+            </div>
           </div>
-        </div>
-      </section>
-      <section className="details-wrapper grid">
-        <div className="information-table">
-          <div className="col col-1">
-            <Rates id={imdb_id} variant="verbose" />
-            <dl>
-              <div className="td">
-                <dt>Director:</dt>
-                <dd>{getMovieDirector(credits.crew)}</dd>
-              </div>
-              <div className="td">
-                <dt>Writer:</dt>
-                <dd>{getMovieDirector(credits.crew)}</dd>
-              </div>
-              <div className="td">
-                <dt>Country:</dt>
-                <dd>
-                  {production_countries.map(pc =>
-                    <span key={pc.name}>{pc.name === "United States of America" ? "US" : pc.name}</span>
-                  )}
-                </dd>
-              </div>
-              <div className="td">
-                <dt>Languages:</dt>
-                <dd>{spoken_languages.map(lang => <span key={lang.english_name}>{lang.english_name}</span>)}</dd>
-              </div>
-              <div className="td">
-                <dt>Budget:</dt>
-                <dd>{budget}</dd>
-              </div>
-              <div className="td">
-                <dt>Revenue:</dt>
-                <dd>{revenue}</dd>
-              </div>
-            </dl>
+          <hr />
+          <Casts casts={credits.cast} mode="list" />
+          <hr />
+          <div className="visuals">
+            <Trailers videos={videos} />
+            <Pictures images={images} />
           </div>
-          <div className="col col-2">
-            <figure className="img-poster">
-              <img src={`${IMAGES_URL}w500${poster_path})`} />
-            </figure>
+          <hr />
+          <div className="related-content">
+            <h4 className="heading">More Like This</h4>
+            <div className="related-movies-container flex">
+              {recommendations.results.slice(0, 9).map(movie =>
+                <MovieCard key={movie.id} result={movie} media={media} variant="common" />
+              )}
+            </div>
           </div>
-        </div>
-        <hr />
-        <Casts casts={credits.cast} mode="list" />
-        <hr />
-        <div className="visuals">
-          <Trailers videos={videos} />
-          <Pictures images={images} />
-        </div>
-        <hr />
-        <div className="related-content">
-          <h4 className="heading">More Like This</h4>
-          <div className="related-movies-container flex">
-            {recommendations.results.slice(0, 9).map(movie =>
-              <MovieCard key={movie.id} result={movie} media={media} variant="common" />
-            )}
-          </div>
-        </div>
-      </section>
-    </motion.div>
+        </section>
+      </div>
+    </ViewTransition>
   )
 }

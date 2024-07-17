@@ -1,6 +1,6 @@
 import { createPortal } from "react-dom"
 import { motion } from "framer-motion"
-import { modalBackdropVariants, modalVariants, defaultVariantsLabel, modalTransition } from "@utils/motions"
+import { modalBackdropVariants, modalVariants, defaultVariantsLabel, modalTransition } from "@lib/motion/motions"
 
 
 export default function ConfirmModal(props) {

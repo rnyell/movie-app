@@ -1,5 +1,5 @@
 import { useNewsService } from "@services/hooks"
-import { weekObj, monthObj } from "@utils/utils"
+import { weekObj, monthObj } from "@lib/utils"
 
 
 export default function NewsPage() {

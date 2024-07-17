@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react"
 import { motion, AnimatePresence, useAnimate } from "framer-motion"
 import { XMarkIcon } from "@heroicons/outline"
-import { EllipsisIcon } from "@utils/icons"
-import { useWindowOffsets, useClickOutside } from "@utils/hooks"
+import { EllipsisIcon } from "@lib/icons"
+import { useWindowOffsets, useClickOutside } from "@lib/hooks"
 import { IMAGES_URL } from "@services"
 import PrimaryOverlay from "./overlays/primary-overlay"
 

@@ -7,7 +7,7 @@ import {
   RottenTomatoesGreenIcon,
   MetacriticIcon,
   PrimeVideoIcon
-} from "@utils/icons"
+} from "@lib/icons"
 import { getAdditionalDetails } from "@services"
 import { formatRate } from "@services/movie-utils"
 

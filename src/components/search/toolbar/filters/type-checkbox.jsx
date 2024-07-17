@@ -1,4 +1,4 @@
-import { strCapitalizer } from "@utils/utils"
+import { strCapitalizer } from "@lib/utils"
 import { useSearch } from "@src/store/search-context"
 
 export default function TypeCheckbox({ type }) {

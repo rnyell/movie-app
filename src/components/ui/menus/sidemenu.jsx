@@ -12,9 +12,9 @@ import {
   Cog6ToothIcon,
   UserCircleIcon,
 } from "@heroicons/outline"
-import { CompasIcon } from "@src/utils/icons"
+import { CompasIcon } from "@lib/icons"
 import logo from "@src/assets/logo.png"
-import AccountDropdown from "../account-dropdown"
+import AccountDropdown from "@components/account/account-dropdown"
 
 const links = [
   { tag: "Home", href: "/", icon: <HomeIcon /> },

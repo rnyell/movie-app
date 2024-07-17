@@ -38,12 +38,9 @@
   --opacity: 0;
   --scale: 1;
   /* cursor: none; */
-
+  
   & .pointer {
-    display: none;
-  }
-
-  /* & .pointer {
+    /* display: none; */
     pointer-events: none;
     width: 1rem;
     aspect-ratio: 1;
@@ -57,10 +54,6 @@
     transition: var(--duration-1);
     
     & div {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
       position: absolute;
       z-index: 10;
       inset: 0;
@@ -85,5 +78,5 @@
       font-weight: 600;
       color: var(--color-neutral-200);
     }
-  } */
+  }
 }

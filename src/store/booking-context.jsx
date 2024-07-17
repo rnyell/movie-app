@@ -1,5 +1,5 @@
 import { createContext, useContext, useReducer } from "react"
-import { writeLocalStorage, readLocalStorage } from "@utils/utils"
+import { writeLocalStorage, readLocalStorage } from "@lib/utils"
 
 const BookingCntext = createContext(null)
 

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
 import { ExclamationCircleIcon} from "@heroicons/outline"
-import { modalVariants, defaultVariantsLabel, modalTransition } from "@utils/motions"
+import { modalVariants, defaultVariantsLabel, modalTransition } from "@lib/motion/motions"
 
 
 export function ErrorPage() {

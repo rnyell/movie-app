@@ -1,10 +1,10 @@
 import { useState } from "react"
 import { motion, AnimatePresence, useAnimate } from "framer-motion"
 import { FilmIcon, TvIcon, XMarkIcon } from "@heroicons/outline"
-import { EllipsisIcon } from "@utils/icons"
+import { EllipsisIcon } from "@lib/icons"
 import { IMAGES_URL } from "@services"
 import { formatReleaseDate } from "@services/movie-utils"
-import { useWindowOffsets, useClickOutside } from "@utils/hooks"
+import { useWindowOffsets, useClickOutside } from "@lib/hooks"
 import MovieInfoModal from "@components/ui/modals/movie-info-modal"
 import SecondaryOverlay from "./overlays/secondary-overlay"
 

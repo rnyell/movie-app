@@ -1,4 +1,4 @@
-import { InfoIcon } from "@utils/icons"
+import { InfoIcon } from "@lib/icons"
 
 export default function InfoButton({ setModal }) {
   return (

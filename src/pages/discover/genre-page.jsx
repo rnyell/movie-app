@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { MOVIE_GENRES, TV_GENRES, getMediaByGenre } from "@services"
+import ViewTransition from "@lib/motion/view-transition"
+import Page from "@src/components/ui/layouts/page"
 import MovieCard from "@components/movie/movie-card"
 
 
@@ -23,22 +25,24 @@ export default function GenrePage() {
 
 
   return (
-    <div className="page genre-page">
-      <header>
-        <h2 className="heading">{genreName} {media === "movie" ? "Movies" : "Series"}</h2>
-      </header>
-      <div className="genre-movies-container">
-        {!isLoading && (
-          results.map(result =>
-            <MovieCard
-              key={result.id}
-              result={result}
-              media={media}
-              variant="common"
-            />
-          )
-        )}
-      </div>
-    </div>
+    <ViewTransition>
+      <Page className="genre-page">
+        <header>
+          <h2 className="heading">{genreName} {media === "movie" ? "Movies" : "Series"}</h2>
+        </header>
+        <div className="genre-movies-container">
+          {!isLoading && (
+            results.map(result =>
+              <MovieCard
+                key={result.id}
+                result={result}
+                media={media}
+                variant="common"
+              />
+            )
+          )}
+        </div>
+      </Page>
+    </ViewTransition>
   )
 }

@@ -38,7 +38,8 @@
     top: calc(100% + 10px);
     left: 0;
     color: var(--color-neutral-300);
-    background-color: var(--color-neutral-700);
+    background-color: var(--color-neutral-750);
+    border: 1.2px solid var(--color-neutral-600);
     border-radius: 1.5rem;
     box-shadow: 0 5px 0.75rem rgb(11 15 17 / 50%);
 

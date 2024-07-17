@@ -3,8 +3,8 @@ import { createPortal } from "react-dom"
 import { motion, animate, useAnimate, useMotionValue } from "framer-motion"
 import { XMarkIcon } from "@heroicons/solid"
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/outline"
-import { useWindowOffsets } from "@utils/hooks"
-import { defaultVariantsLabel, modalTransition } from "@utils/motions"
+import { useWindowOffsets } from "@lib/hooks"
+import { defaultVariantsLabel, modalTransition } from "@lib/motion/motions"
 import { IMAGES_URL } from "@services"
 
 

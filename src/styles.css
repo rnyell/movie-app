@@ -1,5 +1,5 @@
 @import "@styles/base.css" layer(base);
-@import "@utils/utilities.css" layer(utilities);
+@import "@lib/utilities.css" layer(utilities);
 
 /* pages */
 @import "@styles/pages/home-page.css" layer;
@@ -52,6 +52,7 @@
 
 @import "@styles/ui/modals/movie-details-modal.css";
 @import "@styles/ui/modals/movie-info-modal.css";
+@import "@styles/ui/modals/lists-modal.css";
 @import "@styles/ui/modals/confirm-modal.css";
 
 @import "@styles/ui/account-dropdown.css";
@@ -62,7 +63,6 @@
 @import "@styles/ui/header.css";
 @import "@styles/ui/errors.css";
 @import "@styles/ui/skeletons.css";
-
 
 /* media/conrainer queries */
 @import "@styles/queries.css";

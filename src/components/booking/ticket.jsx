@@ -1,6 +1,6 @@
 import { createPortal } from "react-dom"
 import { motion } from "framer-motion"
-import { monthObj } from "@utils/utils"
+import { monthObj } from "@lib/utils"
 import { useBookingData } from "@src/store/booking-context"
 
 

@@ -1,7 +1,7 @@
 import { useRef, useState } from "react"
 import { AnimatePresence } from "framer-motion"
-import { EqualizerIcon } from "@src/utils/icons"
-import { useClickOutside } from "@utils/hooks"
+import { EqualizerIcon } from "@lib/icons"
+import { useClickOutside } from "@lib/hooks"
 import SortItems from "./sort-items"
 
 

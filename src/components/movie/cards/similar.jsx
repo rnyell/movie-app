@@ -1,8 +1,8 @@
 import { useState } from "react"
 import { motion, AnimatePresence, useAnimate } from "framer-motion"
-import { EllipsisIcon } from "@utils/icons"
+import { EllipsisIcon } from "@lib/icons"
 import { IMAGES_URL } from "@services"
-import { useWindowOffsets, useClickOutside } from "@utils/hooks"
+import { useWindowOffsets, useClickOutside } from "@lib/hooks"
 import PrimaryOverlay from "./overlays/primary-overlay"
 
 

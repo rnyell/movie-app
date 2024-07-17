@@ -6,10 +6,9 @@ export const defaultVariantsLabel = {
 
 export const pageTransitionVariants = {
   initial: {
-    opacity: 0.65,
-    scale: 0.97,
-    y: 12,
-    x: -10,
+    opacity: 0.25,
+    y: 1,
+    x: -20,
   },
   animate: {
     opacity: 1,
@@ -17,16 +16,16 @@ export const pageTransitionVariants = {
     y: 0,
     x: 0,
     transition: {
-      duration: 0.35,
+      duration: 0.5,
       ease: "easeIn"
     }
   },
   exit: {
-    opacity: 0.6,
-    y: 18,
-    x: -10,
+    opacity: 0.2,
+    y: 1,
+    x: 20,
     transition: {
-      duration: 0.35,
+      duration: 0.5,
       ease: "easeOut"
     }
   }

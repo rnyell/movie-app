@@ -9,7 +9,6 @@ import { useMediaDetails } from "@services/hooks"
 export default function PlayedCard({ result, media, variant }) {
   const [cardOverlay, setCardOverlay] = useState(false)
   const {isLoading, mediaDetails} = useMediaDetails("movie", result)
-  const prevUrl = location.pathname + location.search
   const navigate = useNavigate()
 
   const {
@@ -20,7 +19,7 @@ export default function PlayedCard({ result, media, variant }) {
   } = mediaDetails
 
   function handleRewatch() {
-    navigate("/player", { state: { id, media, prevUrl } })
+    navigate("/player", { state: { id, media } })
   }
 
 

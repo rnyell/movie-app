@@ -1,6 +1,10 @@
 import { createContext, useContext, useEffect, useReducer, useState } from "react"
-import { readLocalStorage } from "@utils/utils"
-import { supabase } from "@src/auth/supabase"
+import { supabase, getAuthSession } from "@src/lib/supabase/auth"
+import {
+  getUserProfile,
+  getAllBookmarkedItems,
+  getUserLists,
+} from "@src/lib/supabase/db"
 
 const UserContext = createContext(null)
 
@@ -8,95 +12,95 @@ export function useUserContext() {
   return useContext(UserContext)
 }
 
-
-function userStateInitializer() {
-  const played = readLocalStorage("played") ?? []
-  const bookmarked = readLocalStorage("bookmarked") ?? []
-  const reserved = readLocalStorage("reserved") ?? []
-
-  return {
-    name: "guest",
-    country: "unknown",
-    played,
-    bookmarked,
-    reserved,
-  }
+const userInitial = {
+  id: null,
+  name: "",
+  username: "",
+  playedMovies: [],
+  playedSeries: [],
+  lists: [],
+  // liked: [],
+  // reserved: [],
 }
 
-function userStateReducer(state, action) {
+function userReducer(state, action) {
   switch (action.type) {
-    case "set_country": {
-      return {
-        ...state,
-        country: action.country
-      }
-    }
-    case "played": {
-      return {
-        ...state,
-        played: [...new Set([...state.played, action.id])],
-      }
-    }
-    case "remove_all_played": {
-      return {
-        ...state,
-        played: [],
-      }
-    }
-    case "add_bookmark": {
-      const added = {
-        media: action.media,
-        id: action.id
-      }
-      return {
-        ...state,
-        bookmarked: [...state.bookmarked, added],
-      }
-    }
-    case "remove_bookmark": {
-      const removed = {
-        media: action.media,
-        id: action.id
-      }
-      let filtered = state.bookmarked.filter(bookm => bookm.id !== removed.id)
-      // if we have a movie and a tv show with same ids
-      if (filtered.length === 2) {
-        filtered = filtered.filter(bookm => bookm.media === removed.media)
-      }
-      return {
-        ...state,
-        bookmarked: [...filtered],
-      }
-    }
-    case "remove_all_bookmark": {
-      return {
-        ...state,
-        bookmarked: [],
-      }
+    case "init": {
+      return { ...action.state }
     }
   }
 }
 
 
 export default function UserProvider({ children }) {
-  const [userState, userDispatch] = useReducer(userStateReducer, userStateInitializer())
+  const [userState, userDispatch] = useReducer(userReducer, userInitial)
   const [session, setSession] = useState()
+  const [user, setUser] = useState(userInitial)
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session)
-    })
+    initSession()
+  
+    initUserState().then(data => 
+      userDispatch({type: "init", state: data})
+    )
 
     const {
       data: { subscription }
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session)
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      if (session) {
+        setSession(session)
+      }
+
+      if (event === 'SIGNED_OUT') {
+        setSession(null)
+        [localStorage, sessionStorage].forEach((storage) => {
+          Object.entries(storage)
+            .forEach(([key]) => {
+              storage.removeItem(key)
+            })
+        })
+      }
     })
 
-    return () => subscription.unsubscribe()
+    return () => {
+      subscription.unsubscribe()
+    }
   }, [])
 
-  const values = {
+  async function initSession() {
+    const session = await getAuthSession()
+    setSession(session)
+  }
+
+  async function initUserState() {
+    const profile = await getUserProfile()
+
+    const {
+      id,
+      username,
+      full_name,
+      avatar_url,
+      played_movies,
+      played_series,
+    } = profile
+
+    const playedMovies = played_movies ?? []
+    const playedSeries = played_series ?? []
+    // const bookmarked = await getAllBookmarkedItems()
+    const lists = await getUserLists()
+  
+    return {
+      id,
+      username,
+      name: full_name,
+      avatarUrl: avatar_url,
+      playedMovies,
+      playedSeries,
+      lists,
+    }
+  }
+
+  const contextValue = {
     session,
     userState,
     userDispatch,
@@ -104,7 +108,7 @@ export default function UserProvider({ children }) {
 
 
   return (
-    <UserContext.Provider value={values}>
+    <UserContext.Provider value={contextValue}>
       {children}
     </UserContext.Provider>
   )

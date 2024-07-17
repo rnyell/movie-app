@@ -1,7 +1,7 @@
 import { motion } from "framer-motion"
 import { useMediaDetails } from "@services/hooks"
 import { formatRuntime, formatReleaseDate } from "@services/movie-utils"
-import { landCardOverlayVariants, defaultVariantsLabel } from "@utils/motions"
+import { landCardOverlayVariants, defaultVariantsLabel } from "@lib/motion/motions"
 import WatchButton from "@components/ui/buttons/watch-btn"
 import LinkButton from "@components/ui/buttons/link-btn"
 import BookmarkButton from "@components/ui/buttons/bookmark-btn"
@@ -12,7 +12,6 @@ import Rates from "@components/movie/details/rates"
 export default function PrimaryOverlay({ result, media, variant }) {
   const id = result.id
   const isCommon = variant === "common"
-  const prevUrl = location.pathname + location.search
   const linkData = { id, media, blank: !isCommon }
   const {isLoading, mediaDetails} = useMediaDetails(media, id)
 
@@ -62,7 +61,7 @@ export default function PrimaryOverlay({ result, media, variant }) {
             animate={{y: 0}}
             exit={{y: 12}}
           >
-            {isCommon && <WatchButton data={{id, media, prevUrl}} />}
+            {isCommon && <WatchButton item={{id, title, media}} />}
             <LinkButton linkData={linkData} />
             <BookmarkButton item={{id, media}} />
           </motion.div>
@@ -118,7 +117,7 @@ export default function PrimaryOverlay({ result, media, variant }) {
             animate={{y: 0}}
             exit={{y: 12}}
           >
-            {<WatchButton data={{id, media, prevUrl}} />}
+            {<WatchButton item={{id, title, media}} />}
             <LinkButton linkData={linkData} />
             <BookmarkButton item={{id, media}} />
           </motion.div>

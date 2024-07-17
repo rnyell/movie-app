@@ -1,7 +1,7 @@
 import { XMarkIcon } from "@heroicons/outline"
 import { ALL_GENRES } from "@services"
 import { useSearch } from "@src/store/search-context"
-import { filterResults, sortResults } from "@utils/utils"
+import { filterResults, sortResults } from "@lib/utils"
 
 
 export default function SelectedFiltersBar({ setSearchStateCopy }) {

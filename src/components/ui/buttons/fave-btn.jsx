@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { HeartIcon } from "@heroicons/outline"
-import { useLocalStorage } from "@utils/hooks"
+import { useLocalStorage } from "@lib/hooks"
 import { useUserContext } from "@src/store/user-context"
 
 

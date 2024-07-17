@@ -7,6 +7,7 @@
   }
 
   & .bell-icon,
+  & .setting-icon,
   & .hamber-icon {
     padding: var(--space-2);
     color: var(--color-neutral-350);

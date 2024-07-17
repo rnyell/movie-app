@@ -1,36 +1,22 @@
 import { useEffect, useState } from "react"
 import { BookmarkIcon } from "@heroicons/outline"
-import { useLocalStorage } from "@utils/hooks"
-import { useUserContext } from "@src/store/user-context"
+import { isItemBookmarked } from "@src/lib/supabase/db"
 
 
-export default function BookmarkButton({ item }) {
-  const {id, media} = item
-  const {userState, userDispatch} = useUserContext()
-  const [, setBookmarkedLS] = useLocalStorage("bookmarked", userState.bookmarked)
-  const [isBookmarked, setIsBookmarked] = useState()
+export default function BookmarkButton({ item, setModal }) {
+  const [isBookmarked, setIsBookmarked] = useState(false)
 
   useEffect(() => {
-    const foundIndex = userState.bookmarked.findIndex(bookm => bookm.id === id)
-    const isFound = foundIndex !== -1
-    setIsBookmarked(isFound)
-  }, [])
+    loader()
+  }, [item.id])
+  
+  async function loader() {
+    const hasBookmarked = await isItemBookmarked(item)
+    setIsBookmarked(hasBookmarked)
+  }
 
-  useEffect(() => {
-    setBookmarkedLS(userState.bookmarked)
-  }, [isBookmarked])
-
-  function bookmarkMovie() {
-    const foundIndex = userState.bookmarked.findIndex(bookm => bookm.id === id)
-    const isFound = foundIndex !== -1 ? true : false
-
-    if (isFound) {
-      userDispatch({ type: "remove_bookmark", media, id })
-      setIsBookmarked(false)
-    } else {
-      userDispatch({ type: "add_bookmark", media, id })
-      setIsBookmarked(true)
-    }
+  function showListsModal() {
+    setModal(true)
   }
 
 
@@ -38,7 +24,7 @@ export default function BookmarkButton({ item }) {
     <button
       className={`main-btn bookmark-btn ${isBookmarked ? "is-bookmarked" : null}`}
       type="button"
-      onClick={bookmarkMovie}
+      onClick={showListsModal}
     >
       <i className="icon">
         <BookmarkIcon />

@@ -1,6 +1,6 @@
-import { createContext, useContext, useEffect, useReducer, useState } from "react"
+import { createContext, useContext, useEffect, useState } from "react"
 import { AnimatePresence } from "framer-motion"
-import { useGeoLocation } from "@utils/hooks"
+import { useGeoLocation } from "@lib/hooks"
 import { getPopularMovies, getOnScreenMovies, getTrendingMovies, getTrendingSeries } from "@services"
 import UserProvider from "./user-context"
 import { InitialLoading, AppLoading } from "@components/ui/skeletons"

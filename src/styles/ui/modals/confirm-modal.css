@@ -1,6 +1,6 @@
 .confirm-modal {
   padding: var(--space-6);
-  width: clamp(320px, 55%, 600px);
+  width: clamp(320px, 55%, 580px);
   box-shadow: 0 4px 1.25rem rgb(11 15 17 / 40%);
 
   & .btns {
