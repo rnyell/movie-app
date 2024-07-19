@@ -6,11 +6,18 @@ import {
   upsertPlayedMovies,
   upsertPlayedSeries,
 } from "@src/lib/supabase/db"
+import { Button, Icon } from "@src/lib/ui/components"
 
 
-export default function WatchButton({ item }) {
-  const { id, title, media } = item
+export default function WatchButton({ item, ...props }) {
   const navigate = useNavigate()
+  const { id, title, media } = item
+  const { 
+    text,
+    size,
+    iconSize,
+    customStyles
+  } = props
 
   async function playMovie() {
     if (media === "movie") {
@@ -24,17 +31,18 @@ export default function WatchButton({ item }) {
     navigate("/player", { state: { id, media } })
   }
 
-
   return (
-    <button
-      className="btn watch-btn"
-      type="button"
+    <Button
+      variants="solid-accent"
+      size={size}
+      customStyles={`rounded-lg pointer ${customStyles}`}
       onClick={playMovie}
     >
-      <i className="icon">
-        <PlayIcon />
-      </i>
-      <span>Watch</span>
-    </button>
+      <Icon
+        svg={<PlayIcon />}
+        size={iconSize}
+      />
+      {text && <span>{text}</span>}
+    </Button>
   )
 }

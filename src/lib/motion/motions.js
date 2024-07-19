@@ -31,7 +31,7 @@ export const pageTransitionVariants = {
   }
 }
 
-export const modalVariants = {
+export const modalMotion = {
   initial: {
     y: -50,
     opacity: 0.65
@@ -42,7 +42,7 @@ export const modalVariants = {
   },
   exit: {
     y: -75,
-    opacity: 0.65
+    opacity: 0
   }
 }
 
@@ -51,7 +51,7 @@ export const modalTransition = {
   ease: "easeOut"
 }
 
-export const modalBackdropVariants = {
+export const modalBackdropMotion = {
   initial: {
     opacity: 0.85
   },

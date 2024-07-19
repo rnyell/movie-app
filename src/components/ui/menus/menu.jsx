@@ -17,7 +17,7 @@ import {
 } from "@heroicons/solid"
 import { CompasIconSolid, CompasIcon, WideChevronLeftIcon } from "@lib/icons"
 import { useWindowOffsets } from "@lib/hooks"
-import { breakpoints } from "@lib/configs"
+import { breakpoints } from "@src/lib/ui/configs"
 import logo from "@src/assets/logo.png"
 import AccountDropdown from "@components/account/account-dropdown"
 

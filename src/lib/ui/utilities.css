@@ -1,0 +1,238 @@
+/* ------------------------------- */
+/* textuatl */
+.capitalize {
+  text-transform: capitalize;
+}
+
+.truncate {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.box-clamp {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  /* setting a default line-clamp */
+  -webkit-line-clamp: 3;
+}
+
+/* ------------------------------- */
+/* positioning */
+.isolated-stack {
+  position: relative;
+  isolation: isolate;
+}
+
+.\:\:before-abs {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+  }
+}
+
+.\:\:after-abs {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+  }
+}
+
+.absolute {
+  position: absolute;
+}
+
+.absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+}
+
+.absolute-align-center {
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+}
+
+.absolute-justify-center {
+  position: absolute;
+  left: 50%;
+  translate: -50% 0;
+}
+
+.top-4 {
+  top: 1rem;
+}
+
+.right-4 {
+  right: 1rem;
+}
+
+/* ------------------------------- */
+/* layout */
+.overflow-none {
+  overflow: hidden;
+}
+
+.grid {
+  display: grid;
+}
+
+.grid-center {
+  display: grid;
+  place-items: center;
+}
+
+.grid-item {
+  min-width: 0;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-col-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.align-center {
+  display: flex;
+  align-items: center;
+}
+
+.justify-center {
+  display: flex;
+  justify-content: center;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.align-center-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.justify-center-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.flex-item {
+  min-width: 0;
+  flex-shrink: 0;
+}
+
+.shrink-0 {
+  flex-shrink: 0;
+}
+
+.grow-1 {
+  flex-grow: 1;
+}
+
+/* ------------------------------- */
+/* box */
+.w-100 {
+  width: 100%;
+}
+
+.h-100 {
+  height: 100%;
+}
+
+.mx-auto {
+  margin-inline: auto;
+}
+
+.ml-auto {
+  margin-left: auto;
+}
+
+.mr-auto {
+  margin-right: auto;
+}
+
+/* ------------------------------- */
+/* visual */
+.rounded-md {
+  border-radius: 0.5rem;
+}
+
+.rounded-lg {
+  border-radius: 0.635rem;
+}
+
+.rounded-full {
+  border-radius: 9999px;
+}
+
+.bg-blur-5 {
+  background-color: rgb(20 23 25 / 16%);
+  backdrop-filter: blur(5px);
+}
+
+.stroke-3 {
+  stroke-width: 1.75;
+}
+
+/* ------------------------------- */
+/* misc */
+.snap-x-proximity {
+  overflow-x: scroll;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+
+  /* setting a default snap-align for direct children */
+  & > * {
+    scroll-snap-align: start;
+  }
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.unselectable {
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ------------------------------- */
+/* colors */
+.color-neutral-300 {
+  --color: var(--color-neutral-300);
+  color: var(--color);
+}
+
+.color-neutral-350 {
+  --color: var(--color-neutral-350);
+  color: var(--color);
+}
+
+.bg-neutral-850 {
+  --bg-color: var(--color-neutral-850);
+  background-color: var(--bg-color);
+}

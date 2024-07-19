@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { createPortal } from "react-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { PhotoIcon, XMarkIcon } from "@heroicons/solid"
-import { defaultVariantsLabel, modalBackdropVariants } from "@lib/motion/motions"
+import { defaultVariantsLabel, modalBackdropMotion } from "@lib/motion/motions"
 import { IMAGES_URL } from "@services"
 import ImageSlider from "./image-slider"
 
@@ -65,7 +65,7 @@ function Gallery({ images, setModal }) {
     <>
       <motion.div
         className="modal-backdrop"
-        variants={modalBackdropVariants}
+        variants={modalBackdropMotion}
         {...defaultVariantsLabel}
         onClick={() => setModal(false)}
       />

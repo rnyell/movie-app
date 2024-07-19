@@ -1,15 +1,18 @@
 import { InfoIcon } from "@lib/icons"
+import { Button } from "@src/lib/ui/components"
 
-export default function InfoButton({ setModal }) {
+export default function InfoButton({ setModal, ...props }) {
+  const { variants, size, iconSize, customStyles } = props
+
   return (
-    <button
-      className="main-btn info-btn"
-      type="button"
+    <Button
+      variants={variants}
+      size={size}
+      customStyles={customStyles}
+      iconOnly
+      iconSize={iconSize}
+      svg={<InfoIcon />}
       onClick={() => setModal(true)}
-    >
-      <i className="icon">
-        <InfoIcon />
-      </i>
-    </button>
+    />
   )
 }

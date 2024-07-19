@@ -1,10 +1,8 @@
-import { createPortal } from "react-dom"
 import { useNavigate } from "react-router-dom"
-import { motion } from "framer-motion"
 import { IMAGES_URL } from "@services"
 import { useMediaDetails } from "@services/hooks"
 import { formatRuntime, formatReleaseDate, getMovieDirector } from "@services/movie-utils"
-import { modalBackdropVariants, modalVariants, defaultVariantsLabel, modalTransition } from "@lib/motion/motions"
+import { Modal, Button } from "@src/lib/ui/components"
 import Rates from "@components/movie/details/rates"
 import Genres from "@components/movie/details/genres"
 import Overview from "@components/movie/details/overview"
@@ -45,20 +43,9 @@ export default function MovieDetailsModal({ result, setModal, price }) {
     return <div>loading...</div>
   }
 
-  return createPortal(
-    <>
-      <motion.div
-        className="modal-backdrop"
-        onClick={() => setModal(false)}
-        variants={modalBackdropVariants}
-        {...defaultVariantsLabel}
-      />
-      <motion.div
-        className="modal movie-details-modal align-center-col"
-        variants={modalVariants}
-        {...defaultVariantsLabel}
-        transition={modalTransition}
-      >
+  return (
+    <Modal setClose={() => setModal(false)} size="lg">
+      <div className="movie-details-modal align-center-col">
         <div className="modal-img w-100">
           <figure>
             <img
@@ -92,12 +79,24 @@ export default function MovieDetailsModal({ result, setModal, price }) {
           </div>
           <div className="btns align-center">
             <span className="price unselectable">${price}</span>
-            <button className="btn dismiss-btn" type="button" onClick={() => setModal(false)}>Dismiss</button>
-            <button className="btn buy-btn" type="button" onClick={handleBooking}>Buy Ticket</button>
+            <Button
+              variants="outline-light"
+              size="md"
+              customStyles="ml-auto"
+              onClick={() => setModal(false)}
+            >
+              Dismiss
+            </Button>
+            <Button
+              variants="solid-accent"
+              size="md"
+              onClick={handleBooking}
+            >
+              Buy Ticket
+            </Button>
           </div>
         </div>
-      </motion.div>
-    </>,
-    document.getElementById("portal")
+      </div>
+    </Modal>
   )
 }

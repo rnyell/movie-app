@@ -1,33 +1,24 @@
-import { createPortal } from "react-dom"
-import { motion } from "framer-motion"
-import { modalBackdropVariants, modalVariants, defaultVariantsLabel, modalTransition } from "@lib/motion/motions"
-
+import { Modal, Button } from "@src/lib/ui/components"
 
 export default function ConfirmModal(props) {
   const { confirmText, setModal, handleSubmittedAction } = props
   
-  return createPortal(
-    <>
-      <motion.div
-        className="modal-backdrop"
-        onClick={() => setModal(false)}
-        variants={modalBackdropVariants}
-        {...defaultVariantsLabel}
-      />
-      <motion.div
-        className="modal confirm-modal flex-col"
-        variants={modalVariants}
-        {...defaultVariantsLabel}
-        transition={modalTransition}
-      >
+  return (
+    <Modal setClose={() => setModal(false)} size="lg" variants="confirm">
+      <div className="confirm-modal flex-col">
         <p>{confirmText}</p>
         {/* <button>Add to watched</button> */}
         <div className="btns flex">
-          <button className="btn cancel-btn" type="button" onClick={() => setModal(false)}>Cancel</button>
-          <button className="btn del-btn" type="button" onClick={handleSubmittedAction}>Delete</button>
+          <Button
+            variants="outline-light"
+            size="md"
+            onClick={() => setModal(false)}
+          >
+            Cancel
+          </Button>
+          <Button variants="danger" size="md" onClick={handleSubmittedAction}>Delete</Button>
         </div>
-      </motion.div>
-    </>,
-    document.getElementById("portal")
+      </div>
+    </Modal>
   )
 }

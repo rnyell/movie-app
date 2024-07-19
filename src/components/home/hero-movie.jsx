@@ -13,11 +13,12 @@ import WatchButton from "@components/ui/buttons/watch-btn"
 import Rates from "@components/movie/details/rates"
 import ListsModal from "@components/ui/modals/lists-modal"
 import { useUserContext } from "@src/store/user-context"
+import { Button, Icon } from "@src/lib/ui/components"
 
 
 export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
   const {userState} = useUserContext()
-  console.log(userState.session, '??')
+  // console.log(userState.session, '??')
   const id = movie.id
   const media = "movie"
   const {isLoading, mediaDetails} = useMediaDetails(media, id)
@@ -120,11 +121,29 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
             </motion.p>
           </motion.div>
           <div className="cta-btns flex">
-            <WatchButton item={{id, title, media}} />
-            <button className="btn btn-shared" type="button" onClick={handleSelectedMovie}>
-              <span>More Info</span>
-            </button>
-            <BookmarkButton item={{id, media}} setModal={setListsModal} />
+            <WatchButton
+              item={{id, title, media}}
+              size="md"
+              iconSize="md"
+              customStyles="rounded-lg"
+              text="Watch"
+            />
+            <Button
+              variants="blured-1"
+              size="md"
+              customStyles="rounded-lg"
+              onClick={handleSelectedMovie}
+            >
+              More Info
+            </Button>
+            <BookmarkButton
+              item={{id, media}}
+              setModal={setListsModal}
+              variants="blured-1"
+              size="icon-md"
+              iconSize="md"
+              customStyles="rounded-lg"
+            />
           </div>
           <p className="tagline">{tagline}</p>
           <motion.div className="rate-container" variants={itemsBVariants}>
@@ -138,12 +157,22 @@ export default function HeroMovie({ movie, showNextMovie, showPrevMovie }) {
             <Casts casts={credits.cast} mode="drawer" />
           </div>
           <div className="next-prev-btns">
-            <button className="btn btn-shared" type="button" onClick={() => showPrevMovie(1)}>
-              <ChevronLeftIcon />
-            </button>
-            <button className="btn btn-shared" type="button" onClick={() => showNextMovie(1)}>
-              <ChevronRightIcon />
-            </button>
+            <Button
+              variants="blured-1"
+              size="icon-md"
+              customStyles="rounded-lg"
+              onClick={() => showPrevMovie(1)}
+            >
+              <Icon svg={<ChevronLeftIcon className="stroke-3" />} size="md" />
+            </Button>
+            <Button
+              variants="blured-1"
+              size="icon-md"
+              customStyles="rounded-lg"
+              onClick={() => showNextMovie(1)}
+            >
+              <Icon svg={<ChevronRightIcon className="stroke-3" />} size="md" />
+            </Button>
           </div>
         </div>
       </motion.div>

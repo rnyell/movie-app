@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
 import { ExclamationCircleIcon} from "@heroicons/outline"
-import { modalVariants, defaultVariantsLabel, modalTransition } from "@lib/motion/motions"
+import { modalMotion, defaultVariantsLabel, modalTransition } from "@lib/motion/motions"
 
 
 export function ErrorPage() {
@@ -20,7 +20,7 @@ export function VPNError() {
   return (
     <section className="vpn-error">
       <motion.div
-        variants={modalVariants}
+        variants={modalMotion}
         {...defaultVariantsLabel}
         transition={modalTransition}
       >

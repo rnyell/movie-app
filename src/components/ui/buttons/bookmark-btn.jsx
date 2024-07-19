@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react"
-import { BookmarkIcon } from "@heroicons/outline"
 import { isItemBookmarked } from "@src/lib/supabase/db"
+import { BookmarkIcon } from "@heroicons/outline"
+import { Button } from "@src/lib/ui/components"
 
 
-export default function BookmarkButton({ item, setModal }) {
+export default function BookmarkButton({ item, setModal, ...props }) {
   const [isBookmarked, setIsBookmarked] = useState(false)
+  const { variants, size, iconSize, customStyles } = props
 
   useEffect(() => {
     loader()
@@ -21,14 +23,15 @@ export default function BookmarkButton({ item, setModal }) {
 
 
   return (
-    <button
-      className={`main-btn bookmark-btn ${isBookmarked ? "is-bookmarked" : null}`}
-      type="button"
+    <Button
+      variants={isBookmarked ? "solid-primary" : variants}
+      size={size}
+      customStyles={customStyles}
+      iconOnly
+      iconSize={iconSize}
+      iconFill={isBookmarked ? "fill" : ""}
+      svg={<BookmarkIcon />}
       onClick={showListsModal}
-    >
-      <i className="icon">
-        <BookmarkIcon />
-      </i>
-    </button>
+    />
   )
 }

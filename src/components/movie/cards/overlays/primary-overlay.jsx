@@ -61,9 +61,9 @@ export default function PrimaryOverlay({ result, media, variant }) {
             animate={{y: 0}}
             exit={{y: 12}}
           >
-            {isCommon && <WatchButton item={{id, title, media}} />}
-            <LinkButton linkData={linkData} />
-            <BookmarkButton item={{id, media}} />
+            {isCommon && <WatchButton item={{id, title, media}} size="icon-md" iconSize="md" />}
+            <LinkButton linkData={linkData} size="icon-md" iconSize="md" />
+            <BookmarkButton item={{id, media}} variants="blured-2" size="icon-md" iconSize="md" />
           </motion.div>
         </motion.div>
       )
@@ -117,9 +117,9 @@ export default function PrimaryOverlay({ result, media, variant }) {
             animate={{y: 0}}
             exit={{y: 12}}
           >
-            {<WatchButton item={{id, title, media}} />}
-            <LinkButton linkData={linkData} />
-            <BookmarkButton item={{id, media}} />
+            {<WatchButton item={{id, title: name, media}} size="icon-md" iconSize="md" />}
+            <LinkButton linkData={linkData} size="icon-md" iconSize="md" />
+            <BookmarkButton item={{id, media}} variants="blured-2" size="icon-md" iconSize="md" />
           </motion.div>
         </motion.div>
       )

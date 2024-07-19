@@ -5,6 +5,7 @@ import { BellIcon, Cog6ToothIcon } from "@heroicons/outline"
 import AccountDropdown from "@components/account/account-dropdown"
 import SearchBox from "./search-box"
 import SideMenu from "./menus/sidemenu"
+import { Button } from "@src/lib/ui/components"
 
 
 export default function Header({ hasSearchbox = true }) {
@@ -31,19 +32,30 @@ export default function Header({ hasSearchbox = true }) {
 
   return (
     <header className="main-header align-center" data-set={dataset}>
-      {(dataset.includes("stretched") || dataset.includes("animated")) && (
+      {(dataset.includes("stretched") || 
+        dataset.includes("animated")) && (
         <HamberIcon setIsOpen={setIsOpen} isOpen={isOpen} />
       )}
       <div className="search-box-wrapper flex-item">
         <SearchBox dataset={dataset} />
       </div>
       <div className="icons align-center">
-        <i className="icon bell-icon">
-          <BellIcon />
-        </i>
-        <i className="icon setting-icon">
-          <Cog6ToothIcon />
-        </i>
+        <Button
+          variants="ghost"
+          size="icon-md"
+          iconOnly
+          iconSize="xl"
+          svg={<BellIcon />}
+          customStyles="rounded-full color-neutral-350"
+        />
+        <Button
+          variants="ghost"
+          size="icon-md"
+          iconOnly
+          iconSize="xl"
+          svg={<Cog6ToothIcon />}
+          customStyles="rounded-full color-neutral-350"
+        />
         <AccountDropdown />
       </div>
       <AnimatePresence>
@@ -54,16 +66,31 @@ export default function Header({ hasSearchbox = true }) {
 }
 
 function HamberIcon({setIsOpen, isOpen}) {
+  const iconSrtles = {
+    position: "relative",
+    gap: 1,
+  }
+
+  const lineStyles = {
+    borderRadius: 10,
+    backgroundColor: "var(--color-neutral-350)",
+    transformOrigin: "center"
+  }
+
   return (
-    <i className="icon hamber-icon flex-col-center" onClick={() => setIsOpen(!isOpen)}>
+    <i
+      className="icon flex-col-center pointer"
+      style={iconSrtles}
+      onClick={() => setIsOpen(!isOpen)}
+    >
       <motion.span
         className="line"
-        style={{height: 1.5, width: 20, y: -1}}
+        style={{...lineStyles, height: 1.5, width: 20, y: -1}}
         animate={isOpen ? {rotateZ: 45, y: 1} : {rotateZ: 0}}
       />
       <motion.span
         className="line"
-        style={{marginRight: "auto", height: 1.5, width: 16, y: 1.5}}
+        style={{...lineStyles, marginRight: "auto", height: 1.5, width: 16, y: 1.5}}
         animate={isOpen ? {rotateZ: -45, width: 20, y: -1.5} : {rotateZ: 0}}
       />
     </i>

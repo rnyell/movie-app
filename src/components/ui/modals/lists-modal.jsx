@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { createPortal } from "react-dom"
 import { PlusIcon, LockClosedIcon, XMarkIcon } from "@heroicons/outline"
 import { useUserContext } from "@src/store/user-context"
 import {
@@ -7,7 +6,7 @@ import {
   getListsIdsByBookmarkedItem,
   createList
 } from "@src/lib/supabase/db"
-
+import { Modal, Button, Icon } from "@src/lib/ui/components"
 
 export default function ListsModal({ item, setModal }) {
   const { userState } = useUserContext()
@@ -72,14 +71,18 @@ export default function ListsModal({ item, setModal }) {
     return null
   }
 
-  return createPortal(
-    <>
-      <div className="modal-backdrop" onClick={() => setModal(false)} />
-      <div className="modal lists-modal">
+  return (
+    <Modal setClose={() => setModal(false)} size="sm">
+      <div className="lists-modal">
         <form id="lists-form" onSubmit={submitSelectedLists}>
-          <i className="icon close-icon" onClick={() => setModal(false)}>
-            <XMarkIcon />
-          </i>
+          <Button
+            variants="ghost"
+            size="icon-md"
+            customStyles="absolute top-4 right-4 rounded-full"
+            onClick={() => setModal(false)}
+          >
+            <Icon svg={<XMarkIcon />} size="md" />
+          </Button>
           <p>Save {item.media === "movie" ? "movie" : "series"} to . . .</p>
           <div className="lists flex-col">
             {lists.map(list => (
@@ -97,29 +100,32 @@ export default function ListsModal({ item, setModal }) {
                   onChange={() => handleChange(list.id)}
                 />
                 <span>{list.name}</span>
-                {list.is_private ? <i className="icon lock-icon"><LockClosedIcon /></i> : <div style={{width: 16, height: 16}} />}
+                {list.is_private ? (
+                  <Icon svg={<LockClosedIcon />} size="sm" customStyles="ml-auto" />
+                  ) : (
+                  <div style={{width: 16, height: 16}} />
+                )}
               </label>
             ))}
           </div>
           {isCreatingNewList && <hr style={{marginBlock: 12, width: "100%"}} />}
           {isCreatingNewList && <NewList />}
           <div className="cta-btns flex">
-            <button
-              className={`btn create-list-btn flex ${isCreatingNewList ? "is-creating" : ""}`}
+            <Button
               type={isCreatingNewList ? "submit" : "button"}
+              variants={isCreatingNewList ? "solid-primary" : "outline-light"}
+              size="md"
+              customStyles={isCreatingNewList ? "grow-1" : ""}
               onClick={isCreatingNewList ? null : showCreatingList}
             >
-              <i className="icon">
-                <PlusIcon />
-              </i>
+              <Icon svg={<PlusIcon />} size="sm" />
               <span>{isCreatingNewList ? "Create & Save" : "Create new list"}</span>
-            </button>
-            {!isCreatingNewList && <button className="btn" type="submit">Save</button>}
+            </Button>
+            {!isCreatingNewList && <Button type="submit" size="md" customStyles="grow-1">Save</Button>}
           </div>
         </form>
       </div>
-    </>,
-    document.getElementById("portal")
+    </Modal>
   )
 }
 

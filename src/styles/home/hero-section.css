@@ -123,28 +123,6 @@
     }
   }
 
-  & .btn-shared {
-    padding: 1.2cqw 1.5cqw;
-    font-weight: 500;
-    background-color: rgb(20 23 25 / 16%);
-    backdrop-filter: blur(5px);
-    border-radius: 0.7rem;
-    border: var(--outline-size-1) solid var(--color-neutral-400);
-    transition: background-color var(--duration-1) ease-in,
-      border-color var(--duration-1) ease-in,
-      color var(--duration-1) ease-in;
-
-    &:hover {
-      color: var(--color-neutral-800);
-      background-color: var(--color-neutral-300);
-      border-color: var(--color-neutral-300);
-    }
-
-    & svg {
-      width: var(--icon-size-4);
-    }
-  }
-
   & .cta-btns {
     gap: 1.5cqw;
     font-size: 0.8rem;
@@ -153,15 +131,6 @@
   & .next-prev-btns {
     display: inline-flex;
     gap: 1.5cqw;
-
-    & button {
-      padding: 1.5cqw;
-      border-width: var(--outline-size-2);
-    }
-
-    & svg {
-      stroke-width: 1.75;
-    }
   }
 }
 

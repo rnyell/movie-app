@@ -4,6 +4,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom"
 import { routeTree } from "./routes"
 import AppProvider from "@src/store/app-context"
 import "./styles.css"
+import "./lib/ui/utilities.css"
 
 
 const router = createBrowserRouter(routeTree)

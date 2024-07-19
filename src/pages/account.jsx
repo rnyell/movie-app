@@ -4,6 +4,7 @@ import { EllipsisVerticalIcon } from "@heroicons/outline"
 import { useUserContext } from "@src/store/user-context"
 import ViewTransition from "@lib/motion/view-transition"
 import Page from "@src/components/ui/layouts/page"
+import { Button, Icon } from "@src/lib/ui/components"
 import MovieCard from "@components/movie/movie-card"
 import EmptyHistory from "@components/account/empty-history"
 import EmptyWatchlist from "@components/account/empty-watchlist"
@@ -92,7 +93,7 @@ export default function Account() {
               </i>
             </button>
           </header>
-          <div className="movies-container container">
+          {/* <div className="movies-container container">
             {userState.bookmarked.length === 0 ? (
               <EmptyWatchlist />
             ) : (userState.bookmarked.map(bookm =>
@@ -109,7 +110,7 @@ export default function Account() {
             <div className="cta">
               <button className="btn" type="button" onClick={handleClearAllBookmarksBtn}>Delete All</button>
             </div>
-          )}
+          )} */}
         </section>
         {<AnimatePresence>
           {showModal && (

@@ -101,9 +101,21 @@ export default function SelectedMovie() {
             </div>
             <Overview text={overview} />
             <div className="cta-btns flex">
-              <WatchButton item={{id, title, media}} />
-              <FaveButton />
-              <BookmarkButton item={{id, media}} />
+              <WatchButton
+                item={{id, title, media}}
+                text="Watch"
+                size="xl"
+                iconSize="xl"
+                customStyles="rounded-full"
+              />
+              <FaveButton item={{id, media}} />
+              <BookmarkButton
+                item={{id, media}}
+                variants="outline-bold"
+                size="icon-xl"
+                iconSize="xl"
+                customStyles="rounded-full"
+              />
             </div>
           </div>
         </section>

@@ -5,6 +5,7 @@ import { IMAGES_URL } from "@services"
 import { PRICES } from "@services/placeholder-data"
 import InfoButton from "@components/ui/buttons/info-btn"
 import MovieDetailsModal from "@components/ui/modals/movie-details-modal"
+import { Button } from "@src/lib/ui/components"
 
 
 export default function ScreenCard({ result, variant, idx }) {
@@ -53,8 +54,16 @@ export default function ScreenCard({ result, variant, idx }) {
           <span className="price">${PRICES[idx]}</span>
         </div>
         <div className="cta-btns flex">
-          <button className="btn book-btn" type="button" onClick={handleBooking}>Book Now</button>
-          <InfoButton setModal={setShowModal} />
+          <Button variants="solid-secondary" customStyles="rounded-lg" onClick={handleBooking}>
+            Book Now
+          </Button>
+          <InfoButton
+            setModal={setShowModal}
+            variants="outline-bold"
+            size="icon-md"
+            iconSize="md"
+            customStyles="rounded-lg"
+          />
         </div>
       </div>
       {<AnimatePresence>

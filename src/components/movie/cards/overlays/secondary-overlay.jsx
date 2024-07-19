@@ -53,13 +53,13 @@ export default function SecondaryOverlay({ result, variant, ...rest }) {
       >
         {variant === "result" ? (
           <>
-            <BookmarkButton item={{id, media}} />
-            <InfoButton setModal={setModal} />
+            <BookmarkButton item={{id, media}} variants="blured-2" size="icon-md" iconSize="md" />
+            <InfoButton setModal={setModal} variants="blured-2" size="icon-md" iconSize="md" />
           </>
         ) : (
           <>
             <BookmarkDeleteButton setModal={setModal} />
-            <LinkButton linkData={{id, media, blank: false}} />
+            <LinkButton linkData={{id, media, blank: false}} size="icon-md" iconSize="md" />
           </>
         )}
       </motion.div>

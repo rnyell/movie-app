@@ -1,8 +1,4 @@
 .movie-details-modal {
-  width: clamp(330px, 55%, 550px);
-  top: 30%;
-  translate: -50% -29%;
-
   & .poster {
     border-radius: 1.25rem;
   }
@@ -48,29 +44,6 @@
   & .btns {
     margin-top: var(--space-8);
     gap: 0.5rem;
-
-    & button {
-      padding: 0.75rem 1rem;
-      border-radius: 0.75rem;
-      transition: background-color var(--duration-1) ease-in;
-    }
-
-    & .dismiss-btn {
-      margin-left: auto;
-      border: 1.5px solid var(--color-neutral-500);
-
-      &:hover {
-        background-color: var(--color-neutral-500);
-      }
-    }
-
-    & .buy-btn {
-      background-color: var(--color-accent-500);
-
-      &:hover {
-        background-color: var(--color-accent-400);
-      }
-    }
 
     & .price {
       padding: 0.5rem 0.75rem;

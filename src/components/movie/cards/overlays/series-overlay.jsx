@@ -61,7 +61,7 @@ export default function SeriesOverlay({ result }) {
         exit={{y: 12}}
       >
         <LinkButton linkData={linkData} />
-        <BookmarkButton item={{id, media}} />
+        <BookmarkButton item={{id, media}} variants="blured-2" size="icon-md" iconSize="md" />
       </motion.div>
     </motion.div>
   )

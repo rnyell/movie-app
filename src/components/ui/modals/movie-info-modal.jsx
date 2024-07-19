@@ -1,9 +1,7 @@
-import { createPortal } from "react-dom"
 import { useNavigate } from "react-router-dom"
-import { motion } from "framer-motion"
-import { modalBackdropVariants, modalVariants, defaultVariantsLabel, modalTransition } from "@lib/motion/motions"
 import { IMAGES_URL } from "@services"
 import { formatReleaseDate } from "@services/movie-utils"
+import { Modal, Button } from "@src/lib/ui/components"
 import Rates from "@components/movie/details/rates"
 import Genres from "@components/movie/details/genres"
 import Overview from "@components/movie/details/overview"
@@ -32,20 +30,9 @@ export default function MovieInfoModal({ result, media, setModal }) {
   }
 
 
-  return createPortal(
-    <>
-      <motion.div
-        className="modal-backdrop"
-        onClick={() => setModal(false)}
-        variants={modalBackdropVariants}
-        {...defaultVariantsLabel}
-      />
-      <motion.div
-        className="modal movie-info-modal"
-        variants={modalVariants}
-        {...defaultVariantsLabel}
-        transition={modalTransition}
-      >
+  return (
+    <Modal setClose={() => setModal(false)} size="md">
+      <div className="movie-info-modal">
         <div className="modal-img">
           <figure>
             <img
@@ -70,12 +57,25 @@ export default function MovieInfoModal({ result, media, setModal }) {
           <Overview text={overview} />
           <Casts moda="names" />
           <div className="btns flex">
-            <button className="btn dismiss-btn" type="button" onClick={() => setModal(false)}>Dismiss</button>
-            <button className="btn info-btn" type="button" onClick={handleNavigation}>See More</button>
+            <Button
+              variants="outline-light"
+              size="lg"
+              customStyles="rounded-full ml-auto"
+              onClick={() => setModal(false)}
+            >
+              Dismiss
+            </Button>
+            <Button
+              variants="solid-accent"
+              size="lg"
+              customStyles="grow-1 rounded-full"
+              onClick={handleNavigation}
+            >
+              See More
+            </Button>
           </div>
         </div>
-      </motion.div>
-    </>,
-    document.getElementById("portal")
+      </div>
+    </Modal>
   )
 }

@@ -1,22 +1,24 @@
 import { useState } from "react"
 import { HeartIcon } from "@heroicons/outline"
-import { useLocalStorage } from "@lib/hooks"
 import { useUserContext } from "@src/store/user-context"
+import { Button } from "@src/lib/ui/components"
 
 
-export default function FaveButton() {
+export default function FaveButton({ item }) {
+  const { id, media} = item
   const [isFaved, setIsFaved] = useState(false)
 
 
   return (
-    <button
-      className={`btn fave-btn ${isFaved ? "is-faved" : ""}`}
-      type="button"
+    <Button
+      variants={isFaved ? "solid-primary" : "outline-bold"}
+      size="icon-xl"
+      customStyles="rounded-full"
+      iconOnly
+      iconSize="xl"
+      iconFill={isFaved ? "fill" : ""}
+      svg={<HeartIcon />}
       onClick={() => setIsFaved(!isFaved)}
-    >
-      <i className="icon">
-        <HeartIcon />
-      </i>
-    </button>
+    />
   )
 }

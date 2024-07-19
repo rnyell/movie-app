@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useLocation, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { useWindowOffsets } from "@lib/hooks"
 import { IMAGES_URL } from "@services"
 import { useMediaDetails } from "@services/hooks"
@@ -10,10 +10,7 @@ import MovieCard from "@components/movie/movie-card"
 import Overview from "@components/movie/details/overview"
 // import Rates from "@components/movie/details/rates"
 import Casts from "@components/movie/details/casts"
-import WatchButton from "@components/ui/buttons/watch-btn"
-import FaveButton from "@components/ui/buttons/fave-btn"
 import NetworkLogo from "@components/selected-movie/network-logo"
-import BookmarkButton from "@components/ui/buttons/bookmark-btn"
 import Pictures from "@components/selected-movie/pictures"
 import Trailers from "@components/selected-movie/trailers"
 
@@ -28,7 +25,6 @@ const imgUrlInit = {
 
 export default function SelectedSeries() {
   const {windowWidth} = useWindowOffsets()
-  const location = useLocation()
   const {id} = useParams()
   const media = "series"
   const {mediaDetails, isLoading} = useMediaDetails("tv", id)

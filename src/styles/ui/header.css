@@ -6,37 +6,8 @@
     margin-inline: auto var(--space-6);
   }
 
-  & .bell-icon,
-  & .setting-icon,
-  & .hamber-icon {
-    padding: var(--space-2);
-    color: var(--color-neutral-350);
-    border-radius: var(--full-rounded);
-    transition: background-color var(--duration-1) ease-in;
-
-    & svg {
-      width: var(--icon-size-6);
-    }
-
-    &:hover {
-      background-color: var(--color-neutral-600);
-    }
-  }
-
   & .icons {
     gap: 0.325rem;
-  }
-
-  & .hamber-icon {
-    position: relative;
-    gap: 1px;
-    cursor: pointer;
-
-    & .line {
-      border-radius: 10px;
-      background-color: var(--color-neutral-350);
-      transform-origin: center;
-    }
   }
 
   &[data-set~="sticky"] {
@@ -69,19 +40,6 @@
 
     & .search-box-wrapper {
       margin-inline: 1rem auto;
-    }
-
-    & .icon:not(.search-icon) {
-      padding: var(--space-2);
-      color: var(--color-neutral-250);
-
-      & svg {
-        width: var(--icon-size-7);
-      }
-
-      &:hover {
-        background-color: color-mix(in srgb, var(--color-neutral-200) 30%, transparent);
-      }
     }
   }
 

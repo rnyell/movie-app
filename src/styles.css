@@ -1,5 +1,4 @@
 @import "@styles/base.css" layer(base);
-@import "@lib/utilities.css" layer(utilities);
 
 /* pages */
 @import "@styles/pages/home-page.css" layer;
@@ -43,13 +42,6 @@
 @import "@styles/selected-movie/pictures.css";
 
 /* ui */
-@import "@styles/ui/buttons/bookmark-btn.css";
-@import "@styles/ui/buttons/bookmark-del-btn.css";
-@import "@styles/ui/buttons/link-btn.css";
-@import "@styles/ui/buttons/fave-btn.css";
-@import "@styles/ui/buttons/watch-btn.css";
-@import "@styles/ui/buttons/info-btn.css";
-
 @import "@styles/ui/modals/movie-details-modal.css";
 @import "@styles/ui/modals/movie-info-modal.css";
 @import "@styles/ui/modals/lists-modal.css";
