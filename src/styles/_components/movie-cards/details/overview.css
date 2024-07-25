@@ -1,0 +1,43 @@
+.overview {
+  margin-top: 1rem;
+  max-width: min(70ch, 58vw);
+  font-size: 0.65rem;
+  color: var(--color-neutral-200);
+  -webkit-line-clamp: 4;
+  
+  /* &:hover {
+    -webkit-line-clamp: 6;
+  } */
+}
+
+.movie-card[data-variant="result"] .overview {
+  /* word-break: break-all; */
+}
+
+.movie-card[data-variant="bookmarked"] .overview {
+  font-weight: 500;
+}
+
+.movie-details-modal .overview {
+  margin-block: var(--space-8) var(--space-6);
+  font-size: 0.85rem;
+  -webkit-line-clamp: 3;
+}
+
+.movie-info-modal .overview {
+  font-size: 0.825rem;
+  -webkit-line-clamp: 6;
+}
+
+.selected-media .overview {
+  margin-top: 0;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+  -webkit-line-clamp: unset;
+}
+
+@media (width < 480px) {
+  .selected-media .overview {
+    max-width: 75vw;
+  }
+}

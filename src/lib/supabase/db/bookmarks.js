@@ -1,4 +1,5 @@
 import { supabase, getUserId } from "../auth"
+import { getWatchLaterListId } from "./lists"
 
 
 export async function getAllBookmarkedItems() {
@@ -14,6 +15,25 @@ export async function getAllBookmarkedItems() {
   }
   
   return data
+}
+
+export async function getWatchLaterItems() {
+  const listId = await getWatchLaterListId()
+  const { data, error } = await supabase
+    .from("bookmarks")
+    .select("*")
+    .eq("list_id", listId)
+
+  if (error) {
+    console.error(error)
+  }
+
+  if (data) {
+    return data
+  } else {
+    console.info("Watch later has no item...")
+    return []
+  }
 }
 
 export async function getListsIdsByBookmarkedItem(item) {

@@ -7,7 +7,7 @@
     height: var(--space-8);
     display: inline-grid;
     place-items: center;
-    color: var(--color-neutral-300);
+    color: var(--color-neutral-200);
     outline: var(--outline-size-2) solid var(--color-neutral-400);
     border-radius: 0.5rem;
     transition: color var(--duration-1),
@@ -15,7 +15,7 @@
       outline-color var(--duration-1);
 
     &:hover {
-      color: var(--color-neutral-200) !important;
+      color: var(--color-neutral-100) !important;
       background-color: var(--color-accent-400) !important;
       outline-color: var(--color-accent-400) !important;
     }

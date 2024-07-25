@@ -1,10 +1,6 @@
 import { createContext, useContext, useEffect, useReducer, useState } from "react"
 import { supabase, getAuthSession } from "@src/lib/supabase/auth"
-import {
-  getUserProfile,
-  getAllBookmarkedItems,
-  getUserLists,
-} from "@src/lib/supabase/db"
+import { getUserProfile, getUserLists } from "@src/lib/supabase/db"
 
 const UserContext = createContext(null)
 
@@ -35,7 +31,6 @@ function userReducer(state, action) {
 export default function UserProvider({ children }) {
   const [userState, userDispatch] = useReducer(userReducer, userInitial)
   const [session, setSession] = useState()
-  const [user, setUser] = useState(userInitial)
 
   useEffect(() => {
     initSession()
@@ -86,7 +81,6 @@ export default function UserProvider({ children }) {
 
     const playedMovies = played_movies ?? []
     const playedSeries = played_series ?? []
-    // const bookmarked = await getAllBookmarkedItems()
     const lists = await getUserLists()
   
     return {
@@ -100,11 +94,7 @@ export default function UserProvider({ children }) {
     }
   }
 
-  const contextValue = {
-    session,
-    userState,
-    userDispatch,
-  }
+  const contextValue = { session, userState }
 
 
   return (

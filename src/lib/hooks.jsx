@@ -2,38 +2,33 @@ import { useEffect, useState, useRef } from "react"
 import { readLocalStorage, writeLocalStorage } from "./utils"
 
 
-export function useFetch(url, options = {}) {
+export function useLoader(fn, options = { dependencies: [] }) {
   const [data, setData] = useState(null)
-  const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
-  const fetcher = options.fetcher
+  const [isLoading, setIsLoading] = useState(true)
+
+  const deps = [...options.dependencies]
 
   useEffect(() => {
     const controller = new AbortController()
+
     loader()
 
     return () => {
       controller.abort("Request canceled")
     }
-  }, [url])
-  
-  async function loader() {
-    if (fetcher) {
-      try {
-        const data = await fetcher()
-        setData(data)
-      } catch(err) {
-        setError(err)
-      } finally {
-        setIsLoading(false)
-      }
-    } else {
-      fetch(url)
-      .then(res => res.json())
-      .then(data => setData(data))
-      .catch(err => setError(err))
-      .finally(() => setIsLoading(false))
-    }
+  }, [...deps])
+
+  const loader = async () => {
+    try {
+      const data = await fn()
+      setData(data)
+    } catch (err) {
+      console.error(err)
+      setError(err)
+    } finally {
+       setIsLoading(false)
+     }
   }
 
   return { data, isLoading, error }

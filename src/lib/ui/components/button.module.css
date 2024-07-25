@@ -4,9 +4,9 @@
   justify-content: center;
   font-size: 0.85rem;
   font-weight: 500;
-  color: var(--color, var(--color-neutral-850));
-  background-color: var(--bg-color, var(--color-neutral-250));
-  border-radius: 0.5rem;
+  color: var(--color, var(--color-neutral-800));
+  background-color: var(--bg-color, var(--color-neutral-100));
+  border-radius: 0.625rem; /* .rounded-md */
   transition: color var(--duration-1),
     background-color var(--duration-1),
     border-color var(--duration-1);
@@ -24,9 +24,9 @@
 /* ----------------- */
 /* variants */
 .solid-primary {
-  --color: var(--color-neutral-850);
-  --bg-color: var(--color-neutral-250);
-  --bg-color-hover: var(--color-neutral-350);
+  --color: var(--color-neutral-800);
+  --bg-color: var(--color-neutral-100);
+  --bg-color-hover: var(--color-neutral-300);
 
   &:hover {
     background-color: var(--bg-color-hover);
@@ -34,9 +34,9 @@
 }
 
 .solid-secondary {
-  --color: var(--color-neutral-200);
+  --color: var(--color-neutral-100);
   --bg-color: var(--color-neutral-600);
-  --bg-color-hover: var(--color-neutral-650);
+  --bg-color-hover: var(--color-neutral-700);
 
   &:hover {
     background-color: var(--bg-color-hover);
@@ -44,10 +44,10 @@
 }
 
 .solid-accent {
-  --color: var(--color-neutral-250);
-  --color-hover: var(--color-neutral-850);
+  --color: rgb(var(--rgb-neutral-100));
+  --color-hover: var(--color-neutral-800);
   --bg-color: var(--color-accent-600);
-  --bg-color-hover: var(--color-neutral-250);
+  --bg-color-hover: var(--color-neutral-100);
 
   &:hover {
     color: var(--color-hover);
@@ -55,8 +55,18 @@
   }
 }
 
-.outline-light {
-  --color: var(--color-neutral-300);
+.solid-blured {
+  --bg-color: rgb(var(--color-neutral-100) / 45%);
+  --bg-color-hover: var(--color-neutral-200);
+  backdrop-filter: blur(6px);
+
+  &:hover {
+    background-color: var(--bg-color-hover);
+  }
+}
+
+.outline-lite {
+  --color: var(--color-neutral-200);
   --bg-color: transparent;
   --bg-color-hover: var(--color-neutral-500);
   --border-color: var(--color-neutral-500);
@@ -70,12 +80,12 @@
 }
 
 .outline-bold {
-  --color: var(--color-neutral-250);
+  --color: var(--color-neutral-100);
   --color-hover: var(--color-neutral-800);
   --bg-color: transparent;
-  --bg-color-hover: var(--color-neutral-300);
+  --bg-color-hover: var(--color-neutral-200);
   --border-color: var(--color-neutral-400);
-  --border-color-hover: var(--color-neutral-300);
+  --border-color-hover: var(--color-neutral-200);
   border: 1.5px solid var(--border-color);
 
   &:hover {
@@ -85,24 +95,14 @@
   }
 }
 
-.ghost {
-  --color: var(--color-neutral-200);
-  --bg-color: transparent;
-  --bg-color-hover: var(--color-neutral-600);
-
-  &:hover {
-    background-color: var(--bg-color-hover);
-  }
-}
-
-.blured-1 {
-  --color: var(--color-neutral-300);
-  --color-hover: var(--color-neutral-850);
+.outline-blured {
+  --color: rgb(var(--rgb-neutral-200));
+  --color-hover: rgb(var(--rgb-neutral-800));
   --bg-color: rgb(20 23 25 / 15%);
-  --bg-color-hover: var(--color-neutral-300);
+  --bg-color-hover: rgb(var(--rgb-neutral-200));
   --border-color: var(--color-neutral-400);
-  --border-color-hover: var(--color-neutral-300);
-  backdrop-filter: blur(5px);
+  --border-color-hover: var(--color-neutral-200);
+  backdrop-filter: blur(6px);
   border: 1px solid var(--border-color);
 
   &:hover {
@@ -112,10 +112,10 @@
   }
 }
 
-.blured-2 {
-  --bg-color: color-mix(in srgb, var(--color-neutral-200), transparent 45%);
-  --bg-color-hover: var(--color-neutral-300);
-  backdrop-filter: blur(6px);
+.ghost {
+  --color: var(--color-neutral-100);
+  --bg-color: transparent;
+  --bg-color-hover: var(--color-neutral-600);
 
   &:hover {
     background-color: var(--bg-color-hover);
@@ -123,8 +123,13 @@
 }
 
 .danger {
+  --color: var(--color-neutral-100);
   --bg-color: var(--color-red-300);
   --bg-color-hover: var(--color-red-500);
+
+  &:hover {
+    background-color: var(--bg-color-hover);
+  }
 }
 
 /* ----------------- */
@@ -132,41 +137,56 @@
 .sm {
   padding: 0.375rem 0.75rem;
   height: 2.15rem;
-  font-size: 0.85rem;
+  font-size: 0.775rem;
 }
 
 .md {
   padding: 0.5rem 1rem;
   height: 2.625rem;
+  max-height: 46px;
   font-size: 0.875rem;
 }
 
 .lg {
   padding: 0.75rem 1.5rem;
   height: 3rem;
+  max-height: 52px;
   font-size: 0.9rem;
 }
 
 .xl {
   padding: 1rem 2rem;
   height: 3.5rem;
-  font-size: 1rem;
+  max-height: 62px;
+  font-size: 1.05rem;
 }
 
-.icon-md {
-  padding: 0.5rem;
+.square-xs {
+  height: 1.8rem;
+  max-height: 35px;
+  aspect-ratio: 1;
+}
+
+.square-sm {
+  height: 2.175rem;
+  max-height: 40px;
+  aspect-ratio: 1;
+}
+
+.square-md {
   height: 2.625rem;
+  max-height: 46px;
   aspect-ratio: 1;
 }
 
-.icon-lg {
-  padding: 0.75rem;
+.square-lg {
   height: 3rem;
+  max-height: 52px;
   aspect-ratio: 1;
 }
 
-.icon-xl {
-  padding: 1.25rem;
+.square-xl {
   height: 3.5rem;
+  max-height: 62px;
   aspect-ratio: 1;  
 }

@@ -8,7 +8,7 @@ export const pageTransitionVariants = {
   initial: {
     opacity: 0.25,
     y: 1,
-    x: -20,
+    x: 20,
   },
   animate: {
     opacity: 1,
@@ -23,7 +23,7 @@ export const pageTransitionVariants = {
   exit: {
     opacity: 0.2,
     y: 1,
-    x: 20,
+    x: -20,
     transition: {
       duration: 0.5,
       ease: "easeOut"
@@ -45,6 +45,24 @@ export const modalMotion = {
     opacity: 0
   }
 }
+
+// export const dropdownItemsMotion = {
+//   initial: {
+//     opacity: 0.5,
+//     y: isDesktop ? 25 : -20,
+//     x: isDesktop ? 0 : 5,
+//   },
+//   animate: {
+//     opacity: 1,
+//     y: 0,
+//     x: 0,
+//   },
+//   exit: {
+//     opacity: 0,
+//     y: isDesktop ? 25 : -20,
+//     x: isDesktop ? 0 : 5,
+//   }
+// }
 
 export const modalTransition = {
   duration: 0.45,

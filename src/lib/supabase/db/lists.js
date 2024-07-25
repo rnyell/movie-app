@@ -16,6 +16,26 @@ export async function getUserLists() {
   return data
 }
 
+export async function getWatchLaterListId() {
+  const userId = await getUserId()
+  const { data, error } = await supabase
+    .from("lists")
+    .select("*")
+    .eq("creator_id", userId)
+    .order("created_at", { ascending: true })
+
+  if (error) {
+    console.error(error)
+  }
+
+  if (data[0].name === "Watch Later") {
+    return data[0].id
+  } else {
+    console.error("Something went wrong... the user does not have the \"Watch Later\" list.")
+    return null
+  }
+}
+
 export async function createList(name, isPrivate) {
   const userId = await getUserId()
   let shareId = null

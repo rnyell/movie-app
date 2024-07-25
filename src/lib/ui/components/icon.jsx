@@ -4,7 +4,7 @@ import classes from "./icon.module.css"
 
 export default function Icon({
   svg,
-  size,
+  size = "md",
   fill,
   customStyles = "",
   ...props

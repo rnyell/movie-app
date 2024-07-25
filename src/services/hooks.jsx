@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import { getMovieDetails, getSeriesDetails } from "./movies-services"
-import { getSomeNews } from "./news-services"
 
 
 export function useMediaDetails(media, id) {
@@ -32,25 +31,4 @@ export function useMediaDetails(media, id) {
   }, [id])
 
   return {isLoading, mediaDetails}
-}
-
-
-export function useNewsService() {
-  const [news, setNews] = useState({})
-  const [isLoading, setIsLoading] = useState(true)
-
-  useEffect(() => {
-    const controller = new AbortController()
-    fetchNews()
-
-    return () => controller.abort()
-  }, [])
-  
-  async function fetchNews() {
-    const data = await getSomeNews()
-    setNews(data)
-    setIsLoading(false)
-  }
-
-  return {isLoading, news}
 }

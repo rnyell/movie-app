@@ -1,51 +1,35 @@
-import { createContext, useContext, useEffect, useState } from "react"
+import { createContext, useContext, useState } from "react"
 import { AnimatePresence } from "framer-motion"
-import { useGeoLocation } from "@lib/hooks"
+import { useLoader } from "@lib/hooks"
 import { getPopularMovies, getOnScreenMovies, getTrendingMovies, getTrendingSeries } from "@services"
+import { InitialLoading, AppLoading } from "@components/skeletons"
 import UserProvider from "./user-context"
-import { InitialLoading, AppLoading } from "@components/ui/skeletons"
-import { VPNError } from "@components/ui/errors"
+import ThemeProvider from "./theme-context"
 
 
-const MoviesContext = createContext()
+const MoviesContext = createContext(null)
 
 export function useMoviesState() {
   return useContext(MoviesContext)
 }
 
-const initialMovies = {
-  popular: [],
-  movies: [],
-  series: [],
-  screen: [],
-}
 
 export default function AppProvider({ children }) {
-  const [moviesState, setMoviesState] = useState(initialMovies)
   const [isInitialLoad, setIsInitialLoad] = useState(true)
-  const [isLoading, setIsLoading] = useState(true)
-  // const {country} = useGeoLocation()
-  // const isVPNError = country === "IR"
-  const isVPNError = false
 
-  useEffect(() => {
-    loadMovies()
-  }, [])
+  const {data: moviesState, isLoading, error} = useLoader(loadMovies)
 
-  //? move it to home-page since it's not a global state
   async function loadMovies() {
-    const populargMovies = await getPopularMovies()
-    const screenMovies = await getOnScreenMovies()
-    const trendingMovies = await getTrendingMovies()
-    const trendingSeries = await getTrendingSeries()
-    setMoviesState({
-      popular: populargMovies,
-      movies: trendingMovies,
-      series: trendingSeries,
-      screen: screenMovies
-    })
-    setIsLoading(false)
-    // setIsInitialLoad(false)
+    const popularMovies = getPopularMovies()
+    const screenMovies = getOnScreenMovies()
+    const trendingMovies = getTrendingMovies()
+    const trendingSeries = getTrendingSeries()
+
+    const [popular, screen, movies, series] = await Promise.all([
+      popularMovies, screenMovies, trendingMovies, trendingSeries
+    ])
+
+    return { popular, movies, series, screen }
   }
 
 
@@ -53,15 +37,15 @@ export default function AppProvider({ children }) {
     <AnimatePresence mode="wait" initial={true}>
       {isLoading ? (
         isInitialLoad ? <InitialLoading /> : <AppLoading />
-      ) : isVPNError ? (
-        <VPNError />
       ) : (
-        <div key="nothing-but-for-AnimatePresence-sake">
-          <UserProvider>
-            <MoviesContext.Provider value={[moviesState]}>
-              {children}
-            </MoviesContext.Provider>
-          </UserProvider>
+        <div key="nothing-but-for-AnimatePresence-sake" data-presence>
+          <ThemeProvider>
+            <UserProvider>
+              <MoviesContext.Provider value={[moviesState]}>
+                {children}
+              </MoviesContext.Provider>
+            </UserProvider>
+          </ThemeProvider>
         </div>
       )}
     </AnimatePresence>

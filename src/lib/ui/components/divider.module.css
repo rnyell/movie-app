@@ -1,0 +1,68 @@
+.divider {
+  --color: gray;
+  --border-width: 1.75px;
+  margin-inline: auto;
+  max-width: 750px;
+  border: none;
+  border-top: var(--border-width) solid var(--color);
+}
+
+/* variants */
+.pale {
+  --color: var(--color-neutral-800);
+}
+
+.lite {
+  --color: var(--color-neutral-700);
+}
+
+.semi-bold {
+  --color: var(--color-neutral-600);
+}
+
+.bold {
+  --color: var(--color-neutral-500);
+}
+
+/* width */
+.partial {
+  width: 85%;
+}
+
+.almost-fill {
+  width: 95%;
+}
+
+.fill {
+  width: 100%;
+}
+
+.ghost {
+  border: 0;
+}
+
+/* space */
+.sm {
+  margin-block: 0.5rem;
+}
+
+.md {
+  margin-block: 0.875rem;
+}
+
+.lg {
+  margin-block: 1.25rem;
+}
+
+/* thickness */
+.thin {
+  --border-width: 1.35px;
+}
+
+.normal {
+  --border-width: 1.75px;
+}
+
+.thick {
+  --border-width: 2px;
+}

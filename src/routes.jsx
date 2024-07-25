@@ -1,32 +1,31 @@
 import { lazy, Suspense } from "react"
 
-import Layout from "@components/ui/layouts/layout"
-import { ErrorPage } from "@components/ui/errors"
+import Layout from "@components/layouts/layout"
 
-import HomePage from "@src/pages/home-page"
-import Discover from "@src/pages/discover/discover"
-import MoviesPage from "@src/pages/discover/movies-page"
-import SeriesPage from "@src/pages/discover/series-page"
-import GenrePage from "@src/pages/discover/genre-page"
-// import NewsPage from "@src/pages/discover/news-page"
-// import Article from "@src/pages/discover/article"
 import SearchProvider from "@src/store/search-context"
-import SearchPage from "@src/pages/search-page"
-import SelectedMovie from "@src/pages/selected-movie"
-import SelectedSeries from "@src/pages/selected-series"
-import Tickets from "@src/pages/reservation/reservation"
-import ScreenMovies from "@src/pages/reservation/screen-movies"
-import AccountProvider from "@src/store/account-context"
-import Account from "@src/pages/account"
-import Player from "@src/pages/player"
 import BookingProvider from "@src/store/booking-context"
-import BookingPage from "@src/pages/booking-page"
+
+import HomePage from "@pages/page"
+import Discover from "@pages/discover/page"
+import MoviesPage from "@pages/discover/movies/page"
+import SeriesPage from "@pages/discover/series/page"
+import GenrePage from "@pages/discover/genres/page"
+import SearchPage from "@pages/search/search-page"
+import SelectedMovie from "@pages/(selected-media)/selected-movie/page"
+import SelectedSeries from "@pages/(selected-media)/selected-series/page"
+import Tickets from "@pages/(reservation)/tickets/tickets"
+import ScreenMovies from "@pages/(reservation)/onscreen/page"
+import Booking from "@pages/(reservation)/booking/page"
+import Account from "@pages/account/page"
+import Player from "@pages/player/page"
+
+import NotFound from "@pages/not-found"
 
 
 export const routeTree = [{
   path: "/",
-  element: <Layout variant="root" />,
-  errorElement: <ErrorPage />,
+  // element: <Layout variant="root" />,
+  errorElement: <NotFound />,
   children: [
     { path: "/", element: <Layout variant="primary" />, children: [
       { path: "/", element: <HomePage />, },
@@ -35,8 +34,6 @@ export const routeTree = [{
       { path: "/discover/series", element: <SeriesPage /> },
       { path: "/discover/movies/:id", element: <GenrePage /> },
       { path: "/discover/series/:id", element: <GenrePage /> },
-      // { path: "/discover/news", element: <NewsPage /> },
-      // { path: "/discover/news/:id", element: <Article /> },
       { path: "/tickets", element: <Tickets /> },
       { path: "/onscreen", element: <ScreenMovies /> },
       { path: "/movies/:id", element: <SelectedMovie /> },
@@ -52,7 +49,7 @@ export const routeTree = [{
       { path: "/player", element: <Player /> },
       { path: "/booking", element: (
         <BookingProvider>
-          <BookingPage />
+          <Booking />
         </BookingProvider>
       ) },
     ] },

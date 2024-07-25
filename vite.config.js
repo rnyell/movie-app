@@ -12,8 +12,8 @@ export default defineConfig({
     alias: {
       // "@src": path.resolve(__dirname, "./src")
       "@src": "/src",
-      "@components": "/src/components",
-      "@styles": "/src/styles",
+      "@pages": "/src/pages",
+      "@components": "/src/pages/_components",
       "@lib": "/src/lib",
       "@services": "/src/services",
       "@heroicons/outline": "@heroicons/react/24/outline",
@@ -26,7 +26,6 @@ export default defineConfig({
     postcss: {
       plugins: [autoprefixer]
     },
-    // transformer: "lightningcss"
   },
 
   build: {

@@ -1,0 +1,59 @@
+import { useEffect } from "react"
+import { Link, useLocation } from "react-router-dom"
+import { ChevronLeftIcon } from "@heroicons/outline"
+import { IMAGES_URL } from "@services"
+import { useWindowOffsets } from "@src/lib/hooks"
+import { useBookingData } from "@src/store/booking-context"
+import ViewTransition from "@lib/motion/view-transition"
+import { Divider } from "@src/lib/ui/components"
+import Seats from "./_components/seats"
+import DateTime from "./_components/date-time"
+
+
+export default function Booking() {
+  const {ticketDispatch} = useBookingData()
+  const {windowWidth} = useWindowOffsets()
+  const location = useLocation()
+  const {
+    id,
+    title,
+    poster_path,
+    backdrop_path,
+    price
+  } = location.state
+
+  useEffect(() => {
+    ticketDispatch({
+      type: "select_movie",
+      id,
+      title,
+      poster: poster_path,
+      price,
+    })
+  }, [])
+
+
+  return (
+    <ViewTransition>
+      <div className="booking-page">
+        <div
+          className="bg-poster"
+          style={{backgroundImage: `linear-gradient(transparent, var(--color-neutral-950) 50%), url(${IMAGES_URL}original${backdrop_path})`}}
+        />
+        <header>
+          <Link to={-1} className="main-btn back-btn">
+            <i className="icon">
+              <ChevronLeftIcon />
+            </i>
+          </Link>
+          <h1 className="movie-title">{title}</h1>
+        </header>
+        <section>
+          <Seats />
+          {windowWidth <= 890 && <Divider variant="bold" />}
+          <DateTime />
+        </section>
+      </div>
+    </ViewTransition>
+  )
+}
