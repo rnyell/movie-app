@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import { ChevronRightIcon } from "@heroicons/outline"
-import { useMoviesState } from "@src/store/app-context"
+import { useMoviesState } from "@src/store"
 import MovieCard from "@components/movie-cards/movie-card"
 
 

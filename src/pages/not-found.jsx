@@ -22,7 +22,7 @@ export default function NotFound() {
         </Button>
       </div>
       <div>
-        <p>You can also report issues from:</p>
+        <p>You can report issues from:</p>
         <p><code style={{fontSize: "0.8rem", whiteSpace: "pre-wrap"}}>Sidebar &#x27F6; Settings &#x27F6; Report Issues</code></p>
       </div>
     </div>

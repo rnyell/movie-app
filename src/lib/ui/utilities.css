@@ -68,6 +68,10 @@
   translate: -50% 0;
 }
 
+.inset-0 {
+  inset: 0;
+}
+
 .top-3 {
   top: 0.75rem;
 }
@@ -94,6 +98,10 @@
 
 .z-50 {
   z-index: var(--z-50);
+}
+
+.z-max {
+  z-index: var(--z-max);
 }
 
 /* ------------------------------- */
@@ -213,6 +221,10 @@
   opacity: 0;
 }
 
+.rounded-0 {
+  border-radius: 0;
+}
+
 .rounded {
   border-radius: 0.5rem;
 }
@@ -244,6 +256,11 @@
 
 .stroke-3 {
   stroke-width: 1.75;
+}
+
+.translate-0 {
+  /* translate: unset; */
+  translate: 0;
 }
 
 .-rotate-45 {

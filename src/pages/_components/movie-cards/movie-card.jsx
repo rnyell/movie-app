@@ -31,7 +31,8 @@ export default function MovieCard({ result, media, variant, ...rest }) {
     }
 
     case "bookmarked": {
-      return <BookmarkedCard {...{result, media, variant}} />
+      const id = result
+      return <BookmarkedCard {...{id, media, variant}} />
     }
 
     case "result": {

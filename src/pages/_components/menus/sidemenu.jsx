@@ -16,6 +16,8 @@ import { CompasIcon } from "@src/lib/ui/icons"
 import { Divider } from "@src/lib/ui/components"
 import logo from "@src/assets/logo.png"
 
+import "./sidemenu.css"
+
 const links = [
   { tag: "Home", href: "/", icon: <HomeIcon /> },
   { tag: "Discover", href: "/discover", icon: <CompasIcon /> },

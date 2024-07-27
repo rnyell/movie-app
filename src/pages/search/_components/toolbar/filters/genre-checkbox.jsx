@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useSearch } from "@src/store/search-context"
+import { useSearch } from "@src/store"
 
 export default function GenreCheckbox({ genre }) {
   const {searchOptions} = useSearch()

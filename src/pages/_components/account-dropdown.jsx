@@ -1,16 +1,15 @@
 import { useState, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
-import { supabase, signInWithGoogle } from "@src/lib/supabase/auth"
+import { getAuthUser, supabase } from "@src/lib/supabase/auth"
 import { useClickOutside, useWindowOffsets, useLoader } from "@lib/hooks"
-import { useUserContext } from "@src/store/user-context"
+import { useAuth } from "@src/auth/auth-context"
 import Presence from "@src/lib/motion/presence"
 import {
     UserCircleIcon,
     ChevronUpDownIcon,
     ArrowLeftStartOnRectangleIcon
 } from "@heroicons/outline"
-import { Icon } from "@src/lib/ui/components"
 
 const dropdown_options = [
   { tag: "Account", href: "/account", icon: <UserCircleIcon />  },
@@ -19,40 +18,39 @@ const dropdown_options = [
 
 
 export default function AccountDropdown({ isCollapsed }) {
-  const {session} = useUserContext()
+  const { session } = useAuth()
   const [showDropdown, setShowDropdown] = useState(false)
   const ref = useRef(null)
+  const navigate = useNavigate()
 
   useClickOutside(ref, () => setShowDropdown(false))
   
-  const { data: user, isLoading, error } = useLoader(adjustUserData)
-
-  async function adjustUserData() {
-    const { data: {user} } = await supabase.auth.getUser()
-    return user
-  }
+  const { data: user, isLoading, error } = useLoader(getAuthUser)
 
   function handleLogin() {
-    signInWithGoogle()
+    navigate("/login")
   }
 
 
   if (session) {
+    const isAnonymous = session.user?.is_anonymous
+    const imgSrc = isAnonymous ? "/avatars/anon.png" : `${user?.user_metadata?.avatar_url}`
+    const userName = isAnonymous ? "Anonymous!" : user?.user_metadata?.name?.split(" ")[0]
+
     return (
       <div
         className="account-dropdown"
-        role="button"
         ref={ref}
         onClick={() => setShowDropdown(true)}
       >
         <div className="user-avatar relative">
-          <img src={user?.user_metadata?.avatar_url} />
+          <img src={imgSrc} />
           <span className="user-status absolute rounded-full" />
         </div>
         {!isCollapsed && (
           <>
-            <p className="user-name">{user?.user_metadata?.name?.split(" ")[0]}</p>
-            <i className="icon">
+            <p className="user-name">{userName}</p>
+            <i className="icon icon-md ml-auto">
               <ChevronUpDownIcon />
             </i>
           </>
@@ -67,9 +65,10 @@ export default function AccountDropdown({ isCollapsed }) {
       <button
         className="link"
         type="button"
+        data-login
         onClick={handleLogin}
       >
-        <i className="icon">
+        <i className="icon icon-md">
           <UserCircleIcon />
         </i>
         <p className="link-tag">Log In</p>

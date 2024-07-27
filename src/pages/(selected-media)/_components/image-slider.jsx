@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from "react"
-import { createPortal } from "react-dom"
 import { motion, animate, useAnimate, useMotionValue } from "framer-motion"
 import { IMAGES_URL } from "@services"
 import { useWindowOffsets } from "@lib/hooks"
-import { defaultVariantsLabel, modalTransition } from "@lib/motion/motions"
+import { Modal } from "@src/lib/ui/components"
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/outline"
 import { XMarkIcon } from "@heroicons/solid"
 
@@ -119,88 +118,87 @@ export default function ImageSlider({ images, currIndex, setCurrIndex, setModal 
     // animate(".draggable", {x: finalPosition})
   }
 
+  const variants = {
+    initial: {
+      y: -25,
+      opacity: 0.75,
+      scale: 0.98
+    },
+    animate: {
+      y: 0,
+      opacity: 1,
+      scale: 1
+    },
+    exit: {
+      y: -35,
+      opacity: 0.75,
+      scale: 0.98
+    }
+  }
 
-  return createPortal(
-    <motion.div
-      className="modal slider-modal flex-col align-center"
-      tabIndex={0}
-      variants={{
-        initial: {
-          y: -25,
-          opacity: 0.75,
-          scale: 0.98
-        },
-        animate: {
-          y: 0,
-          opacity: 1,
-          scale: 1
-        },
-        exit: {
-          y: -35,
-          opacity: 0.75,
-          scale: 0.98
-        }
-      }}
-      {...defaultVariantsLabel}
-      transition={modalTransition}
+  return (
+    <Modal
+      customStyles="translate-0 inset-0 z-max rounded-0"
+      setClose={() => setModal(false)}
     >
-      <button className="btn close-btn" type="button" onClick={() => setModal(false)}>
-        <i className="icon"><XMarkIcon /></i>
-      </button>
-      <div className="selected-image-container">
-        <button className="btn prev-btn absolute-y-center" type="button" onClick={() => showPrevImage(1)}>
-          <i className="icon">
-            <ChevronLeftIcon />
-          </i>
+      <div className="modal slider-modal flex-col align-center" tabIndex={0}>
+        <button className="btn close-btn" type="button" onClick={() => setModal(false)}>
+          <i className="icon"><XMarkIcon /></i>
         </button>
-        <figure>
-          <img className="selected-image" src={`${IMAGES_URL}original${images[currIndex].file_path}`} />
-        </figure>
-        <button className="btn next-btn absolute-y-center" type="button" onClick={() => showNextImage(1)}>
-          <i className="icon">
-            <ChevronRightIcon />
-          </i>
-        </button>
+        <div className="selected-image-container">
+          <button className="btn prev-btn absolute-y-center" type="button" onClick={() => showPrevImage(1)}>
+            <i className="icon">
+              <ChevronLeftIcon />
+            </i>
+          </button>
+          <figure>
+            <img className="selected-image" src={`${IMAGES_URL}original${images[currIndex].file_path}`} />
+          </figure>
+          <button className="btn next-btn absolute-y-center" type="button" onClick={() => showNextImage(1)}>
+            <i className="icon">
+              <ChevronRightIcon />
+            </i>
+          </button>
+        </div>
+        <div className="thumbs justify-center" ref={thumbsRef}>
+          <motion.div
+            className="draggable align-center"
+            drag="x"
+            dragMomentum={false}
+            dragElastic={0.1}
+            dragSnapToOrigin={true}
+            dragConstraints={{ left: -constraints - 75, right: constraints + 75 }}
+            onDragEnd={handleDragEnd}
+            // style={{ x: xTranslate }}
+            animate={{ translateX: `-${currIndex * (55 + gapWidth) + 3.5}px` }}
+            transition={{ duration: 0.35, ease: "circOut" }}
+            whileDrag={{cursor: "grabbing"}}
+          >
+            {images.map((img, idx) => (
+              <motion.figure
+                className="thumb flex-item"
+                key={img.file_path}
+                ref={imgRef}
+                animate={currIndex === idx ? "active" : "inactive"}
+                variants={{
+                  inactive: {
+                    opacity: 0.3,
+                    width: 55,
+                    marginInline: 0
+                  },
+                  active: {
+                    opacity: 1,
+                    width: 70,
+                    marginInline: "7px"
+                  }
+                }}
+              >
+                <img src={`${IMAGES_URL}w500${img.file_path}`} draggable={false} />
+              </motion.figure>
+            ))}
+          </motion.div>
+        </div>
       </div>
-      <div className="thumbs justify-center" ref={thumbsRef}>
-        <motion.div
-          className="draggable align-center"
-          drag="x"
-          dragMomentum={false}
-          dragElastic={0.1}
-          dragSnapToOrigin={true}
-          dragConstraints={{ left: -constraints - 75, right: constraints + 75 }}
-          onDragEnd={handleDragEnd}
-          // style={{ x: xTranslate }}
-          animate={{ translateX: `-${currIndex * (55 + gapWidth) + 3.5}px` }}
-          transition={{ duration: 0.35, ease: "circOut" }}
-          whileDrag={{cursor: "grabbing"}}
-        >
-          {images.map((img, idx) => (
-            <motion.figure
-              className="thumb flex-item"
-              key={img.file_path}
-              ref={imgRef}
-              animate={currIndex === idx ? "active" : "inactive"}
-              variants={{
-                inactive: {
-                  opacity: 0.3,
-                  width: 55,
-                  marginInline: 0
-                },
-                active: {
-                  opacity: 1,
-                  width: 70,
-                  marginInline: "7px"
-                }
-              }}
-            >
-              <img src={`${IMAGES_URL}w500${img.file_path}`} draggable={false} />
-            </motion.figure>
-          ))}
-        </motion.div>
-      </div>
-    </motion.div>,
-    document.getElementById("portal")
+    </Modal>
   )
 }

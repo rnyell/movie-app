@@ -1,6 +1,6 @@
 import { XMarkIcon } from "@heroicons/outline"
 import { ALL_GENRES } from "@services"
-import { useSearch } from "@src/store/search-context"
+import { useSearch } from "@src/store"
 import { sortResults, filterResults } from "../../_utils"
 
 

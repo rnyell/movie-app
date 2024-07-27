@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { isValidSeatSeletion, reservedSeatsNumbers } from "@services/placeholder-data"
-import { useBookingData } from "@src/store/booking-context"
+import { useBookingData } from "@src/store"
 
 
 export default function Seat({ id, dx, dy }) {

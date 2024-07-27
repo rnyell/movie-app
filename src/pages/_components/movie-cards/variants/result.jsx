@@ -94,13 +94,13 @@ export default function ResultCard({ result, media, variant }) {
           />
         </div>
       </div>
-      {<Presence trigger={showModal}>
+      <Presence trigger={showModal}>
         <MovieInfoModal
           result={result}
           media={media}
           setModal={setShowModal}
         />
-      </Presence>}
+      </Presence>
     </motion.div>
   )
 }

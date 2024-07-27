@@ -5,16 +5,23 @@ const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
-export function signInWithGoogle() {
-  supabase.auth.signInWithOAuth({ provider: "google" })
+export async function signInWithGoogle() {
+  const { error } = await supabase.auth.signInWithOAuth(
+    { provider: "google" }
+  )
+  
+  if (error) {
+    console.error(error)
+  }
 }
 
-// export async function signInAnonymously() {
-//   const { data, error } = await supabase.auth.signInAnonymously()
-//   if (error) {
-//     console.log(error)
-//   }
-// }
+export async function signInAnonymously() {
+  const { error } = await supabase.auth.signInAnonymously()
+
+  if (error) {
+    console.error(error)
+  }
+}
 
 export async function getAuthSession() {
   const { data, error } = await supabase.auth.getSession()
@@ -29,12 +36,12 @@ export async function getAuthSession() {
 }
 
 export async function getAuthUser() {
-  const { data, error } = await supabase.auth.getSession()
+  const { data, error } = await supabase.auth.getUser()
   const { user } = data
 
   if (error) {
-    console.log("User error")
-    console.log(error)
+    console.error("Error while getting user's data")
+    console.log(error.message)
   }
 
   return user
@@ -45,7 +52,7 @@ export async function getUserId() {
   const { user } = data
 
   if (error) {
-    console.log("Fetching user failed...")
+    console.error("Fetching user's data failed")
     console.log(error)
   }
 

@@ -1,16 +1,15 @@
 import { useState, useEffect } from "react"
-import { createPortal } from "react-dom"
 import { motion } from "framer-motion"
 import { PhotoIcon, XMarkIcon } from "@heroicons/solid"
-import { defaultVariantsLabel, modalBackdropMotion } from "@lib/motion/motions"
 import { IMAGES_URL } from "@services"
 import Presence from "@src/lib/motion/presence"
+import { Modal } from "@src/lib/ui/components"
 import ImageSlider from "./image-slider"
 
 
 export default function Pictures({ images }) {
   const {backdrops} = images
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setOpen] = useState(false)
 
 
   return (
@@ -22,14 +21,14 @@ export default function Pictures({ images }) {
             <img src={`${IMAGES_URL}w500${img.file_path}`} />
           </figure>
         ))}
-        <button className="btn photo-btn" type="button" onClick={() => setIsOpen(true)}>
+        <button className="btn photo-btn" type="button" onClick={() => setOpen(true)}>
           <div className="icon"><PhotoIcon /></div>
           <span>More Images</span>
         </button>
       </div>
-      {<Presence trigger={isOpen}>
-        <Gallery images={images} setModal={setIsOpen} />
-      </Presence>}
+      <Presence trigger={isOpen}>
+        <Gallery images={images} setModal={setOpen} />
+      </Presence>
     </div>
   )
 }
@@ -61,37 +60,28 @@ function Gallery({ images, setModal }) {
     setCurrIndex(idx)
   }
 
+  const variants={
+    initial: {
+      y: -25,
+      opacity: 0.75,
+      scale: 0.98
+    },
+    animate: {
+      y: 0,
+      opacity: 1,
+      scale: 1
+    },
+    exit: {
+      y: -35,
+      opacity: 0.75,
+      scale: 0.98
+    }
+  }
+  const transition={duration: 0.35, ease: "easeOut"}
 
-  return createPortal(
-    <>
-      <motion.div
-        className="modal-backdrop"
-        variants={modalBackdropMotion}
-        {...defaultVariantsLabel}
-        onClick={() => setModal(false)}
-      />
-      <motion.div
-        className="modal gallery"
-        variants={{
-          initial: {
-            y: -25,
-            opacity: 0.75,
-            scale: 0.98
-          },
-          animate: {
-            y: 0,
-            opacity: 1,
-            scale: 1
-          },
-          exit: {
-            y: -35,
-            opacity: 0.75,
-            scale: 0.98
-          }
-        }}
-        {...defaultVariantsLabel}
-        transition={{duration: 0.35, ease: "easeOut"}}
-      >
+  return (
+    <Modal setClose={() => setModal(false)}>
+      <div className="gallery">
         <button className="btn close-btn" type="button" onClick={() => setModal(false)}>
           <i className="icon"><XMarkIcon /></i>
         </button>
@@ -134,16 +124,15 @@ function Gallery({ images, setModal }) {
             )}
           </div>
         </div>
-        {<Presence trigger={isFullsize}>
+        <Presence trigger={isFullsize}>
           <ImageSlider
             images={selectedTab === "Images" ? backdrops : posters}
             currIndex={currIndex}
             setCurrIndex={setCurrIndex}
             setModal={setIsFullsize}
           />
-        </Presence>}
-      </motion.div>
-    </>,
-    document.getElementById("portal")
+        </Presence>
+      </div>
+    </Modal>
   )
 }

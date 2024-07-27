@@ -1,7 +1,8 @@
 import { Modal, Button } from "@src/lib/ui/components"
 
+
 export default function ConfirmModal(props) {
-  const { confirmText, setModal, handleSubmittedAction } = props
+  const { confirmText, setModal, handleAction } = props
   
   return (
     <Modal setClose={() => setModal(false)} size="lg" variants="confirm">
@@ -15,7 +16,7 @@ export default function ConfirmModal(props) {
           >
             Cancel
           </Button>
-          <Button variants="danger" size="md" onClick={handleSubmittedAction}>Delete</Button>
+          <Button variants="danger" size="md" onClick={handleAction}>Delete</Button>
         </div>
       </div>
     </Modal>

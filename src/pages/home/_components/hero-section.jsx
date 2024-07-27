@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useMoviesState } from "@src/store/app-context"
+import { useMoviesState } from "@src/store"
 import { useWindowOffsets } from "@lib/hooks"
 import HeroMovie from "./hero-movie"
 import Carousel from "./carousel"

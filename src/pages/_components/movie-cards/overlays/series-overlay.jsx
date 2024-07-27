@@ -1,7 +1,7 @@
 import { motion } from "framer-motion"
 import { useMediaDetails } from "@services/hooks"
 import { formatReleaseDate } from "@services/movie-utils"
-import { landCardOverlayVariants, defaultVariantsLabel } from "@lib/motion/motions"
+import { landescOverlayMotion, defaultVariantsLabel } from "@lib/motion/motions"
 import LinkButton from "@components/buttons/link-btn"
 import BookmarkButton from "@components/buttons/bookmark-btn"
 import Overview from "@components/movie-details/overview"
@@ -29,7 +29,7 @@ export default function SeriesOverlay({ result }) {
   return (
     <motion.div
       className="overlay series-overlay"
-      variants={landCardOverlayVariants}
+      variants={landescOverlayMotion}
       {...defaultVariantsLabel}
     >
       {/* <Overview text={overview} /> */}

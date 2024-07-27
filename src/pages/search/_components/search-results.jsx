@@ -1,6 +1,6 @@
 import { useSearchParams } from "react-router-dom"
 import { motion } from "framer-motion"
-import { useSearch } from "@src/store/search-context"
+import { useSearch } from "@src/store"
 import { devideItemsIntoPages, generatePagination } from "@lib/utils"
 import { SearchResultsSkeleton } from "@components/skeletons"
 import { NotFoundResult } from "@components/errors"

@@ -1,5 +1,5 @@
-import { createContext, useContext, useEffect, useReducer, useState } from "react"
-import { supabase, getAuthSession } from "@src/lib/supabase/auth"
+import { createContext, useContext, useEffect, useState } from "react"
+import { useAuth } from "@src/auth/auth-context"
 import { getUserProfile, getUserLists } from "@src/lib/supabase/db"
 
 const UserContext = createContext(null)
@@ -16,56 +16,19 @@ const userInitial = {
   playedSeries: [],
   lists: [],
   // liked: [],
-  // reserved: [],
-}
-
-function userReducer(state, action) {
-  switch (action.type) {
-    case "init": {
-      return { ...action.state }
-    }
-  }
 }
 
 
 export default function UserProvider({ children }) {
-  const [userState, userDispatch] = useReducer(userReducer, userInitial)
-  const [session, setSession] = useState()
+  const { session, isLoaded } = useAuth()
+  const [userState, setUserState] = useState(userInitial)
 
   useEffect(() => {
-    initSession()
-  
-    initUserState().then(data => 
-      userDispatch({type: "init", state: data})
-    )
-
-    const {
-      data: { subscription }
-    } = supabase.auth.onAuthStateChange((event, session) => {
-      if (session) {
-        setSession(session)
-      }
-
-      if (event === 'SIGNED_OUT') {
-        setSession(null)
-        [localStorage, sessionStorage].forEach((storage) => {
-          Object.entries(storage)
-            .forEach(([key]) => {
-              storage.removeItem(key)
-            })
-        })
-      }
-    })
-
-    return () => {
-      subscription.unsubscribe()
+    if (session) {
+      initUserState()
+      console.warn('<UserProvider> rendered')
     }
-  }, [])
-
-  async function initSession() {
-    const session = await getAuthSession()
-    setSession(session)
-  }
+  }, [isLoaded])
 
   async function initUserState() {
     const profile = await getUserProfile()
@@ -83,7 +46,7 @@ export default function UserProvider({ children }) {
     const playedSeries = played_series ?? []
     const lists = await getUserLists()
   
-    return {
+    setUserState({
       id,
       username,
       name: full_name,
@@ -91,14 +54,11 @@ export default function UserProvider({ children }) {
       playedMovies,
       playedSeries,
       lists,
-    }
+    })
   }
 
-  const contextValue = { session, userState }
-
-
   return (
-    <UserContext.Provider value={contextValue}>
+    <UserContext.Provider value={{userState, setUserState}}>
       {children}
     </UserContext.Provider>
   )

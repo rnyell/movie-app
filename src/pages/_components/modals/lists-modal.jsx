@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react"
+import { useUserContext } from "@src/store"
+import { updateBookmarks, getListsIdsByBookmarkedItem, createList } from "@src/lib/supabase/db"
 import { PlusIcon, LockClosedIcon, XMarkIcon } from "@heroicons/outline"
-import { useUserContext } from "@src/store/user-context"
-import {
-  updateBookmarks,
-  getListsIdsByBookmarkedItem,
-  createList
-} from "@src/lib/supabase/db"
 import { Modal, Button, Icon, Divider } from "@src/lib/ui/components"
 
+
 export default function ListsModal({ item, setModal }) {
-  const { userState } = useUserContext()
+  const { userState, setUserState } = useUserContext()
   // list type: [ {id: 'uuid', name: 'str', items: []} ]
   const lists = userState.lists
   const listIds = lists.map(list => list.id)
@@ -17,9 +14,7 @@ export default function ListsModal({ item, setModal }) {
   const [isLoading, setIsLoading] = useState(true)
   const [isCreatingNewList, setIsCreatingNewList] = useState(false)
 
-  useEffect(() => {
-    loader()
-  }, [])
+  useEffect(() => { loader() }, [])
 
   async function loader() {
     const initialCheckedLists = await getListsIdsByBookmarkedItem(item)
@@ -51,9 +46,10 @@ export default function ListsModal({ item, setModal }) {
       const formData = new FormData(e.target)
       const isPrivate = formData.get("publicity") === "private" ? true : false
       const listName = formData.get("list-name")
-      console.log(isPrivate, formData.get("publicity"), listName.trim())
       if (listName.trim() !== "") {
-        createList(listName, isPrivate)
+        const createdList = await createList(listName, isPrivate)
+        updateBookmarks("add", createdList.id, item)
+        // console.log('list successfully created', createdList)
       }
     }
 
@@ -102,7 +98,7 @@ export default function ListsModal({ item, setModal }) {
                 <span>{list.name}</span>
                 {list.is_private ? (
                   <Icon svg={<LockClosedIcon />} size="sm" customStyles="ml-auto" />
-                  ) : (
+                ) : (
                   <div style={{width: 16, height: 16}} />
                 )}
               </label>

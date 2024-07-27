@@ -1,6 +1,5 @@
 import { useState } from "react"
 import { HeartIcon } from "@heroicons/outline"
-import { useUserContext } from "@src/store/user-context"
 import { Button } from "@src/lib/ui/components"
 
 

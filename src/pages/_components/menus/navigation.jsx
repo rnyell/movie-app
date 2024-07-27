@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { motion, useAnimate } from "framer-motion"
 import { useClickOutside, useWindowOffsets } from "@lib/hooks"
-import { useThemeContext } from "@src/store/theme-context"
+import { useThemeContext } from "@src/store"
 import { breakpoints } from "@src/lib/ui/configs"
 import {
   HomeIcon,
@@ -35,6 +35,8 @@ import logo from "@src/assets/logo.png"
 import Presence from "@src/lib/motion/presence"
 import { Divider, Icon } from "@src/lib/ui/components"
 import AccountDropdown from "../account-dropdown"
+
+import "./navigation.css"
 
 const lg_links = [
   { tag: "Home", href: "/", type: "link", icon: <HomeIcon />, activeIcon: <HomeIconSolid /> },
@@ -168,7 +170,7 @@ function NavLink({
         onClick={isSettings ? handleShowSettings : null}
         ref={isSettings ? ref : null}
       >
-        <i className="icon icon-sm">{isActive ? activeIcon : icon}</i>
+        <i className="icon icon-md">{isActive ? activeIcon : icon}</i>
         <Presence trigger={!isCollapsed}>
           <motion.p
             className="link-tag"
@@ -220,20 +222,20 @@ function SettingsOptions() {
       ref={ref}
     >
       <li data-submenu-item onClick={() => setOpen(!isOpen)}>
-        <i className="icon icon-sm"><Palette /></i>
+        <i className="icon icon-md"><Palette /></i>
         <p className="tag">Appearance</p>
         <i className="icon icon-xs ml-auto"><ChevronRightIcon /></i>
       </li>
       <li data-submenu-item>
-        <i className="icon icon-sm"><QuestionMarkCircleIcon /></i>
+        <i className="icon icon-md"><QuestionMarkCircleIcon /></i>
         <p className="tag">FAQ</p>
       </li>
       <a data-submenu-item href="https://github.com/rnyell/movie-app" target="_blank">
-        <i className="icon icon-sm"><CommandLineIcon /></i>
+        <i className="icon icon-md"><CommandLineIcon /></i>
         <p className="tag">Contribute</p>
       </a>
       <a data-submenu-item href="https://t.me/" target="_blank">
-        <i className="icon icon-sm"><BugIcon /></i>
+        <i className="icon icon-md"><BugIcon /></i>
         <p className="tag">Report Issues</p>
       </a>
       <Presence trigger={isOpen}>

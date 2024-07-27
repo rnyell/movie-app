@@ -1,6 +1,6 @@
 import { motion } from "framer-motion"
 import { formatReleaseDate } from "@services/movie-utils"
-import { portraitCardOverlayVariants, defaultVariantsLabel } from "@lib/motion/motions"
+import { portraitOverlayMotion, defaultVariantsLabel } from "@lib/motion/motions"
 import Overview from "@components/movie-details/overview"
 import BookmarkButton from "@components/buttons/bookmark-btn"
 import BookmarkDeleteButton from "@components/buttons/bookmark-del-btn"
@@ -17,7 +17,7 @@ export default function SecondaryOverlay({ result, variant, ...rest }) {
   return (
     <motion.div
       className="overlay secondary-overlay"
-      variants={portraitCardOverlayVariants}
+      variants={portraitOverlayMotion}
       {...defaultVariantsLabel}
     >
       <motion.h4
@@ -53,13 +53,27 @@ export default function SecondaryOverlay({ result, variant, ...rest }) {
       >
         {variant === "result" ? (
           <>
-            <BookmarkButton item={{id, media}} variants="solid-blured" size="square-md" iconSize="md" />
-            <InfoButton setModal={setModal} variants="solid-blured" size="square-md" iconSize="md" />
+            <BookmarkButton
+              item={{id, media}}
+              variants="solid-blured"
+              size="square-md"
+              iconSize="md"
+            />
+            <InfoButton
+              setModal={setModal}
+              variants="solid-blured"
+              size="square-md"
+              iconSize="md"
+            />
           </>
         ) : (
           <>
             <BookmarkDeleteButton setModal={setModal} />
-            <LinkButton linkData={{id, media, blank: false}} size="square-md" iconSize="md" />
+            <LinkButton
+              linkData={{id, media, blank: false}}
+              size="square-md"
+              iconSize="md"
+            />
           </>
         )}
       </motion.div>

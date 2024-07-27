@@ -3,7 +3,7 @@ import { AnimatePresence } from "framer-motion"
 import { useLoader } from "@lib/hooks"
 import { getPopularMovies, getOnScreenMovies, getTrendingMovies, getTrendingSeries } from "@services"
 import { InitialLoading, AppLoading } from "@components/skeletons"
-import UserProvider from "./user-context"
+import AuthProvider from "@src/auth/auth-context"
 import ThemeProvider from "./theme-context"
 
 
@@ -40,11 +40,11 @@ export default function AppProvider({ children }) {
       ) : (
         <div key="nothing-but-for-AnimatePresence-sake" data-presence>
           <ThemeProvider>
-            <UserProvider>
+            <AuthProvider>
               <MoviesContext.Provider value={[moviesState]}>
                 {children}
               </MoviesContext.Provider>
-            </UserProvider>
+            </AuthProvider>
           </ThemeProvider>
         </div>
       )}

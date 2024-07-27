@@ -1,6 +1,6 @@
 import { useReducer, useRef } from "react"
 import { ArrowUpRightIcon } from "@heroicons/outline"
-import { useMoviesState } from "@src/store/app-context"
+import { useMoviesState } from "@src/store"
 import ViewTransition from "@lib/motion/view-transition"
 import Page from "@components/layouts/page"
 import MovieCard from "@components/movie-cards/movie-card"

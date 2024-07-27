@@ -1,7 +1,7 @@
 import { motion } from "framer-motion"
 import { BarsArrowDownIcon, BarsArrowUpIcon } from "@heroicons/outline"
 import { strCapitalizer } from "@lib/utils"
-import { useSearch } from "@src/store/search-context"
+import { useSearch } from "@src/store"
 import {  } from "../../../_utils"
 
 const sorts_item = [

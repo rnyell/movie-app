@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react"
 import { weekObjShort, monthObj, weekObj } from "@lib/utils"
-import { useBookingData } from "@src/store/booking-context"
+import { useBookingData } from "@src/store"
 import Day from "./day"
 import Ticket from "./ticket"
 

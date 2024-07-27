@@ -2,7 +2,7 @@ import { motion } from "framer-motion"
 import { useWindowOffsets } from "@src/lib/hooks"
 import { useMediaDetails } from "@services/hooks"
 import { formatRuntime, formatReleaseDate } from "@services/movie-utils"
-import { landCardOverlayVariants, defaultVariantsLabel } from "@lib/motion/motions"
+import { landescOverlayMotion, defaultVariantsLabel } from "@lib/motion/motions"
 import WatchButton from "@components/buttons/watch-btn"
 import LinkButton from "@components/buttons/link-btn"
 import BookmarkButton from "@components/buttons/bookmark-btn"
@@ -30,7 +30,7 @@ export default function PrimaryOverlay({ result, media, variant }) {
       return (
         <motion.div
           className="overlay primary-overlay primary-movie-overlay"
-          variants={landCardOverlayVariants}
+          variants={landescOverlayMotion}
           {...defaultVariantsLabel}
         >
           <motion.h4
@@ -85,7 +85,7 @@ export default function PrimaryOverlay({ result, media, variant }) {
       return (
         <motion.div
           className="overlay primary-overlay primary-series-overlay"
-          variants={landCardOverlayVariants}
+          variants={landescOverlayMotion}
           {...defaultVariantsLabel}
         >
           <div className="overlay-title-wrapper flex">

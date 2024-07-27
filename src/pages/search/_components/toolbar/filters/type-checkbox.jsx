@@ -1,5 +1,5 @@
 import { strCapitalizer } from "@lib/utils"
-import { useSearch } from "@src/store/search-context"
+import { useSearch } from "@src/store"
 
 export default function TypeCheckbox({ type }) {
   const {searchOptions} = useSearch()

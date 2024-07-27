@@ -80,8 +80,7 @@
 .gallery {
   padding: 1.25rem;
   width: clamp(350px, 65vw, 990px);
-  top: 8%;
-  translate: -50% 0%;
+  min-height: 500px;
   box-shadow: 0 2px 1rem rgb(11 15 17 / 80%);
 
   & h3 {
@@ -168,11 +167,7 @@
 }
 
 .slider-modal {
-  inset: 0;
-  translate: none;
-  border-radius: 0;
-  /* these 3 properties are reseting default values (which are set in `base.css`) */
-  z-index: var(--z-max);
+  height: 100%;
   background-color: var(--color-neutral-900);
 
   & .selected-image-container {

@@ -1,4 +1,4 @@
-import { useSearch } from "@src/store/search-context"
+import { useSearch } from "@src/store"
 import { Divider } from "@src/lib/ui/components"
 import FilterDropdown from "./filters/filter-dropdown"
 import SortDropdown from "./sorts/sort-dropdown"

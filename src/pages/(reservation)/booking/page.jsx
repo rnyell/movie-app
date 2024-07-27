@@ -3,9 +3,9 @@ import { Link, useLocation } from "react-router-dom"
 import { ChevronLeftIcon } from "@heroicons/outline"
 import { IMAGES_URL } from "@services"
 import { useWindowOffsets } from "@src/lib/hooks"
-import { useBookingData } from "@src/store/booking-context"
+import { useBookingData } from "@src/store"
 import ViewTransition from "@lib/motion/view-transition"
-import { Divider } from "@src/lib/ui/components"
+import { Button, Divider, Icon } from "@src/lib/ui/components"
 import Seats from "./_components/seats"
 import DateTime from "./_components/date-time"
 
@@ -41,11 +41,11 @@ export default function Booking() {
           style={{backgroundImage: `linear-gradient(transparent, var(--color-neutral-950) 50%), url(${IMAGES_URL}original${backdrop_path})`}}
         />
         <header>
-          <Link to={-1} className="main-btn back-btn">
-            <i className="icon">
-              <ChevronLeftIcon />
-            </i>
-          </Link>
+          <Button variants="solid-blured" size="square-md">
+            <Link to={-1} className="btn">
+              <Icon svg={<ChevronLeftIcon />} />
+            </Link>
+          </Button>
           <h1 className="movie-title">{title}</h1>
         </header>
         <section>

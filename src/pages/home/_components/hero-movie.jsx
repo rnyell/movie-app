@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { IMAGES_URL } from "@services"
 import { useMediaDetails } from "@services/hooks"
 import { getMovieGenres, getMovieDirector, formatReleaseDate } from "@services/movie-utils"
+import { useAuth } from "@src/auth/auth-context"
 import { HeroMovieLoadingSkeleton } from "@components/skeletons"
 import { ChevronRightIcon, ChevronLeftIcon, ArrowLongRightIcon, BookmarkIcon, ArrowTopRightOnSquareIcon } from "@heroicons/outline"
 import { ShareIcon } from "@heroicons/solid"
@@ -19,7 +20,7 @@ export default function HeroMovie({ result, showNextMovie, showPrevMovie }) {
   const media = "movie"
   const id = result.id
   const {isLoading, mediaDetails} = useMediaDetails(media, id)
-  const [key, setKey] = useState(0) // used by <AnimatePresence>
+  // const [key, setKey] = useState(0) // used by <AnimatePresence>
   const [listsModal, setListsModal] = useState(false)
   const navigate = useNavigate()
 
@@ -171,4 +172,12 @@ export default function HeroMovie({ result, showNextMovie, showPrevMovie }) {
       {listsModal && <ListsModal item={{id, media}} setModal={setListsModal} />}
     </AnimatePresence>
   )
+}
+
+function DisplayedModal() {
+  const { session } = useAuth()
+
+  useEffect(() => {
+
+  }, [])
 }

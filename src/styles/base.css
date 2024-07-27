@@ -80,20 +80,8 @@
     }
   }
 
-  .main-btn {
-    padding: var(--space-2);
-    display: inline-grid;
-    place-items: center;
-    aspect-ratio: 1;
-    font-weight: 500;
-    border-radius: 0.625rem;
-    background-color: color-mix(in srgb, var(--color-neutral-100), transparent 45%);
-    backdrop-filter: blur(6px);
-    transition: background-color var(--duration-1) ease-in;
-    
-    &:hover {
-      background-color: color-mix(in srgb, var(--color-neutral-100), transparent 35%);
-    }
+  [data-presence] {
+    height: 100%;
   }
 
   .dot,
@@ -129,7 +117,7 @@
     --space-12: calc(4 * var(--base-size));
     --outline-size-1: 1px;
     --outline-size-2: 0.07525rem;
-    --outline-size-3: 0.1375rem;
+    --outline-size-3: 2px;
     --outline-size-4: 2.5px;
     --full-rounded: 9999px;
     --z-neg20: -20;

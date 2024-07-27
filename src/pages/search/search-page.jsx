@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useSearchParams, useLocation } from "react-router-dom"
 import { getAllResults } from "@services"
-import { useSearch } from "@src/store/search-context"
+import { useSearch } from "@src/store"
 import { useWindowOffsets } from "@lib/hooks"
 import { filterResults, sortResults } from "./_utils"
 import Header from "@components/headers/header"

@@ -49,7 +49,7 @@ export async function createList(name, isPrivate) {
     }
   }
 
-  const { error } = await supabase
+  const { data, error } = await supabase
     .from("lists")
     .insert({
       name: name,
@@ -57,10 +57,14 @@ export async function createList(name, isPrivate) {
       is_private: isPrivate,
       share_id: shareId,
     })
+    .select()
+    .single()
 
   if (error) {
     console.error(error)
   }
+
+  return data
 }
 
 // export async function addListDescription(desc) {}

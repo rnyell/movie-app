@@ -4,7 +4,7 @@ export const defaultVariantsLabel = {
   exit: "exit"
 }
 
-export const pageTransitionVariants = {
+export const pageTransitionMotion = {
   initial: {
     opacity: 0.25,
     y: 1,
@@ -87,7 +87,7 @@ export const modalBackdropMotion = {
   }
 }
 
-export const portraitCardOverlayVariants = {
+export const portraitOverlayMotion = {
   initial: {
     opacity: 0
   },
@@ -107,7 +107,7 @@ export const portraitCardOverlayVariants = {
   }
 }
 
-export const landCardOverlayVariants = {
+export const landescOverlayMotion = {
   initial: {
     opacity: 0
   },

@@ -1,7 +1,7 @@
 import { useEffect, useRef  } from "react"
 import { createPortal } from "react-dom"
 import { useWindowOffsets } from "@lib/hooks"
-import { useSearch } from "@src/store/search-context"
+import { useSearch } from "@src/store"
 import { filterResults, sortResults } from "../../_utils"
 import TypeList from "./filters/type-list"
 import GenresList from "./filters/genres-list"
