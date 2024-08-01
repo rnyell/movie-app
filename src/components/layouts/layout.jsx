@@ -1,6 +1,5 @@
 import { Outlet } from "react-router-dom"
-import Valve from "@lib/motion/valve"
-import Presence from "@src/lib/motion/presence"
+import { Valve, Presence } from "@src/lib/motion"
 import { useAppContext } from "@src/store"
 import Header from "../headers/header"
 import Navigation from "../menus/navigation"

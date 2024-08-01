@@ -2,7 +2,7 @@ import { useRef } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { IMAGES_URL } from "@services"
 import { useMediaDetails } from "@services/hooks"
-import ViewTransition from "@lib/motion/view-transition"
+import { ViewTransition } from "@src/lib/motion"
 import {
   HeartIcon,
   ChevronLeftIcon,

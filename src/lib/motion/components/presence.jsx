@@ -1,6 +1,6 @@
 import { AnimatePresence } from "framer-motion"
 
-export default function Presence({
+export function Presence({
   children,
   trigger,
   initial = true,

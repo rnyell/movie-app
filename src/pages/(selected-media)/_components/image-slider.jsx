@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { motion, animate, useAnimate, useMotionValue } from "framer-motion"
 import { IMAGES_URL } from "@services"
 import { useWindowOffsets } from "@lib/hooks"
-import { Modal } from "@src/lib/ui/components"
+import { Button, Modal } from "@src/lib/ui/components"
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/outline"
 import { XMarkIcon } from "@heroicons/solid"
 
@@ -10,11 +10,11 @@ import { XMarkIcon } from "@heroicons/solid"
 export default function ImageSlider({ images, currIndex, setCurrIndex, setModal }) {
   const {windowWidth} = useWindowOffsets()
   const imagesCount = images.length
-  // const [thumbsRef, animate] = useAnimate()
   const thumbsRef = useRef(null)
+  // const [thumbsRef, animate] = useAnimate()
   // const [thumbsWidth, setThumbsWidth] = useState({ scrollWidth: 0, offsetWidth: 0 })
   const imgRef = useRef(null)
-  const [imgWidth, setImgWidth] = useState(0)
+  // const [imgWidth, setImgWidth] = useState(0)
   const [constraints, setConstraints] = useState(0)
   const gapWidth = 4  // the "4" value is 4px which is set by CSS
   // const totalGapsWidth = (images.length - 1) * gapWidth
@@ -35,7 +35,7 @@ export default function ImageSlider({ images, currIndex, setCurrIndex, setModal 
     if (event.code === "Escape") {
       setModal(false)
     } else if (event.code === "ArrowLeft") {
-      // showPrevImage(1) //? not working!!
+      // showPrevImage(1) //? not working
       setCurrIndex(prev => {
         if (prev - 1 <= -1) {
           return 0
@@ -52,7 +52,7 @@ export default function ImageSlider({ images, currIndex, setCurrIndex, setModal 
 
   useEffect(() => {
     if (thumbsRef.current && imgRef.current) {
-      setImgWidth(imgRef.current.offsetWidth)
+      // setImgWidth(imgRef.current.offsetWidth)
       setConstraints(thumbsRef.current.scrollWidth - thumbsRef.current.offsetWidth)
       // setThumbsWidth({
       //   scrollWidth: thumbsRef.current.scrollWidth,
@@ -141,10 +141,16 @@ export default function ImageSlider({ images, currIndex, setCurrIndex, setModal 
       customStyles="translate-0 inset-0 z-max rounded-0"
       setClose={() => setModal(false)}
     >
-      <div className="modal slider-modal flex-col align-center" tabIndex={0}>
-        <button className="btn close-btn" type="button" onClick={() => setModal(false)}>
-          <i className="icon"><XMarkIcon /></i>
-        </button>
+      <div className="image-slider flex-col align-center" tabIndex={0}>
+        <Button
+          variants="ghost"
+          size="square-lg"
+          customStyles="absolute top-6 right-6 rounded-full transition-none"
+          iconOnly
+          iconSize="lg"
+          svg={<XMarkIcon />}
+          onClick={() => setModal(false)}
+        />
         <div className="selected-image-container">
           <button className="btn prev-btn absolute-y-center" type="button" onClick={() => showPrevImage(1)}>
             <i className="icon">

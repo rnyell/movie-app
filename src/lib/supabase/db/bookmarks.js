@@ -66,6 +66,7 @@ export async function getBookmarkedItemByListId(listId) {
 }
 
 export async function isItemBookmarked(item) {
+  const userId = await getUserId()
   const { data, error } = await supabase
     .from("bookmarks")
     .select("*")
@@ -76,6 +77,8 @@ export async function isItemBookmarked(item) {
   if (error) {
     console.error(error)
   }
+
+  console.log(data)
 
   if (data.length > 0) {
     return true

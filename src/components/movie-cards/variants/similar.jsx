@@ -2,7 +2,7 @@ import { useState } from "react"
 import { motion, useAnimate } from "framer-motion"
 import { IMAGES_URL } from "@services"
 import { EllipsisIcon } from "@src/lib/ui/icons"
-import Presence from "@src/lib/motion/presence"
+import { Presence } from "@src/lib/motion"
 import { useWindowOffsets, useClickOutside } from "@lib/hooks"
 import PrimaryOverlay from "../overlays/primary-overlay"
 

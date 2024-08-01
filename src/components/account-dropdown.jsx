@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import { getAuthUser, supabase } from "@src/lib/supabase/auth"
 import { useClickOutside, useWindowOffsets, useLoader } from "@lib/hooks"
 import { useAuth } from "@src/auth/auth-context"
-import Presence from "@src/lib/motion/presence"
+import { Presence } from "@src/lib/motion"
 import {
     UserCircleIcon,
     ChevronUpDownIcon,

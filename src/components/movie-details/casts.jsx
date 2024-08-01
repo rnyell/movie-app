@@ -4,8 +4,8 @@ import { ChevronDoubleRightIcon } from "@heroicons/outline"
 import { IMAGES_URL } from "@services"
 
 
-export default function Casts({ casts, mode }) {
-  let initialCastsNumber = 3
+export default function Casts({ casts, mode, count }) {
+  let initialCastsNumber = count || 3
   const [castsNumber, setCastsNumber] = useState(initialCastsNumber)
   const [isOpen, setOpen] = useState(false)
 
@@ -61,7 +61,7 @@ export default function Casts({ casts, mode }) {
       return (
         <div className="casts align-center flex-wrap" data-mode={mode}>
           <h6 className="heading">Starring:</h6>
-          {casts.slice(0, 4).map(c =>
+          {casts.slice(0, count).map(c =>
             <p key={c.name} className="cast-name">{c.name}<span>,</span></p>
           )}
         </div>

@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { motion, useAnimate } from "framer-motion"
 import { useAppContext } from "@src/store"
-import Presence from "@src/lib/motion/presence"
+import { Presence } from "@src/lib/motion"
 import { IMAGES_URL } from "@services"
 import { formatReleaseDate } from "@services/movie-utils"
 import { useWindowOffsets, useClickOutside } from "@lib/hooks"

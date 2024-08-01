@@ -1,16 +1,15 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { motion } from "framer-motion"
 import { PhotoIcon, XMarkIcon } from "@heroicons/solid"
 import { IMAGES_URL } from "@services"
-import Presence from "@src/lib/motion/presence"
-import { Modal } from "@src/lib/ui/components"
+import { Presence } from "@src/lib/motion"
+import { Button, Modal } from "@src/lib/ui/components"
 import ImageSlider from "./image-slider"
 
 
 export default function Pictures({ images }) {
   const {backdrops} = images
   const [isOpen, setOpen] = useState(false)
-
 
   return (
     <div className="pictures">
@@ -36,27 +35,13 @@ export default function Pictures({ images }) {
 
 function Gallery({ images, setModal }) {
   const {backdrops, posters} = images
-  const tabs = ["Images", "Posters"]
-  const [selectedTab, setSelectedTab] = useState(tabs[0])
+  const TABS = ["Images", "Posters"]
+  const [selectedTab, setSelectedTab] = useState(TABS[0])
   const [currIndex, setCurrIndex] = useState(0)
-  const [isFullsize, setIsFullsize] = useState(false)
-
-  useEffect(() => {
-    document.addEventListener("keydown", handleKeyPresses)
-
-    return () => {
-      document.removeEventListener("keydown", handleKeyPresses)
-    }
-  }, [])
-
-  function handleKeyPresses({code}) {
-    if (code === "Escape") {
-      setModal(false)
-    }
-  }
+  const [isFullsize, setFullsize] = useState(false)
 
   function handleThumbnailClick(idx) {
-    setIsFullsize(true)
+    setFullsize(true)
     setCurrIndex(idx)
   }
 
@@ -80,30 +65,36 @@ function Gallery({ images, setModal }) {
   const transition={duration: 0.35, ease: "easeOut"}
 
   return (
-    <Modal setClose={() => setModal(false)}>
+    <Modal variants="showcase" setClose={() => setModal(false)}>
       <div className="gallery">
-        <button className="btn close-btn" type="button" onClick={() => setModal(false)}>
-          <i className="icon"><XMarkIcon /></i>
-        </button>
+        <Button
+          variants="ghost"
+          size="square-lg"
+          customStyles="absolute top-6 right-6 rounded-full transition-none"
+          iconOnly
+          iconSize="lg"
+          svg={<XMarkIcon />}
+          onClick={() => setModal(false)}
+        />
         <h3>Gallery</h3>
+        <nav className="tabs flex">
+          {TABS.map(tab => (
+            <motion.b
+              className="tab"
+              key={tab}
+              onClick={() => setSelectedTab(tab)}
+            >
+              {tab}
+              {selectedTab === tab && (
+                <motion.u
+                  className="tab-indicator absolute-x-center"
+                  layoutId="selected"
+                />
+              )}
+            </motion.b>
+          ))}
+        </nav>
         <div className="wrapper">
-          <nav className="tabs flex">
-            {tabs.map(tab => (
-              <motion.b
-                className="tab"
-                key={tab}
-                onClick={() => setSelectedTab(tab)}
-              >
-                {tab}
-                {selectedTab === tab && (
-                  <motion.u
-                    className="tab-indicator absolute-x-center"
-                    layoutId="selected"
-                  />
-                )}
-              </motion.b>
-            ))}
-          </nav>
           <div>
             {selectedTab === "Images" ? (
               <div className="images container">
@@ -129,7 +120,7 @@ function Gallery({ images, setModal }) {
             images={selectedTab === "Images" ? backdrops : posters}
             currIndex={currIndex}
             setCurrIndex={setCurrIndex}
-            setModal={setIsFullsize}
+            setModal={setFullsize}
           />
         </Presence>
       </div>

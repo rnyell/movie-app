@@ -32,7 +32,7 @@ import { CompasIconSolid,
   ArrowLeftToLineIcon
 } from "@src/lib/ui/icons"
 import logo from "@src/assets/logo.png"
-import Presence from "@src/lib/motion/presence"
+import { Presence } from "@src/lib/motion"
 import { Divider, Icon } from "@src/lib/ui/components"
 import AccountDropdown from "../account-dropdown"
 

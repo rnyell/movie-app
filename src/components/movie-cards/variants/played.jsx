@@ -3,7 +3,7 @@ import { motion } from "framer-motion"
 import { useNavigate } from "react-router-dom"
 import { IMAGES_URL } from "@services"
 import { useMediaDetails } from "@services/hooks"
-import Presence from "@src/lib/motion/presence"
+import { Presence } from "@src/lib/motion"
 import { PlayIcon } from "@heroicons/solid"
 import { Icon } from "@src/lib/ui/components"
 

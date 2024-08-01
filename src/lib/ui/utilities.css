@@ -84,12 +84,24 @@
   top: 1rem;
 }
 
+.top-6 {
+  top: 1.5rem;
+}
+
 .right-3 {
   right: 0.75rem;
 }
 
 .right-4 {
   right: 1rem;
+}
+
+.right-6 {
+  right: 1.5rem;
+}
+
+.bottom-0 {
+  bottom: 0;
 }
 
 .z-10 {
@@ -269,6 +281,10 @@
 
 .-rotate-45 {
   rotate: z -45deg;
+}
+
+.transition-none {
+  transition: none;
 }
 
 /* ------------------------------- */

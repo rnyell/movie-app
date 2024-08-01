@@ -28,7 +28,7 @@ export async function getAuthSession() {
   const { session } = data
 
   if (error) {
-    console.log("Session error")
+    console.error("Session error")
     console.log(error)
   }
 

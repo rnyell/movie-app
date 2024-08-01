@@ -1,3 +1,11 @@
+.modalBackdrop {
+  position: fixed;
+  z-index: var(--z-50);
+  inset: 0;
+  background-color: rgb(37 40 42 / 65%);
+  backdrop-filter: blur(5px);
+}
+
 .modal {
   overflow: hidden;
   position: fixed;
@@ -11,24 +19,21 @@
   border: 1.5px solid var(--color-neutral-600);
 }
 
-.modalBackdrop {
-  position: fixed;
-  z-index: var(--z-50);
-  inset: 0;
-  background-color: rgb(37 40 42 / 65%);
-  backdrop-filter: blur(5px);
-}
-
 /* ----------------- */
 /* varinats */
-.default {
-  
-}
+.default {}
 
 .confirm {
-  padding: var(--space-6);
+  padding: var(--space-5);
   top: 40%;
+  background-color: var(--color-neutral-900);
+  border-color: var(--color-neutral-700);
   box-shadow: 0 4px 1.25rem rgb(11 15 17 / 40%);
+}
+
+.showcase {
+  top: 6%;
+  translate: -50% 0%;
 }
 
 /* ----------------- */
@@ -44,7 +49,7 @@
 }
 
 .lg {
-  width: clamp(330px, 55%, 550px);
+  width: clamp(330px, 55%, 535px);
   top: 30%;
   translate: -50% -29%;
 }

@@ -4,7 +4,7 @@ import { useWindowOffsets, useClickOutside } from "@lib/hooks"
 import { IMAGES_URL } from "@services"
 import { XMarkIcon } from "@heroicons/outline"
 import { EllipsisIcon } from "@src/lib/ui/icons"
-import Presence from "@src/lib/motion/presence"
+import { Presence } from "@src/lib/motion"
 import { Button } from "@src/lib/ui/components"
 import PrimaryOverlay from "../overlays/primary-overlay"
 

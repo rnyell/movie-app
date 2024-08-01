@@ -27,6 +27,7 @@ export default function InfoModal({ result, media, setClose }) {
 
   function handleNavigation() {
     navigate(href)
+    setClose()
   }
 
 

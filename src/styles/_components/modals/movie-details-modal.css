@@ -1,11 +1,24 @@
 .movie-details-modal {
-  & .poster {
-    border-radius: 1.25rem;
+  & .modal-img {
+    & figure {
+      &::before {
+        inset: 0;
+        z-index: var(--z-0);
+        background-image: linear-gradient(transparent, var(--color-neutral-800) 95%);
+      }
+    }
+
+    & .poster {
+      border-radius: 1.25rem;
+    }
+
+    & .absolute {
+      padding: 0 var(--space-6) var(--space-4);
+    }
   }
 
   & .modal-body {
-    margin-top: 1rem;
-    padding: var(--space-2) var(--space-6) var(--space-6);
+    padding: var(--space-4) var(--space-6) var(--space-6);
   }
   
   & .main-details {
@@ -20,7 +33,7 @@
   }
 
   & .sub-details {
-    margin-top: 1rem;
+    gap: 0.5rem;
     font-size: 0.8rem;
 
     & h6 {

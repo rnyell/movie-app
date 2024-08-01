@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import ViewTransition from "@lib/motion/view-transition"
+import { ViewTransition } from "@src/lib/motion"
 import Page from "@components/layouts/page"
 import RecommendSection from "./_components/recommend-section"
 

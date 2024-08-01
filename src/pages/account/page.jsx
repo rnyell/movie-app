@@ -1,4 +1,4 @@
-import ViewTransition from "@lib/motion/view-transition"
+import { ViewTransition } from "@src/lib/motion"
 import Page from "@components/layouts/page"
 import { Divider } from "@src/lib/ui/components"
 import PlayedHistory from "./_components/played-history"

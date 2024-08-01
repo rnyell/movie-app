@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useReducer, useState } from "react"
+import { createContext, useContext, useReducer, useState } from "react"
 import { AnimatePresence } from "framer-motion"
 import { useLoader } from "@lib/hooks"
 import { getPopularMovies, getOnScreenMovies, getTrendingMovies, getTrendingSeries } from "@services"

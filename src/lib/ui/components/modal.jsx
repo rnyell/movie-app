@@ -22,7 +22,6 @@ export default function Modal({
   }, [])
 
   function closeModalOnEscape(e) {
-    console.log('object')
     if (e.key === "Escape" || e.code === 27) {
       setClose()
     }

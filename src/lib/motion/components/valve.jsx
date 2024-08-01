@@ -3,7 +3,7 @@ import { useLocation, useOutlet } from "react-router-dom"
 import { AnimatePresence } from "framer-motion"
 
 // this is the "animated" version of <Outlet /> component
-export default function Valve() {
+export function Valve() {
   const location = useLocation()
   const outlet = useOutlet()
 
