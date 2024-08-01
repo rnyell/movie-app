@@ -1,6 +1,6 @@
 import { useReducer, useRef } from "react"
 import { ArrowUpRightIcon } from "@heroicons/outline"
-import { useMoviesState } from "@src/store"
+import { useAppContext } from "@src/store"
 import ViewTransition from "@lib/motion/view-transition"
 import Page from "@components/layouts/page"
 import MovieCard from "@components/movie-cards/movie-card"
@@ -51,7 +51,7 @@ const reducer = (state, action) => {
 
 
 export default function ScreenMovies() {
-  const [moviesState] = useMoviesState()
+  const { moviesState } = useAppContext()
   const [pointer, dispatch] = useReducer(reducer, initialPosition)
   const pageRef = useRef(null)
   const containerRef = useRef(null)

@@ -1,11 +1,11 @@
 import { useEffect, useRef } from "react"
-import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion"
+import { motion, useScroll, useTransform } from "framer-motion"
 import { useWindowOffsets } from "@lib/hooks"
 import ViewTransition from "@lib/motion/view-transition"
 // import Page from "@components/layouts/page"
-import HeroSection from "./home/_components/hero-section"
-import MoviesSection from "./home/_components/movies-section"
-import SeriesSection from "./home/_components/series-section"
+import HeroSection from "./_components/hero-section"
+import MoviesSection from "./_components/movies-section"
+import SeriesSection from "./_components/series-section"
 
 
 export default function HomePage() {

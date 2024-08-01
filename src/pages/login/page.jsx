@@ -3,8 +3,6 @@ import { signInWithGoogle, signInAnonymously } from "@src/lib/supabase/auth"
 import { Button, Icon } from "@src/lib/ui/components"
 import { GoogleIcon, DominoMaskIcon } from "@src/lib/ui/icons"
 
-import "./login-page.css"
-
 
 export default function LoginPage() {
   const navigate = useNavigate()
@@ -24,7 +22,7 @@ export default function LoginPage() {
           </p>
         </div>
         {/* <h2>Welcome!</h2> */}
-        <p>Choose how you'd like to get started:</p>
+        <p className="p">Choose how you'd like to get started:</p>
         <div className="flex-col">
           <Button size="md" customStyles="rounded-full" onClick={signInWithGoogle}>
             <Icon size="lg" svg={<GoogleIcon />} />

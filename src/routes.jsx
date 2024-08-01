@@ -6,6 +6,7 @@ import NotFound from "@pages/not-found"
 import { SearchProvider, BookingProvider } from "./store"
 
 import HomePage from "@pages/page"
+import LoginPage from "@pages/login/page"
 import Account from "@pages/account/page"
 import Discover from "@pages/discover/page"
 import MoviesPage from "@pages/discover/movies/page"
@@ -20,12 +21,11 @@ import Booking from "@pages/(reservation)/booking/page"
 import Tickets from "@pages/(reservation)/tickets/tickets"
 
 import AuthRoute from "./auth/auth-route"
-import LoginPage from "./auth/login-page"
 
 
 export const routeTree = [{
   path: "/",
-  // element: <Layout variant="root" />,
+  element: <Layout variant="root" />,
   errorElement: <NotFound />,
   children: [
     { path: "/", element: <Layout variant="primary" />, children: [

@@ -4,6 +4,9 @@
 @import "@src/styles/home/home-page.css" layer;
 @import "@src/styles/home/hero-section.css" layer;
 
+/* login */
+@import "@src/styles/login/login-page.css";
+
 /* discover */
 @import "@src/styles/discover/discover.css" layer;
 

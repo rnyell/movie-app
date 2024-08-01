@@ -13,7 +13,7 @@ export default defineConfig({
       // "@src": path.resolve(__dirname, "./src")
       "@src": "/src",
       "@pages": "/src/pages",
-      "@components": "/src/pages/_components",
+      "@components": "/src/components",
       "@lib": "/src/lib",
       "@services": "/src/services",
       "@heroicons/outline": "@heroicons/react/24/outline",

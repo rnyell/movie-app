@@ -1,25 +1,34 @@
 import { signInWithGoogle, signInAnonymously } from "@src/lib/supabase/auth"
 import { GoogleIcon, DominoMaskIcon } from "@src/lib/ui/icons"
 import { Modal, Button, Icon } from "@src/lib/ui/components"
+import { XMarkIcon } from "@heroicons/outline"
 
 
-export default function LoginModal({ setModal, message }) {
+export default function LoginModal({ setClose, message }) {
+  function handleAnonymousSingIn() {
+    signInAnonymously()
+    setClose()
+  }
+
   return (
-    <Modal setClose={() => setModal(false)}>
+    <Modal size="md" customStyles="top-20%" setClose={setClose}>
       <div className="login-box align-center-col">
-        <div className="logo-wrapper align-center">
-          <img src="/logo.png" />
-          <p className="unselectable">
-            Your Dad's Best Movie App
-          </p>
-        </div>
-        <p>{message}</p>
+        <Button
+          variants="ghost"
+          size="square-sm"
+          iconOnly
+          iconSize="sm"
+          svg={<XMarkIcon />}
+          customStyles="absolute top-3 right-3 rounded-full"
+          onClick={setClose}
+        />
+        <p className="msg">{message}</p>
         <div className="flex-col">
           <Button size="md" customStyles="rounded-full" onClick={signInWithGoogle}>
             <Icon size="lg" svg={<GoogleIcon />} />
             <span>Log in with Google</span>
           </Button>
-          <Button size="md" customStyles="rounded-full" onClick={signInAnonymously}>
+          <Button size="md" customStyles="rounded-full" onClick={handleAnonymousSingIn}>
             <Icon size="lg" svg={<DominoMaskIcon />} />
             <span>Continue anonymously</span>
           </Button>

@@ -1,16 +1,22 @@
-import { useState } from "react"
 import { Link } from "react-router-dom"
-import { useUserContext } from "@src/store"
-import Presence from "@src/lib/motion/presence"
+import { useAppContext, useUserContext } from "@src/store"
 import { Button } from "@src/lib/ui/components"
 import { EllipsisVerticalIcon } from "@heroicons/solid"
 import MovieCard from "@components/movie-cards/movie-card"
-import ConfirmModal from "@components/modals/confirm-modal"
 
 
 export default function PlayedHistory() {
+  const { modalDispatch } = useAppContext()
   const { userState } = useUserContext()
-  const [showModal, setShowModal] = useState(false)
+
+  function clearPlayedHistory() {
+    modalDispatch({
+      type: "confirm_modal",
+      data: {
+        msg: "Are you sure you want to clear your played history? (This action can be undone later.)"
+      }
+    })
+  }
 
 
   return (
@@ -46,18 +52,12 @@ export default function PlayedHistory() {
             variants="danger"
             size="lg"
             customStyles="ml-auto"
+            onClick={clearPlayedHistory}
           >
             Clear History
           </Button>
         </div>
       )}
-
-      {<Presence trigger={showModal}>
-        <ConfirmModal
-          confirmText="Are you sure you want to clear your played history? (This action can be undone later.)"
-          setModal={setShowModal}
-        />
-      </Presence>}
     </section>
   )
 }

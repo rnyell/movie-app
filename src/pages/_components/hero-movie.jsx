@@ -4,24 +4,23 @@ import { motion, AnimatePresence } from "framer-motion"
 import { IMAGES_URL } from "@services"
 import { useMediaDetails } from "@services/hooks"
 import { getMovieGenres, getMovieDirector, formatReleaseDate } from "@services/movie-utils"
-import { useAuth } from "@src/auth/auth-context"
+import { useAppContext } from "@src/store"
 import { HeroMovieLoadingSkeleton } from "@components/skeletons"
-import { ChevronRightIcon, ChevronLeftIcon, ArrowLongRightIcon, BookmarkIcon, ArrowTopRightOnSquareIcon } from "@heroicons/outline"
-import { ShareIcon } from "@heroicons/solid"
+import { ChevronRightIcon, ChevronLeftIcon, ArrowTopRightOnSquareIcon } from "@heroicons/outline"
 import { ListPlusIcon } from "@src/lib/ui/icons"
 import { Button, Icon } from "@src/lib/ui/components"
-import ListsModal from "@components/modals/lists-modal"
 import Casts from "@components/movie-details/casts"
 import WatchButton from "@components/buttons/watch-btn"
 import Rates from "@components/movie-details/rates"
 
 
 export default function HeroMovie({ result, showNextMovie, showPrevMovie }) {
+  const { modalDispatch } = useAppContext()
+  // const { session } = useAuth()
   const media = "movie"
   const id = result.id
   const {isLoading, mediaDetails} = useMediaDetails(media, id)
   // const [key, setKey] = useState(0) // used by <AnimatePresence>
-  const [listsModal, setListsModal] = useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -33,19 +32,24 @@ export default function HeroMovie({ result, showNextMovie, showPrevMovie }) {
     title,
     release_date,
     // runtime,
-    genres,
+    // genres,
     vote_average: rate,
-    overview,
-    tagline,
-    poster_path,
+    // overview,
+    // tagline,
+    // poster_path,
     backdrop_path: bg_path,
     credits,
   } = mediaDetails
 
-  // console.log(mediaDetails)
-
-  function handleSelectedMovie() {
+  function onSelectMovie() {
     navigate(`/movies/${(id)}`)
+  }
+
+  function onSaveMovie() {
+    modalDispatch({
+      type: "save",
+      data: { id, media }
+    })
   }
 
   const staggerChildren = {
@@ -120,14 +124,13 @@ export default function HeroMovie({ result, showNextMovie, showPrevMovie }) {
           <div className="main-btns flex">
             <WatchButton
               item={{id, title, media}}
-              // iconSize="md"
               customStyles="px-7 rounded-2xl"
               text="Watch"
             />
             <Button
               variants="outline-blured"
               customStyles="rounded-2xl"
-              onClick={handleSelectedMovie}
+              onClick={onSelectMovie}
             >
               <Icon svg={<ArrowTopRightOnSquareIcon />} />
               Details
@@ -135,7 +138,7 @@ export default function HeroMovie({ result, showNextMovie, showPrevMovie }) {
             <Button
               variants="outline-blured"
               customStyles="rounded-2xl"
-              onClick={() => setListsModal(true)}
+              onClick={onSaveMovie}
             >
               <Icon svg={<ListPlusIcon />} size="md" />
               Save
@@ -169,15 +172,6 @@ export default function HeroMovie({ result, showNextMovie, showPrevMovie }) {
           </div>
         </div>
       </div>
-      {listsModal && <ListsModal item={{id, media}} setModal={setListsModal} />}
     </AnimatePresence>
   )
-}
-
-function DisplayedModal() {
-  const { session } = useAuth()
-
-  useEffect(() => {
-
-  }, [])
 }

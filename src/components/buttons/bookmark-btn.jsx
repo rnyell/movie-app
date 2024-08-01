@@ -1,24 +1,27 @@
-import { useEffect, useState } from "react"
+import { useLoader } from "@src/lib/hooks"
+import { useAppContext } from "@src/store"
 import { isItemBookmarked } from "@src/lib/supabase/db"
 import { BookmarkIcon } from "@heroicons/outline"
 import { Button } from "@src/lib/ui/components"
 
 
 export default function BookmarkButton({ item, setModal, ...props }) {
-  const [isBookmarked, setIsBookmarked] = useState(false)
+  const { modalDispatch } = useAppContext()
   const { variants, size, iconSize, customStyles } = props
 
-  useEffect(() => {
-    loader()
-  }, [item.id])
-  
-  async function loader() {
-    const hasBookmarked = await isItemBookmarked(item)
-    setIsBookmarked(hasBookmarked)
-  }
+  const { data: isBookmarked = false } = useLoader(
+    () => isItemBookmarked(item),
+    { dependencies: [item.id] }
+  )
 
   function showListsModal() {
-    setModal(true)
+    modalDispatch({
+      type: "save",
+      data: {
+        id: item.id,
+        media: item.media
+      }
+    })
   }
 
 

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import { ChevronRightIcon } from "@heroicons/outline"
 import { FireIconSolid } from "@src/lib/ui/icons"
 import { displayedMovieGenres } from "@services"
-import { useMoviesState } from "@src/store"
+import { useAppContext } from "@src/store"
 import ViewTransition from "@lib/motion/view-transition"
 import Page from "@components/layouts/page"
 import GenreList from "@components/genre-list"
@@ -10,7 +10,7 @@ import MovieCard from "@components/movie-cards/movie-card"
 
 
 export default function MoviesPage() {
-  const [moviesState] = useMoviesState()
+  const { moviesState } = useAppContext()
 
 
   return (

@@ -156,7 +156,7 @@
   }
 
   & .cast {
-    width: 5cqw;
+    /* width: 5cqw; */
   
     /** first item shouldn't have margin */
     /* `!important` is used to override framer-motion inline style */

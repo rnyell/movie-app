@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom"
 import { ChevronRightIcon } from "@heroicons/outline"
-import { useMoviesState } from "@src/store"
+import { useAppContext } from "@src/store"
 import MovieCard from "@components/movie-cards/movie-card"
 
 
 export default function SeriesSection() {
-  const [moviesState] = useMoviesState()
+  const { moviesState } = useAppContext()
 
   return (
     <section className="series-section">

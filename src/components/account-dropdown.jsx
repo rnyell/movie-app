@@ -84,6 +84,7 @@ function AccountOptions({ setShowDropdown }) {
   const isDesktop = windowWidth > 520
 
   function handleLogout() {
+    navigate("/")
     supabase.auth.signOut()
   }
 

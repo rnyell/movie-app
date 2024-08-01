@@ -2,6 +2,7 @@ import { useState } from "react"
 import { motion, useAnimate } from "framer-motion"
 import { IMAGES_URL } from "@services"
 import { useMediaDetails } from "@services/hooks"
+import { useAppContext } from "@src/store"
 import Presence from "@src/lib/motion/presence"
 import { PortraitCardLoading } from "@components/skeletons"
 import ConfirmModal from "@components/modals/confirm-modal"
@@ -9,11 +10,11 @@ import SecondaryOverlay from "../overlays/secondary-overlay"
 
 
 export default function BookmarkedCard({ id, media, variant }) {
+  const { modalDispatch } = useAppContext()
   const {mediaDetails, isLoading} = useMediaDetails(media, id)
   const [cardOverlay, setCardOverlay] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const [scope, animate] = useAnimate()
-  const confirmText = "Are you sure you want to remove this movie from your watchlist?"
 
   // runtime & release date for tv shows?
 
@@ -30,10 +31,6 @@ export default function BookmarkedCard({ id, media, variant }) {
     } = mediaDetails
   }
 
-  function handleSubmittedAction() {
-    setShowModal(false)
-  }
-
   function handleHoverStart() {
     setCardOverlay(true)
     animate(".title", { y: -45, opacity: 0 }, { duration: 0.2 })
@@ -42,6 +39,15 @@ export default function BookmarkedCard({ id, media, variant }) {
   function handleHoverEnd() {
     setCardOverlay(false)
     animate(".title", { y: 0, opacity: 1 }, { duration: 0.2 })
+  }
+
+  function d() {
+    modalDispatch({
+      type: "confirm",
+      data: {
+        msg: "Are you sure you want to remove this movie from your watchlist?"
+      }
+    })
   }
 
 
@@ -77,13 +83,6 @@ export default function BookmarkedCard({ id, media, variant }) {
       <div className="title-container">
         <h5 className="title truncate">{title}</h5>
       </div>
-      <Presence trigger={showModal}>
-        <ConfirmModal
-          confirmText={confirmText}
-          setModal={setShowModal}
-          handleAction={handleSubmittedAction}
-        />
-      </Presence>
     </div>
   )
 }

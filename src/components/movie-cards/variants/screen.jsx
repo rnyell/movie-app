@@ -1,16 +1,14 @@
-import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
 import { IMAGES_URL } from "@services"
 import { PRICES } from "@services/placeholder-data"
-import Presence from "@src/lib/motion/presence"
+import { useAppContext } from "@src/store"
 import { Button } from "@src/lib/ui/components"
 import InfoButton from "@components/buttons/info-btn"
-import MovieDetailsModal from "@components/modals/movie-details-modal"
 
 
 export default function ScreenCard({ result, variant, idx }) {
-  const [showModal, setShowModal] = useState(false)
+  const { modalDispatch } = useAppContext()
   const navigate = useNavigate()
   const {
     id,
@@ -19,6 +17,15 @@ export default function ScreenCard({ result, variant, idx }) {
     backdrop_path
   } = result
 
+  function showDetailsModal() {
+    modalDispatch({
+      type: "movie_details",
+      data: {
+        result: result,
+        price: PRICES[idx]
+      }
+    })
+  }
 
   function handleBooking() {
     navigate("/booking", {
@@ -59,20 +66,13 @@ export default function ScreenCard({ result, variant, idx }) {
             Book Now
           </Button>
           <InfoButton
-            setModal={setShowModal}
             variants="outline-bold"
             size="square-sm"
             iconSize="md"
+            setModal={showDetailsModal}
           />
         </div>
       </div>
-      {<Presence trigger={showModal}>
-        <MovieDetailsModal
-          result={result}
-          price={PRICES[idx]}
-          setModal={setShowModal}
-        />
-      </Presence>}
     </motion.div>
   )
 }

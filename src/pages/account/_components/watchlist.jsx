@@ -1,12 +1,11 @@
-import { Suspense, useState } from "react"
+import { useState } from "react"
 import { getWatchLaterItems } from "@src/lib/supabase/db"
+import { useAppContext } from "@src/store"
 import { BookmarkIcon } from "@heroicons/outline"
 import { useLoader } from "@src/lib/hooks"
-import Presence from "@src/lib/motion/presence"
 import { Button } from "@src/lib/ui/components"
 import { EllipsisVerticalIcon } from "@heroicons/solid"
 import MovieCard from "@components/movie-cards/movie-card"
-import ConfirmModal from "@components/modals/confirm-modal"
 
 /* //~TODO:
   1. change view: list or grid
@@ -16,7 +15,7 @@ import ConfirmModal from "@components/modals/confirm-modal"
 */
 
 export default function Watchlist() {
-  const [showModal, setShowModal] = useState(false)
+  const { modalDispatch } = useAppContext()
   const { data: watchLaterItems, isLoading, error } = useLoader(getWatchLaterItems)
 
 
@@ -60,12 +59,6 @@ export default function Watchlist() {
           </Button>
         </div>
       )}
-      {<Presence trigger={showModal}>
-        <ConfirmModal
-          confirmText="Are you sure you want to delete all your watchlist movies?"
-          setModal={setShowModal}
-        />
-      </Presence>}
     </section>
   )
 }

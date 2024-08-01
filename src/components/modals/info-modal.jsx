@@ -8,7 +8,7 @@ import Overview from "@components/movie-details/overview"
 import Casts from "@components/movie-details/casts"
 
 
-export default function MovieInfoModal({ result, media, setModal }) {
+export default function InfoModal({ result, media, setClose }) {
   const navigate = useNavigate()
   const id = result.id
   const title = result.title || result.name
@@ -31,7 +31,7 @@ export default function MovieInfoModal({ result, media, setModal }) {
 
 
   return (
-    <Modal setClose={() => setModal(false)} size="md">
+    <Modal setClose={setClose} size="md">
       <div className="movie-info-modal">
         <div className="modal-img">
           <figure>
@@ -61,7 +61,7 @@ export default function MovieInfoModal({ result, media, setModal }) {
               variants="outline-lite"
               size="lg"
               customStyles="rounded-full ml-auto"
-              onClick={() => setModal(false)}
+              onClick={setClose}
             >
               Dismiss
             </Button>

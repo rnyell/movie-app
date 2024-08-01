@@ -9,7 +9,7 @@ import Overview from "@components/movie-details/overview"
 import Casts from "@components/movie-details/casts"
 
 
-export default function MovieDetailsModal({ result, setModal, price }) {
+export default function DetailsModal({ result, setClose, price }) {
   const {mediaDetails, isLoading} = useMediaDetails("movie", result.id)
   const navigate = useNavigate()
 
@@ -40,11 +40,11 @@ export default function MovieDetailsModal({ result, setModal, price }) {
 
 
   if (isLoading) {
-    return <div>loading...</div>
+    return null
   }
 
   return (
-    <Modal setClose={() => setModal(false)} size="lg">
+    <Modal setClose={setClose} size="lg">
       <div className="movie-details-modal align-center-col">
         <div className="modal-img w-100">
           <figure>
@@ -83,7 +83,7 @@ export default function MovieDetailsModal({ result, setModal, price }) {
               variants="outline-lite"
               size="md"
               customStyles="ml-auto"
-              onClick={() => setModal(false)}
+              onClick={setClose}
             >
               Dismiss
             </Button>

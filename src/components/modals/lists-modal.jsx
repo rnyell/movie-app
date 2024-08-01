@@ -5,29 +5,31 @@ import { PlusIcon, LockClosedIcon, XMarkIcon } from "@heroicons/outline"
 import { Modal, Button, Icon, Divider } from "@src/lib/ui/components"
 
 
-export default function ListsModal({ item, setModal }) {
-  const { userState, setUserState } = useUserContext()
+export default function ListsModal({ item, setClose }) {
+  const { userState } = useUserContext()
   // list type: [ {id: 'uuid', name: 'str', items: []} ]
   const lists = userState.lists
   const listIds = lists.map(list => list.id)
-  const [checkedLists, setCheckedLists] = useState([])
+  const [checkedListIds, setCheckedListIds] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [isCreatingNewList, setIsCreatingNewList] = useState(false)
 
-  useEffect(() => { loader() }, [])
+  useEffect(() => {
+    loader()
+  }, [])
 
   async function loader() {
-    const initialCheckedLists = await getListsIdsByBookmarkedItem(item)
-    setCheckedLists(initialCheckedLists)
+    const initialCheckedListIds = await getListsIdsByBookmarkedItem(item)
+    setCheckedListIds(initialCheckedListIds)
     setIsLoading(false)
   }
 
   function handleChange(listId) {
-    if (checkedLists.includes(listId)) {
-      const filtered = checkedLists.filter(id => id !== listId)
-      setCheckedLists(prev => filtered)
+    if (checkedListIds.includes(listId)) {
+      const filtered = checkedListIds.filter(id => id !== listId)
+      setCheckedListIds(prev => filtered)
     } else {
-      setCheckedLists(prev => [...prev, listId])
+      setCheckedListIds(prev => [...prev, listId])
     }
   }
 
@@ -35,7 +37,7 @@ export default function ListsModal({ item, setModal }) {
     e.preventDefault()
 
     listIds.forEach(listId => {
-      if (checkedLists.includes(listId)) {
+      if (checkedListIds.includes(listId)) {
         updateBookmarks("add", listId, item)
       } else {
         updateBookmarks("delete", listId, item)
@@ -44,7 +46,7 @@ export default function ListsModal({ item, setModal }) {
 
     if (isCreatingNewList) {
       const formData = new FormData(e.target)
-      const isPrivate = formData.get("publicity") === "private" ? true : false
+      const isPrivate = formData.get("publicity") === "private"
       const listName = formData.get("list-name")
       if (listName.trim() !== "") {
         const createdList = await createList(listName, isPrivate)
@@ -53,7 +55,7 @@ export default function ListsModal({ item, setModal }) {
       }
     }
 
-    setModal(false)
+    setClose()
   }
 
   function showCreatingList(e) {
@@ -68,7 +70,7 @@ export default function ListsModal({ item, setModal }) {
   }
 
   return (
-    <Modal setClose={() => setModal(false)} size="sm">
+    <Modal setClose={setClose} size="sm">
       <div className="lists-modal">
         <form id="lists-form" onSubmit={submitSelectedLists}>
           <Button
@@ -77,7 +79,7 @@ export default function ListsModal({ item, setModal }) {
             customStyles="absolute top-4 right-4 rounded-full"
             iconOnly
             svg={<XMarkIcon />}
-            onClick={() => setModal(false)}
+            onClick={setClose}
           />
           <p>Save {item.media === "movie" ? "movie" : "series"} to . . .</p>
           <div className="lists flex-col">
@@ -92,7 +94,7 @@ export default function ListsModal({ item, setModal }) {
                   name="list"
                   id={list.id}
                   value={list.id}
-                  defaultChecked={checkedLists.includes(list.id)}
+                  defaultChecked={checkedListIds.includes(list.id)}
                   onChange={() => handleChange(list.id)}
                 />
                 <span>{list.name}</span>

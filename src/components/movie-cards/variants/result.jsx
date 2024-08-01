@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { motion, useAnimate } from "framer-motion"
+import { useAppContext } from "@src/store"
 import Presence from "@src/lib/motion/presence"
 import { IMAGES_URL } from "@services"
 import { formatReleaseDate } from "@services/movie-utils"
@@ -7,21 +8,27 @@ import { useWindowOffsets, useClickOutside } from "@lib/hooks"
 import { FilmIcon, TvIcon, XMarkIcon } from "@heroicons/outline"
 import { EllipsisIcon } from "@src/lib/ui/icons"
 import { Button, Icon } from "@src/lib/ui/components"
-import MovieInfoModal from "@components/modals/movie-info-modal"
 import SecondaryOverlay from "../overlays/secondary-overlay"
 
 
 export default function ResultCard({ result, media, variant }) {
+  const { modalDispatch } = useAppContext()
   const {windowWidth} = useWindowOffsets()
   const [cardRef, animate] = useAnimate()
   const [cardOverlay, setCardOverlay] = useState(false)
-  const [showModal, setShowModal] = useState(false)
   const title = result.title || result.name
   const releaseDate = result?.release_date || result?.first_air_date
   const is2024 = releaseDate === 2024 ? true : false
   const isTouchDevice = windowWidth <= 520
 
   useClickOutside(cardRef, handleHoverEnd)
+
+  function showInfoModal() {
+    modalDispatch({
+      type: "movie_info",
+      data: { result, media }
+    })
+  }
 
   function handleHoverStart() {
     setCardOverlay(true)
@@ -79,7 +86,7 @@ export default function ResultCard({ result, media, variant }) {
             result={result}
             variant="result"
             media={media}
-            setModal={setShowModal}
+            setModal={showInfoModal}
           />
         </Presence>
       </motion.div>
@@ -94,13 +101,6 @@ export default function ResultCard({ result, media, variant }) {
           />
         </div>
       </div>
-      <Presence trigger={showModal}>
-        <MovieInfoModal
-          result={result}
-          media={media}
-          setModal={setShowModal}
-        />
-      </Presence>
     </motion.div>
   )
 }
