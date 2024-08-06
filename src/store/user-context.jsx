@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react"
 import { useAuth } from "@src/auth/auth-context"
-import { getUserProfile, getUserLists } from "@src/lib/supabase/db"
+import { getUserProfile } from "@lib/supabase/db"
 
 const UserContext = createContext(null)
 
@@ -12,10 +12,7 @@ const userInitial = {
   id: null,
   name: "",
   username: "",
-  playedMovies: [],
-  playedSeries: [],
-  lists: [],
-  // liked: [],
+  avatarUrl: ""
 }
 
 
@@ -38,22 +35,13 @@ export default function UserProvider({ children }) {
       username,
       full_name,
       avatar_url,
-      played_movies,
-      played_series,
     } = profile
-
-    const playedMovies = played_movies ?? []
-    const playedSeries = played_series ?? []
-    const lists = await getUserLists()
   
     setUserState({
       id,
       username,
       name: full_name,
       avatarUrl: avatar_url,
-      playedMovies,
-      playedSeries,
-      lists,
     })
   }
 

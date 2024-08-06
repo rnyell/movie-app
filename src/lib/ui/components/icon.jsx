@@ -12,7 +12,7 @@ export default function Icon({
 
   return (
     <i
-      className={`${cls(classes, ["icon", size, fill])} ${customStyles}`}
+      className={cls(classes, ["icon", size, fill], customStyles)}
       {...props}
     >
       {svg}

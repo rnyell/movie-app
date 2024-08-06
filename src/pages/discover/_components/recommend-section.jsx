@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { getRecommendedMovies, getRecommendedSeries } from "@services"
+import { Snap } from "@lib/ui/components"
 import MovieCard from "@components/movie-cards/movie-card"
 
 
@@ -27,11 +28,15 @@ export default function RecommendSection() {
         <header>
           <h4 className="heading">Recommended Movies</h4>
         </header>
-        <div className="movie-list snap-x-proximity">
+        <div className="h-90%">
           {isLoading ? <h2>loading</h2> : (
-            recMovies.map(movie => 
-              <MovieCard key={movie.id} result={movie} media="movie" variant="common" />
-            )
+            <Snap.Container customStyles="h-100%">
+              {recMovies.map(movie => (
+                <Snap.Item key={movie.id}>
+                  <MovieCard result={movie} media="movie" variant="common" />
+                </Snap.Item>
+              ))}
+            </Snap.Container>
           )}
         </div>
       </section>
@@ -39,11 +44,15 @@ export default function RecommendSection() {
         <header>
           <h4 className="heading">Top Series</h4>
         </header>
-        <div className="movie-list snap-x-proximity">
+        <div className="h-100%">
           {isLoading ? <h2>loading</h2> : (
-            recSeries.map(movie => 
-              <MovieCard key={movie.id} result={movie} media="tv" variant="common" />
-            )
+            <Snap.Container customStyles="h-100%">
+              {recSeries.map(movie => (
+                <Snap.Item key={movie.id}>
+                  <MovieCard result={movie} media="tv" variant="common" />
+                </Snap.Item>
+              ))}
+            </Snap.Container>
           )}
         </div>
       </section>

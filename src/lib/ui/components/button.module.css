@@ -145,6 +145,10 @@
   height: 2.625rem;
   max-height: 46px;
   font-size: 0.875rem;
+
+  @media (width <= 440px) {
+    height: 2.5rem;
+  }
 }
 
 .lg {
@@ -152,6 +156,10 @@
   height: 3rem;
   max-height: 52px;
   font-size: 0.9rem;
+
+  @media (width <= 440px) {
+    height: 2.75rem;
+  }
 }
 
 .xl {
@@ -177,12 +185,20 @@
   height: 2.625rem;
   max-height: 46px;
   aspect-ratio: 1;
+
+  @media (width <= 440px) {
+    height: 2.5rem;
+  }
 }
 
 .square-lg {
   height: 3rem;
   max-height: 52px;
   aspect-ratio: 1;
+
+  @media (width <= 440px) {
+    height: 2.75rem;
+  }
 }
 
 .square-xl {

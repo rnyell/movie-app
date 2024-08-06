@@ -1,6 +1,6 @@
-import { signInWithGoogle, signInAnonymously } from "@src/lib/supabase/auth"
-import { GoogleIcon, DominoMaskIcon } from "@src/lib/ui/icons"
-import { Modal, Button, Icon } from "@src/lib/ui/components"
+import { signInWithGoogle, signInAnonymously } from "@lib/supabase/auth"
+import { GoogleIcon, DominoMaskIcon } from "@lib/ui/icons"
+import { Modal, Button, Icon } from "@lib/ui/components"
 import { XMarkIcon } from "@heroicons/outline"
 
 

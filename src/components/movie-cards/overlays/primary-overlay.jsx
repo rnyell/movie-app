@@ -1,20 +1,18 @@
-import { motion } from "framer-motion"
-import { useWindowOffsets } from "@src/lib/hooks"
+import { useWindowOffsets } from "@lib/hooks"
 import { useMediaDetails } from "@services/hooks"
 import { formatRuntime, formatReleaseDate } from "@services/movie-utils"
-import { landescOverlayMotion, defaultVariantsLabel } from "@lib/motion/motions"
+import { Overlay } from ".."
+import { Title, Rates } from "@components/movie-details"
 import WatchButton from "@components/buttons/watch-btn"
 import LinkButton from "@components/buttons/link-btn"
 import BookmarkButton from "@components/buttons/bookmark-btn"
-import Rates from "@components/movie-details/rates"
 
 
-export default function PrimaryOverlay({ result, media, variant }) {
+export default function PrimaryOverlay({ result, media }) {
   const id = result.id
-  const isCommon = variant === "common"
-  const linkData = { id, media, blank: !isCommon }
-  const {isLoading, mediaDetails} = useMediaDetails(media, id)
-  const {windowWidth} = useWindowOffsets()
+  const linkData = { id, media, blank: true }
+  const { mediaDetails, isLoading } = useMediaDetails(media, id)
+  const { windowWidth } = useWindowOffsets()
   const buttonSize = windowWidth >= 460 ? "square-md" : "square-sm"
 
 
@@ -28,100 +26,72 @@ export default function PrimaryOverlay({ result, media, variant }) {
       } = mediaDetails
 
       return (
-        <motion.div
-          className="overlay primary-overlay primary-movie-overlay"
-          variants={landescOverlayMotion}
-          {...defaultVariantsLabel}
-        >
-          <motion.h4
-            className="overlay-title"
-            initial={{y: -5}}
-            animate={{y: 0}}
-            exit={{y: -5}}
-          >
-            {title}
-          </motion.h4>
-          <motion.div
-            className="overlay-details align-center"
-            initial={{y: -5}}
-            animate={{y: 0}}
-            exit={{y: -5}}
-          >
+        <Overlay.Container variant="primary">
+          <Overlay.Header>
+            <Title
+              title={title}
+              size="lg"
+              width="95%"
+              isTruncated={false}
+            />
+          </Overlay.Header>
+          <Overlay.Details>
             <span className="overlay-release-date">{formatReleaseDate(release_date)}</span>
-            {isCommon && (
-              <>
-                <i className="overlay-dot">&#x2022;</i>
-                <span className="overlay-runtime">{formatRuntime(runtime)}</span>
-              </>
-            )}
+            <i className="overlay-dot">&#x2022;</i>
+            <span className="overlay-runtime">{formatRuntime(runtime)}</span>
             <i className="overlay-dot">&#x2022;</i>
             <Rates rate={vote_average} variant="star" />
-          </motion.div>
-          <motion.div
-            className="overlay-cta-btns flex"
-            initial={{y: 12}}
-            animate={{y: 0}}
-            exit={{y: 12}}
-          >
-            {isCommon && <WatchButton item={{id, title, media}} size={buttonSize} iconSize="md" />}
+          </Overlay.Details>
+          <Overlay.Actions>
+            <WatchButton item={{id, title, media}} size={buttonSize} iconSize="md" />
             <LinkButton linkData={linkData} size={buttonSize} iconSize="md" />
             <BookmarkButton item={{id, media}} variants="solid-blured" size={buttonSize} iconSize="md" />
-          </motion.div>
-        </motion.div>
+          </Overlay.Actions>
+        </Overlay.Container>
       )
     }
     case "tv": {
       const {
-        name,
+        name: title,
         first_air_date,
         last_air_date,
         in_production,
         number_of_seasons,
         vote_average,
-        // genres
       } = mediaDetails
 
-
       return (
-        <motion.div
-          className="overlay primary-overlay primary-series-overlay"
-          variants={landescOverlayMotion}
-          {...defaultVariantsLabel}
-        >
-          <div className="overlay-title-wrapper flex">
-            <motion.h4
-              className="overlay-title"
-              initial={{y: -5}}
-              animate={{y: 0}}
-              exit={{y: -5}}
-            >
-              {name}
-            </motion.h4>
+        <Overlay.Container variant="primary">
+          <Overlay.Header customStyles="flex">
+            <Title
+              title={title}
+              size="lg"
+              width="85%"
+              isTruncated={false}
+            />
             <Rates rate={vote_average} variant="star" />
-          </div>
-          <motion.div
-            className="overlay-details align-center flex-wrap"
-            initial={{y: -5}}
-            animate={{y: 0}}
-            exit={{y: -5}}
-          >
+          </Overlay.Header>
+          <Overlay.Details>
             <span className="overlay-release-date">
-              {in_production ? formatReleaseDate(first_air_date) : `${formatReleaseDate(first_air_date)} ‒ ${formatReleaseDate(last_air_date)}`}
+              {in_production
+                ? formatReleaseDate(first_air_date)
+                : `${formatReleaseDate(first_air_date)} ‒ ${formatReleaseDate(last_air_date)}`
+              }
             </span>
             <i className="overlay-dot">&#x2022;</i>
             <span>{number_of_seasons} {number_of_seasons > 1 ? "Seasons" : "Season"}</span>
-          </motion.div>
-          <motion.div
-            className="overlay-cta-btns flex"
-            initial={{y: 12}}
-            animate={{y: 0}}
-            exit={{y: 12}}
-          >
-            {<WatchButton item={{id, title: name, media}} size={buttonSize} iconSize="md" />}
+          </Overlay.Details>
+          <Overlay.Actions>
+            <WatchButton item={{id, title, media}} size={buttonSize} iconSize="md" />
             <LinkButton linkData={linkData} size={buttonSize} iconSize="md" />
-            <BookmarkButton item={{id, media}} variants="solid-blured" size={buttonSize} iconSize="md" />
-          </motion.div>
-        </motion.div>
+            <BookmarkButton
+              item={{id, media}}
+              variants="solid-blured"
+              size={buttonSize}
+              iconSize="md"
+            />
+          </Overlay.Actions>
+        </Overlay.Container>
       )
     }
   }

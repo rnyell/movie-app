@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { Button } from "@src/lib/ui/components"
+import { Button } from "@lib/ui/components"
 
 export default function NotFound() {
   const style = {

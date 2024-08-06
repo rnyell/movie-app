@@ -1,6 +1,6 @@
 import { monthObj } from "@lib/utils"
 import { useBookingData } from "@src/store"
-import { Modal } from "@src/lib/ui/components"
+import { Modal } from "@lib/ui/components"
 
 
 export default function Ticket({ setModal }) {

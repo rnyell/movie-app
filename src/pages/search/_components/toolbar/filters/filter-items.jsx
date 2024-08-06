@@ -1,6 +1,6 @@
 import { motion } from "framer-motion"
 import { useSearch } from "@src/store"
-import { Divider } from "@src/lib/ui/components"
+import { Divider } from "@lib/ui/components"
 import { filterResults, sortResults } from "../../../_utils"
 import TypeList from "./type-list"
 import GenresList from "./genres-list"

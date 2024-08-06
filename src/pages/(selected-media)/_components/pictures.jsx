@@ -2,8 +2,8 @@ import { useState } from "react"
 import { motion } from "framer-motion"
 import { PhotoIcon, XMarkIcon } from "@heroicons/solid"
 import { IMAGES_URL } from "@services"
-import { Presence } from "@src/lib/motion"
-import { Button, Modal } from "@src/lib/ui/components"
+import { Presence } from "@lib/motion"
+import { Button, Modal } from "@lib/ui/components"
 import ImageSlider from "./image-slider"
 
 

@@ -1,33 +1,6 @@
 .account {
   gap: 3rem;
 
-  & header {
-    margin-bottom: 1.5rem;
-
-    & .option-btn {
-      margin-inline: auto 1rem;
-      padding: 0.2rem;
-      border-radius: 0.5rem;
-      background-color: var(--color-neutral-800);
-
-      & svg {
-        width: var(--icon-size-5);
-      }
-
-      &:hover {
-        background-color: var(--color-neutral-600);
-      }
-    }
-  }
-
-  & .container {
-    padding: var(--space-10);
-    padding-bottom: 4rem;
-    background-color: rgb(36 49 59 / 0.5);
-    border-radius: 2rem;
-    box-shadow: 0 5px 2rem rgb(11 15 17 / 20%);
-  }
-
   & .empty-msg {
     padding: var(--space-4) var(--space-2);
     line-height: 2;
@@ -37,24 +10,9 @@
       color: var(--color-accent-300);
     }
   }
-
-  & .cta {
-    margin-top: var(--space-6);
-    display: flex;
-  }
 }
 
-.played-section {
-  & .played-container:has(.grid-item) {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 175px), 1fr));
-    gap: 2rem 1.75rem;
-    font-size: 0.8rem;
-  }
-}
-
-.watchlist-section {
+.account .watchlist {
   & .empty-watchlist-msg {
     & .icon {
       margin-inline: var(--space-2);
@@ -70,13 +28,5 @@
         width: var(--icon-size-6);
       }
     }
-  }
-
-  & .movies-container:has(.grid-item) {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(165px, 100%), 1fr));
-    /* grid-template-columns: repeat(auto-fill, minmax(min(185px, 100%), 1fr)); */
-    gap: 3.5rem 1.75rem;
   }
 }

@@ -1,18 +1,22 @@
 import { useEffect, useState } from "react"
 import { useUserContext } from "@src/store"
-import { updateBookmarks, getListsIdsByBookmarkedItem, createList } from "@src/lib/supabase/db"
+import { getUserLists, updateBookmarks, getListsIdsByBookmarkedItem, createList } from "@lib/supabase/db"
 import { PlusIcon, LockClosedIcon, XMarkIcon } from "@heroicons/outline"
-import { Modal, Button, Icon, Divider } from "@src/lib/ui/components"
+import { Modal, Button, Icon, Divider } from "@lib/ui/components"
+import { useLoader } from "@lib/hooks"
+import { AnimatePresence } from "framer-motion"
 
 
 export default function ListsModal({ item, setClose }) {
-  const { userState } = useUserContext()
+  // const { userState } = useUserContext()
   // list type: [ {id: 'uuid', name: 'str', items: []} ]
-  const lists = userState.lists
-  const listIds = lists.map(list => list.id)
+  // const lists = userState.lists
   const [checkedListIds, setCheckedListIds] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [isCreatingNewList, setIsCreatingNewList] = useState(false)
+
+  const { data: lists, isLoading: listsLoading } = useLoader(getUserLists)
+  const listIds = lists?.map(list => list.id)
 
   useEffect(() => {
     loader()
@@ -65,7 +69,7 @@ export default function ListsModal({ item, setClose }) {
   }
 
 
-  if (isLoading) {
+  if (isLoading || listsLoading) {
     return null
   }
 

@@ -36,22 +36,10 @@
 @import "@src/styles/(reservation)/booking-page.css" layer;
 
 /* components */
-@import "@src/styles/_components/movie-cards/movie-card.css";
-@import "@src/styles/_components/movie-cards/cards/common.css";
-@import "@src/styles/_components/movie-cards/cards/result.css";
-@import "@src/styles/_components/movie-cards/cards/overlays/primary-overlay.css";
-@import "@src/styles/_components/movie-cards/cards/overlays/secondary-overlay.css";
-@import "@src/styles/_components/movie-cards/cards/overlays/series-overlay.css";
-@import "@src/styles/_components/movie-cards/details/casts.css";
-@import "@src/styles/_components/movie-cards/details/rates.css";
-@import "@src/styles/_components/movie-cards/details/overview.css";
-@import "@src/styles/_components/movie-cards/details/genres.css";
 @import "@src/styles/_components/modals/movie-details-modal.css";
 @import "@src/styles/_components/modals/movie-info-modal.css";
 @import "@src/styles/_components/modals/lists-modal.css";
 @import "@src/styles/_components/modals/confirm-modal.css";
-/* @import "@src/styles/_components/menus/navigation.css";
-@import "@src/styles/_components/menus/sidemenu.css"; */
 @import "@src/styles/_components/account-dropdown.css";
 @import "@src/styles/_components/header.css";
 @import "@src/styles/_components/errors.css";

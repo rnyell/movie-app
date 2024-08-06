@@ -39,7 +39,7 @@
 /* ----------------- */
 /* sizes */
 .sm {
-  width: clamp(335px, 60%, 355px);
+  width: clamp(335px, 60%, 350px);
 }
 
 .md {

@@ -32,6 +32,7 @@
   }
 }
 
+/* ------------------------------------------------------------------- */
 .casts[data-mode="list"] {
   overflow: hidden;
 
@@ -158,8 +159,8 @@
   & .cast {
     /* width: 5cqw; */
   
-    /** first item shouldn't have margin */
-    /* `!important` is used to override framer-motion inline style */
+    /* first item shouldn't have margin */
+    /* `!important` is used to override JS/framer-motion inline style */
     &:first-child {
       margin-left: 0 !important;
     }
@@ -177,7 +178,7 @@
     max-width: 50px;
     /* visibility: hidden; */
     display: none;
-    font-size: 0.55rem;
+    font-size: 0.575rem;
   }
   
   & button {
@@ -203,8 +204,8 @@
   }
 }
 
-@container grid-container (width < 820px) {
+@container grid-container (width <= 620px) {
   .casts {
-    /* display: none; */
+    display: none;
   }
 }

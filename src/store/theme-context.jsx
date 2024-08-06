@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useReducer } from "react"
-import { useGeoLocation } from "@src/lib/hooks"
+import { useGeoLocation } from "@lib/hooks"
 import { VPNError } from "@components/errors"
-import { readLocalStorage, writeLocalStorage } from "@src/lib/utils"
+import { readLocalStorage, writeLocalStorage } from "@lib/utils"
 
 const ThemeContext = createContext()
 

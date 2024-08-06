@@ -2,7 +2,6 @@ import CommonCard from "./variants/common"
 import ResultCard from "./variants/result"
 import ScreenCard from "./variants/screen"
 import SeriesCard from "./variants/series"
-import SimilarCard from "./variants/similar"
 import PlayedCard from "./variants/played"
 import BookmarkedCard from "./variants/bookmarked"
 
@@ -22,10 +21,6 @@ export default function MovieCard({ result, media, variant, ...rest }) {
       return <SeriesCard {...{result, media, variant}} />
     }
 
-    case "similar": {
-      return <SimilarCard {...{result, media, variant}} />
-    }
-
     case "played": {
       return <PlayedCard {...{result, media, variant}} />
     }
@@ -38,6 +33,5 @@ export default function MovieCard({ result, media, variant, ...rest }) {
     case "result": {
       return <ResultCard {...{result, media, variant}} />
     }
-  }
-  
+  } 
 }

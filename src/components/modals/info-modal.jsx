@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import { IMAGES_URL } from "@services"
 import { formatReleaseDate } from "@services/movie-utils"
-import { Modal, Button } from "@src/lib/ui/components"
+import { Modal, Button } from "@lib/ui/components"
 import Rates from "@components/movie-details/rates"
 import Genres from "@components/movie-details/genres"
 import Overview from "@components/movie-details/overview"
@@ -37,7 +37,7 @@ export default function InfoModal({ result, media, setClose }) {
         <div className="modal-img">
           <figure>
             <img
-              className="poster w-100 unselectable"
+              className="poster w-100% unselectable"
               src={`${IMAGES_URL}w500${backdrop_path}`}
               draggable={false}
             />
@@ -53,9 +53,9 @@ export default function InfoModal({ result, media, setClose }) {
                 <i className="dot">&#x2022;</i>
               </>
             )}
-            <Genres genres={genre_ids} media={media} />
+            <Genres genres={genre_ids} media={media} customStyles="color-neutral-300" />
           </div>
-          <Overview text={overview} />
+          <Overview text={overview} lines={6} customStyles="mt-4" />
           <Casts moda="names" />
           <div className="btns flex">
             <Button

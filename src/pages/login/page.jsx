@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
-import { signInWithGoogle, signInAnonymously } from "@src/lib/supabase/auth"
-import { Button, Icon } from "@src/lib/ui/components"
-import { GoogleIcon, DominoMaskIcon } from "@src/lib/ui/icons"
+import { signInWithGoogle, signInAnonymously } from "@lib/supabase/auth"
+import { Button, Icon } from "@lib/ui/components"
+import { GoogleIcon, DominoMaskIcon } from "@lib/ui/icons"
 
 
 export default function LoginPage() {
@@ -13,7 +13,7 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="login-page flex-col-center h-100">
+    <main className="login-page flex-col-center h-100%">
       <div className="login-box align-center-col">
         <div className="logo-wrapper align-center">
           <img src="/logo.png" />

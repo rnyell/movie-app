@@ -1,8 +1,8 @@
-import { useLoader } from "@src/lib/hooks"
+import { useLoader } from "@lib/hooks"
 import { useAppContext } from "@src/store"
-import { isItemBookmarked } from "@src/lib/supabase/db"
+import { isItemBookmarked } from "@lib/supabase/db"
 import { BookmarkIcon } from "@heroicons/outline"
-import { Button } from "@src/lib/ui/components"
+import { Button } from "@lib/ui/components"
 
 
 export default function BookmarkButton({ item, setModal, ...props }) {

@@ -26,35 +26,33 @@ export function formatReleaseDate(date) {
 }
 
 export function getMovieGenres(genres) {
-  let returnValue = ""
-  genres.forEach((genre) => {
+  let returnValue = []
+  genres.forEach(genre => {
     if (genre.name === "Science Fiction") {
-      returnValue += "Sci-Fi, "
+      returnValue.push("Sci-Fi")
       return
     }
-    returnValue += `${genre.name}, `
+    returnValue.push(genre.name)
   })
 
-  return returnValue.slice(0, -2)
+  return returnValue
 }
 
-// byidx
-export function getGenresWithIds(type = "movie", ids = []) {
-  let returnValue = ""
+export function getGenresWithIds(media = "movie", ids = []) {
+  let returnValue = []
 
-  if (type === "movie") {
+  if (media === "movie") {
     ids.forEach(id => {
-      returnValue += `${MOVIE_GENRES[id]}, `
+      returnValue.push(MOVIE_GENRES[id])
     })
-  } else if (type === "tv") {
+  } else if (media === "tv") {
     ids.forEach(id => {
-      returnValue += `${TV_GENRES[id]}, `
+      returnValue.push(TV_GENRES[id])
     })
   }
 
-  return returnValue.slice(0, -2)
+  return returnValue
 }
-
 
 export function getMovieDirector(crew = []) {
   return crew.filter(({ job }) => job === "Director")[0].name

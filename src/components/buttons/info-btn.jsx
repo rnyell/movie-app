@@ -1,5 +1,5 @@
-import { InfoIcon } from "@src/lib/ui/icons"
-import { Button } from "@src/lib/ui/components"
+import { InfoIcon } from "@lib/ui/icons"
+import { Button } from "@lib/ui/components"
 
 export default function InfoButton({ setModal, ...props }) {
   const { variants, size, iconSize, customStyles } = props

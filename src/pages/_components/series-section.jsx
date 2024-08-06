@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
-import { ChevronRightIcon } from "@heroicons/outline"
 import { useAppContext } from "@src/store"
+import { ChevronRightIcon } from "@heroicons/outline"
+import { Snap } from "@lib/ui/components"
 import MovieCard from "@components/movie-cards/movie-card"
 
 
@@ -14,18 +15,17 @@ export default function SeriesSection() {
         <Link to="/discover/series">Explore more <ChevronRightIcon /></Link>
         {/* <p>Be a couch potato for a week!</p> */}
       </header>
-      <div className="draggable-wrapper">
-        <div className="draggable snap-x-proximity">
-          {moviesState.series.slice(0, 12).map(movie =>
+      <Snap.Container customStyles="py-4">
+        {moviesState.series.slice(0, 12).map(movie => (
+          <Snap.Item key={movie.id}>
             <MovieCard
-              key={movie.id}
               result={movie}
               media="tv"
               variant="series"
             />
-          )}
-        </div>
-      </div>
+          </Snap.Item>
+        ))}
+      </Snap.Container>
     </section>
   )
 }

@@ -1,9 +1,12 @@
 import { Outlet } from "react-router-dom"
-import { Valve, Presence } from "@src/lib/motion"
+import { Valve, Presence } from "@lib/motion"
 import { useAppContext } from "@src/store"
 import Header from "../headers/header"
 import Navigation from "../menus/navigation"
 import DisplayedModal from "../modals/displayed-modal"
+
+import classes from "./layout.module.css"
+import { AnimatePresence } from "framer-motion"
 
 
 export default function Layout({ variant }) {
@@ -14,15 +17,16 @@ export default function Layout({ variant }) {
       return (
         <>
           <Outlet />
-          <Presence trigger={modals.isOpen}>
+          {/*//! TODO, exit animation not working */}
+          <AnimatePresence>
             <DisplayedModal />
-          </Presence>
+          </AnimatePresence>
         </>
       )
     }
     case "primary": {
       return (
-        <div className="main-layout">
+        <div className={classes.mainLayout}>
           <Navigation />
           <main>
             <Header />

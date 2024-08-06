@@ -1,0 +1,27 @@
+.overview {
+  max-width: min(70ch, 58vw);
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  color: var(--color-neutral-200);
+}
+
+/* ------------------------------------------------------- */
+/* font-size */
+.fs-sm {
+  font-size: 0.775rem;
+}
+
+.fs-md {
+  font-size: 0.8375rem;
+}
+
+.fs-lg {
+  font-size: 1rem;
+}
+
+@media (width <= 480px) {
+  .overview {
+    max-width: 75vw;
+  }
+}

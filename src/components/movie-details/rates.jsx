@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react"
 import { StarIcon } from "@heroicons/solid"
+import { getAdditionalDetails } from "@services"
+import { formatRate } from "@services/movie-utils"
+import { useLoader } from "@lib/hooks"
 import {
   IMDBIcon,
   IMDB2Icon,
@@ -7,10 +10,9 @@ import {
   RottenTomatoesGreenIcon,
   MetacriticIcon,
   PrimeVideoIcon
-} from "@src/lib/ui/icons"
-import { getAdditionalDetails } from "@services"
-import { formatRate } from "@services/movie-utils"
+} from "@lib/ui/icons"
 
+import "./rates.css"
 
 export default function Rates({ id, rate, variant }) {
   const [ratings, setRatings] = useState([])
@@ -26,11 +28,11 @@ export default function Rates({ id, rate, variant }) {
     //   {Value: imdb},
     //   {Value: rotten},
     //   {Value: metacritic},
-  // ] = ratings  /*? destructureing problem */
+  // ] = ratings  //? destructureing problem
   // console.log(ratings)
 
   async function loadRates() {
-    const {ratings} = await getAdditionalDetails(id)
+    const { ratings } = await getAdditionalDetails(id)
     setRatings(ratings)
     setIsLoading(false)
   }

@@ -12,8 +12,8 @@ import {
   Cog6ToothIcon,
   UserCircleIcon,
 } from "@heroicons/outline"
-import { CompasIcon } from "@src/lib/ui/icons"
-import { Divider } from "@src/lib/ui/components"
+import { CompasIcon } from "@lib/ui/icons"
+import { Divider } from "@lib/ui/components"
 import logo from "@src/assets/logo.png"
 
 import "./sidemenu.css"

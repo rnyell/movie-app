@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import { ExclamationCircleIcon} from "@heroicons/outline"
-import { Modal, Button } from "@src/lib/ui/components"
+import { Modal, Button } from "@lib/ui/components"
 
 
 export function VPNError() {

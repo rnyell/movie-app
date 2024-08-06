@@ -10,7 +10,7 @@ export default function Button({
   size = "md",
   customStyles = "",
   iconOnly = false,
-  iconSize,
+  iconSize = "md",
   iconFill,
   svg,
   iconCustomStyles = "",
@@ -19,7 +19,7 @@ export default function Button({
 
   return (
     <button
-      className={`${cls(classes, ["button", variants, size])} ${customStyles}`}
+      className={cls(classes, ["button", variants, size], customStyles)}
       type={type}
       role="button"
       {...props}

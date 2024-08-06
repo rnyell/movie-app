@@ -1,23 +1,28 @@
 import { useEffect, useRef, useState } from "react"
-import { motion, useAnimate } from "framer-motion"
+import { useLocation } from "react-router-dom"
+import { useAnimate } from "framer-motion"
 import { useWindowOffsets, useClickOutside } from "@lib/hooks"
 import { IMAGES_URL } from "@services"
 import { XMarkIcon } from "@heroicons/outline"
-import { EllipsisIcon } from "@src/lib/ui/icons"
-import { Presence } from "@src/lib/motion"
-import { Button } from "@src/lib/ui/components"
+import { EllipsisIcon } from "@lib/ui/icons"
+import { Presence } from "@lib/motion"
+import { Button } from "@lib/ui/components"
+import { Card } from ".."
+import { Title } from "@components/movie-details"
 import PrimaryOverlay from "../overlays/primary-overlay"
 
 
 export default function CommonCard({ result, media, variant }) {
-  const {windowWidth} = useWindowOffsets()
+  const title = result.title || result.name
   const [cardRef, animate] = useAnimate()
   const [cardWidth, setCardWidth] = useState()
   const [cardOverlay, setCardOverlay] = useState(false)
-  const wrapperRef = useRef(null)
-  const title = result.title || result.name
+  const touchWidgetRef = useRef(null)
+  
+  const { windowWidth } = useWindowOffsets()
+  const { pathname } = useLocation()
   const isTouchDevice = windowWidth <= 520
-  const isGenrePage = location.pathname.startsWith("/discover/movies/") || location.pathname.startsWith("/discover/series/")
+  const isGenrePage = pathname.startsWith("/discover/movies/") || pathname.startsWith("/discover/series/")
   const isScalable = !isTouchDevice && !isGenrePage
 
   useEffect(() => {
@@ -26,69 +31,68 @@ export default function CommonCard({ result, media, variant }) {
     }
   }, [windowWidth, cardWidth])
 
-  useClickOutside(wrapperRef, hideOverlay)
+  useClickOutside(cardRef, hideOverlay)
 
-  /* showOverlay() & hideOverlay() are created for touch devices to hide/show the overlay */
   function showOverlay() {
     setCardOverlay(true)
-    animate(".active-on-mobile", { opacity: 0, y: 13 }, { duration: 0.2 })
+
+    if (isTouchDevice) {
+      animate(touchWidgetRef.current, { opacity: 0, y: 13 }, { duration: 0.2 })
+    }
   }
 
   function hideOverlay() {
     setCardOverlay(false)
-    animate(".active-on-mobile", { opacity: 1, y: 0 }, { duration: 0.25 })
+
+    if (isTouchDevice) {
+      animate(touchWidgetRef.current, { opacity: 1, y: 0 }, { duration: 0.25 })
+    }
   }
 
 
   return (
-    <motion.div
-      className={`movie-card ${isTouchDevice ? "is-mobile" : ""}`}
+    <Card.Container
+      isMotion
       data-variant={variant}
       ref={cardRef}
-      style={{width: "clamp(215px, 55vw, 300px)"}}
+      style={{width: "clamp(235px, 55vw, 300px)"}}
       whileHover={isScalable && {width: 1.15 * cardWidth}}
+      // TODO: whileHover={isScalable && {scale: 1.2, zIndex: 1000}}
       onHoverStart={() => !isTouchDevice && setCardOverlay(true)}
       onHoverEnd={() => !isTouchDevice && setCardOverlay(false)}
     >
-      <div className="wrapper" ref={wrapperRef}>
-        {(isTouchDevice && cardOverlay) && (
+      {(isTouchDevice && cardOverlay) && (
+        <Button
+          variants="solid-blured"
+          size="square-xs"
+          customStyles="absolute top-3 right-3 z-50 rounded-lg"
+          iconOnly
+          iconSize="md"
+          svg={<XMarkIcon />}
+          iconCustomStyles="stroke-3"
+          onClick={hideOverlay}
+        />
+      )}
+      <Card.Figure src={`${IMAGES_URL}original${result.backdrop_path}`}>
+        <Presence trigger={cardOverlay}>
+          <PrimaryOverlay result={result} media={media} />
+        </Presence>
+      </Card.Figure>
+      <Card.Body customStyles="absolute bottom-0 z-10 w-100%">
+        <Card.TouchWidget ref={touchWidgetRef} customStyles="align-center">
+          <Title title={title} width="85%" />
           <Button
             variants="solid-blured"
             size="square-xs"
-            customStyles="absolute top-3 right-3 z-50 rounded-lg"
+            customStyles="ml-auto rounded-lg"
             iconOnly
             iconSize="md"
-            svg={<XMarkIcon />}
+            svg={<EllipsisIcon />}
             iconCustomStyles="stroke-3"
-            onClick={hideOverlay}
+            onClick={showOverlay}
           />
-        )}
-        <figure>
-          <img
-            className="poster"
-            src={`${IMAGES_URL}original${result.backdrop_path}`}
-            draggable={false}
-          />
-        </figure>
-        <Presence trigger={cardOverlay}>
-          <PrimaryOverlay result={result} media={media} variant="common" />
-        </Presence>
-        {isTouchDevice && (
-          <div className="active-on-mobile align-center w-100">
-            <h4 className="title truncate">{title}</h4>
-            <Button
-              variants="solid-blured"
-              size="square-xs"
-              customStyles="absolute top-3 right-3 z-50 rounded-lg"
-              iconOnly
-              iconSize="md"
-              svg={<EllipsisIcon />}
-              iconCustomStyles="stroke-3"
-              onClick={showOverlay}
-            />
-          </div>
-        )}
-      </div>
-    </motion.div>
+        </Card.TouchWidget>
+      </Card.Body>
+    </Card.Container>
   )
 }

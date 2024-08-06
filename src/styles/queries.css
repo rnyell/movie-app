@@ -1,47 +1,12 @@
-/*
-⚠️ except "errors.css" & "skeleton.css", all <<media|container queries>> are placed here.
-
-📢 TODO: this file will be shrinked as much as possible soon
-*/
+/* TODO: this file will be shrinked as much as possible soon */
 /********************************************************************************************************/
 /** on home page */
 @media (width <= 520px) {
-  .home-page {
-    grid-template-columns: 1fr;
-  }
-
   .home-content {
     grid-column: 1 / -1;
     padding-bottom: var(--safe-space-to-scroll-bottom-nav);
   }
 }
-
-@media (width <= 460px) {
-  .account {
-    & .heading {
-      font-size: 1.5rem;
-    }
-  }
-
-  .movie-card[data-variant="played"] {
-    & .title {
-      margin-top: 4cqw;
-      font-size: 1.15rem;
-    }
-  }
-
-  .movie-card[data-variant="bookmarked"] {
-    & .title-container {
-      align-self: unset;
-      height: 1rem;
-    }
-
-    & .title {
-      font-size: 1.35rem;
-    }
-  }
-}
-
 
 @container home-content-container (width <= 1300px) {
   .hero-section {
@@ -81,10 +46,6 @@
     --gap: 0.75rem;
     grid-column: 5 / 6;
   }
-
-  .draggable-wrapper .draggable {
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 20vw), 1fr));
-  }
 }
 
 @container home-content-container (width <= 900px) {
@@ -101,20 +62,9 @@
   }
 }
 
-@container home-content-container (width <= 620px) {
-  .draggable-wrapper .draggable {
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 180px), 1fr));
-  }
-}
-
-@media (width <= 520px) {
-  .home-page {
-    & .draggable-wrapper .draggable {
-      grid-auto-flow: column;
-      grid-auto-columns: clamp(220px + 2vw, 16vw, 275px);
-      grid-template-columns: unset;
-    }
-  }
+/***********************************************/
+.genre-movies-container .movie-card[data-variant="common"] {
+  width: auto !important;
 }
 
 /********************************************************************************************************/

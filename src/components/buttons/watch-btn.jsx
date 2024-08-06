@@ -7,8 +7,8 @@ import {
   updatePlayedSeriesOnProfiles,
   upsertPlayedMovies,
   upsertPlayedSeries,
-} from "@src/lib/supabase/db"
-import { Button, Icon } from "@src/lib/ui/components"
+} from "@lib/supabase/db"
+import { Button, Icon } from "@lib/ui/components"
 
 
 export default function WatchButton({ item, ...props }) {

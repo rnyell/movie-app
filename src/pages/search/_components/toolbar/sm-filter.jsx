@@ -1,5 +1,5 @@
 import { useSearch } from "@src/store"
-import { Divider } from "@src/lib/ui/components"
+import { Divider } from "@lib/ui/components"
 import FilterDropdown from "./filters/filter-dropdown"
 import SortDropdown from "./sorts/sort-dropdown"
 import SelectedFiltersBar from "./selected-filter-bar"

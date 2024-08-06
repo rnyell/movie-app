@@ -3,6 +3,7 @@ import { createPortal } from "react-dom"
 import { motion } from "framer-motion"
 import { modalBackdropMotion, modalMotion, modalTransition } from "@lib/motion/motions"
 import cls from "../cls"
+
 import classes from "./modal.module.css"
 
 
@@ -17,7 +18,7 @@ export default function Modal({
   const ref = useRef()
 
   useEffect(() => {
-    /* don't know why but it should be first focused to keyDownEvent work  */
+    /* don't know why but it should be first focused in order to `keyDownEvent` work  */
     ref.current.focus()
   }, [])
 
@@ -38,7 +39,7 @@ export default function Modal({
         />
       )}
       <motion.div
-        className={`${cls(classes, ["modal", variants, size])} ${customStyles}`}
+        className={cls(classes, ["modal", variants, size], customStyles)}
         role="dialog"
         tabIndex={0}
         onKeyDown={closeModalOnEscape}

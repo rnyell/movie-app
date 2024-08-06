@@ -19,7 +19,7 @@ export function useLoader(fn, options = { dependencies: [] }) {
     }
   }, [...deps])
 
-  const loader = async () => {
+  async function loader() {
     try {
       const data = await fn()
       setData(data)

@@ -1,5 +1,6 @@
 import { getMediaByGenre } from "@services"
-import { useLoader } from "@src/lib/hooks"
+import { useLoader } from "@lib/hooks"
+import { Snap } from "@lib/ui/components"
 import MovieCard from "./movie-cards/movie-card"
 
 
@@ -17,15 +18,18 @@ export default function GenreList({ media, genreId }) {
   }
 
   return (
-    <div className="genre-list snap-x-proximity">
-      {results.map(result => (
-        <MovieCard
-          key={result.id}
-          result={result}
-          media={media}
-          variant="common"
-        />
-      ))}
+    <div className="h-90%">
+      <Snap.Container customStyles="h-100%">
+        {results.map(result => (
+          <Snap.Item key={result.id}>
+            <MovieCard
+              result={result}
+              media={media}
+              variant="common"
+            />
+          </Snap.Item>
+        ))}
+      </Snap.Container>
     </div>
   )
 }

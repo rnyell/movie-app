@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { MOVIE_GENRES, TV_GENRES, getMediaByGenre } from "@services"
-import { ViewTransition } from "@src/lib/motion"
+import { ViewTransition } from "@lib/motion"
 import Page from "@components/layouts/page"
 import MovieCard from "@components/movie-cards/movie-card"
 

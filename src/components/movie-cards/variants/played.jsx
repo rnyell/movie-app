@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { motion } from "framer-motion"
 import { useNavigate } from "react-router-dom"
 import { IMAGES_URL } from "@services"
 import { useMediaDetails } from "@services/hooks"
-import { Presence } from "@src/lib/motion"
+import { Presence } from "@lib/motion"
+import { Icon } from "@lib/ui/components"
+import { Card } from ".."
+import { Title } from "@components/movie-details"
 import { PlayIcon } from "@heroicons/solid"
-import { Icon } from "@src/lib/ui/components"
 
 
 export default function PlayedCard({ result, media, variant }) {
@@ -26,21 +28,16 @@ export default function PlayedCard({ result, media, variant }) {
 
 
   return (
-    <motion.div
-      data-variant={variant}
-      className="movie-card"
+    <Card.Container
+      variant={variant}
+      isMotion
       onHoverStart={() => setCardOverlay(true)}
       onHoverEnd={() => setCardOverlay(false)}
     >
-      <figure>
-        <img
-          src={`${IMAGES_URL}original${backdrop_path}`}
-          className="poster"
-          draggable={false}
-        />
+      <Card.Figure src={`${IMAGES_URL}original${backdrop_path}`}>
       <div className="bar" />
       <Presence trigger={cardOverlay}>
-        <motion.div 
+        <motion.div
           className="hover-overlay grid-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -55,8 +52,10 @@ export default function PlayedCard({ result, media, variant }) {
           </button>
         </motion.div>
       </Presence>
-      </figure>
-      <h5 className="title truncate">{title}</h5>
-    </motion.div>
+      </Card.Figure>
+      <Card.Body>
+        <Title title={title} size="sm" width="85%" />
+      </Card.Body>
+    </Card.Container>
   )
 }

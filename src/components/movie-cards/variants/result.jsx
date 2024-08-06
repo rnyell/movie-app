@@ -1,19 +1,21 @@
 import { useState } from "react"
-import { motion, useAnimate } from "framer-motion"
+import { useAnimate } from "framer-motion"
 import { useAppContext } from "@src/store"
-import { Presence } from "@src/lib/motion"
 import { IMAGES_URL } from "@services"
 import { formatReleaseDate } from "@services/movie-utils"
 import { useWindowOffsets, useClickOutside } from "@lib/hooks"
 import { FilmIcon, TvIcon, XMarkIcon } from "@heroicons/outline"
-import { EllipsisIcon } from "@src/lib/ui/icons"
-import { Button, Icon } from "@src/lib/ui/components"
+import { EllipsisIcon } from "@lib/ui/icons"
+import { Presence } from "@lib/motion"
+import { Button, Icon } from "@lib/ui/components"
+import { Card } from ".."
+import { Title } from "@components/movie-details"
 import SecondaryOverlay from "../overlays/secondary-overlay"
 
 
 export default function ResultCard({ result, media, variant }) {
   const { modalDispatch } = useAppContext()
-  const {windowWidth} = useWindowOffsets()
+  const { windowWidth } = useWindowOffsets()
   const [cardRef, animate] = useAnimate()
   const [cardOverlay, setCardOverlay] = useState(false)
   const title = result.title || result.name
@@ -32,30 +34,29 @@ export default function ResultCard({ result, media, variant }) {
 
   function handleHoverStart() {
     setCardOverlay(true)
-    animate(".title", { y: -45, opacity: 0 }, { duration: 0.2 })
     animate(".release-date", { y: -30, opacity: 0 }, { duration: 0.25 })
     animate(".media-icon", { y: -25, opacity: 0 }, { duration: 0.2 })
   }
 
   function handleHoverEnd() {
     setCardOverlay(false)
-    animate(".title", { y: 0, opacity: 1 }, { duration: 0.2 })
     animate(".release-date", { y: 0, opacity: 1 }, { duration: 0.25 })
     animate(".media-icon", { y: 0, opacity: 1 }, { duration: 0.2 })
   }
 
   return (
-    <motion.div
-      className="movie-card"
-      data-variant={variant}
+    <Card.Container
+      variant={variant}
       ref={cardRef}
+      isMotion
       layout
       initial={{opacity: 0.5}}
       animate={{opacity: 1}}
       transition={{duration: 0.2}}
     >
-      <motion.div
-        className="wrapper"
+      <Card.Figure
+        isMotion
+        src={`${IMAGES_URL}w500${result.poster_path}`}
         onHoverStart={!isTouchDevice && handleHoverStart}
         onHoverEnd={!isTouchDevice && handleHoverEnd}
       >
@@ -73,26 +74,25 @@ export default function ResultCard({ result, media, variant }) {
             // {/* why onClick doesn't work without `unselectable` on icon !? */}
           />
         )}
-        <figure>
-          <img
-            className="poster"
-            src={`${IMAGES_URL}w500${result.poster_path}`}
-            draggable={false}
-            alt="poster"
-          />
-        </figure>
         <Presence trigger={cardOverlay}>
           <SecondaryOverlay
             result={result}
-            variant="result"
             media={media}
+            card="result"
             setModal={showInfoModal}
           />
         </Presence>
-      </motion.div>
-      <div className="main-details flex-col">
-        <h5 className="title truncate">{title}</h5>
-        <div className="align-center w-100">
+      </Card.Figure>
+      <Card.Body customStyles="flex-col gap-1">
+        <Title
+          title={title}
+          size="lg"
+          width="95%"
+          isMotion
+          animate={cardOverlay ? { y: -45, opacity: 0 } : { y: 0, opacity: 1 }}
+          transition={{ duration: 0.2 }}
+        />
+        <div className="align-center w-100%">
           <p className="release-date">{formatReleaseDate(releaseDate)}</p>
           <Icon
             size="lg"
@@ -100,7 +100,7 @@ export default function ResultCard({ result, media, variant }) {
             customStyles="ml-auto stroke-3 media-icon"
           />
         </div>
-      </div>
-    </motion.div>
+      </Card.Body>
+    </Card.Container>
   )
 }

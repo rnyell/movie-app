@@ -1,5 +1,5 @@
 import { BookmarkSlashIcon } from "@heroicons/solid"
-import { Button, Icon } from "@src/lib/ui/components"
+import { Button, Icon } from "@lib/ui/components"
 
 
 export default function BookmarkDeleteButton({ setModal }) {

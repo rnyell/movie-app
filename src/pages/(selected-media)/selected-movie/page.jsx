@@ -2,14 +2,13 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { useWindowOffsets } from "@lib/hooks"
 import { IMAGES_URL } from "@services"
-import { formatRuntime, getMovieGenres, getMovieDirector } from "@services/movie-utils"
+import { formatRuntime, getMovieDirector } from "@services/movie-utils"
 import { useMediaDetails } from "@services/hooks"
-import { ViewTransition } from "@src/lib/motion"
+import { ViewTransition } from "@lib/motion"
+import { Snap } from "@lib/ui/components"
 import { SelectedMovieSkeleton } from "@components/skeletons"
+import { Overview, Casts, Rates, Genres } from "@components/movie-details"
 import MovieCard from "@components/movie-cards/movie-card"
-import Overview from "@components/movie-details/overview"
-import Rates from "@components/movie-details/rates"
-import Casts from "@components/movie-details/casts"
 import WatchButton from "@components/buttons/watch-btn"
 import FaveButton from "@components/buttons/fave-btn"
 import BookmarkButton from "@components/buttons/bookmark-btn"
@@ -90,16 +89,16 @@ export default function SelectedMovie() {
       <div className="selected-media selected-movie">
         <section className="poster-wrapper isolated-stack ::after-abs">
           <div className="bg-poster" style={{backgroundImage: `url(${IMAGES_URL}${imgUrl})`}} />
-          <div className="main-details flex-col w-100">
+          <div className="main-details flex-col w-100%">
             <h1 className="main-title">{title}</h1>
             <div className="details">
               <span className="release-date">{release_date?.slice(0, 4)}</span>
               <i className="dot">&#x2022;</i>
               <span className="runtime">{formatRuntime(runtime)}</span>
               <i className="dot">&#x2022;</i>
-              <span className="genres">{getMovieGenres(genres)}</span>
+              <Genres genres={genres} media={media} customStyles="color-neutral-300" />
             </div>
-            <Overview text={overview} />
+            <Overview text={overview} lines="unset" fontSize="fs-lg" customStyles="mb-8" />
             <div className="cta-btns flex">
               <WatchButton
                 item={{id, title, media}}
@@ -119,7 +118,7 @@ export default function SelectedMovie() {
             </div>
           </div>
         </section>
-        <section className="details-wrapper grid">
+        <section className="details-wrapper flex-col">
           <div className="information-table">
             <div className="col col-1">
               <Rates id={imdb_id} variant="verbose" />
@@ -167,10 +166,14 @@ export default function SelectedMovie() {
           </div>
           <div className="related-content">
             <h4 className="heading">More Like This</h4>
-            <div className="related-movies-container flex">
-              {recommendations.results.slice(0, 9).map(movie =>
-                <MovieCard key={movie.id} result={movie} media={media} variant="common" />
-              )}
+            <div className="related-movies">
+              <Snap.Container customStyles="h-100%">
+                {recommendations.results.slice(0, 9).map(movie => (
+                  <Snap.Item key={movie.id}>
+                    <MovieCard result={movie} media={media} variant="common" />
+                  </Snap.Item>
+                ))}
+              </Snap.Container>
             </div>
           </div>
         </section>

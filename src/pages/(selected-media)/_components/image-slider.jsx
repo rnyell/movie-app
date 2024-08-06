@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { motion, animate, useAnimate, useMotionValue } from "framer-motion"
 import { IMAGES_URL } from "@services"
 import { useWindowOffsets } from "@lib/hooks"
-import { Button, Modal } from "@src/lib/ui/components"
+import { Button, Modal } from "@lib/ui/components"
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/outline"
 import { XMarkIcon } from "@heroicons/solid"
 

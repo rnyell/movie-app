@@ -61,7 +61,7 @@ export async function getBookmarkedItemByListId(listId) {
     console.error(error)
   }
 
-  console.log(data)
+  // console.log(data)
   return data
 }
 
@@ -78,7 +78,7 @@ export async function isItemBookmarked(item) {
     console.error(error)
   }
 
-  console.log(data)
+  // console.log(data)
 
   if (data.length > 0) {
     return true

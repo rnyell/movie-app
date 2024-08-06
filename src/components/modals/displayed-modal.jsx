@@ -11,12 +11,11 @@ export default function DisplayedModal() {
   const { session } = useAuth()
   const { modals, modalDispatch } = useAppContext()
 
-  const loginModal = (
-    <LoginModal
-      message={modals.data?.errMsg}
-      setClose={() => modalDispatch({type: "none"})}
-    />
-  )
+  function setClose() {
+    modalDispatch({type: "none"})
+  }
+
+  const loginModal = <LoginModal message={modals.data?.errMsg} setClose={setClose} />
 
   switch (modals.variant) {
     case "watch": {
@@ -28,11 +27,13 @@ export default function DisplayedModal() {
     }
     case "lists": {
       if (session) {
+        const item = {
+          id: modals.data.id,
+          media: modals.data.media
+        }
+
         return (
-          <ListsModal
-            item={{id: modals.data.id, media: modals.data.media}}
-            setClose={() => modalDispatch({type: "none"})}
-          />
+          <ListsModal item={item} setClose={setClose} />
         )
       } else {
         return loginModal
@@ -52,7 +53,7 @@ export default function DisplayedModal() {
         <InfoModal
           result={modals.data.result}
           media={modals.data.media}
-          setClose={() => modalDispatch({type: "none"})}
+          setClose={setClose}
         />
       )
     }
@@ -61,7 +62,7 @@ export default function DisplayedModal() {
         <DetailsModal
           result={modals.data.result}
           price={modals.data.price}
-          setClose={() => modalDispatch({type: "none"})}
+          setClose={setClose}
         />
       )
     }
@@ -70,7 +71,7 @@ export default function DisplayedModal() {
         <ConfirmModal
           confirmText={modals.data.msg}
           onConfirm={modals.data.onConfirm}
-          setClose={() => modalDispatch({type: "none"})}
+          setClose={setClose}
         />
       )
     }

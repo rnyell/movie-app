@@ -3,15 +3,14 @@ import { useNavigate } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { IMAGES_URL } from "@services"
 import { useMediaDetails } from "@services/hooks"
-import { getMovieGenres, getMovieDirector, formatReleaseDate } from "@services/movie-utils"
+import { getMovieDirector, formatReleaseDate } from "@services/movie-utils"
 import { useAppContext } from "@src/store"
 import { HeroMovieLoadingSkeleton } from "@components/skeletons"
 import { ChevronRightIcon, ChevronLeftIcon, ArrowTopRightOnSquareIcon } from "@heroicons/outline"
-import { ListPlusIcon } from "@src/lib/ui/icons"
-import { Button, Icon } from "@src/lib/ui/components"
-import Casts from "@components/movie-details/casts"
+import { ListPlusIcon } from "@lib/ui/icons"
+import { Button, Icon } from "@lib/ui/components"
 import WatchButton from "@components/buttons/watch-btn"
-import Rates from "@components/movie-details/rates"
+import { Genres, Casts, Rates } from "@components/movie-details"
 
 
 export default function HeroMovie({ result, showNextMovie, showPrevMovie }) {
@@ -32,10 +31,9 @@ export default function HeroMovie({ result, showNextMovie, showPrevMovie }) {
     title,
     release_date,
     // runtime,
-    // genres,
+    genres,
     vote_average: rate,
     // overview,
-    // tagline,
     // poster_path,
     backdrop_path: bg_path,
     credits,
@@ -102,6 +100,7 @@ export default function HeroMovie({ result, showNextMovie, showPrevMovie }) {
       <div className="hero-movie">
         <div className="grid-container">
           <div className="ambient">
+            {/* bg instead og img? */}
             <img className="unselectable" src={`${IMAGES_URL}original${bg_path}`} draggable={false} />
           </div>
           <div
@@ -115,10 +114,9 @@ export default function HeroMovie({ result, showNextMovie, showPrevMovie }) {
                 {formatReleaseDate(release_date)}
               </span>
               <i className="dot">&#x2022;</i>
-              <div className="rate-container">
-                <Rates rate={rate} variant="star" />
-              </div>
-              {/* <p className="genres">{getMovieGenres(genres)}</p> */}
+              <Rates rate={rate} variant="star" />
+              <i className="dot">&#x2022;</i>
+              <Genres genres={genres} media={media} shape="chip" />
             </div>
           </div>
           <div className="main-btns flex">
@@ -144,7 +142,6 @@ export default function HeroMovie({ result, showNextMovie, showPrevMovie }) {
               Save
             </Button>
           </div>
-          {/* <p className="tagline">{tagline}</p> */}
           <div className="director">
             <p>Directed by</p>
             <p className="director-name">{getMovieDirector(credits.crew)}</p>

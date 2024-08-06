@@ -1,25 +1,35 @@
 import { useState } from "react"
-import { motion, useAnimate } from "framer-motion"
+import { useAnimate } from "framer-motion"
 import { IMAGES_URL } from "@services"
 import { useMediaDetails } from "@services/hooks"
 import { useAppContext } from "@src/store"
-import { Presence } from "@src/lib/motion"
+import { useClickOutside, useWindowOffsets } from "@lib/hooks"
+import { EllipsisIcon } from "@lib/ui/icons"
+import { XMarkIcon } from "@heroicons/outline"
 import { PortraitCardLoading } from "@components/skeletons"
-import ConfirmModal from "@components/modals/confirm-modal"
+import { Presence } from "@lib/motion"
+import { Button } from "@lib/ui/components"
+import { Card } from ".."
+import { Title } from "@components/movie-details"
 import SecondaryOverlay from "../overlays/secondary-overlay"
 
+// runtime & release date for tv shows?
 
 export default function BookmarkedCard({ id, media, variant }) {
   const { modalDispatch } = useAppContext()
-  const {mediaDetails, isLoading} = useMediaDetails(media, id)
   const [cardOverlay, setCardOverlay] = useState(false)
   const [showModal, setShowModal] = useState(false)
-  const [scope, animate] = useAnimate()
+  const [cardRef, animate] = useAnimate()
 
-  // runtime & release date for tv shows?
+  const { windowWidth } = useWindowOffsets()
+  const isTouchDevice = windowWidth <= 520
+
+  useClickOutside(cardRef, hideOverlay)
+
+  const { mediaDetails, isLoading } = useMediaDetails(media, id)
 
   if (media === "movie") {
-    // `var` used to let (pun!) variables to be accessible outside of `if` scope.
+    // `var` used to let (pun!) variables to be accessible outside of `if` cardRef.
     var {
       title,
       poster_path,
@@ -31,14 +41,14 @@ export default function BookmarkedCard({ id, media, variant }) {
     } = mediaDetails
   }
 
-  function handleHoverStart() {
+  function showOverlay() {
     setCardOverlay(true)
-    animate(".title", { y: -45, opacity: 0 }, { duration: 0.2 })
+    // animate(".title", { y: -45, opacity: 0 }, { duration: 0.2 })
   }
 
-  function handleHoverEnd() {
+  function hideOverlay() {
     setCardOverlay(false)
-    animate(".title", { y: 0, opacity: 1 }, { duration: 0.2 })
+    // animate(".title", { y: 0, opacity: 1 }, { duration: 0.2 })
   }
 
   function d() {
@@ -56,33 +66,38 @@ export default function BookmarkedCard({ id, media, variant }) {
   }
 
   return (
-    <div className="movie-card" data-variant={variant} ref={scope}>
-      <motion.div
-        className="wrapper"
-        onHoverStart={handleHoverStart}
-        onHoverEnd={handleHoverEnd}
+    <Card.Container variant={variant} ref={cardRef}>
+      <Card.Figure
+        src={`${IMAGES_URL}original${poster_path}`}
+        isMotion
+        onHoverStart={!isTouchDevice && showOverlay}
+        onHoverEnd={!isTouchDevice && hideOverlay}
       >
-        <figure>
-          <img
-            src={`${IMAGES_URL}original${poster_path}`}
-            className="poster"
-            draggable={false}
-            alt="poster"
+      <Presence trigger={cardOverlay}>
+        <SecondaryOverlay
+          result={mediaDetails}
+          media={media}
+          card="bookmarked"
+          setModal={setShowModal}
+        />
+      </Presence>
+      <div className="ambient" style={{backgroundImage: `url(${IMAGES_URL}original${poster_path})`}} />
+      </Card.Figure>
+      <Card.Body customStyles="align-center gap-1">
+        <Title title={title} width="90%" />
+        <Card.TouchWidget customStyles="ml-auto">
+          <Button
+            variants="solid-blured"
+            size="square-xs"
+            customStyles="rounded-lg"
+            iconOnly
+            iconSize="md"
+            svg={cardOverlay ? <XMarkIcon /> : <EllipsisIcon />}
+            iconCustomStyles="stroke-3 unselectable"
+            onClick={() => setCardOverlay(!cardOverlay)}
           />
-        </figure>
-        <div className="ambient" style={{backgroundImage: `url(${IMAGES_URL}original${poster_path})`}} />
-        <Presence trigger={cardOverlay}>
-          <SecondaryOverlay
-            result={mediaDetails}
-            variant="bookmarked"
-            media={media}
-            setModal={setShowModal}
-          />
-        </Presence>
-      </motion.div>
-      <div className="title-container">
-        <h5 className="title truncate">{title}</h5>
-      </div>
-    </div>
+        </Card.TouchWidget>
+      </Card.Body>
+    </Card.Container>
   )
 }

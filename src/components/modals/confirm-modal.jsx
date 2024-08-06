@@ -1,4 +1,4 @@
-import { Modal, Button } from "@src/lib/ui/components"
+import { Modal, Button } from "@lib/ui/components"
 
 export default function ConfirmModal({ confirmText, onConfirm, setClose }) {
   return (

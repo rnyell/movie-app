@@ -1,8 +1,14 @@
-export default function cls(classes, props = []) {
-  let classNames = "";
-  for (let prop of props) {
-    classNames += classes[prop] + " "
+// TODO
+// cls(CSSModule, { base, size }, cs)
+export default function cls(CSSModule, classNames = [], customStyles = "") {
+  let styles = "";
+  for (let cn of classNames) {
+    styles += CSSModule[cn] + " "
   }
 
-  return classNames
+  if (customStyles.trim() !== "") {
+    styles += customStyles
+  }
+
+  return styles
 }

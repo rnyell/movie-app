@@ -8,7 +8,7 @@ const Divider = ({
   space = "sm",
   thickness = "normal"
 }) => (
-  <hr className={`${cls(classes, ["divider", variant, width, space, thickness])}`} />
+  <hr className={cls(classes, ["divider", variant, width, space, thickness])} />
 )
 
 

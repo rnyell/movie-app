@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { ChevronDoubleRightIcon } from "@heroicons/outline"
 import { IMAGES_URL } from "@services"
 
+import "./casts.css"
 
 export default function Casts({ casts, mode, count }) {
   let initialCastsNumber = count || 3

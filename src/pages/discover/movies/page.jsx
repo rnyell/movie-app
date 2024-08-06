@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom"
 import { ChevronRightIcon } from "@heroicons/outline"
-import { FireIconSolid } from "@src/lib/ui/icons"
+import { FireIconSolid } from "@lib/ui/icons"
 import { displayedMovieGenres } from "@services"
 import { useAppContext } from "@src/store"
-import { ViewTransition } from "@src/lib/motion"
+import { ViewTransition } from "@lib/motion"
+import { Snap } from "@lib/ui/components"
 import Page from "@components/layouts/page"
 import GenreList from "@components/genre-list"
 import MovieCard from "@components/movie-cards/movie-card"
@@ -23,15 +24,18 @@ export default function MoviesPage() {
               <FireIconSolid />
             </i>
           </header>
-          <div className="movie-list snap-x-proximity">
-            {moviesState.popular.map(movie => (
-              <MovieCard
-                key={movie.id}
-                result={movie}
-                media="movie"
-                variant="common"
-              />
-            ))}
+          <div className="h-90%">
+            <Snap.Container customStyles="h-100%">
+              {moviesState.popular.map(movie => (
+                <Snap.Item key={movie.id}>
+                  <MovieCard
+                    result={movie}
+                    media="movie"
+                    variant="common"
+                  />
+                </Snap.Item>
+              ))}
+            </Snap.Container>
           </div>
         </section>
         {displayedMovieGenres.map(genreObj => 

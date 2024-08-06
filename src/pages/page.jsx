@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { useWindowOffsets } from "@lib/hooks"
-import { ViewTransition } from "@src/lib/motion"
+import { ViewTransition } from "@lib/motion"
 // import Page from "@components/layouts/page"
 import HeroSection from "./_components/hero-section"
 import MoviesSection from "./_components/movies-section"

@@ -1,21 +1,23 @@
-import { ViewTransition } from "@src/lib/motion"
+import { ViewTransition } from "@lib/motion"
 import Page from "@components/layouts/page"
-import { Divider } from "@src/lib/ui/components"
-import PlayedHistory from "./_components/played-history"
+import { Divider } from "@lib/ui/components"
+import Profile from "./_components/profile"
+import WatchHistory from "./_components/watch-history"
 import Watchlist from "./_components/watchlist"
+import Lists from "./_components/lists"
 
 
 export default function Account() {
   return (
     <ViewTransition>
       <Page pageName="account">
-        <div>
-
-        </div>
-
-        <PlayedHistory />
+        <Profile />
+        <Divider />
+        <WatchHistory />
         <Divider />
         <Watchlist />
+        <Divider />
+        <Lists />
       </Page>
     </ViewTransition>
   )

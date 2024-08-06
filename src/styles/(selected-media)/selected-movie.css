@@ -12,10 +12,6 @@
         background-color var(--duration-1) ease-in;
     }
   }
-
-  & .related-content {
-    margin-top: -1rem;
-  }
 }
 
 

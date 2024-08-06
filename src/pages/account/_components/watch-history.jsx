@@ -1,13 +1,16 @@
 import { Link } from "react-router-dom"
-import { useAppContext, useUserContext } from "@src/store"
-import { Button } from "@src/lib/ui/components"
+import { useAppContext } from "@src/store"
+import { getPlayedMoviesFromUser } from "@lib/supabase/db"
+import { useLoader } from "@lib/hooks"
+import { Button, Snap } from "@lib/ui/components"
 import { EllipsisVerticalIcon } from "@heroicons/solid"
 import MovieCard from "@components/movie-cards/movie-card"
+import Section from "./section"
 
 
-export default function PlayedHistory() {
+export default function WatchHistory() {
   const { modalDispatch } = useAppContext()
-  const { userState } = useUserContext()
+  const { data: playedMovies, isLoading } = useLoader(getPlayedMoviesFromUser)
 
   function clearPlayedHistory() {
     modalDispatch({
@@ -20,7 +23,7 @@ export default function PlayedHistory() {
 
 
   return (
-    <section className="played-section">
+    <Section sectionName="played">
       <header className="align-center">
         <h3 className="heading">Played History</h3>
         <Button
@@ -32,25 +35,30 @@ export default function PlayedHistory() {
           svg={<EllipsisVerticalIcon />}
         />
       </header>
-      <div className="played-container container">
-        {userState.playedMovies.length === 0 ? (
+      <div>
+        {playedMovies?.length === 0 ? (
           <div className="empty-history-msg empty-msg">
             <p>You haven't watched any movies yet.</p>
             <p>Let's <Link to="/discover">explore</Link> some movies!</p>
           </div>
         ) : (
-          userState.playedMovies.map(id =>
-            <div key={id} className="grid-item">
-              <MovieCard result={id} media="movie" variant="played" />
-            </div>
-          )
+          <Snap.Container>
+            {playedMovies?.map(id => (
+              <Snap.Item key={id}>
+                <MovieCard
+                  result={id}
+                  media="movie"
+                  variant="played"
+                />
+              </Snap.Item>
+            ))}
+          </Snap.Container>
         )}
       </div>
-      {userState.playedMovies.length !== 0 && (
-        <div className="cta">
+      {playedMovies?.length !== 0 && (
+        <div className="cta flex mt-6">
           <Button
             variants="danger"
-            size="lg"
             customStyles="ml-auto"
             onClick={clearPlayedHistory}
           >
@@ -58,6 +66,6 @@ export default function PlayedHistory() {
           </Button>
         </div>
       )}
-    </section>
+    </Section>
   )
 }

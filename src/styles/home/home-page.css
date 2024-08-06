@@ -1,5 +1,6 @@
 .home-page {
-  container: home-content-container / inline-size;
+  container-name: home-content-container;
+  container-type: inline-size;
   position: relative;
   isolation: isolate;
   scrollbar-color: var(--color-neutral-500) var(--color-neutral-800);
@@ -51,55 +52,17 @@
       font-size: min(16px, 1rem);
     }
   }
-
-  & .draggable-wrapper {
-    margin-top: var(--space-6);
-    position: relative;
-    overflow: hidden;
-  
-    /* &::before,
-    &::after {
-      content: "";
-      height: 100%;
-      width: 4rem;
-      position: absolute;
-      z-index: var(--z-10);
-      top: 0;
-      pointer-events: none;
-    }
-  
-    &::before {
-      left: 0;
-      background-image: linear-gradient(
-        to right, var(--color-neutral-950), transparent 80%
-      );
-    }
-  
-    &::after {
-      right: 0;
-      background-image: linear-gradient(
-        to left, var(--color-neutral-950), transparent 80%
-      );
-    } */
-  }
-
-  & .draggable {
-    padding: var(--space-4);
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 16vw), 1fr));
-    align-items: start;
-    gap: 1.75rem 1.5rem;
-  }
 }
 
 .home-page {
+  & .movies-section {
+
+  }
+
   & .series-section {
-    & .draggable {
-      gap: 2rem 1.75rem;
-    }
+    
   }
 }
-
 
 /* .home-page .bg-effect {
   pointer-events: none;

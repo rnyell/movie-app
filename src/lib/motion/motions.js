@@ -1,19 +1,13 @@
-export const defaultVariantsLabel = {
-  initial: "initial",
-  animate: "animate",
-  exit: "exit"
-}
-
 export const pageTransitionMotion = {
   initial: {
     opacity: 0.25,
-    y: 1,
+    // y: 1,
     x: 20,
   },
   animate: {
     opacity: 1,
     scale: 1,
-    y: 0,
+    // y: 0,
     x: 0,
     transition: {
       duration: 0.5,
@@ -21,8 +15,8 @@ export const pageTransitionMotion = {
     }
   },
   exit: {
-    opacity: 0.2,
-    y: 1,
+    opacity: 0.15,
+    // y: 1,
     x: -20,
     transition: {
       duration: 0.5,
@@ -45,24 +39,6 @@ export const modalMotion = {
     opacity: 0
   }
 }
-
-// export const dropdownItemsMotion = {
-//   initial: {
-//     opacity: 0.5,
-//     y: isDesktop ? 25 : -20,
-//     x: isDesktop ? 0 : 5,
-//   },
-//   animate: {
-//     opacity: 1,
-//     y: 0,
-//     x: 0,
-//   },
-//   exit: {
-//     opacity: 0,
-//     y: isDesktop ? 25 : -20,
-//     x: isDesktop ? 0 : 5,
-//   }
-// }
 
 export const modalTransition = {
   duration: 0.45,
@@ -87,9 +63,9 @@ export const modalBackdropMotion = {
   }
 }
 
-export const portraitOverlayMotion = {
+export const overlayMotion = {
   initial: {
-    opacity: 0
+    opacity: 0,
   },
   animate: {
     opacity: 1,
@@ -107,22 +83,20 @@ export const portraitOverlayMotion = {
   }
 }
 
-export const landescOverlayMotion = {
-  initial: {
-    opacity: 0
-  },
-  animate: {
-    opacity: 1,
-    transition: {
-      duration: 0.25,
-      ease: "easeOut"
-    }
-  },
-  exit: {
-    opacity: 0,
-    transition: {
-      duration: 0.25,
-      ease: "easeIn"
-    }
-  }
-}
+// export const dropdownItemsMotion = {
+//   initial: {
+//     opacity: 0.5,
+//     y: isDesktop ? 25 : -20,
+//     x: isDesktop ? 0 : 5,
+//   },
+//   animate: {
+//     opacity: 1,
+//     y: 0,
+//     x: 0,
+//   },
+//   exit: {
+//     opacity: 0,
+//     y: isDesktop ? 25 : -20,
+//     x: isDesktop ? 0 : 5,
+//   }
+// }

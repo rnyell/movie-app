@@ -5,7 +5,7 @@
   & .link {
     position: relative;
     border-radius: 0.75rem;
-    transition: background-color var(--duration-2);
+    transition: background-color var(--duration-1);
 
     &:hover {
       color: var(--color-neutral-200);

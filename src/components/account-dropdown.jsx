@@ -1,10 +1,10 @@
 import { useState, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
-import { getAuthUser, supabase } from "@src/lib/supabase/auth"
+import { getAuthUser, supabase } from "@lib/supabase/auth"
 import { useClickOutside, useWindowOffsets, useLoader } from "@lib/hooks"
 import { useAuth } from "@src/auth/auth-context"
-import { Presence } from "@src/lib/motion"
+import { Presence } from "@lib/motion"
 import {
     UserCircleIcon,
     ChevronUpDownIcon,

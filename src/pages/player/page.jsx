@@ -2,7 +2,7 @@ import { useRef } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { IMAGES_URL } from "@services"
 import { useMediaDetails } from "@services/hooks"
-import { ViewTransition } from "@src/lib/motion"
+import { ViewTransition } from "@lib/motion"
 import {
   HeartIcon,
   ChevronLeftIcon,
@@ -61,7 +61,7 @@ export default function Player() {
           </div>
           <div className="bottombar flex-col-center">
             <div className="progressbar" />
-            <div className="action-btns flex-center w-100">
+            <div className="action-btns flex-center w-100%">
               <i className="empty"></i>
               <div className="controls flex">
                 <i className="icon bfw-icon bw-icon">

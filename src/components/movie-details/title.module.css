@@ -1,0 +1,60 @@
+.title {
+  --font-size: 1.25rem;
+  /* --font-weight: 500; */
+
+  font-size: var(--font-size);
+  /* font-weight: var(--font-weight); */
+}
+
+.title[data-truncate="true"] {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* ----------------------------------------------------------- */
+/* sizes */
+.sm {
+  --min-fs: 13px;
+  --float-fs: 1.125rem;
+  --max-fs: 17px;
+
+  --font-size: clamp(var(--min-fs), var(--float-fs), var(--max-fs));
+}
+
+.md {
+  --min-fs: 14px;
+  --float-fs: 14px + 4cqw;
+  --max-fs: 18px;
+
+  --font-size: clamp(var(--min-fs), var(--float-fs), var(--max-fs));
+}
+
+.lg {
+  --min-fs: 14.5px;
+  --float-fs: 14px + 5cqw;
+  --max-fs: 20px;
+
+  --font-size: clamp(var(--min-fs), var(--float-fs), var(--max-fs));
+}
+
+/* responsive */
+@media (Width <= 440px) {
+  .sm {
+    --float-fs: 1rem;
+  }
+
+  .md {
+    --float-fs: 1.125rem;
+  }
+
+  .lg {
+    --float-fs: 1.2rem;
+  }
+}
+
+@container movie-card (width <= 165px) {
+  .title {
+    --font-size: 1rem;
+  }
+}

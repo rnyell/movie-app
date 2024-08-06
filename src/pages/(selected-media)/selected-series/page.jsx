@@ -4,12 +4,11 @@ import { useWindowOffsets } from "@lib/hooks"
 import { IMAGES_URL } from "@services"
 import { useMediaDetails } from "@services/hooks"
 import { formatReleaseDate, formatRuntime, getMovieGenres } from "@services/movie-utils"
-import { ViewTransition } from "@src/lib/motion"
+import { ViewTransition } from "@lib/motion"
+import { Snap } from "@lib/ui/components"
 import { SelectedMovieSkeleton } from "@components/skeletons"
+import { Overview, Casts, Rates, Genres } from "@components/movie-details"
 import MovieCard from "@components/movie-cards/movie-card"
-import Overview from "@components/movie-details/overview"
-import Rates from "@components/movie-details/rates"
-import Casts from "@components/movie-details/casts"
 import NetworkLogo from "../_components/network-logo"
 import Pictures from "../_components/pictures"
 import Trailers from "../_components/trailers"
@@ -89,7 +88,7 @@ export default function SelectedSeries() {
       <div className="selected-media selected-series">
         <section className="poster-wrapper isolated-stack ::after-abs">
           <div className="bg-poster" style={{backgroundImage: `url(${IMAGES_URL}${imgUrl})`}} />
-          <div className="main-details flex-col w-100">
+          <div className="main-details flex-col w-100%">
             <h1 className="main-title">{name}</h1>
             <div className="details">
               <span className="release-date">{formatReleaseDate(first_air_date)}</span>
@@ -98,9 +97,14 @@ export default function SelectedSeries() {
                 {number_of_seasons} {`${number_of_seasons > 1 ? "Seasons" : "Season"}`}
               </span>
               <i className="dot">&#x2022;</i>
-              <span className="genres">{getMovieGenres(genres)}</span>
+              <Genres genres={genres} media={media} customStyles="color-neutral-300" />
             </div>
-            <Overview text={overview} />
+            <Overview
+              text={overview}
+              lines="unset"
+              fontSize="fs-lg"
+              customStyles="mb-8"
+            />
             <div className="sm-credits">
               <Casts casts={credits.cast} mode="names" />
               <div className="creators flex">
@@ -110,7 +114,7 @@ export default function SelectedSeries() {
             </div>
           </div>
         </section>
-        <section className="details-wrapper grid">
+        <section className="details-wrapper flex-col">
           <div className="seasons-container">
             <h4 className="heading">Seasons {in_production && <p className="in-production-tag">(Season {seasons.length} is in production)</p>}</h4>
             <div className="seasons flex">
@@ -161,10 +165,14 @@ export default function SelectedSeries() {
           </div>
           <div className="related-content">
             <h4 className="heading">More Like This</h4>
-            <div className="related-movies-container flex">
-              {recommendations.results.slice(0, 9).map(movie =>
-                <MovieCard key={movie.id} result={movie} media={media} variant="series" />
-              )}
+            <div className="related-movies">
+              <Snap.Container customStyles="h-100%">
+                {recommendations.results.slice(0, 9).map(movie => (
+                  <Snap.Item key={movie.id}>
+                    <MovieCard result={movie} media={media} variant="series" />
+                  </Snap.Item>
+                ))}
+              </Snap.Container>
             </div>
           </div>
         </section>

@@ -1,57 +1,37 @@
-import { motion } from "framer-motion"
 import { formatReleaseDate } from "@services/movie-utils"
-import { portraitOverlayMotion, defaultVariantsLabel } from "@lib/motion/motions"
-import Overview from "@components/movie-details/overview"
+import { Overlay } from ".."
+import { Title, Overview } from "@components/movie-details"
 import BookmarkButton from "@components/buttons/bookmark-btn"
 import BookmarkDeleteButton from "@components/buttons/bookmark-del-btn"
 import InfoButton from "@components/buttons/info-btn"
 import LinkButton from "@components/buttons/link-btn"
 
 
-export default function SecondaryOverlay({ result, variant, ...rest }) {
-  const {media, setModal} = rest
+export default function SecondaryOverlay({ result, media, ...rest }) {
   const id = result.id
   const title = result.title || result.name
-
+  const { card, setModal } = rest
 
   return (
-    <motion.div
-      className="overlay secondary-overlay"
-      variants={portraitOverlayMotion}
-      {...defaultVariantsLabel}
-    >
-      <motion.h4
-        className="overlay-title box-clamp"
-        initial={{y: -8}}
-        animate={{y: 0}}
-        exit={{y: -8}}
-      >
-        {title}
-      </motion.h4>
-      {variant === "bookmarked" && (
-        <motion.span
-          className="release-date"
-          initial={{y: -9}}
-          animate={{y: 0}}
-          exit={{y: -9}}
-        >
-          {formatReleaseDate(result.release_date)}
-        </motion.span>
-      )}
-      <motion.div
-        initial={{y: -5, opacity: 0}}
-        animate={{y: 0, opacity: 1}}
-        exit={{y: -5, opacity: 0}}
-      >
-        <Overview text={result.overview} />
-      </motion.div>
-      <motion.div
-        className="overlay-cta-btns justify-center absolute-x-center"
-        initial={{y: 12}}
-        animate={{y: 0}}
-        exit={{y: 12}}
-      >
-        {variant === "result" ? (
+    <Overlay.Container variant="secondary">
+      <Overlay.Header>
+        <Title
+          title={title}
+          width="auto"
+          isTruncated={false}
+          customStyles="box-clamp"
+        />
+      </Overlay.Header>
+      <Overlay.Details>
+        {card === "bookmarked" && (
+          <span className="release-date">
+            {formatReleaseDate(result.release_date)}
+          </span>
+        )}
+        <Overview text={result.overview} lines={4} fontSize="fs-sm" customStyles="mt-4" />
+      </Overlay.Details>
+      <Overlay.Actions>
+        {card === "result" ? (
           <>
             <BookmarkButton
               item={{id, media}}
@@ -63,7 +43,7 @@ export default function SecondaryOverlay({ result, variant, ...rest }) {
               setModal={setModal}
               variants="solid-blured"
               size="square-md"
-              iconSize="md"
+              iconSize="lg"
             />
           </>
         ) : (
@@ -76,7 +56,7 @@ export default function SecondaryOverlay({ result, variant, ...rest }) {
             />
           </>
         )}
-      </motion.div>
-    </motion.div>
+      </Overlay.Actions>
+    </Overlay.Container>
   )
 }

@@ -1,5 +1,5 @@
 import { readLocalStorage, monthObj } from "@lib/utils"
-import { ViewTransition } from "@src/lib/motion"
+import { ViewTransition } from "@lib/motion"
 import Page from "@components/layouts/page"
 import EmptyTickets from "./_components/empty-tickets"
 

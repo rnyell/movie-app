@@ -81,10 +81,7 @@ function modalReducer(state, action) {
       }
     }
     case "none": {
-      return {
-        ...state,
-        isOpen: false,
-      }
+      return modalsInit
     }
   }
 }

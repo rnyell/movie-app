@@ -1,7 +1,7 @@
 import { useAppContext } from "@src/store"
 import { HeartIcon } from "@heroicons/outline"
-import { Button } from "@src/lib/ui/components"
-import { useLoader } from "@src/lib/hooks"
+import { Button } from "@lib/ui/components"
+import { useLoader } from "@lib/hooks"
 
 
 export default function FaveButton({ item }) {

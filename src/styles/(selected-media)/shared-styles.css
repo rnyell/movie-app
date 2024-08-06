@@ -123,14 +123,12 @@
   }
 
   & .related-content {
-    overflow: hidden;
-
-    & .related-movies-container {
-      margin-top: -0.5rem;  /* it's a fix for vertical spaces added by padding that is a fix for overflow issue! */
-      padding: 0.5rem;      /* to prevent overflow issue when hovering the movie-card */
-      overflow-x: scroll;
-      scrollbar-width: none;
-      gap: 1.5rem;
+    & .heading {
+      margin: 0 !important;
+    }
+  
+    & .related-movies {
+      height: 250px;
     }
   }
 }
@@ -192,10 +190,6 @@
     & .details-wrapper {
       padding: 3rem 3rem 1rem;
       gap: 5rem;
-    }
-
-    & .related-content {
-      margin-top: 0;
     }
   }
 }

@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom"
 import { motion, useAnimate } from "framer-motion"
 import { useClickOutside, useWindowOffsets } from "@lib/hooks"
 import { useThemeContext } from "@src/store"
-import { breakpoints } from "@src/lib/ui/configs"
+import { breakpoints } from "@lib/ui/configs"
 import {
   HomeIcon,
   TicketIcon,
@@ -30,10 +30,10 @@ import { CompasIconSolid,
   BugIcon,
   Palette,
   ArrowLeftToLineIcon
-} from "@src/lib/ui/icons"
+} from "@lib/ui/icons"
 import logo from "@src/assets/logo.png"
-import { Presence } from "@src/lib/motion"
-import { Divider, Icon } from "@src/lib/ui/components"
+import { Presence } from "@lib/motion"
+import { Divider, Icon } from "@lib/ui/components"
 import AccountDropdown from "../account-dropdown"
 
 import "./navigation.css"
@@ -106,7 +106,7 @@ function SideNav() {
         <img className="logo" src={logo} draggable={false} />
         {windowWidth > breakpoints.md && <p className="tagline unselectable">{tagline}</p>}
       </div>
-      <div className="relative w-100">
+      <div className="relative w-100%">
         <Divider variant="pale" />
         {isCollapsable && (
         <button className="btn toggle-btn absolute-y-center" onClick={toggleSidenav}>
