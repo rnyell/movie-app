@@ -1,10 +1,7 @@
 import { formatReleaseDate } from "@services/movie-utils"
 import { Overlay } from ".."
+import { BookmarkButton, InfoButton, LinkButton, BookmarkDeleteButton } from "@components/buttons"
 import { Title, Overview } from "@components/movie-details"
-import BookmarkButton from "@components/buttons/bookmark-btn"
-import BookmarkDeleteButton from "@components/buttons/bookmark-del-btn"
-import InfoButton from "@components/buttons/info-btn"
-import LinkButton from "@components/buttons/link-btn"
 
 
 export default function SecondaryOverlay({ result, media, ...rest }) {

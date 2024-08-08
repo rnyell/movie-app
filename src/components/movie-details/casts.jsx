@@ -1,13 +1,22 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { ChevronDoubleRightIcon } from "@heroicons/outline"
 import { IMAGES_URL } from "@services"
+import { ChevronDoubleRightIcon } from "@heroicons/outline"
 
-import "./casts.css"
+import classes from "./casts.module.css"
 
-export default function Casts({ casts, mode, count }) {
-  let initialCastsNumber = count || 3
-  const [castsNumber, setCastsNumber] = useState(initialCastsNumber)
+
+export default function Casts({
+  casts,
+  count = 3,
+  variant,
+  mode,
+  withImage = true,
+  withHeading = true,
+  headingText = "Starring:",
+  customStyles = "",
+}) {
+  const [castsNumber, setCastsNumber] = useState(count)
   const [isOpen, setOpen] = useState(false)
 
   function showMoreCasts() {
@@ -22,10 +31,10 @@ export default function Casts({ casts, mode, count }) {
 
   const itemsA = {
     initial: {
-      marginLeft: "-4.5cqw",
+      marginLeft: "min(-4.5cqw, -2rem)",
     },
     opened: {
-      marginLeft: "0",
+      marginLeft: 0,
       scale: 1.125,
       transition: {
         duration: 0.3
@@ -57,80 +66,72 @@ export default function Casts({ casts, mode, count }) {
     }
   }
 
-  switch (mode) {
-    case "names": {
-      return (
-        <div className="casts align-center flex-wrap" data-mode={mode}>
-          <h6 className="heading">Starring:</h6>
-          {casts.slice(0, count).map(c =>
-            <p key={c.name} className="cast-name">{c.name}<span>,</span></p>
-          )}
-        </div>
-      )
-    }
+  switch (variant) {
     case "list": {
       return (
-        <div className="casts" data-mode={mode}>
-          <h4 className="heading">Casts</h4>
-          <ul className="casts-list">
-          {casts.slice(0, 8).map((cast, i) =>
-            <li className="cast align-center-col" key={i}>
-              <img
-                className="cast-img unselectable"
-                src={`${IMAGES_URL}w154/${cast.profile_path}`}
-                draggable={false}
-              />
-              <p className="cast-name">{cast.name}</p>
+        <div
+          className={`${classes.casts} ${customStyles}`}
+          data-variant={variant}
+          data-mode={mode}
+        >
+          {withHeading && <h4 className={classes.heading}>{headingText}</h4>}
+          <ul className={classes.castsList}>
+          {casts.slice(0, count).map(cast => (
+            <li className={classes.cast} key={cast.name}>
+              {withImage && (
+                <img
+                  className={classes.castImg}
+                  src={`${IMAGES_URL}w154/${cast.profile_path}`}
+                  draggable={false}
+                />
+              )}
+              <p className={classes.castName}>{cast.name}<i>,</i></p>
             </li>
-          )}
+          ))}
           </ul>
         </div>
       )
     }
     case "drawer": {
       return (
-        <div className="casts" data-mode={mode}>
-          <h5 className="heading">Casts</h5>
-          <motion.ul className={`casts-list ${isOpen ? "is-open" : ""}`}>
+        <div
+          className={`${classes.casts} ${customStyles}`}
+          data-variant={variant}
+          data-state={isOpen ? "open" : "close"}
+        >
+          {withHeading && <h5 className={classes.heading}>{headingText}</h5>}
+          <motion.ul className={classes.castsList}>
             <AnimatePresence>
-              {casts.slice(0, initialCastsNumber).map((cast, i) =>
-              <motion.li
-                className="cast align-center-col"
-                key={i}
-                variants={itemsA}
-                initial="initial"
-                animate={isOpen ? "opened" : "initial"}
-                exit="closed"
-              >
-                <img
-                  className="cast-img unselectable"
-                  src={`${IMAGES_URL}w154/${cast.profile_path}`}
-                  draggable={false}
-                />
-                <p className="cast-name">{cast.name}</p>
-              </motion.li>
-              )}
+              {casts.slice(0, count).map(cast => (
+                <motion.li
+                  className={classes.cast}
+                  key={cast.name}
+                  variants={itemsA}
+                  initial="initial"
+                  animate={isOpen ? "opened" : "initial"}
+                  exit="closed"
+                >
+                  <img className={classes.castImg} src={`${IMAGES_URL}w154/${cast.profile_path}`} draggable={false} />
+                  <p className={classes.castName}>{cast.name}</p>
+                </motion.li>
+              ))}
             </AnimatePresence>
             <AnimatePresence mode="popLayout">
-              {casts.slice(initialCastsNumber, castsNumber).map((cast, i) => 
+              {casts.slice(count, castsNumber).map(cast => (
                 castsNumber > 3 && (
                   <motion.li 
-                    key={i}
-                    className="cast"
+                    key={cast.name}
+                    className={classes.cast}
                     variants={itemsB}
                     initial="initial"
                     animate="opened"
                     exit="closed"
                   >
-                    <img
-                      className="cast-img unselectable"
-                      src={`${IMAGES_URL}w154/${cast.profile_path}`}
-                      draggable={false}
-                    />
-                    <p className="cast-name">{cast.name}</p>
+                    <img className={classes.castImg} src={`${IMAGES_URL}w154/${cast.profile_path}`} draggable={false} />
+                    <p className={classes.castName}>{cast.name}</p>
                   </motion.li>
                 )
-              )}
+              ))}
             </AnimatePresence>
             <motion.button
               className="btn"
@@ -139,7 +140,7 @@ export default function Casts({ casts, mode, count }) {
               initial="initial"
               animate={isOpen ? "opened" : "initial"}
             >
-              <motion.i className="icon" style={isOpen ? {rotateZ: 180} : {rotateZ: 0}}>
+              <motion.i className="icon icon-sm" style={isOpen ? {rotateZ: 180} : {rotateZ: 0}}>
                 <ChevronDoubleRightIcon />
               </motion.i>
             </motion.button>

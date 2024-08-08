@@ -24,7 +24,6 @@
       right: 2px;
       background-color: greenyellow;
       outline: 3px solid var(--color-neutral-900);
-      outline-offset: 0;
     }
   }
 }

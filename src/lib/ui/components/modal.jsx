@@ -2,8 +2,8 @@ import { useEffect, useRef } from "react"
 import { createPortal } from "react-dom"
 import { motion } from "framer-motion"
 import { modalBackdropMotion, modalMotion, modalTransition } from "@lib/motion/motions"
-import cls from "../cls"
 
+import cls from "../cls"
 import classes from "./modal.module.css"
 
 
@@ -44,6 +44,7 @@ export default function Modal({
         tabIndex={0}
         onKeyDown={closeModalOnEscape}
         ref={ref}
+        key="modal"
         {...modalMotion}
         transition={modalTransition}
       >

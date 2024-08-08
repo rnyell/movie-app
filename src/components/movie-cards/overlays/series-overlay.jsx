@@ -1,9 +1,9 @@
 import { useMediaDetails } from "@services/hooks"
 import { formatReleaseDate } from "@services/movie-utils"
+import { Dot } from "@src/lib/ui/components"
 import { Overlay } from ".."
 import { Title, Genres, Overview } from "@components/movie-details"
-import LinkButton from "@components/buttons/link-btn"
-import BookmarkButton from "@components/buttons/bookmark-btn"
+import { LinkButton, BookmarkButton } from "@src/components/buttons"
 
 
 export default function SeriesOverlay({ result }) {
@@ -38,7 +38,7 @@ export default function SeriesOverlay({ result }) {
               : `${formatReleaseDate(first_air_date)} ‒ ${formatReleaseDate(last_air_date)}`
             }
           </span>
-          <i className="dot">&#x2022;</i>
+          <Dot />
           <span>{number_of_seasons} {number_of_seasons > 1 ? "Seasons" : "Season"}</span>
         </div>
       </Overlay.Details>

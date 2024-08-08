@@ -3,9 +3,9 @@ import { useParams } from "react-router-dom"
 import { useWindowOffsets } from "@lib/hooks"
 import { IMAGES_URL } from "@services"
 import { useMediaDetails } from "@services/hooks"
-import { formatReleaseDate, formatRuntime, getMovieGenres } from "@services/movie-utils"
+import { formatReleaseDate, formatRuntime } from "@services/movie-utils"
 import { ViewTransition } from "@lib/motion"
-import { Snap } from "@lib/ui/components"
+import { Snap, Dot } from "@lib/ui/components"
 import { SelectedMovieSkeleton } from "@components/skeletons"
 import { Overview, Casts, Rates, Genres } from "@components/movie-details"
 import MovieCard from "@components/movie-cards/movie-card"
@@ -92,11 +92,11 @@ export default function SelectedSeries() {
             <h1 className="main-title">{name}</h1>
             <div className="details">
               <span className="release-date">{formatReleaseDate(first_air_date)}</span>
-              <i className="dot">&#x2022;</i>
+              <Dot />
               <span className="seasons-number">
                 {number_of_seasons} {`${number_of_seasons > 1 ? "Seasons" : "Season"}`}
               </span>
-              <i className="dot">&#x2022;</i>
+              <Dot />
               <Genres genres={genres} media={media} customStyles="color-neutral-300" />
             </div>
             <Overview
@@ -106,7 +106,14 @@ export default function SelectedSeries() {
               customStyles="mb-8"
             />
             <div className="sm-credits">
-              <Casts casts={credits.cast} mode="names" />
+              <Casts
+                casts={credits.cast}
+                count={5}
+                variant="list"
+                mode="names"
+                withImage={false}
+                headingText="Starring:"
+              />
               <div className="creators flex">
                 <h6 className="heading">Creators:</h6>
                 {created_by.map(creator => <p className="creator-name" key={creator.name}>{creator.name}<span>,</span></p>)}
@@ -130,9 +137,14 @@ export default function SelectedSeries() {
             <Trailers videos={videos} />
             <Pictures images={images} />
           </div>
-          <Casts casts={credits.cast} mode="list" />
+          <Casts
+            casts={credits.cast}
+            count={10}
+            variant="list"
+            mode="profile"
+            headingText="Casts"
+          />
           <div className="information-table">
-            {/* <h5>More Details</h5> */}
             <div className="col col-1">
               <dl>
                 <div className="td">
@@ -146,14 +158,22 @@ export default function SelectedSeries() {
                 <div className="td">
                   <dt>Country:</dt>
                   <dd>
-                    {production_countries.map(pc =>
-                      <span key={pc.name}>{pc.name === "United States of America" ? "US" : pc.name}</span>
-                    )}
+                    {production_countries.map(pc => (
+                      <span key={pc.name}>
+                        {pc.name === "United States of America" ? "US" : pc.name}
+                      </span>
+                    ))}
                   </dd>
                 </div>
                 <div className="td">
                   <dt>Languages:</dt>
-                  <dd>{spoken_languages.map(lang => <span key={lang.english_name}>{lang.english_name}</span>)}</dd>
+                  <dd>
+                    {spoken_languages.map(lang => (
+                      <span key={lang.english_name}>
+                        {lang.english_name}<i>,</i>
+                      </span>
+                    ))}
+                  </dd>
                 </div>
               </dl>
             </div>

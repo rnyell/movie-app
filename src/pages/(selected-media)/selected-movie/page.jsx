@@ -5,13 +5,11 @@ import { IMAGES_URL } from "@services"
 import { formatRuntime, getMovieDirector } from "@services/movie-utils"
 import { useMediaDetails } from "@services/hooks"
 import { ViewTransition } from "@lib/motion"
-import { Snap } from "@lib/ui/components"
+import { Snap, Dot } from "@lib/ui/components"
 import { SelectedMovieSkeleton } from "@components/skeletons"
 import { Overview, Casts, Rates, Genres } from "@components/movie-details"
+import { WatchButton, BookmarkButton, FaveButton } from "@src/components/buttons"
 import MovieCard from "@components/movie-cards/movie-card"
-import WatchButton from "@components/buttons/watch-btn"
-import FaveButton from "@components/buttons/fave-btn"
-import BookmarkButton from "@components/buttons/bookmark-btn"
 import Pictures from "../_components/pictures"
 import Trailers from "../_components/trailers"
 
@@ -93,9 +91,9 @@ export default function SelectedMovie() {
             <h1 className="main-title">{title}</h1>
             <div className="details">
               <span className="release-date">{release_date?.slice(0, 4)}</span>
-              <i className="dot">&#x2022;</i>
+              <Dot />
               <span className="runtime">{formatRuntime(runtime)}</span>
-              <i className="dot">&#x2022;</i>
+              <Dot />
               <Genres genres={genres} media={media} customStyles="color-neutral-300" />
             </div>
             <Overview text={overview} lines="unset" fontSize="fs-lg" customStyles="mb-8" />
@@ -121,7 +119,7 @@ export default function SelectedMovie() {
         <section className="details-wrapper flex-col">
           <div className="information-table">
             <div className="col col-1">
-              <Rates id={imdb_id} variant="verbose" />
+              <Rates extId={imdb_id} variant="verbose" />
               <dl>
                 <div className="td">
                   <dt>Director:</dt>
@@ -141,7 +139,13 @@ export default function SelectedMovie() {
                 </div>
                 <div className="td">
                   <dt>Languages:</dt>
-                  <dd>{spoken_languages.map(lang => <span key={lang.english_name}>{lang.english_name}</span>)}</dd>
+                  <dd>
+                    {spoken_languages.map(lang => (
+                      <span key={lang.english_name}>
+                        {lang.english_name}<i>, </i>
+                      </span>
+                    ))}
+                  </dd>
                 </div>
                 <div className="td">
                   <dt>Budget:</dt>
@@ -159,7 +163,13 @@ export default function SelectedMovie() {
               </figure>
             </div>
           </div>
-          <Casts casts={credits.cast} mode="list" />
+          <Casts
+            casts={credits.cast}
+            count={12}
+            variant="list"
+            mode="profile"
+            headingText="Casts"
+          />
           <div className="visuals">
             <Trailers videos={videos} />
             <Pictures images={images} />

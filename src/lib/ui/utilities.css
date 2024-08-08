@@ -4,11 +4,11 @@
   text-transform: capitalize;
 }
 
-.truncate {
+/* .truncate {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-}
+} */
 
 .box-clamp {
   overflow: hidden;
@@ -100,8 +100,16 @@
   right: 1.5rem;
 }
 
+.right-8 {
+  right: 2rem;
+}
+
 .bottom-0 {
   bottom: 0;
+}
+
+.-bottom-4 {
+  bottom: -1rem;
 }
 
 .z-0 {
@@ -239,6 +247,10 @@
   margin-right: auto;
 }
 
+.mr-2 {
+  margin-right: 0.5rem;
+}
+
 .mb-8 {
   margin-bottom: 2rem;
 }
@@ -368,6 +380,10 @@
 
 .fs-smaller {
   font-size: 90%;
+}
+
+.fs-larger {
+  font-size: 110%;
 }
 
 /* ------------------------------- */

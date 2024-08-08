@@ -1,0 +1,187 @@
+.casts {
+  display: flex;
+  align-items: center;
+}
+
+/* .heading {} */
+
+.castsList {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  & > * {
+    flex-shrink: 0;
+  }
+}
+
+.cast {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.25rem;
+  border-radius: var(--full-rounded);
+
+  &:last-child i {
+    display: none;
+  }
+}
+
+.castImg {
+  aspect-ratio: 1;
+  object-position: 0 15%;
+  border-radius: var(--full-rounded);
+  user-select: none;
+}
+
+/* .castName {} */
+
+/* ------------------------------------------------------------------- */
+/* variant */
+.casts[data-variant="list"] {
+  & .castsList {
+    max-width: 80vw;
+    overflow-x: scroll;
+    scrollbar-width: none;
+  }
+}
+
+/* ----------------------- */
+/* modes of "list variant" */
+/*+ the container of `<Casts mode="name" /> should have a defined `font-size` in `rem` */
+.casts[data-mode="names"] {
+  gap: 0.5rem;
+
+  & .heading {
+    font-weight: 600;
+    font-size: 120%;
+    color: var(--color-neutral-300);
+  }
+  
+  & .castsList {
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  & .castImg {
+    display: none;
+  }
+
+  & .castName {
+    width: max-content;
+    font-size: 100%;
+  }
+}
+
+.casts[data-mode="profile"] {
+  flex-direction: column;
+  align-items: flex-start;
+
+  & i {
+    display: none;
+  }
+
+  & .heading {
+    margin-bottom: var(--sub-heading-mb);
+    font-size: var(--sub-heading);
+  }
+
+  & .castsList {
+    padding: 4px;
+    gap: 1.275rem;
+  }
+  
+  & .cast {
+    width: min-content;
+    gap: 0.5rem;
+  }
+
+  & .castImg {
+    width: 5.5rem;
+    max-width: unset;
+    outline: 1.5px solid rgb(var(--rgb-neutral-300) / 50%);
+
+    @media (width <= 520px) {
+      width: 4.5rem;
+    }
+  }
+
+  & .castName {
+    font-size: 0.85rem;
+
+    @media (width <= 520px) {
+      font-size: 0.775rem;
+    }
+  }
+}
+
+/******************************************************************************************/
+.casts[data-variant="drawer"] {
+  & .castsList {
+    gap: 1.75cqw;
+  }
+
+  & .cast:first-child {
+    /* first item shouldn't have margin */
+    /* `!important` is used to override JS/framer-motion inline style */
+    margin-left: 0 !important;
+  }
+
+  & .castImg {
+    /* width & max-width & outline are same with `button`'s */
+    width: calc(2rem + 1.2cqw);
+    max-width: 48px;
+    outline: 1.75px solid var(--color-neutral-800);
+  }
+
+  & .castName {
+    max-width: 50px;
+    font-size: 55%;
+  }
+
+  & button {
+    width: calc(2rem + 1.2cqw);
+    max-width: 48px;
+    aspect-ratio: 1;
+    background-color: rgb(20 23 26 / 75%);
+    backdrop-filter: blur(2px);
+    border-radius: var(--full-rounded);
+    outline: 1.75px solid var(--color-neutral-800);
+    cursor: pointer;
+    transition: background-color var(--duration-1);
+
+    & .icon {
+      color: rgb(var(--rgb-neutral-100));
+    }
+
+    &:hover {
+      background-color: rgb(31 34 37 / 75%);
+    }
+  }
+}
+
+.casts[data-state="close"] {
+  & .castName {
+    display: none;
+  }
+}
+
+.casts[data-state="open"] {
+  & .castName {
+    display: block;
+  }
+
+  & button {
+    align-self: flex-start;
+  }
+}
+
+/* ============================================================ */
+/* queries */
+@container grid-container (width <= 620px) {
+  .casts {
+    display: none;
+  }
+}

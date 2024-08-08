@@ -36,8 +36,8 @@
 @import "@src/styles/(reservation)/booking-page.css" layer;
 
 /* components */
-@import "@src/styles/_components/modals/movie-details-modal.css";
-@import "@src/styles/_components/modals/movie-info-modal.css";
+@import "@src/styles/_components/modals/details-modal.css";
+@import "@src/styles/_components/modals/info-modal.css";
 @import "@src/styles/_components/modals/lists-modal.css";
 @import "@src/styles/_components/modals/confirm-modal.css";
 @import "@src/styles/_components/account-dropdown.css";

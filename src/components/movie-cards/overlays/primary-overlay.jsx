@@ -1,6 +1,7 @@
 import { useWindowOffsets } from "@lib/hooks"
 import { useMediaDetails } from "@services/hooks"
 import { formatRuntime, formatReleaseDate } from "@services/movie-utils"
+import { Dot } from "@lib/ui/components"
 import { Overlay } from ".."
 import { Title, Rates } from "@components/movie-details"
 import WatchButton from "@components/buttons/watch-btn"
@@ -36,11 +37,16 @@ export default function PrimaryOverlay({ result, media }) {
             />
           </Overlay.Header>
           <Overlay.Details>
-            <span className="overlay-release-date">{formatReleaseDate(release_date)}</span>
-            <i className="overlay-dot">&#x2022;</i>
-            <span className="overlay-runtime">{formatRuntime(runtime)}</span>
-            <i className="overlay-dot">&#x2022;</i>
-            <Rates rate={vote_average} variant="star" />
+            <span>{formatReleaseDate(release_date)}</span>
+            <Dot />
+            <span>{formatRuntime(runtime)}</span>
+            <Dot />
+            <Rates
+              rate={vote_average}
+              variant="star"
+              color="white"
+              starSize="icon-sm"
+            />
           </Overlay.Details>
           <Overlay.Actions>
             <WatchButton item={{id, title, media}} size={buttonSize} iconSize="md" />
@@ -69,16 +75,22 @@ export default function PrimaryOverlay({ result, media }) {
               width="85%"
               isTruncated={false}
             />
-            <Rates rate={vote_average} variant="star" />
+            <Rates
+              rate={vote_average}
+              variant="star"
+              color="white"
+              starSize="icon-sm"
+              customStyles="ml-auto"
+            />
           </Overlay.Header>
           <Overlay.Details>
-            <span className="overlay-release-date">
+            <span>
               {in_production
                 ? formatReleaseDate(first_air_date)
                 : `${formatReleaseDate(first_air_date)} ‒ ${formatReleaseDate(last_air_date)}`
               }
             </span>
-            <i className="overlay-dot">&#x2022;</i>
+            <Dot />
             <span>{number_of_seasons} {number_of_seasons > 1 ? "Seasons" : "Season"}</span>
           </Overlay.Details>
           <Overlay.Actions>

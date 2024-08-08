@@ -2,15 +2,12 @@ import { useNavigate } from "react-router-dom"
 import { IMAGES_URL } from "@services"
 import { useMediaDetails } from "@services/hooks"
 import { formatRuntime, formatReleaseDate, getMovieDirector } from "@services/movie-utils"
-import { Modal, Button } from "@lib/ui/components"
-import Rates from "@components/movie-details/rates"
-import Genres from "@components/movie-details/genres"
-import Overview from "@components/movie-details/overview"
-import Casts from "@components/movie-details/casts"
+import { Modal, Button, Dot } from "@lib/ui/components"
+import { Rates, Genres, Overview, Casts } from "../movie-details"
 
 
 export default function DetailsModal({ result, setClose, price }) {
-  const {mediaDetails, isLoading} = useMediaDetails("movie", result.id)
+  const { mediaDetails, isLoading } = useMediaDetails("movie", result.id)
   const navigate = useNavigate()
 
   const {
@@ -57,13 +54,13 @@ export default function DetailsModal({ result, setClose, price }) {
           <div className="absolute bottom-0 w-100%">
             <div className="align-center">
               <h4 className="title">{title}</h4>
-              <Rates rate={vote_average} variant="square" />
+              <Rates rate={vote_average} variant="square" customStyles="ml-auto mr-2" />
             </div>
             <div className="main-details align-center">
               <span className="release-date">{formatReleaseDate(release_date)}</span>
-              <i className="dot">&#x2022;</i>
+              <Dot />
               <span className="runtime">{formatRuntime(runtime)}</span>
-              <i className="dot">&#x2022;</i>
+              <Dot />
               <Genres genres={genres} media="movie" customStyles="color-inherit" />
             </div>
           </div>
@@ -72,9 +69,14 @@ export default function DetailsModal({ result, setClose, price }) {
           <div className="sub-details flex-col">
             <Overview text={overview} />
             <div className="credits">
-              <Casts casts={credits.cast} mode="names" count={3} />
+              <Casts
+                casts={credits.cast}
+                variant="list"
+                mode="names"
+                withImage={false}
+              />
               <div className="director align-center">
-                <h6>Directed by:</h6>
+                <h6 className="heading">Director:</h6>
                 <p className="director-name">{getMovieDirector(credits.crew)}</p>
               </div>
             </div>

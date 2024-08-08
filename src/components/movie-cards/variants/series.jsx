@@ -51,7 +51,13 @@ export default function SeriesCard({ result, variant }) {
           />
         </Card.TouchWidget>
         {!isTouchDevice && (
-          <Rates rate={result.vote_average} variant="star" />
+          <Rates
+            rate={result.vote_average}
+            variant="star"
+            color="white"
+            starSize="icon-sm"
+            customStyles="ml-auto mr-2"
+          />
         )}
       </Card.Body>
     </Card.Container>

@@ -33,7 +33,7 @@
   & .main-details {
     grid-row: 2 / 3;
     grid-column: 1 / 5;
-    padding-block: 1rem 3rem;
+    padding-block: 1rem 2.25rem;
   }
 
   & .main-btns {
@@ -167,7 +167,6 @@
     background-position: 50% 50%;
     border-radius: 2.75rem;
     outline: 1.25px solid rgba(120, 77, 240, 0.15);
-    outline-offset: 0;
     box-shadow: 0 2px 0.75rem rgb(20 23 26 / 50%);
 
     &::after {

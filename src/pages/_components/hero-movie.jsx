@@ -8,7 +8,7 @@ import { useAppContext } from "@src/store"
 import { HeroMovieLoadingSkeleton } from "@components/skeletons"
 import { ChevronRightIcon, ChevronLeftIcon, ArrowTopRightOnSquareIcon } from "@heroicons/outline"
 import { ListPlusIcon } from "@lib/ui/icons"
-import { Button, Icon } from "@lib/ui/components"
+import { Button, Icon, Dot } from "@lib/ui/components"
 import WatchButton from "@components/buttons/watch-btn"
 import { Genres, Casts, Rates } from "@components/movie-details"
 
@@ -18,7 +18,7 @@ export default function HeroMovie({ result, showNextMovie, showPrevMovie }) {
   // const { session } = useAuth()
   const media = "movie"
   const id = result.id
-  const {isLoading, mediaDetails} = useMediaDetails(media, id)
+  const { isLoading, mediaDetails } = useMediaDetails(media, id)
   // const [key, setKey] = useState(0) // used by <AnimatePresence>
   const navigate = useNavigate()
 
@@ -100,7 +100,7 @@ export default function HeroMovie({ result, showNextMovie, showPrevMovie }) {
       <div className="hero-movie">
         <div className="grid-container">
           <div className="ambient">
-            {/* bg instead og img? */}
+            {/* TODO bg instead og img? */}
             <img className="unselectable" src={`${IMAGES_URL}original${bg_path}`} draggable={false} />
           </div>
           <div
@@ -113,9 +113,15 @@ export default function HeroMovie({ result, showNextMovie, showPrevMovie }) {
               <span className="release-date">
                 {formatReleaseDate(release_date)}
               </span>
-              <i className="dot">&#x2022;</i>
-              <Rates rate={rate} variant="star" />
-              <i className="dot">&#x2022;</i>
+              <Dot scale="1.5" />
+              <Rates
+                rate={rate}
+                variant="star"
+                color="white"
+                starSize="icon-md"
+                customStyles="fs-larger"
+              />
+              <Dot scale="1.5" />
               <Genres genres={genres} media={media} shape="chip" />
             </div>
           </div>
@@ -147,7 +153,11 @@ export default function HeroMovie({ result, showNextMovie, showPrevMovie }) {
             <p className="director-name">{getMovieDirector(credits.crew)}</p>
           </div>
           <div className="casts-container">
-            <Casts casts={credits.cast} mode="drawer" />
+            <Casts
+              casts={credits.cast}
+              variant="drawer"
+              withHeading={false}
+            />
           </div>
           <div className="next-prev-btns">
             <Button

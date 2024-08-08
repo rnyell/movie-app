@@ -245,9 +245,7 @@ export async function getAdditionalDetails(id) {
   const url = `https://www.omdbapi.com/?apikey=4109da8f&i=${id}`
   const res = await fetch(url)
   const data = await res.json()
-  const {Ratings: ratings} = data
-  // console.log(data)
-  return {ratings}
+  return data
 }
 
 

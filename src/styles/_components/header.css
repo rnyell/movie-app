@@ -66,7 +66,6 @@
   border-radius: var(--full-rounded);
   border: var(--outline-size-1) solid rgb(var(--rgb-neutral-500) / 50%);
   outline: var(--outline-size-3) solid transparent;
-  outline-offset: 0;
   transition: outline-color var(--duration-2) ease-in;
 
   &:focus-within {
