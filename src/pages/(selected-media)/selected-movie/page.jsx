@@ -165,7 +165,7 @@ export default function SelectedMovie() {
           </div>
           <Casts
             casts={credits.cast}
-            count={12}
+            count={11}
             variant="list"
             mode="profile"
             headingText="Casts"

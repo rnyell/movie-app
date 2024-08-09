@@ -1,0 +1,41 @@
+.slider {
+  margin-top: 1rem;
+  padding: 1.25rem;
+  height: 485px;
+  grid-column: 1 / 6;
+  grid-row: 1 / 4;
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  border-radius: 2rem;
+  box-shadow: 0 2px 0.75rem rgb(18 23 26 / 50%);
+}
+
+.title {
+  font-size: 2rem;
+}
+
+.releaseDate {
+  font-size: 1.25rem;
+}
+
+.bgPoster {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-neg10);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 5%;
+  border-radius: inherit;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(195deg, transparent, rgb(20 23 26) 95%);
+    border-radius: inherit;
+  }
+}

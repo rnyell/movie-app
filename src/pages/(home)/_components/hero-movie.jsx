@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { IMAGES_URL } from "@services"
 import { useMediaDetails } from "@services/hooks"
-import { getMovieDirector, formatReleaseDate } from "@services/movie-utils"
+import { formatReleaseDate } from "@services/movie-utils"
 import { useAppContext } from "@src/store"
-import { HeroMovieLoadingSkeleton } from "@components/skeletons"
-import { ChevronRightIcon, ChevronLeftIcon, ArrowTopRightOnSquareIcon } from "@heroicons/outline"
+import { HeroMovieSkeleton } from "@components/skeletons"
+import { ArrowTopRightOnSquareIcon, ChevronRightIcon, ChevronLeftIcon } from "@heroicons/outline"
 import { ListPlusIcon } from "@lib/ui/icons"
 import { Button, Icon, Dot } from "@lib/ui/components"
 import WatchButton from "@components/buttons/watch-btn"
@@ -14,18 +14,11 @@ import { Genres, Casts, Rates } from "@components/movie-details"
 
 
 export default function HeroMovie({ result, showNextMovie, showPrevMovie }) {
-  const { modalDispatch } = useAppContext()
-  // const { session } = useAuth()
   const media = "movie"
   const id = result.id
   const { isLoading, mediaDetails } = useMediaDetails(media, id)
-  // const [key, setKey] = useState(0) // used by <AnimatePresence>
+  const { modalDispatch } = useAppContext()
   const navigate = useNavigate()
-
-  useEffect(() => {
-    // setKey(key + 1)
-    console.log("hero movie re-rendered")
-  }, [result.id])
 
   const {
     title,
@@ -92,12 +85,12 @@ export default function HeroMovie({ result, showNextMovie, showPrevMovie }) {
 
 
   if (isLoading) {
-    return <HeroMovieLoadingSkeleton />
+    return <HeroMovieSkeleton />
   }
 
   return (
     <AnimatePresence mode="wait" initial={false}>
-      <div className="hero-movie">
+      <div className="hero-movie" /*key={id}*/>
         <div className="grid-container">
           <div className="ambient">
             {/* TODO bg instead og img? */}
@@ -109,7 +102,7 @@ export default function HeroMovie({ result, showNextMovie, showPrevMovie }) {
           />
           <div className="main-details">
             <h2 className="title">{title}</h2>
-            <div className="align-center">
+            <div className="mt-4 align-center gap-3">
               <span className="release-date">
                 {formatReleaseDate(release_date)}
               </span>
@@ -125,7 +118,7 @@ export default function HeroMovie({ result, showNextMovie, showPrevMovie }) {
               <Genres genres={genres} media={media} shape="chip" />
             </div>
           </div>
-          <div className="main-btns flex">
+          <div className="main-btns flex gap-3">
             <WatchButton
               item={{id, title, media}}
               customStyles="px-7 rounded-2xl"
@@ -147,10 +140,6 @@ export default function HeroMovie({ result, showNextMovie, showPrevMovie }) {
               <Icon svg={<ListPlusIcon />} size="md" />
               Save
             </Button>
-          </div>
-          <div className="director">
-            <p>Directed by</p>
-            <p className="director-name">{getMovieDirector(credits.crew)}</p>
           </div>
           <div className="casts-container">
             <Casts

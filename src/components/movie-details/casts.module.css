@@ -84,8 +84,8 @@
   }
 
   & .heading {
-    margin-bottom: var(--sub-heading-mb);
-    font-size: var(--sub-heading);
+    margin-bottom: var(--sub-heading-margin-bottom);
+    font-size: var(--sub-heading-font-size);
   }
 
   & .castsList {
@@ -119,36 +119,37 @@
 
 /******************************************************************************************/
 .casts[data-variant="drawer"] {
-  & .castsList {
-    gap: 1.75cqw;
-  }
+  --cast-width: 2.75rem;
+  --cast-max-width: 48px;
 
-  & .cast:first-child {
-    /* first item shouldn't have margin */
-    /* `!important` is used to override JS/framer-motion inline style */
-    margin-left: 0 !important;
+  & .cast {
+    width: var(--cast-width);
+    max-width: var(--cast-max-width);
+  
+    &:nth-child(1) {
+      /* first item shouldn't have margin */
+      /* `!important` is used to override JS/framer-motion inline style */
+      margin-left: 0 !important;
+    }
   }
 
   & .castImg {
-    /* width & max-width & outline are same with `button`'s */
-    width: calc(2rem + 1.2cqw);
-    max-width: 48px;
-    outline: 1.75px solid var(--color-neutral-800);
+    outline: 2px solid var(--color-neutral-800);
+    transition: outline-width var(--duration-1);
   }
 
   & .castName {
-    max-width: 50px;
     font-size: 55%;
   }
 
   & button {
-    width: calc(2rem + 1.2cqw);
-    max-width: 48px;
+    width: var(--cast-width);
+    max-width: var(--cast-max-width);
     aspect-ratio: 1;
     background-color: rgb(20 23 26 / 75%);
     backdrop-filter: blur(2px);
     border-radius: var(--full-rounded);
-    outline: 1.75px solid var(--color-neutral-800);
+    outline: 2px solid var(--color-neutral-800);
     cursor: pointer;
     transition: background-color var(--duration-1);
 
@@ -169,8 +170,17 @@
 }
 
 .casts[data-state="open"] {
+  & .castsList {
+    gap: 1rem;
+  }
+
+  & .castImg {
+    outline-width: 1.5px;
+  }
+
   & .castName {
     display: block;
+    text-shadow: 0 0.5px rgb(0 0 0 / 50%), 0 0 rgb(255 255 255 / 50%);
   }
 
   & button {
@@ -180,7 +190,7 @@
 
 /* ============================================================ */
 /* queries */
-@container grid-container (width <= 620px) {
+@container hero-movie (width <= 580px) {
   .casts {
     display: none;
   }

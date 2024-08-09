@@ -5,7 +5,7 @@ import NotFound from "@pages/not-found"
 
 import { SearchProvider, BookingProvider } from "./store"
 
-import HomePage from "@pages/page"
+import HomePage from "@pages/(home)/page"
 import LoginPage from "@pages/login/page"
 import Account from "@pages/account/page"
 import Discover from "@pages/discover/page"

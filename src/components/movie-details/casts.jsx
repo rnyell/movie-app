@@ -29,9 +29,9 @@ export default function Casts({
     }
   }
 
-  const itemsA = {
+  const presentItems = {
     initial: {
-      marginLeft: "min(-4.5cqw, -2rem)",
+      marginLeft: "max(-26px, -1.75rem)",
     },
     opened: {
       marginLeft: 0,
@@ -42,7 +42,7 @@ export default function Casts({
     }
   }
 
-  const itemsB = {
+  const floatItems = {
     initial: {
       opacity: 0.1,
       x: -50,
@@ -58,8 +58,8 @@ export default function Casts({
     closed: {
       opacity: 0,
       scale: 1,
-      x: -100,
-      y: 15,
+      x: -90,
+      y: 5,
       transition: {
         duration: 0.25
       }
@@ -106,7 +106,7 @@ export default function Casts({
                 <motion.li
                   className={classes.cast}
                   key={cast.name}
-                  variants={itemsA}
+                  variants={presentItems}
                   initial="initial"
                   animate={isOpen ? "opened" : "initial"}
                   exit="closed"
@@ -122,7 +122,7 @@ export default function Casts({
                   <motion.li 
                     key={cast.name}
                     className={classes.cast}
-                    variants={itemsB}
+                    variants={floatItems}
                     initial="initial"
                     animate="opened"
                     exit="closed"
@@ -136,7 +136,7 @@ export default function Casts({
             <motion.button
               className="btn"
               onClick={showMoreCasts}
-              variants={itemsA}
+              variants={presentItems}
               initial="initial"
               animate={isOpen ? "opened" : "initial"}
             >

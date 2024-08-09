@@ -30,5 +30,5 @@ export function useMediaDetails(media, id) {
     return () => controller.abort()
   }, [id])
 
-  return {isLoading, mediaDetails}
+  return { mediaDetails, isLoading }
 }

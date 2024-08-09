@@ -87,7 +87,7 @@ export function HomePageSkeleton() {
   )
 }
 
-export function HeroMovieLoadingSkeleton() {
+export function HeroMovieSkeleton() {
   return (
     <div className="hero-movie-skeleton">
 

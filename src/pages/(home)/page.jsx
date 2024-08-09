@@ -2,16 +2,17 @@ import { useEffect, useRef } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { useWindowOffsets } from "@lib/hooks"
 import { ViewTransition } from "@lib/motion"
-// import Page from "@components/layouts/page"
 import HeroSection from "./_components/hero-section"
 import MoviesSection from "./_components/movies-section"
 import SeriesSection from "./_components/series-section"
+import FeaturedSection from "./_components/featured-section"
 
 
 export default function HomePage() {
-  const {windowWidth} = useWindowOffsets()
   const scrollContainer = useRef(null)
   const heroWrapper = useRef(null)
+  const { windowWidth } = useWindowOffsets()
+  const isMobile = windowWidth > 460
   
   useEffect(() => {
     scrollContainer.current = document.querySelector(".main-layout main")
@@ -42,9 +43,16 @@ export default function HomePage() {
   return (
     <ViewTransition>
       <div className="home-page">
-        {windowWidth > 460 ? (
+        {isMobile ? (
           <>
-            <motion.div
+            <HeroSection />
+            <FeaturedSection />
+          </>
+        ) : (
+          <>
+            <HeroSection />
+            <FeaturedSection />
+            {/* <motion.div
               className="hero-wrapper"
               ref={heroWrapper}
               style={{
@@ -69,14 +77,8 @@ export default function HomePage() {
               transition={{duration: 0.25}}
             >
               <SeriesSection />
-            </motion.div>
+            </motion.div> */}
             <div className="bg-effect" />
-          </>
-        ) : (
-          <>
-            <HeroSection />
-            <MoviesSection />
-            <SeriesSection />
           </>
         )}
       </div>

@@ -15,7 +15,7 @@ export default function MoviesSection() {
         <Link to="/onscreen">Explore more <ChevronRightIcon /></Link>
       </header>
       <Snap.Container customStyles="py-4">
-        {moviesState.movies.slice(0, 12).map((movie, idx) => (
+        {moviesState.screen.slice(0, 12).map((movie, idx) => (
           <Snap.Item key={movie.id}>
             <MovieCard
               result={movie}

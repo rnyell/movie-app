@@ -12,10 +12,10 @@ import { Button, Icon } from "@lib/ui/components"
 
 
 export default function WatchButton({ item, ...props }) {
-  const { modalDispatch } = useAppContext()
-  const { session } = useAuth()
   const { id, title, media } = item
   const { text, size, iconSize, customStyles } = props
+  const { modalDispatch } = useAppContext()
+  const { session } = useAuth()
   const navigate = useNavigate()
 
   async function playMovie() {

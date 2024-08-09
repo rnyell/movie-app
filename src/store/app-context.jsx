@@ -87,10 +87,10 @@ function modalReducer(state, action) {
 }
 
 export default function AppProvider({ children }) {
-  const [isInitialLoad, setIsInitialLoad] = useState(true)
+  const isInitialLoad = false
   const [modals, modalDispatch] = useReducer(modalReducer, modalsInit)
 
-  const {data: moviesState, isLoading, error} = useLoader(loadMovies)
+  const { data: moviesState, isLoading, error } = useLoader(loadMovies)
   // const { popular, movies, series, screen } = moviesState
   // const contextValue = { popular, movies, series, screen }
 

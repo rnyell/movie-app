@@ -102,9 +102,9 @@ export async function getComingMovies() {
   const params = {
     page: 1,
     language: "en-US",
-    api_key: import.meta.env.VITE_MAIN_API_KEY
+    api_key: import.meta.env.VITE_MAIN_API_KEY,
   }
-  let data = await request(path, params)
+  const data = await request(path, params)
   const { results } = data
   return results
 }
@@ -117,7 +117,7 @@ export async function getOnScreenMovies() {
     region: "US",
     api_key: import.meta.env.VITE_MAIN_API_KEY
   }
-  let data = await request(path, params)
+  const data = await request(path, params)
   const { results } = data
   return results
 }
@@ -129,9 +129,9 @@ export async function getPopularMovies() {
     page: 1,
     language: "en-US",
     include_adult: false,
-    api_key: import.meta.env.VITE_MAIN_API_KEY
+    api_key: import.meta.env.VITE_MAIN_API_KEY,
   }
-  let data = await request(path, params)
+  const data = await request(path, params)
   const { results } = data
   return results
 }
@@ -149,8 +149,8 @@ export async function getTrendingMovies() {
     without_genres: "16,99,10770",
     api_key: import.meta.env.VITE_MAIN_API_KEY
   }
-  let data = await request(path, params)
-  const {results} = data
+  const data = await request(path, params)
+  const { results } = data
   return results
 }
 
@@ -169,8 +169,8 @@ export async function getTrendingSeries() {
     without_genres: "99,10762,10763,10764,10766,10767",
     api_key: import.meta.env.VITE_MAIN_API_KEY
   }
-  let data = await request(path, params)
-  const {results} = data
+  const data = await request(path, params)
+  const { results } = data
   return results
 }
 
@@ -188,7 +188,7 @@ export async function getAllResults(title = "", lang = "en-US") {
   const data = await request(path, params)
 
   for (let i = 1; i <= data.total_pages; i++) {
-    let data = await request(path, {...params, page: i})
+    const data = await request(path, {...params, page: i})
     results.push(...data.results)
   }
 
@@ -221,6 +221,7 @@ export async function getMediaRuntime(type, mediaId) {
   return data.runtime
 }
 
+// TODO getMovieDetails(id, { appendToResponse: [] })
 export async function getMovieDetails(movieId) {
   const path = `3/movie/${movieId}`
   const params = {

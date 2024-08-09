@@ -1,7 +1,7 @@
-import { StarIcon } from "@heroicons/solid"
 import { getAdditionalDetails } from "@services"
 import { formatRate } from "@services/movie-utils"
 import { useLoader } from "@lib/hooks"
+import { StarIcon } from "@heroicons/solid"
 import {
   IMDBIcon,
   IMDB2Icon,
@@ -22,6 +22,7 @@ export default function Rates({
   color,
   order = "normal",
   starSize = "icon-md",
+  starSvg,
   customStyles,
   ...props
 }) {
@@ -47,7 +48,7 @@ export default function Rates({
           {...props}
         >
           <i className={`icon ${classes.icon} ${starSize}`}>
-            <StarIcon />
+            {starSvg ? starSvg : <StarIcon />}
           </i>
           <span className={classes.number}>{formatRate(rate)}</span>
         </div>

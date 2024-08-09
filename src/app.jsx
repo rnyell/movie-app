@@ -1,5 +1,5 @@
-import React, { StrictMode } from "react"
-import ReactDOM from "react-dom/client"
+import { StrictMode } from "react"
+import { createRoot } from "react-dom/client"
 import { RouterProvider, createBrowserRouter } from "react-router-dom"
 import { routeTree } from "./routes"
 import { AppProvider } from "./store"
@@ -7,13 +7,15 @@ import { AppProvider } from "./store"
 import "./styles.css"
 import "./lib/ui/utilities.css"
 
-
+const shell = document.getElementById("shell")
+const root = createRoot(shell)
 const router = createBrowserRouter(routeTree)
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+const app = (
+  // <StrictMode></StrictMode>
   <AppProvider>
     <RouterProvider router={router} />
   </AppProvider>
-  // <StrictMode>
-  // </StrictMode>
 )
+
+root.render(app)

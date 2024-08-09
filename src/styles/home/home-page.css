@@ -1,5 +1,5 @@
 .home-page {
-  container-name: home-content-container;
+  container-name: home-page;
   container-type: inline-size;
   position: relative;
   isolation: isolate;
@@ -15,10 +15,10 @@
 
   & header {
     display: flex;
-    align-items: center;
 
     & .heading {
       color: var(--color-accent-300);
+      margin-bottom: var(--sub-heading-margin-bottom);
 
       &::selection {
         background-color: var(--color-neutral-100);

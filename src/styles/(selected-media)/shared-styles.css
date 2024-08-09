@@ -60,8 +60,8 @@
     gap: 6.5rem;
 
     & .heading {
-      margin-bottom: var(--sub-heading-mb);
-      font-size: var(--sub-heading);
+      margin-bottom: var(--sub-heading-margin-bottom);
+      font-size: var(--sub-heading-font-size);
     }
   }
 

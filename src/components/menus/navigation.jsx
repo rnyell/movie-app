@@ -335,7 +335,7 @@ function BottomNav() {
               to={link.href}
               key={link.href}
             >
-              <i className="icon icon-lg">{isActive ? link.activeIcon : link.icon}</i>
+              <i className="icon icon-2xl">{isActive ? link.activeIcon : link.icon}</i>
               {isActive && <motion.div className="indicator-dot absolute-x-center" layoutId="dot" />}
             </Link>
           )

@@ -1,13 +1,14 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback } from "react"
 import { useAppContext } from "@src/store"
 import { useWindowOffsets } from "@lib/hooks"
 import HeroMovie from "./hero-movie"
 import Carousel from "./carousel"
-import Swiper from "./@smd/swiper"
+// import Swiper from "./swiper"
+import Slider from "./slider"
 
 
 export default function HeroSection() {
-  const {windowWidth} = useWindowOffsets()
+  const { windowWidth } = useWindowOffsets()
   const { moviesState } = useAppContext()
   const [currIndex, setCurrIndex] = useState(0)
   const popularMoviesCount = moviesState.popular.length
@@ -21,22 +22,23 @@ export default function HeroSection() {
       // }, 5000)
     }
 
-    // return () => clearInterval(interval)
+    return () => clearInterval(interval)
   }, [currIndex])
 
-  function showNextMovie(num) {
+  const showNextMovie = useCallback((num) => {
     setCurrIndex((currIndex + num) % popularMoviesCount)
-  }
+  })
 
-  function showPrevMovie(num) {
+  const showPrevMovie = useCallback((num) => {
     if (currIndex - num === -1) {
       setCurrIndex(popularMoviesCount - 1)
       return
     }
     setCurrIndex(currIndex - num)
-  }
+  })
 
-  const images = moviesState.popular.map((obj) => obj.backdrop_path)
+  const bgImages = moviesState.popular.map(obj => obj.backdrop_path)
+  const posterImages = moviesState.popular.map(obj => obj.poster_path)
 
   return (
     <section className="hero-section">
@@ -48,7 +50,7 @@ export default function HeroSection() {
             showPrevMovie={showPrevMovie}
           />
           <Carousel
-            images={images}
+            images={bgImages}
             currIndex={currIndex}
             setCurrIndex={setCurrIndex}
             showNextMovie={showNextMovie}
@@ -56,10 +58,10 @@ export default function HeroSection() {
           />
         </>
       ) : (
-        <Swiper
-          movie={moviesState.popular}
+        <Slider
+          result={moviesState.popular[currIndex]}
+          posters={posterImages}
           currIndex={currIndex}
-          setCurrIndex={setCurrIndex}
           showNextMovie={showNextMovie}
           showPrevMovie={showPrevMovie}
         />

@@ -5,23 +5,23 @@ import { IMAGES_URL } from "@services"
 
 const visibleMoviesCount = 5
 
-export default function Swiper({ movie }) {
-  const [cloned, reorder] = useState(movie)
+export default function Swiper({ movies }) {
+  const [cloned, reorder] = useState(movies)
 
   return (
     <div className="swiper-container">
       <div className="swiper">
         <AnimatePresence initial={true} mode="popLayout">
-          {cloned.toReversed().slice(-visibleMoviesCount).map((film, idx) => {
+          {cloned.toReversed().slice(-visibleMoviesCount).map((movie, idx) => {
             const isFront = idx === visibleMoviesCount - 1
             return (
               <SwiperCard
-                key={film.id}
+                key={movie.id}
                 cloned={cloned}
                 reorder={reorder}
                 isFront={isFront}
                 idx={idx}
-                poster_path={film.poster_path}
+                poster_path={movie.poster_path}
               />
             )
           })}
@@ -148,3 +148,29 @@ function SwiperCard({
     </motion.div>
   )
 }
+
+// .swiper-container {
+//   grid-column: 1 / 6;
+//   grid-row: 1 / 4;
+//   padding-block: 1rem;
+//   height: 450px;
+//   overflow: hidden;
+//   & .swiper {
+//     width: 100%;
+//     height: 100%;
+//     position: relative;
+//     & .swiper-card {
+//       width: min(280px, 75%);
+//       position: absolute;
+//       top: 0;
+//     }
+//     & .swiper-card-content {
+//       overflow: hidden;
+//       border-radius: 3rem;
+//     }
+//     & .front-card > .swiper-card-content {
+//       box-shadow: 0 6px 2rem 2px rgb(64 36 87 / 40%);
+//       /* box-shadow: 0 5px 2rem 2px #69172b72; */
+//     }
+//   }
+// }
