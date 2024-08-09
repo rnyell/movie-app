@@ -143,7 +143,7 @@
     --color-neutral-900: rgb(var(--rgb-neutral-900));
     --color-neutral-950: rgb(var(--rgb-neutral-950));
   
-    --base-text-color: var(--color-neutral-100);
+    --base-text-color: var(--color-neutral-100); /* 100 or 200 */
     --base-bg-color: var(--color-neutral-950);
     --sidenav-bg: color-mix(in srgb, var(--color-neutral-950), rgb(5, 11, 14));
   }

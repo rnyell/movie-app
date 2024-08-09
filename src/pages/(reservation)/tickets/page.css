@@ -80,3 +80,11 @@
     }
   }
 }
+
+@media (width <= 720px) {
+  .screen-movies {
+    & .movies-container {
+      gap: 1.5rem 1.25rem !important;
+    }
+  }
+}

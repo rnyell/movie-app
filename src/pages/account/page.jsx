@@ -6,6 +6,8 @@ import WatchHistory from "./_components/watch-history"
 import Watchlist from "./_components/watchlist"
 import Lists from "./_components/lists"
 
+import "./page.css"
+
 
 export default function Account() {
   return (

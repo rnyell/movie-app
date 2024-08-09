@@ -3,6 +3,7 @@ import { signInWithGoogle, signInAnonymously } from "@lib/supabase/auth"
 import { Button, Icon } from "@lib/ui/components"
 import { GoogleIcon, DominoMaskIcon } from "@lib/ui/icons"
 
+import "./page.css"
 
 export default function LoginPage() {
   const navigate = useNavigate()

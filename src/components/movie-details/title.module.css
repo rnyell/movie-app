@@ -4,6 +4,7 @@
 
   font-size: var(--font-size);
   /* font-weight: var(--font-weight); */
+  color: rgb(var(--rgb-neutral-100));
 }
 
 .title[data-truncate="true"] {

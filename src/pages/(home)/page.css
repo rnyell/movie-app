@@ -54,16 +54,6 @@
   }
 }
 
-.home-page {
-  & .movies-section {
-
-  }
-
-  & .series-section {
-    
-  }
-}
-
 /* .home-page .bg-effect {
   pointer-events: none;
   user-select: none;

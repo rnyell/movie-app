@@ -1,0 +1,60 @@
+.carousel {
+  --img-width: 10rem;
+  --gap: 1rem;
+
+  position: relative;
+  grid-column: 4 / 5;
+  grid-row: 1 / 4;
+  align-self: center;
+  overflow: hidden;
+  border-radius: 2rem;
+}
+
+.draggable {
+  height: calc((9rem / var(--poster-landscape-ratio) + var(--gap)) * 4);
+}
+
+.slides {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap);
+}
+
+.slide {
+  flex-shrink: 0;
+  width: var(--img-width);
+  min-height: 80px; /* for JS (for what? seems to hacky!) */
+  opacity: 0.375;
+  scale: 0.925;
+  transition: opacity var(--duration-1), scale var(--duration-1);
+  cursor: pointer;
+
+  &[data-view="true"] {
+    opacity: 1;
+    scale: 1;
+    outline: var(--outline-size-3) var(--color-accent-300) solid;
+    outline-offset: 5px;
+    border-radius: 1.5rem;
+  }
+}
+
+.poster {
+  border-radius: 1.5rem;
+}
+
+
+/* queries */
+@container home-page (width <= 1150px) {
+  .carousel {
+    --img-width: 8.25rem;
+    --gap: 0.75rem;
+    grid-column: 5 / 6;
+  }
+}
+
+@container home-page (width <= 900px) {
+  .carousel {
+    display: none;
+  }
+}

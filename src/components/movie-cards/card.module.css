@@ -30,6 +30,7 @@
 /* variant */
 .container[data-variant="common"] {
   /* width is roughly clamp(235px, 55vw, 300px) which is set by JS */
+  width: clamp(235px, 55vw, 300px);
   scroll-margin-left: 5px;
   border-radius: 1.5rem;
   box-shadow: var(--box-shadow-1);

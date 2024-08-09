@@ -39,7 +39,7 @@ export default function PrimaryOverlay({ result, media }) {
           <Overlay.Details>
             <span>{formatReleaseDate(release_date)}</span>
             <Dot />
-            <span>{formatRuntime(runtime)}</span>
+            <span style={{letterSpacing: -0.25}}>{formatRuntime(runtime)}</span>
             <Dot />
             <Rates
               rate={vote_average}

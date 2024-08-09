@@ -30,7 +30,7 @@ export default function RecommendSection() {
         </header>
         <div className="h-90%">
           {isLoading ? <h2>loading</h2> : (
-            <Snap.Container customStyles="h-100%">
+            <Snap.Container>
               {recMovies.map(movie => (
                 <Snap.Item key={movie.id}>
                   <MovieCard result={movie} media="movie" variant="common" />
@@ -46,7 +46,7 @@ export default function RecommendSection() {
         </header>
         <div className="h-100%">
           {isLoading ? <h2>loading</h2> : (
-            <Snap.Container customStyles="h-100%">
+            <Snap.Container>
               {recSeries.map(movie => (
                 <Snap.Item key={movie.id}>
                   <MovieCard result={movie} media="tv" variant="common" />

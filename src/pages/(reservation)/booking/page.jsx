@@ -9,6 +9,8 @@ import { Button, Divider, Icon } from "@lib/ui/components"
 import Seats from "./_components/seats"
 import DateTime from "./_components/date-time"
 
+import "./page.css"
+
 
 export default function Booking() {
   const {ticketDispatch} = useBookingData()

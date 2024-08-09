@@ -3,6 +3,8 @@ import { ViewTransition } from "@lib/motion"
 import Page from "@components/layouts/page"
 import RecommendSection from "./_components/recommend-section"
 
+import "./page.css"
+
 const intro_topics = [
   {
     href: "/search",

@@ -6,6 +6,7 @@ import Carousel from "./carousel"
 // import Swiper from "./swiper"
 import Slider from "./slider"
 
+import "./hero-section.css"
 
 export default function HeroSection() {
   const { windowWidth } = useWindowOffsets()

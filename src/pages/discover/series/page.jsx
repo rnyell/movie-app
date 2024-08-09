@@ -25,7 +25,7 @@ export default function SeriesPage() {
             </i>
           </header>
           <div className="h-90%">
-            <Snap.Container customStyles="h-100%">
+            <Snap.Container>
               {moviesState.series.map(res => (
                 <Snap.Item key={res.id}>
                   <MovieCard
@@ -38,7 +38,7 @@ export default function SeriesPage() {
             </Snap.Container>
           </div>
         </section>
-        {seriesDisplayedGenres.map(genreObj => 
+        {seriesDisplayedGenres.map(genreObj =>
           <section key={genreObj.id}>
             <header className="flex">
               <h3 className="heading">{genreObj.name}</h3>

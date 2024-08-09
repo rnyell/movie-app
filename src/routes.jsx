@@ -18,7 +18,7 @@ import SelectedSeries from "@pages/(selected-media)/selected-series/page"
 import Player from "@pages/player/page"
 import ScreenMovies from "@pages/(reservation)/onscreen/page"
 import Booking from "@pages/(reservation)/booking/page"
-import Tickets from "@pages/(reservation)/tickets/tickets"
+import Tickets from "@pages/(reservation)/tickets/page"
 
 import AuthRoute from "./auth/auth-route"
 

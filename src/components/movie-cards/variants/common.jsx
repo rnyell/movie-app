@@ -17,7 +17,7 @@ export default function CommonCard({ result, media, variant }) {
   const [cardRef, animate] = useAnimate()
   const [cardWidth, setCardWidth] = useState()
   const [cardOverlay, setCardOverlay] = useState(false)
-  const touchWidgetRef = useRef(null)
+  const widgetRef = useRef(null)
   
   const { windowWidth } = useWindowOffsets()
   const { pathname } = useLocation()
@@ -37,7 +37,7 @@ export default function CommonCard({ result, media, variant }) {
     setCardOverlay(true)
 
     if (isTouchDevice) {
-      animate(touchWidgetRef.current, { opacity: 0, y: 13 }, { duration: 0.2 })
+      animate(widgetRef.current, { opacity: 0, y: 13 }, { duration: 0.2 })
     }
   }
 
@@ -45,7 +45,7 @@ export default function CommonCard({ result, media, variant }) {
     setCardOverlay(false)
 
     if (isTouchDevice) {
-      animate(touchWidgetRef.current, { opacity: 1, y: 0 }, { duration: 0.25 })
+      animate(widgetRef.current, { opacity: 1, y: 0 }, { duration: 0.25 })
     }
   }
 
@@ -57,7 +57,6 @@ export default function CommonCard({ result, media, variant }) {
       ref={cardRef}
       style={{width: "clamp(235px, 55vw, 300px)"}}
       whileHover={isScalable && {width: 1.15 * cardWidth}}
-      // TODO: whileHover={isScalable && {scale: 1.2, zIndex: 1000}}
       onHoverStart={() => !isTouchDevice && setCardOverlay(true)}
       onHoverEnd={() => !isTouchDevice && setCardOverlay(false)}
     >
@@ -79,7 +78,7 @@ export default function CommonCard({ result, media, variant }) {
         </Presence>
       </Card.Figure>
       <Card.Body customStyles="absolute bottom-0 z-10 w-100%">
-        <Card.TouchWidget ref={touchWidgetRef} customStyles="align-center">
+        <Card.TouchWidget ref={widgetRef} customStyles="align-center">
           <Title title={title} width="85%" />
           <Button
             variants="solid-blured"

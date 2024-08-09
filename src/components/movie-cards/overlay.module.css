@@ -8,8 +8,6 @@
   backdrop-filter: blur(2px);
 }
 
-/* .header {} */
-
 .details {
   display: flex;
   align-items: flex-start;
@@ -29,15 +27,11 @@
   padding: 3cqw 6cqw;
   justify-content: flex-end;
   font-size: 0.9rem;
-  background-image: linear-gradient(rgb(15 18 20 / 15%), rgb(15 18 20 / 70%) 70%);
+  background-image: linear-gradient(rgb(15 18 20 / 15%), rgb(15 18 20 / 80%) 80%);
 
   & .details {
     color: var(--color-neutral-200);
   }
-
-  /* & .overlay-runtime {
-    letter-spacing: -0.25px;
-  } */
 }
 
 .container[data-variant="secondary"] {

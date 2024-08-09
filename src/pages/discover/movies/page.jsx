@@ -25,7 +25,7 @@ export default function MoviesPage() {
             </i>
           </header>
           <div className="h-90%">
-            <Snap.Container customStyles="h-100%">
+            <Snap.Container>
               {moviesState.popular.map(movie => (
                 <Snap.Item key={movie.id}>
                   <MovieCard

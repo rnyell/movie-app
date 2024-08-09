@@ -6,35 +6,51 @@ import MovieCard from "@components/movie-cards/movie-card"
 
 
 export default function FeaturedSection() {
+  return (
+    <>
+      <MoviesSection />
+      <SeriesSection />
+      <ScreenSection />
+    </>
+  )
+}
+
+
+export function MoviesSection() {
   const { moviesState } = useAppContext()
 
   return (
-    <>
-      <section className="movies-section">
-        <header>
-          <h2 className="heading">Trending Movies</h2>
-          <Link to="/onscreen">Explore more <ChevronRightIcon /></Link>
-        </header>
-        <Snap.Container customStyles="py-4">
-          {moviesState.movies.slice(0, 12).map((movie, idx) => (
-            <Snap.Item key={movie.id}>
-              <MovieCard
-                result={movie}
-                idx={idx}
-                media="movie"
-                variant="common"
-              />
-            </Snap.Item>
-          ))}
-        </Snap.Container>
-      </section>
+    <section className="movies-section">
+      <header>
+        <h2 className="heading">Trending Movies</h2>
+        <Link to="/onscreen">Explore more <ChevronRightIcon /></Link>
+      </header>
+      <Snap.Container>
+        {moviesState.movies.slice(0, 12).map((movie, idx) => (
+          <Snap.Item key={movie.id}>
+            <MovieCard
+              result={movie}
+              idx={idx}
+              media="movie"
+              variant="common"
+            />
+          </Snap.Item>
+        ))}
+      </Snap.Container>
+    </section>
+  )
+}
 
-      <section className="series-section">
+export function SeriesSection() {
+  const { moviesState } = useAppContext()
+
+  return (
+    <section className="series-section">
       <header>
         <h2 className="heading">Trending Series</h2>
         <Link to="/discover/series">Explore more <ChevronRightIcon /></Link>
       </header>
-      <Snap.Container customStyles="py-4">
+      <Snap.Container>
         {moviesState.series.slice(0, 12).map(movie => (
           <Snap.Item key={movie.id}>
             <MovieCard
@@ -44,27 +60,32 @@ export default function FeaturedSection() {
             />
           </Snap.Item>
         ))}
-        </Snap.Container>
-      </section>
+      </Snap.Container>
+    </section>
+  )
+}
 
-      <section className="movies-section">
-        <header>
-          <h2 className="heading">Currently In Theatres</h2>
-          <Link to="/onscreen">Explore more <ChevronRightIcon /></Link>
-        </header>
-        <Snap.Container customStyles="py-4">
-          {moviesState.screen.slice(0, 12).map((movie, idx) => (
-            <Snap.Item key={movie.id}>
-              <MovieCard
-                result={movie}
-                idx={idx}
-                media="movie"
-                variant="screen"
-              />
-            </Snap.Item>
-          ))}
-        </Snap.Container>
-      </section>
-    </>
+export function ScreenSection() {
+  const { moviesState } = useAppContext()
+
+  return (
+    <section className="movies-section">
+      <header>
+        <h2 className="heading">Currently In Theatres</h2>
+        <Link to="/onscreen">Explore more <ChevronRightIcon /></Link>
+      </header>
+      <Snap.Container>
+        {moviesState.screen.slice(0, 12).map((movie, idx) => (
+          <Snap.Item key={movie.id}>
+            <MovieCard
+              result={movie}
+              idx={idx}
+              media="movie"
+              variant="screen"
+            />
+          </Snap.Item>
+        ))}
+      </Snap.Container>
+    </section>
   )
 }

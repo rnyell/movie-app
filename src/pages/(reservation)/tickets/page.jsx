@@ -3,6 +3,7 @@ import { ViewTransition } from "@lib/motion"
 import Page from "@components/layouts/page"
 import EmptyTickets from "./_components/empty-tickets"
 
+import "./page.css"
 
 export default function Tickets() {
   const reservedMovies = readLocalStorage("reserved")

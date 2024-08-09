@@ -1,24 +1,11 @@
 @import "@src/styles/base.css" layer(base);
 
-/* home */
-@import "@src/styles/home/home-page.css" layer;
-@import "@src/styles/home/hero-section.css" layer;
-
-/* login */
-@import "@src/styles/login/login-page.css";
-
-/* discover */
-@import "@src/styles/discover/discover.css" layer;
-
 /* search */
 @import "@src/styles/search/search-page.css" layer;
 @import "@src/styles/search/filterbox.css";
 @import "@src/styles/search/side-filter.css";
 @import "@src/styles/search/sm-filter.css";
 @import "@src/styles/search/pagination.css";
-
-/* account */
-@import "@src/styles/account/account.css" layer;
 
 /* selected-media */
 @import "@src/styles/(selected-media)/selected-movie.css" layer;
@@ -27,13 +14,6 @@
 @import "@src/styles/(selected-media)/network-logo.css";
 @import "@src/styles/(selected-media)/trailers.css";
 @import "@src/styles/(selected-media)/pictures.css";
-
-/* player */
-@import "@src/styles/player/player.css" layer;
-
-/* reservation */
-@import "@src/styles/(reservation)/tickets.css" layer;
-@import "@src/styles/(reservation)/booking-page.css" layer;
 
 /* components */
 @import "@src/styles/_components/modals/details-modal.css";
@@ -44,6 +24,3 @@
 @import "@src/styles/_components/header.css";
 @import "@src/styles/_components/errors.css";
 @import "@src/styles/_components/skeletons.css";
-
-/* media/conrainer queries */
-@import "@src/styles/queries.css";

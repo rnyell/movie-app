@@ -20,6 +20,8 @@ import {
   LanguageIcon
 } from "@heroicons/solid"
 
+import "./page.css"
+
 
 export default function Player() {
   const videoRef = useRef(null)
