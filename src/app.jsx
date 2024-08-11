@@ -4,8 +4,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom"
 import { routeTree } from "./routes"
 import { AppProvider } from "./store"
 
-import "./styles.css"
-import "./lib/ui/utilities.css"
+import "./app.css"
 
 const shell = document.getElementById("shell")
 const root = createRoot(shell)

@@ -1,15 +1,13 @@
-@import "@src/styles/base.css" layer(base);
-
 /* search */
-@import "@src/styles/search/search-page.css" layer;
+@import "@src/styles/search/search-page.css";
 @import "@src/styles/search/filterbox.css";
 @import "@src/styles/search/side-filter.css";
 @import "@src/styles/search/sm-filter.css";
 @import "@src/styles/search/pagination.css";
 
 /* selected-media */
-@import "@src/styles/(selected-media)/selected-movie.css" layer;
-@import "@src/styles/(selected-media)/selected-series.css" layer;
+@import "@src/styles/(selected-media)/selected-movie.css";
+@import "@src/styles/(selected-media)/selected-series.css";
 @import "@src/styles/(selected-media)/shared-styles.css";
 @import "@src/styles/(selected-media)/network-logo.css";
 @import "@src/styles/(selected-media)/trailers.css";
@@ -24,3 +22,5 @@
 @import "@src/styles/_components/header.css";
 @import "@src/styles/_components/errors.css";
 @import "@src/styles/_components/skeletons.css";
+
+@import "@src/styles/main.css";

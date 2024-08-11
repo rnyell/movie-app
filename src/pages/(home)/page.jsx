@@ -11,14 +11,14 @@ export default function HomePage() {
   const scrollContainer = useRef(null)
   const heroWrapper = useRef(null)
   const { windowWidth } = useWindowOffsets()
-  const isMobile = windowWidth > 460
+  const isMobile = windowWidth <= 460
   
   useEffect(() => {
     scrollContainer.current = document.querySelector("#root main")
   }, [windowWidth])
 
   const { scrollY } = useScroll({
-    container: scrollContainer.current,
+    // container: scrollContainer.current, //? why working without `container` ?
     offset: ["start end", "start start"],
   })
 
@@ -49,7 +49,6 @@ export default function HomePage() {
           </>
         ) : (
           <>
-            <HeroSection />
             <motion.div
               className="hero-wrapper"
               ref={heroWrapper}

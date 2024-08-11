@@ -80,7 +80,7 @@ function HamberIcon({setIsOpen, isOpen}) {
 
   return (
     <i
-      className="icon flex-col-center pointer"
+      className="icon flex-col-center cursor-pointer"
       style={iconSrtles}
       onClick={() => setIsOpen(!isOpen)}
     >

@@ -148,7 +148,7 @@ export default function Slider({
           />
         </div>
         <motion.div
-          className="mt-auto pb-12 flex-col gap-2"
+          className="mt-auto py-12 flex-col gap-2"
           variants={detailsVariant}
           initial="initial"
           animate="animate"
@@ -174,7 +174,7 @@ export default function Slider({
             item={{id, media, title}}
             text="Watch"
             size="lg"
-            customStyles="grow-1 rounded-xl"
+            customStyles="grow rounded-xl"
           />
           <Button
             variants="outline-blured"

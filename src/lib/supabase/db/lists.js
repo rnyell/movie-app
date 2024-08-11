@@ -12,7 +12,7 @@ export async function getUserLists() {
     console.error("Failed to fetch user's lists", error)
   }
   
-  console.log("user's lists", data)
+  // console.log("user's lists", data)
   return data
 }
 

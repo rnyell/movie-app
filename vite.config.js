@@ -1,7 +1,7 @@
 import { defineConfig } from "vite"
 import react from "@vitejs/plugin-react"
+import tailwindcss from "tailwindcss"
 import autoprefixer from "autoprefixer"
-
 
 export default defineConfig({
   server: {
@@ -23,19 +23,16 @@ export default defineConfig({
 
   css: {
     devSourcemap: true,
+    transformer: "postcss",
     postcss: {
-      plugins: [autoprefixer]
+      plugins: [tailwindcss, autoprefixer]
     },
   },
 
   build: {
     outDir: "dist",
     assetsDir: "assets",
-    // cssMinify: "lightningcss"
-    // cssMinify: false,
   },
 
-  plugins: [
-    react()
-  ],
+  plugins: [react()],
 })

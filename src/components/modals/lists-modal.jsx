@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react"
-import { useUserContext } from "@src/store"
+// import { useUserContext } from "@src/store"
 import { getUserLists, updateBookmarks, getListsIdsByBookmarkedItem, createList } from "@lib/supabase/db"
 import { PlusIcon, LockClosedIcon, XMarkIcon } from "@heroicons/outline"
 import { Modal, Button, Icon, Divider } from "@lib/ui/components"
 import { useLoader } from "@lib/hooks"
-import { AnimatePresence } from "framer-motion"
 
 
 export default function ListsModal({ item, setClose }) {
@@ -117,13 +116,13 @@ export default function ListsModal({ item, setClose }) {
               type={isCreatingNewList ? "submit" : "button"}
               variants={isCreatingNewList ? "solid-primary" : "outline-lite"}
               size="md"
-              customStyles={isCreatingNewList ? "grow-1" : ""}
+              customStyles={isCreatingNewList ? "grow" : ""}
               onClick={isCreatingNewList ? null : showCreatingList}
             >
               <Icon svg={<PlusIcon />} size="sm" />
               <span>{isCreatingNewList ? "Create & Save" : "Create new list"}</span>
             </Button>
-            {!isCreatingNewList && <Button type="submit" size="md" customStyles="grow-1">Save</Button>}
+            {!isCreatingNewList && <Button type="submit" size="md" customStyles="grow">Save</Button>}
           </div>
         </form>
       </div>

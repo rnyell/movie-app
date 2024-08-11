@@ -37,7 +37,7 @@ export default function WatchButton({ item, ...props }) {
     <Button
       variants="solid-accent"
       size={size}
-      customStyles={`pointer ${customStyles}`}
+      customStyles={`cursor-pointer ${customStyles}`}
       onClick={playMovie}
     >
       <Icon

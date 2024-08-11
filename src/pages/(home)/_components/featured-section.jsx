@@ -74,7 +74,7 @@ export function ScreenSection() {
         <h2 className="heading">Currently In Theatres</h2>
         <Link to="/onscreen">Explore more <ChevronRightIcon /></Link>
       </header>
-      <Snap.Container>
+      <Snap.Container style={{minHeight: 280}}>
         {moviesState.screen.slice(0, 12).map((movie, idx) => (
           <Snap.Item key={movie.id}>
             <MovieCard

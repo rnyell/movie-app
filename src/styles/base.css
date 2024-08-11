@@ -1,7 +1,7 @@
-@layer reset, defaults, typo, global, components;
+@layer reset, defaults, typo, global;
 
 
-@layer components {
+@layer global {
   #root {
     margin-inline: auto;
     max-width: 1750px;
@@ -9,7 +9,7 @@
     position: relative;
     isolation: isolate;
   }
-
+  
   .overlay {
     position: absolute;
     inset: 0;
@@ -17,26 +17,24 @@
     display: flex;
     flex-direction: column;
   }
-
+  
   .btn {
     display: inline-grid;
     place-items: center;
     font-weight: 500;
   }
-
+  
   .icon {
     display: inline-grid;
     place-items: center;
     aspect-ratio: 1 / 1;
-
+  
     & svg {
       min-width: 14px;
       max-width: 36px;
     }
   }
-}
 
-@layer global {
   [data-presence] {
     height: 100%;
   }
@@ -409,94 +407,3 @@
     outline: none;
   }
 }
-
-
-@font-face {
-  font-family: Montserrat;
-  font-weight: 400;
-  font-style: normal;
-  font-display: fallback;
-  src: local("Montserrat"),
-    url("/fonts/Montserrat-400.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: Montserrat;
-  font-weight: 400;
-  font-style: italic;
-  font-display: fallback;
-  src: url("/fonts/Montserrat-400-italic.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: Montserrat;
-  font-weight: 500;
-  font-style: normal;
-  font-display: fallback;
-  src: local("Montserrat"),
-    url("/fonts/Montserrat-500.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: Montserrat;
-  font-weight: 600;
-  font-style: normal;
-  font-display: fallback;
-  src: local("Montserrat"),
-    url("/fonts/Montserrat-600.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: Montserrat;
-  font-weight: 600;
-  font-style: italic;
-  font-display: fallback;
-  src: local("Montserrat"),
-    url("/fonts/Montserrat-600-italic.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: Montserrat;
-  font-weight: 700;
-  font-style: normal;
-  font-display: fallback;
-  src: local("Montserrat"),
-    url("/fonts/Montserrat-700.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: Ubuntu;
-  font-weight: 400;
-  font-style: normal;
-  font-display: fallback;
-  src: local("Ubuntu"),
-    url("/fonts/Ubuntu-400.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: Ubuntu;
-  font-weight: 500;
-  font-style: normal;
-  font-display: fallback;
-  src: local("Ubuntu"),
-    url("/fonts/Ubuntu-500.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: Ubuntu;
-  font-weight: 700;
-  font-style: normal;
-  font-display: fallback;
-  src: local("Ubuntu"),
-    url("/fonts/Ubuntu-700.ttf") format("truetype");
-}
-
-/*-------------------------------------------*/
-/* @font-face {
-  font-family: Hauora;
-  font-weight: 300;
-  font-style: normal;
-  font-display: fallback;
-  src: local("Hauora"),
-    url("/fonts/Hauora-300.woff2") format("woff2");
-} */

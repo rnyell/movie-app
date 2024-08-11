@@ -1,0 +1,267 @@
+@import "./font-face.css";
+@import "./base.css" layer(base);
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* @tailwind variants; */
+
+
+@layer utilities {
+  .box-clamp {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;  /* setting a default line-clamp */
+  }
+
+  .unselectable {
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* .truncate {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  } */
+
+  /* ------------------------------- */
+  /* positioning */
+  .isolated-stack {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .\:\:before-abs {
+    position: relative;
+    &::before {
+      content: "";
+      position: absolute;
+    }
+  }
+
+  .\:\:after-abs {
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+    }
+  }
+
+  .absolute-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+  }
+
+  .absolute-y-center {
+    position: absolute;
+    top: 50%;
+    translate: 0 -50%;
+  }
+
+  .absolute-x-center {
+    position: absolute;
+    left: 50%;
+    translate: -50% 0;
+  }
+
+  .top-20\% {
+    top: 20%;
+  }
+
+  .z-max {
+    z-index: var(--z-max);
+  }
+
+  /* ------------------------------- */
+  /* layout */
+  .grid-center {
+    display: grid;
+    place-items: center;
+  }
+
+  .flex-wrap {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .flex-col-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .align-center {
+    display: flex;
+    align-items: center;
+  }
+
+  .justify-center {
+    display: flex;
+    justify-content: center;
+  }
+
+  .flex-col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .align-center-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .justify-center-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .flex-item {
+    min-width: 0;
+    flex-shrink: 0;
+  }
+
+  /* ------------------------------- */
+  /* box */
+  .w-100\% {
+    width: 100%;
+  }
+
+  .h-90\% {
+    height: 90%;
+  }
+
+  .h-100\% {
+    height: 100%;
+  }
+
+  /* ------------------------------- */
+  /* visual */
+  .rounded-0 {
+    border-radius: 0;
+  }
+
+  .rounded {
+    border-radius: 0.5rem;
+  }
+
+  .rounded-md {
+    border-radius: 0.625rem;
+  }
+
+  .rounded-lg {
+    border-radius: 0.675rem;
+  }
+
+  .rounded-xl {
+    border-radius: 0.735rem;
+  }
+
+  .rounded-2xl {
+    border-radius: 0.875rem;
+  }
+
+  .translate-0 {
+    translate: 0;
+  }
+
+  .-rotate-45 {
+    rotate: z -45deg;
+  }
+
+  .transition-none {
+    transition: none;
+  }
+
+  .bg-blur-5 {
+    background-color: rgb(20 23 25 / 16%);
+    backdrop-filter: blur(5px);
+  }
+
+  /* ------------------------------- */
+  /* svg */
+  .stroke-3 {
+    stroke-width: 1.75;
+  }
+
+  .fill-tomato {
+    fill: tomato;
+  }
+
+  /* ------------------------------- */
+  /* font */
+  .fs-inherit {
+    font-size: inherit;
+  }
+
+  .fs-smaller {
+    font-size: 90%;
+  }
+
+  .fs-larger {
+    font-size: 110%;
+  }
+
+  /* ------------------------------- */
+  /* colors */
+  .color-inherit {
+    color: inherit;
+  }
+
+  .color-neutral-300 {
+    --color: var(--color-neutral-300);
+    color: var(--color);
+  }
+
+  .bg-rgb-800 {
+    background-color: rgb(var(--rgb-neutral-800));
+  }
+
+  /* ------------------------------- */
+  /* sizes */
+  .square-sm {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .square-md {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+
+  .icon-xs svg {
+    width: 0.8rem;
+  }
+
+  .icon-sm svg {
+    width: 1rem;
+  }
+
+  .icon-md svg {
+    width: 1.2rem;
+  }
+
+  .icon-lg svg {
+    width: 1.375rem;
+  }
+
+  .icon-xl svg {
+    width: 1.525rem;
+  }
+
+  .icon-2xl svg {
+    width: 1.725rem;
+  }
+}

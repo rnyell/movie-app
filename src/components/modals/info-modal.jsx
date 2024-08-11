@@ -67,7 +67,7 @@ export default function InfoModal({ result, media, setClose }) {
             <Button
               variants="solid-accent"
               size="lg"
-              customStyles="grow-1 rounded-full"
+              customStyles="grow rounded-full"
               onClick={handleNavigation}
             >
               More Details
