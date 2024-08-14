@@ -2,7 +2,7 @@ import { motion } from "framer-motion"
 import { BarsArrowDownIcon, BarsArrowUpIcon } from "@heroicons/outline"
 import { strCapitalizer } from "@lib/utils"
 import { useSearch } from "@src/store"
-import {  } from "../../../_utils"
+import { sortResults } from "../../../_utils"
 
 const sorts_item = [
   { item: "none", name: "none" },
@@ -14,8 +14,8 @@ const sorts_item = [
 
 
 export default function SortItems({
-  setSearchStateCopy,
-  searchStateCopy,
+  setSearchResults,
+  searchResults,
   setSortIsOpen
 }) {
   const {searchOptions, optionsDispatch} = useSearch()
@@ -23,12 +23,12 @@ export default function SortItems({
   function handleSubmitSorts(e) {
     e.stopPropagation()
     e.preventDefault()
-    const dataForm = new FormData(e.target)
-    const sortby = dataForm.get("sortby")
-    const order = dataForm.get("order")
-    const unsortedResults = searchStateCopy.results
+    const formData = new FormData(e.target)
+    const sortby = formData.get("sortby")
+    const order = formData.get("order")
+    const unsortedResults = searchResults.results
     const sortedResults = sortResults(unsortedResults, sortby, order)
-    setSearchStateCopy({ ...searchStateCopy, results: sortedResults })
+    setSearchResults({ ...searchResults, results: sortedResults })
     optionsDispatch({ type: "set_sortby", sortby })
     optionsDispatch({ type: "set_order", order })
     setSortIsOpen(false)

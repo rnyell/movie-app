@@ -14,7 +14,7 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="login-page flex-col-center h-100%">
+    <main className="login-page flex-col-center h-full">
       <div className="login-box align-center-col">
         <div className="logo-wrapper align-center">
           <img src="/logo.png" />

@@ -8,7 +8,7 @@ import GenresList from "./filters/genres-list"
 import SortDropdown from "./sorts/sort-dropdown"
 
 
-export default function SideFilter({ searchStateCopy, setSearchStateCopy }) {
+export default function SideFilter({ searchResults, setSearchResults }) {
   const {searchState, searchOptions, optionsDispatch} = useSearch()
   const {windowWidth} = useWindowOffsets()
   const portalRef = useRef()
@@ -36,7 +36,7 @@ export default function SideFilter({ searchStateCopy, setSearchStateCopy }) {
     const selectedType = formData.get("type")
     const selectedGenres = formData.getAll("genre")
     const {results, pages} = filteredNSortedResults(initialResults, selectedType, selectedGenres)
-    setSearchStateCopy({results, pages})
+    setSearchResults({results, pages})
     optionsDispatch({ type: "set_type", media: selectedType })
     optionsDispatch({ type: "set_genres", ids: selectedGenres })
   }
@@ -50,8 +50,8 @@ export default function SideFilter({ searchStateCopy, setSearchStateCopy }) {
           {windowWidth >= 620 && portalRef.current && (
             createPortal(
               <SortDropdown
-                searchStateCopy={searchStateCopy}
-                setSearchStateCopy={setSearchStateCopy}
+                searchResults={searchResults}
+                setSearchResults={setSearchResults}
               />,
               portalRef.current
             )

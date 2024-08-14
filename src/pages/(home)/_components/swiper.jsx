@@ -1,176 +1,190 @@
-import { useState } from "react"
-import { motion, useMotionValue, useTransform, AnimatePresence } from "framer-motion"
+import { useRef } from "react"
+import { useNavigate } from "react-router-dom"
+import { motion, AnimatePresence } from "framer-motion"
 import { IMAGES_URL } from "@services"
+import { useMediaDetails } from "@services/hooks"
+import { formatReleaseDate } from "@services/movie-utils"
+import { useAppContext } from "@src/store"
+import { ArrowTopRightOnSquareIcon, ChevronRightIcon, ChevronLeftIcon } from "@heroicons/outline"
+import { ListPlusIcon, IMDB2Icon, RottenTomatoesIcon } from "@lib/ui/icons"
+import { Button, Dot } from "@lib/ui/components"
+import WatchButton from "@components/buttons/watch-btn"
+import { Genres, Rates } from "@components/movie-details"
+import { SwiperSkeleton } from "@components/skeletons"
+
+import classes from "./swiper.module.css"
 
 
-const visibleMoviesCount = 5
-
-export default function Swiper({ movies }) {
-  const [cloned, reorder] = useState(movies)
-
-  return (
-    <div className="swiper-container">
-      <div className="swiper">
-        <AnimatePresence initial={true} mode="popLayout">
-          {cloned.toReversed().slice(-visibleMoviesCount).map((movie, idx) => {
-            const isFront = idx === visibleMoviesCount - 1
-            return (
-              <SwiperCard
-                key={movie.id}
-                cloned={cloned}
-                reorder={reorder}
-                isFront={isFront}
-                idx={idx}
-                poster_path={movie.poster_path}
-              />
-            )
-          })}
-        </AnimatePresence>
-      </div>
-    </div>
-  )
-}
-
-function SwiperCard({
-  cloned,
-  reorder,
-  isFront,
-  idx,
-  poster_path
+export default function Swiper({
+  result,
+  posters,
+  currIndex,
+  showNextMovie,
+  showPrevMovie
 }) {
-  const SCALE_FACTOR = 0.05
-  const OPACITY_FACTOR = 0.175
-  const RIGHT_X_STEPS = 18
-  const RIGHT_X_OFFSET = 42
-  const xTranslate = useMotionValue(0)
-  const scale = useTransform(xTranslate, [-150, 0, 150], [0.75, 1, 0.75])
-  const rotate = useTransform(xTranslate, [-150, 0, 150], [-40, 0, 40], {
-    clamp: false
-  })
+  const media = "movie"
+  const { id } = result
+  const { isLoading, mediaDetails } = useMediaDetails(media, id)
+  const { modalDispatch } = useAppContext()
+  const navigate = useNavigate()
 
-  function doSomeMath(i, factor, length) {
-    return 1 - ((length - i) * factor)
+  const {
+    title,
+    release_date,
+    genres,
+    vote_average: rate,
+  } = mediaDetails
+
+  const backgroundImage = `url("${IMAGES_URL}original${posters[currIndex]}")`
+
+  function handleNextMovie() {
+    showNextMovie(1)
+    prevIndex.current = currIndex
   }
 
-  const variantsFrontCard = {
-    initial: {
-      // x: -50,
-    },
-    animate: {
-      x: 0,
-      scale: 1,
-      opacity: 1
-    },
-    // exit: {
-    //   x: -1500,
-    //   scale: 0.75,
-    //   opacity: 0,
-    //   transition: { duration: 0.2 }
-    // }
+  function handlePrevMovie() {
+    showPrevMovie(1)
+    prevIndex.current = currIndex
   }
 
-  const variantsBackCard = {
-    initial: {
-      scale: 0.5,
-      opacity: 0
-    },
-    animate: i => ({
-      x: 3,
-      scale: doSomeMath(i, SCALE_FACTOR, visibleMoviesCount),
-      opacity: doSomeMath(i, OPACITY_FACTOR, visibleMoviesCount)
+  function onSelectMovie() {
+    navigate(`/movies/${(id)}`)
+  }
+
+  function onSaveMovie() {
+    modalDispatch({
+      type: "save",
+      data: { id, media }
     })
   }
 
-  const frontTransition = {
-    type: "spring",
-    stiffness: 300,
-    damping: 20,
-    mass: 1.2,
-  }
+  /* -------------------------------- */
+  /* animation-related */
+  const prevIndex = useRef(0)
+  const isIncremented = currIndex > prevIndex.current
+  const direction = isIncremented ? 1 : -1
 
-  const backsTransition = {
-    scale: {
-      duration: 0.2,
+  const posterMotion = {
+    initial: direction => ({
+      opacity: 0.1,
+      x: direction * 100,
+    }),
+    animate: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        type: "spring",
+        bounce: 0.275,
+        duration: 0.5,
+        delay: 0.075,
+      }
     },
-    opacity: {
-      duration: 0.4,
-    }
+    exit: direction => ({
+      opacity: 0,
+      x: direction * -120,
+      transition: {
+        duration: 0.375
+      }
+    })
   }
 
-  function handleDragEnd(_, info) {
-    const draggedX = info.offset.x
-    const speedX = info.velocity.x
-    
-    if (draggedX < -100 || speedX < -500) {
-      const frontIdx = cloned.length - 1
-      reorder([
-        cloned[frontIdx],
-        ...cloned.slice(0, frontIdx)
-      ])
-    }
-    if (draggedX > 100 || speedX > 500) {
-      reorder([
-        ...cloned.slice(1, cloned.length),
-        cloned[0]
-      ])
-    }
+  const detailsMotion = {
+    initial: direction => ({
+      opacity: 0.2,
+      x: direction * 75,
+    }),
+    animate: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        type: "spring",
+        duration: 0.375,
+        delay: 0.05,
+      }
+    },
+    exit: direction => ({
+      opacity: 0,
+      x: direction * -90,
+      transition: {
+        duration: 0.25
+      }
+    })
+  }
+  /* -------------------------------- */
+
+  if (isLoading) {
+    return <SwiperSkeleton />
   }
 
   return (
-    <motion.div
-      className={`swiper-card ${isFront ? "front-card" : null}`}
-      style={{
-        x: xTranslate,
-        rotate,
-        right: (idx * RIGHT_X_STEPS) - RIGHT_X_OFFSET,
-        marginRight: isFront ? 10 : null,
-        transformOrigin: "50% 60%",
-        cursor: isFront ? "grab" : "auto",
-      }}
-      drag={isFront ? "x" : false}
-      dragConstraints={{ top: 0, right: 0, bottom: 0, left: 0 }}
-      onDragEnd={handleDragEnd}
-      whileTap={{ cursor: "grabbing" }}
-      custom={idx}
-      variants={isFront ? variantsFrontCard : variantsBackCard}
-      initial="initial"
-      animate="animate"
-      // exit="exit"
-      transition={isFront ? frontTransition : backsTransition}
-    >
-      <motion.div className="swiper-card-content" style={{ scale }}>
-        <img
-          src={`${IMAGES_URL}original${poster_path}`}
-          draggable={false}
-          style={{ userSelect: "none" }}
+    <AnimatePresence initial={false} custom={direction}>
+      <motion.div className={classes.swiper} key={id}>
+        <motion.div
+          className={classes.bgPoster}
+          style={{backgroundImage}}
+          {...posterMotion}
+          custom={direction}
         />
+        <div className="align-center gap-2 ml-auto">
+          <Button
+            variants="solid-secondary"
+            size="square-md"
+            customStyles="rounded-full bg-rgb-800"
+            iconOnly
+            svg={<ChevronLeftIcon />}
+            onClick={handlePrevMovie}
+          />
+          <Button
+            variants="solid-secondary"
+            size="square-md"
+            customStyles="rounded-full bg-rgb-800"
+            iconOnly
+            svg={<ChevronRightIcon />}
+            onClick={handleNextMovie}
+          />
+        </div>
+        <motion.div className="mt-auto py-12 flex-col gap-2" {...detailsMotion} custom={direction}>
+          <Genres genres={genres} media={media} shape="chip" />
+          <h1 className={classes.title}>{title}</h1>
+          <div className="align-center gap-3">
+          <span className={classes.releaseDate}>{formatReleaseDate(release_date)}</span>
+          <Dot scale="1.5" />
+          <Rates
+            rate={rate}
+            variant="star"
+            starSize="icon-xl"
+            starSvg={<IMDB2Icon />}
+            customStyles="fs-larger"
+          />
+          </div>
+        </motion.div>
+        <div className="align-center gap-3">
+          <WatchButton
+            item={{id, media, title}}
+            text="Watch"
+            size="lg"
+            customStyles="grow rounded-xl"
+          />
+          <Button
+            variants="outline-blured"
+            size="square-lg"
+            customStyles="rounded-xl"
+            iconOnly
+            iconSize="lg"
+            svg={<ArrowTopRightOnSquareIcon />}
+            onClick={onSelectMovie}
+          />
+          <Button
+            variants="outline-blured"
+            size="square-lg"
+            customStyles="rounded-xl"
+            iconOnly
+            iconSize="lg"
+            svg={<ListPlusIcon />}
+            onClick={onSaveMovie}
+          />
+        </div>
       </motion.div>
-    </motion.div>
+    </AnimatePresence>
   )
 }
-
-// .swiper-container {
-//   grid-column: 1 / 6;
-//   grid-row: 1 / 4;
-//   padding-block: 1rem;
-//   height: 450px;
-//   overflow: hidden;
-//   & .swiper {
-//     width: 100%;
-//     height: 100%;
-//     position: relative;
-//     & .swiper-card {
-//       width: min(280px, 75%);
-//       position: absolute;
-//       top: 0;
-//     }
-//     & .swiper-card-content {
-//       overflow: hidden;
-//       border-radius: 3rem;
-//     }
-//     & .front-card > .swiper-card-content {
-//       box-shadow: 0 6px 2rem 2px rgb(64 36 87 / 40%);
-//       /* box-shadow: 0 5px 2rem 2px #69172b72; */
-//     }
-//   }
-// }

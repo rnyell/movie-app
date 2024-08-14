@@ -182,7 +182,7 @@ export default function ImageSlider({ images, currIndex, setCurrIndex, setModal 
           >
             {images.map((img, idx) => (
               <motion.figure
-                className="thumb flex-item"
+                className="thumb shrink-0 min-w-0"
                 key={img.file_path}
                 ref={imgRef}
                 animate={currIndex === idx ? "active" : "inactive"}

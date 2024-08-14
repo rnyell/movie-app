@@ -11,7 +11,7 @@ export default function LoginModal({ setClose, message }) {
   }
 
   return (
-    <Modal size="md" customStyles="top-20%" setClose={setClose}>
+    <Modal size="md" customStyles="top-[20%]" setClose={setClose}>
       <div className="login-box align-center-col">
         <Button
           variants="ghost"

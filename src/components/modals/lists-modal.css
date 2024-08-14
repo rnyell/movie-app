@@ -2,11 +2,6 @@
   & form {
     padding: 1.2rem;
     position: relative;
-
-    & > p {
-      margin-bottom: 1.5rem;
-      font-weight: 500;
-    }
     
     & .lists {
       max-height: 360px;
@@ -41,27 +36,11 @@
     }
   }
 
-  & .cta-btns {
-    margin-top: 1.5rem;
-    gap: 8px;
-  }
-
-  & .new-list {
-    gap: 10px;
-
+  & #new-list {
     & > p {
       margin-top: 0.5rem;
       font-size: 0.8rem;
       color: var(--color-neutral-200);
-    }
-
-    & div {
-      gap: 8px;
-      font-size: 0.85rem;
-    }
-
-    & label[for="name"] {
-      flex: 1;
     }
 
     & [type="text"] {

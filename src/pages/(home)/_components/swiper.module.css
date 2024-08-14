@@ -1,7 +1,7 @@
-.slider {
+.swiper {
   margin-top: 1rem;
   padding: 1.25rem;
-  height: 485px;
+  height: 480px;
   grid-column: 1 / 6;
   grid-row: 1 / 4;
   position: relative;

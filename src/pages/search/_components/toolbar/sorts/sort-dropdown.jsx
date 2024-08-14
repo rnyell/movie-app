@@ -5,7 +5,7 @@ import { Presence } from "@lib/motion"
 import SortItems from "./sort-items"
 
 
-export default function SortDropdown({ searchStateCopy, setSearchStateCopy }) {
+export default function SortDropdown({ searchResults, setSearchResults }) {
   const [sortIsOpen, setSortIsOpen] = useState(false)
   const ref = useRef(null)
 
@@ -25,8 +25,8 @@ export default function SortDropdown({ searchStateCopy, setSearchStateCopy }) {
       <i className="icon"><EqualizerIcon /></i>
       <Presence trigger={sortIsOpen}>
         <SortItems
-          searchStateCopy={searchStateCopy}
-          setSearchStateCopy={setSearchStateCopy}
+          searchResults={searchResults}
+          setSearchResults={setSearchResults}
           setSortIsOpen={setSortIsOpen}
         />
       </Presence>

@@ -44,7 +44,6 @@ export default function Modal({
         tabIndex={0}
         onKeyDown={closeModalOnEscape}
         ref={ref}
-        key="modal"
         {...modalMotion}
         transition={modalTransition}
       >

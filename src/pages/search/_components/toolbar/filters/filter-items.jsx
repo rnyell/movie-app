@@ -6,7 +6,7 @@ import TypeList from "./type-list"
 import GenresList from "./genres-list"
 
 
-export default function FilterItems({ setSearchStateCopy, setFilterIsOpen }) {
+export default function FilterItems({ setSearchResults, setFilterIsOpen }) {
   const {searchState, searchOptions, optionsDispatch} = useSearch()
   const initialResults = searchState.results
 
@@ -25,7 +25,7 @@ export default function FilterItems({ setSearchStateCopy, setFilterIsOpen }) {
     const selectedType = formData.get("type")
     const selectedGenres = formData.getAll("genre")
     const {results, pages} = filteredNSortedResults(initialResults, selectedType, selectedGenres)
-    setSearchStateCopy({results, pages})
+    setSearchResults({results, pages})
     optionsDispatch({ type: "set_type", media: selectedType })
     optionsDispatch({ type: "set_genres", ids: selectedGenres })
     setFilterIsOpen(false)

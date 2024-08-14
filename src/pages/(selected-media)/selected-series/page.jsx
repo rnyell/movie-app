@@ -23,10 +23,10 @@ const imgUrlInit = {
 
 
 export default function SelectedSeries() {
-  const {windowWidth} = useWindowOffsets()
-  const {id} = useParams()
   const media = "series"
-  const {mediaDetails, isLoading} = useMediaDetails("tv", id)
+  const { id } = useParams()
+  const { mediaDetails, isLoading } = useMediaDetails("tv", id)
+  const { windowWidth } = useWindowOffsets()
   const [imgUrl, setImgUrl] = useState(imgUrlInit)
 
   const {
@@ -88,7 +88,7 @@ export default function SelectedSeries() {
       <div className="selected-media selected-series">
         <section className="poster-wrapper isolated-stack ::after-abs">
           <div className="bg-poster" style={{backgroundImage: `url(${IMAGES_URL}${imgUrl})`}} />
-          <div className="main-details flex-col w-100%">
+          <div className="main-details flex-col w-full">
             <h1 className="main-title">{name}</h1>
             <div className="details">
               <span className="release-date">{formatReleaseDate(first_air_date)}</span>
@@ -126,7 +126,7 @@ export default function SelectedSeries() {
             <h4 className="heading">Seasons {in_production && <p className="in-production-tag">(Season {seasons.length} is in production)</p>}</h4>
             <div className="seasons flex">
               {seasons.map(season => (
-                <div className="season flex-item" key={season.name}>
+                <div className="season shrink-0 min-w-0" key={season.name}>
                   <img className="season-poster" src={`${IMAGES_URL}w500${season.poster_path}`} />
                   {/* <p className="season-name">{season.name}</p> */}
                 </div>
@@ -186,7 +186,7 @@ export default function SelectedSeries() {
           <div className="related-content">
             <h4 className="heading">More Like This</h4>
             <div className="related-movies">
-              <Snap.Container customStyles="h-100%">
+              <Snap.Container customStyles="h-full">
                 {recommendations.results.slice(0, 9).map(movie => (
                   <Snap.Item key={movie.id}>
                     <MovieCard result={movie} media={media} variant="series" />

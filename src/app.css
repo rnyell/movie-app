@@ -14,13 +14,8 @@
 @import "@src/styles/(selected-media)/pictures.css";
 
 /* components */
-@import "@src/styles/_components/modals/details-modal.css";
-@import "@src/styles/_components/modals/info-modal.css";
-@import "@src/styles/_components/modals/lists-modal.css";
-@import "@src/styles/_components/modals/confirm-modal.css";
 @import "@src/styles/_components/account-dropdown.css";
 @import "@src/styles/_components/header.css";
-@import "@src/styles/_components/errors.css";
-@import "@src/styles/_components/skeletons.css";
+
 
 @import "@src/styles/main.css";

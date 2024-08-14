@@ -2,12 +2,6 @@
   min-height: 100dvh;
   position: relative;
 
-  & section {
-    margin-block: 0;
-    padding-inline: 0;
-    /* reseting styles applied by <MainLayout /> */
-  }
-
   & .poster-wrapper {
     height: 90vh;
   

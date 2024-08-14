@@ -28,7 +28,7 @@ export default function Header({ hasSearchbox = true }) {
     } else {
       setDataset("default sticky")
     }
-  }, [location])
+  }, [pathname])
 
 
   return (
@@ -37,7 +37,7 @@ export default function Header({ hasSearchbox = true }) {
         dataset.includes("animated")) && (
         <HamberIcon setIsOpen={setIsOpen} isOpen={isOpen} />
       )}
-      <div className="search-box-wrapper flex-item">
+      <div className="search-box-wrapper shrink-0 min-w-0">
         <SearchBox dataset={dataset} />
       </div>
       <div className="icons align-center">

@@ -19,7 +19,7 @@ export default function GenreList({ media, genreId }) {
 
   return (
     <div className="h-90%">
-      <Snap.Container customStyles="h-100%">
+      <Snap.Container customStyles="h-full">
         {results.map(result => (
           <Snap.Item key={result.id}>
             <MovieCard

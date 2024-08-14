@@ -1,4 +1,4 @@
-.container {
+.card {
   container-name: movie-card;
   container-type: inline-size;
   position: relative;
@@ -13,7 +13,7 @@
   border-radius: 1.5rem;
 }
 
-.cardPoster {
+.poster {
   user-select: none;
 }
 
@@ -28,14 +28,13 @@
 
 /* ------------------------------------------------------------ */
 /* variant */
-.container[data-variant="common"] {
+.card[data-variant="common"] {
   /* width is roughly clamp(235px, 55vw, 300px) which is set by JS */
-  width: clamp(235px, 55vw, 300px);
   scroll-margin-left: 5px;
   border-radius: 1.5rem;
   box-shadow: var(--box-shadow-1);
 
-  & .cardPoster {
+  & .poster {
     aspect-ratio: 1.675;
   }
 
@@ -51,14 +50,14 @@
 }
 
 /* ------------------------------------------------------------ */
-.container[data-variant="result"] {
+.card[data-variant="result"] {
   & .cardBody {
     pointer-events: none;
   }
 }
 
 /* ------------------------------------------------------------ */
-.container[data-variant="bookmarked"] {
+.card[data-variant="bookmarked"] {
   width: clamp(170px, 40vw, 195px);
 
   & .cardFigure {
@@ -69,13 +68,13 @@
     }
   }
 
-  & .cardPoster {
+  & .poster {
     border-radius: inherit;
   }
 }
 
 /* ------------------------------------------------------------ */
-.container[data-variant="screen"] {
+.card[data-variant="screen"] {
   --radius: 1.2rem;
 
   padding: var(--space-2);
@@ -85,9 +84,9 @@
   box-shadow: 0 3px 1.2rem rgb(11 15 17 / 20%),
     0 2px 0.5rem rgb(11 15 17 / 10%);
 
-  & .cardPoster {
+  & .poster {
     width: 100%;
-    aspect-ratio: var(--poster-landscape-ratio);
+    aspect-ratio: var(--landscape-ratio);
     border-radius: var(--radius);
   }
 
@@ -97,11 +96,11 @@
 }
 
 /* ------------------------------------------------------------ */
-.container[data-variant="played"] {
+.card[data-variant="played"] {
   width: clamp(190px, 50vw, 225px);
 }
 
 /* ------------------------------------------------------------ */
-.container[data-variant="series"] {
+.card[data-variant="series"] {
   width: clamp(190px, 65vw, 315px);
 }

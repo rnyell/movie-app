@@ -1,4 +1,4 @@
-.container {
+.overlay {
   position: absolute;
   inset: 0;
   z-index: var(--z-20);
@@ -23,7 +23,7 @@
 
 /* ------------------------------------------------------------ */
 /* variant */
-.container[data-variant="primary"] {
+.overlay[data-variant="primary"] {
   padding: 3cqw 6cqw;
   justify-content: flex-end;
   font-size: 0.9rem;
@@ -34,7 +34,7 @@
   }
 }
 
-.container[data-variant="secondary"] {
+.overlay[data-variant="secondary"] {
   padding: 1rem;
   background-image: linear-gradient(rgb(11 15 17 / 80%) 10%, rgb(11 15 17 / 35%));
 
@@ -48,7 +48,7 @@
   }
 }
 
-.container[data-variant="series"] {
+.overlay[data-variant="series"] {
   padding: 1rem;
   justify-content: flex-end;
   font-size: 0.85rem;

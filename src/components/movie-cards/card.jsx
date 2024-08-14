@@ -16,7 +16,7 @@ export const Container = forwardRef((props, ref) => {
 
   return (
     <DivElement
-      className={cls(classes, ["container"], customStyles)}
+      className={cls(classes, ["card"], customStyles)}
       data-variant={variant}
       data-screen={isTouchDevice ? "small" : "large"}
       ref={ref}
@@ -40,7 +40,7 @@ export function Figure({
     <DivElement className={cls(classes, ["cardFigure"], customStyles)} {...props}>
       <figure>
         <img
-          className={cls(classes, ["cardPoster"])}
+          className={cls(classes, ["poster"])}
           src={src}
           draggable={false}
         />

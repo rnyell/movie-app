@@ -16,12 +16,13 @@ import SecondaryOverlay from "../overlays/secondary-overlay"
 export default function ResultCard({ result, media, variant }) {
   const { modalDispatch } = useAppContext()
   const { windowWidth } = useWindowOffsets()
+  const isTouchDevice = windowWidth <= 520
+
   const [cardRef, animate] = useAnimate()
   const [cardOverlay, setCardOverlay] = useState(false)
   const title = result.title || result.name
   const releaseDate = result?.release_date || result?.first_air_date
   const is2024 = releaseDate === 2024 ? true : false
-  const isTouchDevice = windowWidth <= 520
 
   useClickOutside(cardRef, handleHoverEnd)
 
@@ -49,7 +50,7 @@ export default function ResultCard({ result, media, variant }) {
       variant={variant}
       ref={cardRef}
       isMotion
-      layout
+      layout="position"
       initial={{opacity: 0.5}}
       animate={{opacity: 1}}
       transition={{duration: 0.2}}
@@ -92,7 +93,7 @@ export default function ResultCard({ result, media, variant }) {
           animate={cardOverlay ? { y: -45, opacity: 0 } : { y: 0, opacity: 1 }}
           transition={{ duration: 0.2 }}
         />
-        <div className="align-center w-100%">
+        <div className="align-center w-full">
           <p className="release-date">{formatReleaseDate(releaseDate)}</p>
           <Icon
             size="lg"

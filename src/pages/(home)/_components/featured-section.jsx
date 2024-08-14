@@ -50,7 +50,7 @@ export function SeriesSection() {
         <h2 className="heading">Trending Series</h2>
         <Link to="/discover/series">Explore more <ChevronRightIcon /></Link>
       </header>
-      <Snap.Container>
+      <Snap.Container customStyles="min-h-60">
         {moviesState.series.slice(0, 12).map(movie => (
           <Snap.Item key={movie.id}>
             <MovieCard
@@ -74,7 +74,7 @@ export function ScreenSection() {
         <h2 className="heading">Currently In Theatres</h2>
         <Link to="/onscreen">Explore more <ChevronRightIcon /></Link>
       </header>
-      <Snap.Container style={{minHeight: 280}}>
+      <Snap.Container customStyles="-mt-2 min-h-72">
         {moviesState.screen.slice(0, 12).map((movie, idx) => (
           <Snap.Item key={movie.id}>
             <MovieCard

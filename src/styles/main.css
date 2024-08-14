@@ -12,7 +12,9 @@
     overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;  /* setting a default line-clamp */
+    box-orient:vertical;
+    -webkit-line-clamp: 3;  /* as a default value */
+    line-clamp: 3;
   }
 
   .unselectable {
@@ -20,33 +22,11 @@
     user-select: none;
   }
 
-  /* .truncate {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  } */
-
   /* ------------------------------- */
   /* positioning */
   .isolated-stack {
     position: relative;
     isolation: isolate;
-  }
-
-  .\:\:before-abs {
-    position: relative;
-    &::before {
-      content: "";
-      position: absolute;
-    }
-  }
-
-  .\:\:after-abs {
-    position: relative;
-    &::after {
-      content: "";
-      position: absolute;
-    }
   }
 
   .absolute-center {
@@ -68,10 +48,6 @@
     translate: -50% 0;
   }
 
-  .top-20\% {
-    top: 20%;
-  }
-
   .z-max {
     z-index: var(--z-max);
   }
@@ -86,6 +62,11 @@
   .flex-wrap {
     display: flex;
     flex-wrap: wrap;
+  }
+
+  .flex-col {
+    display: flex;
+    flex-direction: column;
   }
 
   .flex-center {
@@ -111,11 +92,6 @@
     justify-content: center;
   }
 
-  .flex-col {
-    display: flex;
-    flex-direction: column;
-  }
-
   .align-center-col {
     display: flex;
     flex-direction: column;
@@ -128,27 +104,9 @@
     justify-content: center;
   }
 
-  .flex-item {
-    min-width: 0;
-    flex-shrink: 0;
-  }
-
-  /* ------------------------------- */
-  /* box */
-  .w-100\% {
-    width: 100%;
-  }
-
-  .h-90\% {
-    height: 90%;
-  }
-
-  .h-100\% {
-    height: 100%;
-  }
-
   /* ------------------------------- */
   /* visual */
+  /*~ TODO: config `rounded-n` in the config file */
   .rounded-0 {
     border-radius: 0;
   }
@@ -171,6 +129,18 @@
 
   .rounded-2xl {
     border-radius: 0.875rem;
+  }
+
+  .rounded-3xl {
+    border-radius: 1rem;
+  }
+
+  .rounded-4xl {
+    border-radius: 1.25rem;
+  }
+
+  .rounded-5xl {
+    border-radius: 1.5rem;
   }
 
   .translate-0 {
@@ -206,6 +176,10 @@
     font-size: inherit;
   }
 
+  .fs-sm {
+    font-size: 0.8rem;
+  }
+
   .fs-smaller {
     font-size: 90%;
   }
@@ -230,7 +204,12 @@
   }
 
   /* ------------------------------- */
-  /* sizes */
+  /* sizes */  
+  .h-90\% {
+    height: 90%;
+  }
+
+  /* TODO: add to tw.config.js*/
   .square-sm {
     width: 1rem;
     height: 1rem;

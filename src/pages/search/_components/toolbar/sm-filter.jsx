@@ -5,7 +5,7 @@ import SortDropdown from "./sorts/sort-dropdown"
 import SelectedFiltersBar from "./selected-filter-bar"
 
 
-export default function SmFilter({ searchStateCopy, setSearchStateCopy }) {
+export default function SmFilter({ searchResults, setSearchResults }) {
   const {searchOptions} = useSearch()
 
 
@@ -14,15 +14,15 @@ export default function SmFilter({ searchStateCopy, setSearchStateCopy }) {
       <div className="sm-filter">
         <div className="wrapper">
           <FilterDropdown
-            setSearchStateCopy={setSearchStateCopy}
+            setSearchResults={setSearchResults}
           />
           <SortDropdown
-            searchStateCopy={searchStateCopy}
-            setSearchStateCopy={setSearchStateCopy}
+            searchResults={searchResults}
+            setSearchResults={setSearchResults}
           />
         </div>
       </div>
-      {searchOptions.isFiltered && <SelectedFiltersBar setSearchStateCopy={setSearchStateCopy} />}
+      {searchOptions.isFiltered && <SelectedFiltersBar setSearchResults={setSearchResults} />}
       <Divider space="md" width="almost-fill" />
     </>
   )

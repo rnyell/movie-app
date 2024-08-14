@@ -3,20 +3,23 @@ import { useMediaDetails } from "@services/hooks"
 import { formatRuntime, formatReleaseDate } from "@services/movie-utils"
 import { Dot } from "@lib/ui/components"
 import { Overlay } from ".."
+import { WatchButton, LinkButton, BookmarkButton } from "@components/buttons"
 import { Title, Rates } from "@components/movie-details"
-import WatchButton from "@components/buttons/watch-btn"
-import LinkButton from "@components/buttons/link-btn"
-import BookmarkButton from "@components/buttons/bookmark-btn"
+import { PrimaryOverlaySkeleton } from "@src/components/skeletons"
 
 
 export default function PrimaryOverlay({ result, media }) {
-  const id = result.id
+  const { id } = result
   const linkData = { id, media, blank: true }
   const { mediaDetails, isLoading } = useMediaDetails(media, id)
   const { windowWidth } = useWindowOffsets()
-  const buttonSize = windowWidth >= 460 ? "square-md" : "square-sm"
+  const btnSize = windowWidth >= 460 ? "square-md" : "square-sm"
 
 
+  if (isLoading) {
+    return <PrimaryOverlaySkeleton />
+  }
+  
   switch (media) {
     case "movie": {
       const {
@@ -49,9 +52,14 @@ export default function PrimaryOverlay({ result, media }) {
             />
           </Overlay.Details>
           <Overlay.Actions>
-            <WatchButton item={{id, title, media}} size={buttonSize} iconSize="md" />
-            <LinkButton linkData={linkData} size={buttonSize} iconSize="md" />
-            <BookmarkButton item={{id, media}} variants="solid-blured" size={buttonSize} iconSize="md" />
+            <WatchButton item={{id, title, media}} size={btnSize} iconSize="md" />
+            <LinkButton linkData={linkData} size={btnSize} iconSize="md" />
+            <BookmarkButton
+              item={{id, media}}
+              variants="solid-blured"
+              size={btnSize}
+              iconSize="md"
+            />
           </Overlay.Actions>
         </Overlay.Container>
       )
@@ -94,12 +102,12 @@ export default function PrimaryOverlay({ result, media }) {
             <span>{number_of_seasons} {number_of_seasons > 1 ? "Seasons" : "Season"}</span>
           </Overlay.Details>
           <Overlay.Actions>
-            <WatchButton item={{id, title, media}} size={buttonSize} iconSize="md" />
-            <LinkButton linkData={linkData} size={buttonSize} iconSize="md" />
+            <WatchButton item={{id, title, media}} size={btnSize} iconSize="md" />
+            <LinkButton linkData={linkData} size={btnSize} iconSize="md" />
             <BookmarkButton
               item={{id, media}}
               variants="solid-blured"
-              size={buttonSize}
+              size={btnSize}
               iconSize="md"
             />
           </Overlay.Actions>

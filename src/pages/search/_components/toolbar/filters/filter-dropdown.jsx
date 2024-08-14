@@ -5,7 +5,7 @@ import { Presence } from "@lib/motion"
 import FilterItems from "./filter-items"
 
 
-export default function FilterDropdown({setSearchStateCopy}) {
+export default function FilterDropdown({setSearchResults}) {
   const [filterIsOpen, setFilterIsOpen] = useState(false)
   const ref = useRef(null)
   
@@ -26,7 +26,7 @@ export default function FilterDropdown({setSearchStateCopy}) {
       <i className="icon"><FunnelIcon /></i>
       <Presence trigger={filterIsOpen}>
         <FilterItems 
-          setSearchStateCopy={setSearchStateCopy}
+          setSearchResults={setSearchResults}
           setFilterIsOpen={setFilterIsOpen}
         />
       </Presence>

@@ -56,7 +56,7 @@ export default function Rates({
     }
     case "verbose": {
       if (isLoading) {
-        return <div>loading...</div>
+        return <div className="w-full h-20" />
       }
 
       const variable = [

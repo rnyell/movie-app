@@ -1,0 +1,38 @@
+.movie-details-modal {
+  & .modal-img {
+    & figure {
+      &::before {
+        inset: 0;
+        z-index: var(--z-0);
+        background-image: linear-gradient(transparent, var(--color-neutral-800));
+      }
+    }
+  }
+  
+  & .main-details {
+    color: var(--color-neutral-400);
+  }
+
+  & .release-date {
+    color: var(--color-neutral-300);
+  }
+
+  & .sub-details {
+    font-size: 0.8rem;
+
+    & .heading {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--color-neutral-300);
+    }
+  }
+
+  & .price {
+    padding: 0.5rem 0.75rem;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--color-neutral-400);
+    background-color: var(--color-neutral-700);
+    border-radius: 0.75rem;
+  }
+}

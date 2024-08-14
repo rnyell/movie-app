@@ -6,6 +6,7 @@ import { BookmarkIcon } from "@heroicons/outline"
 import { useLoader } from "@lib/hooks"
 import { Button, Snap } from "@lib/ui/components"
 import { EllipsisVerticalIcon } from "@heroicons/solid"
+import { CardsSkeleton } from "@src/components/skeletons"
 import MovieCard from "@components/movie-cards/movie-card"
 import Section from "./section"
 
@@ -39,7 +40,7 @@ export default function Watchlist() {
       </header>
       <div>
         {isLoading ? (
-          <h2>Loading</h2>
+          <CardsSkeleton cardVariant="bookmark" />
         ) : isEmpty ? (
           <div className="empty-watchlist-msg empty-msg">
             <p>Your watchlist is currently empty.</p>

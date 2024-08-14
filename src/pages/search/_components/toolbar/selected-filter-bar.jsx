@@ -4,7 +4,7 @@ import { useSearch } from "@src/store"
 import { sortResults, filterResults } from "../../_utils"
 
 
-export default function SelectedFiltersBar({ setSearchStateCopy }) {
+export default function SelectedFiltersBar({ setSearchResults }) {
   const {searchState, searchOptions, optionsDispatch} = useSearch()
 
   function handleRemovedFilters({removed, value}) {
@@ -17,7 +17,7 @@ export default function SelectedFiltersBar({ setSearchStateCopy }) {
       const sortby = searchOptions.sorts.sortby
       const order = searchOptions.sorts.order
       const sortedResults = sortResults(results, sortby, order)
-      setSearchStateCopy({results: sortedResults, pages})
+      setSearchResults({results: sortedResults, pages})
     }
 
     if (removed === "genre") {
@@ -29,7 +29,7 @@ export default function SelectedFiltersBar({ setSearchStateCopy }) {
       const sortby = searchOptions.sorts.sortby
       const order = searchOptions.sorts.order
       const sortedResults = sortResults(results, sortby, order)
-      setSearchStateCopy({results: sortedResults, pages})
+      setSearchResults({results: sortedResults, pages})
     }
   }
 

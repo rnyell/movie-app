@@ -21,7 +21,7 @@ export default function SearchBox({ dataset }) {
     } else {
       setUserInput("")
     }
-  }, [location])
+  }, [location.search])
 
   function handleInput({target}) {
     setUserInput(target.value)

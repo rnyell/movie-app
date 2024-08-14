@@ -1,13 +1,34 @@
-@layer reset, defaults, typo, global;
+@layer reset, defaults, typo, global, utils;
 
+@layer utils {
+  .\:\:before-abs {
+    position: relative;
+    &::before {
+      content: "";
+      position: absolute;
+    }
+  }
+
+  .\:\:after-abs {
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+    }
+  }
+}
 
 @layer global {
-  #root {
+  #shell {
     margin-inline: auto;
     max-width: 1750px;
     height: 100%;
     position: relative;
     isolation: isolate;
+  }
+  
+  [data-presence="true"] {
+    /* height: 100%; */
   }
   
   .overlay {
@@ -35,10 +56,6 @@
     }
   }
 
-  [data-presence] {
-    height: 100%;
-  }
-
   .bg-poster {
     width: 100%;
     height: 100%;
@@ -60,10 +77,8 @@
     --space-6: calc(1.5 * var(--base-size));
     --space-7: calc(1.75 * var(--base-size));
     --space-8: calc(2 * var(--base-size));
-    --space-9: calc(2.5 * var(--base-size));
-    --space-10: calc(3 * var(--base-size));
-    --space-11: calc(3.5 * var(--base-size));
-    --space-12: calc(4 * var(--base-size));
+    --space-12: calc(3 * var(--base-size));
+    --space-16: calc(4 * var(--base-size));
     --outline-size-1: 1px;
     --outline-size-2: 0.07525rem;
     --outline-size-3: 2px;
@@ -116,8 +131,9 @@
     --icon-size-6: 1.5rem;
     --icon-size-7: 1.75rem;
     --icon-size-8: 2rem;
-    --poster-landscape-ratio: 1.75;
-    --poster-portrait-ratio: 0.665;
+
+    --landscape-ratio: 1.75;
+    --portrait-ratio: 0.665;
 
     --safe-space-to-scroll-bottom-nav: 90px;
     
@@ -183,9 +199,7 @@
     --color-accent-700: #2e1065;
   }
   
-  /* [data-accent="indigo"] {
-  
-  } */
+  /* [data-accent="indigo"] {} */
 }
 
 @layer typo {
@@ -368,10 +382,10 @@
 
   button {
     text-align: center;
-    font-family: inherit;
     font-size: 100%;
     font-weight: inherit;
     line-height: inherit;
+    font-family: inherit;
     color: inherit;
     background-color: transparent;
     background-image: none;

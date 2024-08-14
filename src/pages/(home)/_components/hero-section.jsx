@@ -3,50 +3,58 @@ import { useAppContext } from "@src/store"
 import { useWindowOffsets } from "@lib/hooks"
 import HeroMovie from "./hero-movie"
 import Carousel from "./carousel"
-// import Swiper from "./swiper"
-import Slider from "./slider"
+import Swiper from "./swiper"
 
-import "./hero-section.css"
+import classes from "./hero.module.css"
 
 export default function HeroSection() {
-  const { windowWidth } = useWindowOffsets()
   const { moviesState } = useAppContext()
+  const { popular: popularMovies } = moviesState
+  const { windowWidth } = useWindowOffsets()
+  const isMobile = windowWidth <= 480
   const [currIndex, setCurrIndex] = useState(0)
-  const popularMoviesCount = moviesState.popular.length
 
   useEffect(() => {
     let interval
+    let delay = 5500
 
-    if (windowWidth > 460) {
-      // interval = setInterval(() => {
-      //   setCurrIndex((currIndex + 1) % popularMoviesCount)
-      // }, 5000)
-    }
+    interval = setInterval(() => {
+      setCurrIndex((currIndex + 1) % popularMovies.length)
+    }, delay)
 
     return () => clearInterval(interval)
   }, [currIndex])
 
   const showNextMovie = useCallback((num) => {
-    setCurrIndex((currIndex + num) % popularMoviesCount)
+    setCurrIndex((currIndex + num) % popularMovies.length)
   })
 
   const showPrevMovie = useCallback((num) => {
     if (currIndex - num === -1) {
-      setCurrIndex(popularMoviesCount - 1)
+      setCurrIndex(popularMovies.length - 1)
       return
     }
     setCurrIndex(currIndex - num)
   })
 
-  const bgImages = moviesState.popular.map(obj => obj.backdrop_path)
-  const posterImages = moviesState.popular.map(obj => obj.poster_path)
+  const bgImages = popularMovies.map(obj => obj.backdrop_path)
+  const posterImages = popularMovies.map(obj => obj.poster_path)
 
   return (
-    <section className="hero-section">
-      {windowWidth > 460 ? (
+    <section className={classes.heroSection}>
+      {isMobile ? (
+        <Swiper
+          result={popularMovies[currIndex]}
+          posters={posterImages}
+          currIndex={currIndex}
+          showNextMovie={showNextMovie}
+          showPrevMovie={showPrevMovie}
+        />
+      ) : (
         <>
           <HeroMovie
-            result={moviesState.popular[currIndex]}
+            result={popularMovies[currIndex]}
+            currIndex={currIndex}
             showNextMovie={showNextMovie}
             showPrevMovie={showPrevMovie}
           />
@@ -58,14 +66,6 @@ export default function HeroSection() {
             showPrevMovie={showPrevMovie}
           />
         </>
-      ) : (
-        <Slider
-          result={moviesState.popular[currIndex]}
-          posters={posterImages}
-          currIndex={currIndex}
-          showNextMovie={showNextMovie}
-          showPrevMovie={showPrevMovie}
-        />
       )}
     </section>
   )

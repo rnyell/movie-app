@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer, useState } from "react"
+import { createContext, useContext, useReducer } from "react"
 
 const SearchContext = createContext()
 
@@ -17,10 +17,10 @@ function searchReducer(state, action) {
   switch (action.type) {
     case "set_search": {
       return {
-        ...state,
         title: action.title,
         results: action.results,
         pages: action.pages,
+        error: false
       }
     }
     case "set_error": {
@@ -96,12 +96,14 @@ export default function SearchProvider({children}) {
   // naming: searchState -> search, searchOptions -> options
 
   return (
-    <SearchContext.Provider value={{
-      searchState,
-      searchDispatch,
-      searchOptions,
-      optionsDispatch
-    }}>
+    <SearchContext.Provider
+      value={{
+        searchState,
+        searchDispatch,
+        searchOptions,
+        optionsDispatch
+      }}
+    >
       {children}
     </SearchContext.Provider>
   )

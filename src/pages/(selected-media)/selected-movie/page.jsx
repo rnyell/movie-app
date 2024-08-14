@@ -77,7 +77,6 @@ export default function SelectedMovie() {
     }
   }
 
-
   if (isLoading) {
     return <SelectedMovieSkeleton />
   }
@@ -87,7 +86,7 @@ export default function SelectedMovie() {
       <div className="selected-media selected-movie">
         <section className="poster-wrapper isolated-stack ::after-abs">
           <div className="bg-poster" style={{backgroundImage: `url(${IMAGES_URL}${imgUrl})`}} />
-          <div className="main-details flex-col w-100%">
+          <div className="main-details flex-col w-full">
             <h1 className="main-title">{title}</h1>
             <div className="details">
               <span className="release-date">{release_date?.slice(0, 4)}</span>
@@ -177,7 +176,7 @@ export default function SelectedMovie() {
           <div className="related-content">
             <h4 className="heading">More Like This</h4>
             <div className="related-movies">
-              <Snap.Container customStyles="h-100%">
+              <Snap.Container customStyles="h-full">
                 {recommendations.results.slice(0, 9).map(movie => (
                   <Snap.Item key={movie.id}>
                     <MovieCard result={movie} media={media} variant="common" />

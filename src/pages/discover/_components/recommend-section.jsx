@@ -1,26 +1,18 @@
-import { useEffect, useState } from "react"
+import { useLoader } from "@lib/hooks"
 import { getRecommendedMovies, getRecommendedSeries } from "@services"
 import { Snap } from "@lib/ui/components"
+import { CardsSkeleton } from "@src/components/skeletons"
 import MovieCard from "@components/movie-cards/movie-card"
 
 
 export default function RecommendSection() {
-  const [recMovies, setRecMovies] = useState(null)
-  const [recSeries, setRecSeries] = useState(null)
-  const [isLoading, setIsLoading] = useState(true)
+  const { data: recMovies, isLoading: isMoviesLoading } = useLoader(
+    () => getRecommendedMovies(872585)
+  )
 
-  useEffect(() => {
-    loadData()
-  }, [])
-
-  async function loadData() {
-    const movies = await getRecommendedMovies(872585)
-    const series = await getRecommendedSeries(1396)
-    setRecMovies(movies)
-    setRecSeries(series)
-    setIsLoading(false)
-  }
-
+  const { data: recSeries, isLoading: isSeriesLoading } = useLoader(
+    () => getRecommendedSeries(1396)
+  )
 
   return (
     <>
@@ -29,7 +21,9 @@ export default function RecommendSection() {
           <h4 className="heading">Recommended Movies</h4>
         </header>
         <div className="h-90%">
-          {isLoading ? <h2>loading</h2> : (
+          {isMoviesLoading ? (
+            <CardsSkeleton cardVariant="common" />
+          ) : (
             <Snap.Container>
               {recMovies.map(movie => (
                 <Snap.Item key={movie.id}>
@@ -44,8 +38,10 @@ export default function RecommendSection() {
         <header>
           <h4 className="heading">Top Series</h4>
         </header>
-        <div className="h-100%">
-          {isLoading ? <h2>loading</h2> : (
+        <div className="h-full">
+          {isSeriesLoading ? (
+            <CardsSkeleton cardVariant="common" />
+          ) : (
             <Snap.Container>
               {recSeries.map(movie => (
                 <Snap.Item key={movie.id}>

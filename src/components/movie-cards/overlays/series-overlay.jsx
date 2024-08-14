@@ -4,6 +4,7 @@ import { Dot } from "@src/lib/ui/components"
 import { Overlay } from ".."
 import { Title, Genres, Overview } from "@components/movie-details"
 import { LinkButton, BookmarkButton } from "@src/components/buttons"
+import { SeriesOverlaySkeleton } from "@src/components/skeletons"
 
 
 export default function SeriesOverlay({ result }) {
@@ -23,6 +24,10 @@ export default function SeriesOverlay({ result }) {
     genres
   } = mediaDetails
 
+
+  if (isLoading) {
+    return <SeriesOverlaySkeleton />
+  }
 
   return (
     <Overlay.Container variant="series">

@@ -1,5 +1,7 @@
 import { request } from "../lib/utils"
 
+const API_KEY = import.meta.env.VITE_MAIN_API_KEY
+
 export const IMAGES_URL = "https://image.tmdb.org/t/p/"
 
 export const MEDIA_TYPES = ["all", "movie", "tv"]
@@ -102,7 +104,7 @@ export async function getComingMovies() {
   const params = {
     page: 1,
     language: "en-US",
-    api_key: import.meta.env.VITE_MAIN_API_KEY,
+    api_key: API_KEY,
   }
   const data = await request(path, params)
   const { results } = data
@@ -115,7 +117,7 @@ export async function getOnScreenMovies() {
     page: 1,
     language: "en-US",
     region: "US",
-    api_key: import.meta.env.VITE_MAIN_API_KEY
+    api_key: API_KEY
   }
   const data = await request(path, params)
   const { results } = data
@@ -129,7 +131,7 @@ export async function getPopularMovies() {
     page: 1,
     language: "en-US",
     include_adult: false,
-    api_key: import.meta.env.VITE_MAIN_API_KEY,
+    api_key: API_KEY,
   }
   const data = await request(path, params)
   const { results } = data
@@ -147,7 +149,7 @@ export async function getTrendingMovies() {
     sort_by: "popularity.desc",
     "vote_count.gte": 200,
     without_genres: "16,99,10770",
-    api_key: import.meta.env.VITE_MAIN_API_KEY
+    api_key: API_KEY
   }
   const data = await request(path, params)
   const { results } = data
@@ -167,7 +169,7 @@ export async function getTrendingSeries() {
     "vote_count.gte": 200,
     include_null_first_air_dates: false,
     without_genres: "99,10762,10763,10764,10766,10767",
-    api_key: import.meta.env.VITE_MAIN_API_KEY
+    api_key: API_KEY
   }
   const data = await request(path, params)
   const { results } = data
@@ -182,7 +184,7 @@ export async function getAllResults(title = "", lang = "en-US") {
   const params = {
     query: formattedTitle,
     language: lang,
-    api_key: import.meta.env.VITE_MAIN_API_KEY
+    api_key: API_KEY
   }
   // this call is to fetch total_pages for getting iterate count
   const data = await request(path, params)
@@ -207,7 +209,7 @@ export async function getMediaByGenre(type, genreId) {
     language: "en-US",
     with_genres: genreId,
     without_genres: `${isAnimation ? "" : "16"},${isTalkShow ? "" : "10767"},99,10762,10763,10764,10766`,
-    api_key: import.meta.env.VITE_MAIN_API_KEY
+    api_key: API_KEY
   }
   const data = await request(path, params)
   const { results } = data
@@ -216,7 +218,7 @@ export async function getMediaByGenre(type, genreId) {
 
 export async function getMediaRuntime(type, mediaId) {
   const path = `3/${type}/${mediaId}`
-  const params = { api_key: import.meta.env.VITE_MAIN_API_KEY }
+  const params = { api_key: API_KEY }
   const data = await request(path, params)
   return data.runtime
 }
@@ -226,7 +228,7 @@ export async function getMovieDetails(movieId) {
   const path = `3/movie/${movieId}`
   const params = {
     append_to_response: "credits,videos,images,recommendations",
-    api_key: import.meta.env.VITE_MAIN_API_KEY
+    api_key: API_KEY
   }
   const data = await request(path, params)
   return data
@@ -236,7 +238,7 @@ export async function getSeriesDetails(seriesId) {
   const path = `3/tv/${seriesId}`
   const params = {
     append_to_response: "credits,videos,images,recommendations,episode_groups",
-    api_key: import.meta.env.VITE_MAIN_API_KEY
+    api_key: API_KEY
   }
   const data = await request(path, params)
   return data
@@ -260,21 +262,21 @@ The Batman 2022 414906
 */
 export async function getRecommendedMovies(movieId) {
   const path = `3/movie/${movieId}/recommendations`
-  const params = { language: "en-US", api_key: import.meta.env.VITE_MAIN_API_KEY }
+  const params = { language: "en-US", api_key: API_KEY }
   const data = await request(path, params)
   return data.results
 }
 
 export async function getRecommendedSeries(seriesId) {
   const path = `3/tv/${seriesId}/recommendations`
-  const params = { language: "en-US", api_key: import.meta.env.VITE_MAIN_API_KEY }
+  const params = { language: "en-US", api_key: API_KEY }
   const data = await request(path, params)
   return data.results
 }
 
 export async function getSimilarMovies(movieId) {
   const path = `3/movie/${movieId}/similar`
-  const params = { language: "en-US", api_key: import.meta.env.VITE_MAIN_API_KEY }
+  const params = { language: "en-US", api_key: API_KEY }
   const data = await request(path, params)
   return data
 }

@@ -1,36 +1,3 @@
-.vpn-error {
-  padding: var(--space-6);
-  background-color: var(--color-neutral-800);
-  box-shadow: 0 4px 1rem rgb(16 21 24 / 50%);
-  border-radius: 1.25rem;
-
-  & .icon {
-    width: 2.25rem;
-    position: absolute;
-    top: -0.25rem;
-    right: -0.25rem;
-    color: var(--color-neutral-400);
-    background-color: var(--color-neutral-950);
-    box-shadow: 0 0 0 6px var(--color-neutral-950);
-    border-radius: 9999px;
-  }
-
-  & p {
-    margin-block-end: 0.5rem;
-    line-height: 1.5;
-
-    & b {
-      font-weight: 700;
-      color: var(--color-accent-400);
-    }
-
-    & u {
-      text-decoration-color: var(--color-accent-300);
-    }
-  }
-}
-
-
 .not-found-result {
   margin-top: 3rem;
   width: 100%;
@@ -59,7 +26,7 @@
       margin-top: var(--space-6);
     }
 
-    & .links {
+    /* & .links {
       margin-top: 1.5rem;
       width: max-content;
       flex-direction: column;
@@ -92,7 +59,7 @@
         text-decoration-color: currentColor;
         background-color: var(--color-neutral-800);
       }
-    }
+    } */
   }
   
   & .gif {

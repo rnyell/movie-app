@@ -8,7 +8,7 @@ import classes from "./overlay.module.css"
 export function Container({ children, variant, customStyles }) {
   return (
     <motion.div
-      className={cls(classes, ["container"], customStyles)}
+      className={cls(classes, ["overlay"], customStyles)}
       data-variant={variant}
       {...overlayMotion}
     >

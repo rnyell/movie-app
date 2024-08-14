@@ -18,7 +18,7 @@ export default function CommonCard({ result, media, variant }) {
   const [cardWidth, setCardWidth] = useState()
   const [cardOverlay, setCardOverlay] = useState(false)
   const widgetRef = useRef(null)
-  
+
   const { windowWidth } = useWindowOffsets()
   const { pathname } = useLocation()
   const isTouchDevice = windowWidth <= 520
@@ -77,7 +77,7 @@ export default function CommonCard({ result, media, variant }) {
           <PrimaryOverlay result={result} media={media} />
         </Presence>
       </Card.Figure>
-      <Card.Body customStyles="absolute bottom-0 z-10 w-100%">
+      <Card.Body customStyles="absolute bottom-0 z-10 w-full">
         <Card.TouchWidget ref={widgetRef} customStyles="align-center">
           <Title title={title} width="85%" />
           <Button

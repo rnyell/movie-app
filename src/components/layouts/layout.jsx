@@ -12,6 +12,7 @@ export default function Layout({ variant }) {
       return (
         <>
           <Outlet />
+          <DisplayedModal />
         </>
       )
     }
@@ -23,7 +24,6 @@ export default function Layout({ variant }) {
             <Header />
             <Valve />
           </main>
-          <DisplayedModal />
         </div>
       )
     }

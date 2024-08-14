@@ -1,4 +1,4 @@
-.hero-section {
+.heroSection {
   padding: var(--space-5) var(--space-7);
   width: 100%;
   display: grid;
@@ -8,34 +8,31 @@
   font-size: 1rem;
 }
 
-.hero-movie {
+.heroMovie {
   grid-column: 1 / 4;
   grid-row: 1 / -1;
 }
 
-.grid-container {
+.gridContainer {
   padding: var(--space-6) var(--space-8);
   width: 100%;
-  aspect-ratio: var(--poster-landscape-ratio);
+  aspect-ratio: var(--landscape-ratio);
   container-name: hero-movie;
   container-type: inline-size;
+  position: relative;
+  isolation: isolate;
+  z-index: var(--z-0);
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(5, 1fr);
 
-  & .main-details {
+  & .details {
     grid-row: 3 / 5;
     grid-column: 1 / 5;
-    padding-block: 1rem 2.25rem;
+    padding-top: 1.5rem;
   }
 
-  & .main-btns {
-    grid-row: 5 / 6;
-    grid-column: 1 / 4;
-    align-self: center;
-  }
-
-  & .casts-container {
+  & .castsContainer {
     width: 100px;
     height: 4rem;
     grid-row: 1 / 2;
@@ -43,47 +40,37 @@
     justify-self: start;
   }
 
-  & .next-prev-btns {
+  & .btns {
     grid-row: 5 / 6;
-    grid-column: -2 / -1;
+    grid-column: 1 / -1;
     align-self: center;
-    justify-self: end;
   }
-}
-
-.grid-container {
-  position: relative;
-  isolation: isolate;
-  z-index: var(--z-0);
 
   & .title {
-    /* font-size: min(50px, 2.675rem) */
-    font-size: 2.675rem;
+    width: 95%;
+    font-size: clamp(18px, 16px + 3cqw, 48px);
     letter-spacing: 1.2px;
-    line-height: 0.9;
+    line-height: 0.95;
     color: rgb(var(--rgb-neutral-50));
   }
-
-  & .release-date {
+  
+  & .releaseDate {
     font-size: 125%;
     font-weight: 500;
     color: rgb(var(--rgb-neutral-100));
   }
-
-  & .next-prev-btns {
-    display: inline-flex;
-    gap: 1.5cqw;
-  }
-}
-
-.grid-container {
-  & .bg-poster {
+  
+  & .bgPoster {
+    position: absolute;
     inset: 0;
-    background-position: 50% 50%;
+    z-index: var(--z-neg10);
+    background-size: cover;
+    background-position: 50% 15%;
+    background-repeat: no-repeat;
     border-radius: 2.75rem;
     /* outline: 1.25px solid rgb(120 77 240 / 15%); */
     box-shadow: 0 2px 0.75rem rgb(19 24 26 / 50%);
-
+  
     &::after {
       content: "";
       position: absolute;
@@ -92,71 +79,64 @@
       border-radius: inherit;
     }
   }
-
+  
   & .ambient {
     position: absolute;
-    z-index: var(--z-neg10);
     inset: -0.65rem;
+    z-index: var(--z-neg10);
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: inherit;
     opacity: 0.6;
     filter: blur(30px) grayscale(30%);
   }
-
-  & .ambient img {
-    width: 100%;
-    height: 100%;
-    object-position: center;
-    border-radius: 2.75rem;
-  }
 }
 
+/* queries */
 @container home-page (width <= 1300px) {
-  .hero-section {
+  .heroSection {
     padding-inline: var(--space-6);
   }
 }
 
 @container home-page (width <= 1150px) {
-  .hero-section {
+  .heroSection {
     grid-template-columns: repeat(5, 1fr);
+    font-size: 0.9rem;
   }
 
-  .hero-movie {
+  .heroMovie {
     grid-column: 1 / 5;
   }
 
-  .grid-container {
+  .gridContainer {
     padding: var(--space-6);
+
+    & .details {
+      padding-top: 0;
+    }
   }
 }
 
 @container home-page (width <= 900px) {
-  .hero-section {
+  .heroSection {
     padding-inline: var(--space-5);
   }
-
-  .hero-movie {
+  
+  /* this is the breakpoint that `<Carousle />` is `display: none` */
+  .heroMovie {
     grid-column: 1 / 6;
-  }
-
-  .grid-container {
-    & .title {
-      font-size: 2.5rem;
-    }
   }
 }
 
 @container hero-movie (width <= 620px) {
-  .grid-container {  
-    & .title {
-      font-size: 2.25rem;
-    }
-
-    & .main-details {
+  .gridContainer {
+    & .details {
       font-size: 0.95rem;
     }
 
-    & .main-details > div,
-    & .main-btns {
+    & .details > div,
+    & .btns {
       /* `important` is used to override the utility-based style */
       gap: 0.5rem !important;
     }
@@ -164,16 +144,16 @@
 }
 
 @container hero-movie (width <= 480px) {
-  .grid-container {
+  .gridContainer {
     & .title {
-      font-size: 1.875rem;
+      font-size: 1.75rem;
     }
   }
 }
 
 @container hero-movie (width <= 440px) {
-  .grid-container {
-    & .main-details {
+  .gridContainer {
+    & .details {
       grid-row: 3 / 5;
       padding-block: 0;
     }

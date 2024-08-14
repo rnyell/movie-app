@@ -1,7 +1,0 @@
-.confirm-modal {
-  & .btns {
-    margin-top: var(--space-8);
-    margin-inline: auto var(--space-2);
-    gap: 1rem;
-  }
-}

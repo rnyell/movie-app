@@ -6,7 +6,7 @@ import { useAppContext } from "@src/store"
 import { useClickOutside, useWindowOffsets } from "@lib/hooks"
 import { EllipsisIcon } from "@lib/ui/icons"
 import { XMarkIcon } from "@heroicons/outline"
-import { PortraitCardLoading } from "@components/skeletons"
+import { CardSkeleton } from "@components/skeletons"
 import { Presence } from "@lib/motion"
 import { Button } from "@lib/ui/components"
 import { Card } from ".."
@@ -26,7 +26,7 @@ export default function BookmarkedCard({ id, media, variant }) {
 
   useClickOutside(cardRef, hideOverlay)
 
-  const { mediaDetails, isLoading } = useMediaDetails(media, id)
+  /**/let { mediaDetails, isLoading } = useMediaDetails(media, id)
 
   if (media === "movie") {
     // `var` used to let (pun!) variables to be accessible outside of `if` cardRef.
@@ -51,18 +51,18 @@ export default function BookmarkedCard({ id, media, variant }) {
     // animate(".title", { y: 0, opacity: 1 }, { duration: 0.2 })
   }
 
-  function d() {
-    modalDispatch({
-      type: "confirm",
-      data: {
-        msg: "Are you sure you want to remove this movie from your watchlist?"
-      }
-    })
-  }
+  // function d() {
+  //   modalDispatch({
+  //     type: "confirm",
+  //     data: {
+  //       msg: "Are you sure you want to remove this movie from your watchlist?"
+  //     }
+  //   })
+  // }
 
 
   if (isLoading) {
-    return <PortraitCardLoading />
+    return <CardSkeleton variant="bookmark" />
   }
 
   return (

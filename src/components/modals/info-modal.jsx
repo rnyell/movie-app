@@ -15,7 +15,7 @@ export default function InfoModal({ result, media, setClose }) {
     backdrop_path,
     release_date,
     vote_average,
-    runtime,
+    // runtime,
     genre_ids,
     overview,
   } = result
@@ -28,10 +28,10 @@ export default function InfoModal({ result, media, setClose }) {
   return (
     <Modal setClose={setClose} size="md">
       <div className="movie-info-modal">
-        <div className="modal-img">
+        <div className="relative">
           <figure>
             <img
-              className="poster w-100% unselectable"
+              className="w-full unselectable rounded-4xl"
               src={`${IMAGES_URL}w500${backdrop_path}`}
               draggable={false}
             />
@@ -43,9 +43,9 @@ export default function InfoModal({ result, media, setClose }) {
             style={{outline: "6px solid var(--color-neutral-800)"}}
           />
         </div>
-        <div className="modal-body flex-col">
-          <h5 className="title">{title}</h5>
-          <div className="details flex">
+        <div className="p-5 flex-col gap-3">
+          <h4>{title}</h4>
+          <div className="flex gap-2 fs-sm">
             {media === "movie" && (
               <>
                 <span className="release-date">{formatReleaseDate(release_date)}</span>
@@ -54,8 +54,8 @@ export default function InfoModal({ result, media, setClose }) {
             )}
             <Genres genres={genre_ids} media={media} customStyles="color-neutral-300" />
           </div>
-          <Overview text={overview} lines={6} customStyles="mt-4" />
-          <div className="btns flex">
+          <Overview text={overview} lines={5} customStyles="mt-4" />
+          <div className="mt-5 flex gap-2">
             <Button
               variants="outline-lite"
               size="lg"

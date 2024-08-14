@@ -7,7 +7,7 @@
 }
 
 .home-page :where(.movies-section, .series-section) {
-  margin-top: var(--space-12);
+  margin-top: var(--space-16);
   padding-inline: var(--space-8);
   position: relative;
   isolation: isolate;

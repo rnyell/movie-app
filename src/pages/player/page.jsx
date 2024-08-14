@@ -63,7 +63,7 @@ export default function Player() {
           </div>
           <div className="bottombar flex-col-center">
             <div className="progressbar" />
-            <div className="action-btns flex-center w-100%">
+            <div className="action-btns flex-center w-full">
               <i className="empty"></i>
               <div className="controls flex">
                 <i className="icon bfw-icon bw-icon">

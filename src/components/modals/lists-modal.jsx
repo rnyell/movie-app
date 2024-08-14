@@ -5,6 +5,9 @@ import { PlusIcon, LockClosedIcon, XMarkIcon } from "@heroicons/outline"
 import { Modal, Button, Icon, Divider } from "@lib/ui/components"
 import { useLoader } from "@lib/hooks"
 
+import "./lists-modal.css"
+import { ListsModalSkeleton } from "../skeletons"
+
 
 export default function ListsModal({ item, setClose }) {
   // const { userState } = useUserContext()
@@ -68,10 +71,6 @@ export default function ListsModal({ item, setClose }) {
   }
 
 
-  if (isLoading || listsLoading) {
-    return null
-  }
-
   return (
     <Modal setClose={setClose} size="sm">
       <div className="lists-modal">
@@ -84,34 +83,40 @@ export default function ListsModal({ item, setClose }) {
             svg={<XMarkIcon />}
             onClick={setClose}
           />
-          <p>Save {item.media === "movie" ? "movie" : "series"} to . . .</p>
+          <p className="mb-6 font-semibold">Save {item.media === "movie" ? "movie" : "series"} to . . .</p>
           <div className="lists flex-col">
-            {lists.map(list => (
-              <label
-                className="align-center"
-                htmlFor={list.id}
-                key={list.id}
-              >
-                <input
-                  type="checkbox"
-                  name="list"
-                  id={list.id}
-                  value={list.id}
-                  defaultChecked={checkedListIds.includes(list.id)}
-                  onChange={() => handleChange(list.id)}
-                />
-                <span>{list.name}</span>
-                {list.is_private ? (
-                  <Icon svg={<LockClosedIcon />} size="sm" customStyles="ml-auto" />
-                ) : (
-                  <div style={{width: 16, height: 16}} />
-                )}
-              </label>
-            ))}
+            {isLoading || listsLoading ? (
+              <ListsModalSkeleton />
+            ) : (
+              <>
+                {lists.map(list => (
+                  <label
+                    className="align-center"
+                    htmlFor={list.id}
+                    key={list.id}
+                  >
+                    <input
+                      type="checkbox"
+                      name="list"
+                      id={list.id}
+                      value={list.id}
+                      defaultChecked={checkedListIds.includes(list.id)}
+                      onChange={() => handleChange(list.id)}
+                    />
+                    <span>{list.name}</span>
+                    {list.is_private ? (
+                      <Icon svg={<LockClosedIcon />} size="sm" customStyles="ml-auto" />
+                    ) : (
+                      <div style={{width: 16, height: 16}} />
+                    )}
+                  </label>
+                ))}
+              </>
+            )}
           </div>
           {isCreatingNewList && <Divider space="md" width="fill" />}
           {isCreatingNewList && <NewList />}
-          <div className="cta-btns flex">
+          <div className="mt-6 flex gap-2">
             <Button
               type={isCreatingNewList ? "submit" : "button"}
               variants={isCreatingNewList ? "solid-primary" : "outline-lite"}
@@ -132,10 +137,10 @@ export default function ListsModal({ item, setClose }) {
 
 function NewList() {
   return (
-    <div className="new-list flex-col">
+    <div id="new-list" className="flex-col gap-2">
       <p>Creating new list . . .</p>
-      <div className="flex">
-        <label htmlFor="list-name">
+      <div className="flex gap-2 text-sm">
+        <label className="grow" htmlFor="list-name">
           <input
             className="new-list-name"
             type="text"

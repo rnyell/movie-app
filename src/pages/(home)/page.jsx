@@ -7,15 +7,16 @@ import FeaturedSection, { MoviesSection, SeriesSection, ScreenSection } from "./
 
 import "./page.css"
 
+
 export default function HomePage() {
+  const { windowWidth } = useWindowOffsets()
+  const isMobile = windowWidth <= 520
   const scrollContainer = useRef(null)
   const heroWrapper = useRef(null)
-  const { windowWidth } = useWindowOffsets()
-  const isMobile = windowWidth <= 460
   
-  useEffect(() => {
-    scrollContainer.current = document.querySelector("#root main")
-  }, [windowWidth])
+  // useEffect(() => {
+  //   scrollContainer.current = document.querySelector("#root main")
+  // }, [windowWidth])
 
   const { scrollY } = useScroll({
     // container: scrollContainer.current, //? why working without `container` ?

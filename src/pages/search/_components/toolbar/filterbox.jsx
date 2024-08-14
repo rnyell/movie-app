@@ -2,7 +2,7 @@ import { useWindowOffsets } from "@lib/hooks"
 import SideFilter from "./side-filter"
 import SmFilter from "./sm-filter"
 
-export default function FilterBox({ searchStateCopy, setSearchStateCopy }) {
+export default function FilterBox({ searchResults, setSearchResults }) {
   const {windowWidth} = useWindowOffsets()
   const isLgScreen = windowWidth >= 620
   const searchParams = new URLSearchParams(location.search)
@@ -12,8 +12,8 @@ export default function FilterBox({ searchStateCopy, setSearchStateCopy }) {
     <>
       {isLgScreen ? (
         <SideFilter
-          searchStateCopy={searchStateCopy}
-          setSearchStateCopy={setSearchStateCopy}
+          searchResults={searchResults}
+          setSearchResults={setSearchResults}
         />
       ) : query !== null ? (
         <>
@@ -21,8 +21,8 @@ export default function FilterBox({ searchStateCopy, setSearchStateCopy }) {
             Results for: <span className="searched-title">{query.replaceAll("-", " ")}</span>
           </h2>
           <SmFilter
-            searchStateCopy={searchStateCopy}
-            setSearchStateCopy={setSearchStateCopy}
+            searchResults={searchResults}
+            setSearchResults={setSearchResults}
           />
         </>
       ) : null}

@@ -106,7 +106,7 @@ function SideNav() {
         <img className="logo" src={logo} draggable={false} />
         {windowWidth > breakpoints.md && <p className="tagline unselectable">{tagline}</p>}
       </div>
-      <div className="relative w-100%">
+      <div className="relative w-full">
         <Divider variant="pale" />
         {isCollapsable && (
         <button className="btn toggle-btn absolute-y-center" onClick={toggleSidenav}>
