@@ -5,12 +5,9 @@ import MovieCard from "./movie-cards/movie-card"
 
 
 export default function GenreList({ media, genreId }) {
-  const { data: results, isLoading, error } = useLoader(loadData)
-
-  async function loadData() {
-    const data = await getMediaByGenre(media, genreId)
-    return data
-  }
+  const { data: results, isLoading } = useLoader(
+    () => getMediaByGenre(media, genreId)
+  )
 
 
   if (isLoading) {

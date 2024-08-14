@@ -56,7 +56,7 @@ export function AppLoading() {
 
 export function HeroMovieSkeleton() {
   return (
-    <div className={`${shimmer} relative h-full bg-gray-700 rounded-5xl`} />
+    <div className={`${shimmer} relative h-full aspect-[var(--landscape-ratio)] bg-gray-700 rounded-5xl`} />
   )
 }
 
@@ -64,7 +64,7 @@ export function SwiperSkeleton() {
   return (
     <div className="h-[480px] mt-4 p-5 col-span-full flex-col relative">
       <div className={`${shimmer} absolute inset-0 rounded-5xl`} />
-      <div className="align-center gap-2 ml-auto">
+      <div className="align-center gap-1.5 ml-auto">
         <div className="size-10 rounded-full bg-gray-800" />
         <div className="size-10 rounded-full bg-gray-800" />
       </div>

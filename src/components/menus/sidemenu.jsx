@@ -7,7 +7,6 @@ import {
   TicketIcon,
   FilmIcon,
   TvIcon,
-  BookmarkIcon,
   Squares2X2Icon,
   Cog6ToothIcon,
   UserCircleIcon,
@@ -48,9 +47,9 @@ export default function SideMenu({ setIsOpen }) {
       />
       <motion.aside
         className="side-menu"
-        initial={{x: "-100%", opacity: 0.65}}
+        initial={{x: "-100%", opacity: 0.75}}
         animate={{x: 0, opacity: 1}}
-        exit={{x: "-100%", opacity: 0.7}}
+        exit={{x: "-100%", opacity: 0.5}}
         transition={{duration: 0.35, type: "spring"}}
       >
         <div className="logo-wrapper align-center">

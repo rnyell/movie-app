@@ -125,7 +125,7 @@ export default function Swiper({
           {...posterMotion}
           custom={direction}
         />
-        <div className="align-center gap-2 ml-auto">
+        <div className="align-center gap-1.5 ml-auto">
           <Button
             variants="solid-secondary"
             size="square-md"

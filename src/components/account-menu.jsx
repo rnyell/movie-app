@@ -6,10 +6,13 @@ import { useClickOutside, useWindowOffsets, useLoader } from "@lib/hooks"
 import { useAuth } from "@src/auth/auth-context"
 import { Presence } from "@lib/motion"
 import {
-    UserCircleIcon,
-    ChevronUpDownIcon,
-    ArrowLeftStartOnRectangleIcon
+  UserCircleIcon,
+  ChevronUpDownIcon,
+  ArrowLeftStartOnRectangleIcon
 } from "@heroicons/outline"
+import { NavLink, tagMotion, tagTransition } from "./menus/navigation"
+
+import "./account-menu.css"
 
 const dropdown_options = [
   { tag: "Account", href: "/account", icon: <UserCircleIcon />  },
@@ -17,13 +20,13 @@ const dropdown_options = [
 ]
 
 
-export default function AccountDropdown({ isCollapsed }) {
+export default function AccountMenu({ isCollapsed = false }) {
   const { session } = useAuth()
-  const [showDropdown, setShowDropdown] = useState(false)
+  const [isOpen, setOpen] = useState(false)
   const ref = useRef(null)
   const navigate = useNavigate()
 
-  useClickOutside(ref, () => setShowDropdown(false))
+  useClickOutside(ref, () => setOpen(false))
   
   const { data: user, isLoading, error } = useLoader(getAuthUser)
 
@@ -31,64 +34,55 @@ export default function AccountDropdown({ isCollapsed }) {
     navigate("/login")
   }
 
-
   if (session) {
     const isAnonymous = session.user?.is_anonymous
     const imgSrc = isAnonymous ? "/avatars/anon.png" : `${user?.user_metadata?.avatar_url}`
     const userName = isAnonymous ? "Anonymous!" : user?.user_metadata?.name?.split(" ")[0]
 
     return (
-      <div
-        className="account-dropdown"
-        ref={ref}
-        onClick={() => setShowDropdown(true)}
-      >
+      <div className="account-menu" ref={ref} onClick={() => setOpen(true)}>
         <div className="user-avatar relative">
           <img src={imgSrc} />
           <span className="user-status absolute rounded-full" />
         </div>
-        {!isCollapsed && (
-          <>
-            <p className="user-name">{userName}</p>
-            <i className="icon icon-md ml-auto">
-              <ChevronUpDownIcon />
-            </i>
-          </>
-        )}
-        <Presence trigger={showDropdown}>
-          <AccountOptions setShowDropdown={setShowDropdown} />
+        <Presence trigger={!isCollapsed}>
+          <motion.p className="user-name" {...tagMotion} transition={tagTransition}>{userName}</motion.p>
+          <i className="icon icon-md ml-auto">
+            <ChevronUpDownIcon />
+          </i>
+        </Presence>
+        <Presence trigger={isOpen}>
+          <AccountMenuOptions setOpen={setOpen} />
         </Presence>
       </div>
     )
   } else {
     return (
-      <button
-        className="link"
+      <NavLink
         type="button"
+        href={null}
+        icon={<UserCircleIcon />}
+        tag="Log In"
+        isCollapsed={isCollapsed}
         data-login
         onClick={handleLogin}
-      >
-        <i className="icon icon-md">
-          <UserCircleIcon />
-        </i>
-        <p className="link-tag">Log In</p>
-      </button>
+      />
     )
   }
 }
 
 
-function AccountOptions({ setShowDropdown }) {
-  const navigate = useNavigate()
-  const {windowWidth} = useWindowOffsets()
+function AccountMenuOptions({ setOpen }) {
+  const { windowWidth } = useWindowOffsets()
   const isDesktop = windowWidth > 520
+  const navigate = useNavigate()
 
   function handleLogout() {
     navigate("/")
     supabase.auth.signOut()
   }
 
-  const variants = {
+  const optionsMotion = {
     initial: {
       opacity: 0.5,
       y: isDesktop ? 25 : -20,
@@ -108,21 +102,22 @@ function AccountOptions({ setShowDropdown }) {
 
   return (
     <motion.ul
-      className="account-dropdown-options flex-col absolute"
+      className="account-menu-options flex-col absolute"
       data-submenu
-      {...variants}
+      {...optionsMotion}
     >
       {dropdown_options.map(opt => {
         const isProfile = opt.tag === "Account"
         const isLogout = opt.tag === "Log Out"
 
-        function handleClick() {
+        function handleClick(e) {
+          e.stopPropagation()
           if (isLogout) {
-            // setShowDropdown(false) //? not working
+            setOpen(false)
             handleLogout()
           } else if (isProfile) {
-            // setShowDropdown(false)
             navigate("/account")
+            setOpen(false)
           }
         }
 

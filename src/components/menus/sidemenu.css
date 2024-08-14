@@ -52,7 +52,7 @@ body:has(.side-menu) {
   }
 
   & .empty-link {
-    margin-top: 3.5rem;
+    margin-top: 3rem;
   }
 
   & .footer {

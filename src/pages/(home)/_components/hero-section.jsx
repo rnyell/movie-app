@@ -16,11 +16,11 @@ export default function HeroSection() {
 
   useEffect(() => {
     let interval
-    let delay = 5500
+    let delay = 5000
 
-    interval = setInterval(() => {
-      setCurrIndex((currIndex + 1) % popularMovies.length)
-    }, delay)
+    // interval = setInterval(() => {
+    //   setCurrIndex((currIndex + 1) % popularMovies.length)
+    // }, delay)
 
     return () => clearInterval(interval)
   }, [currIndex])

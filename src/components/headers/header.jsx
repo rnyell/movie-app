@@ -6,7 +6,9 @@ import { Presence } from "@lib/motion"
 import { Button } from "@lib/ui/components"
 import SearchBox from "./search-box"
 import SideMenu from "../menus/sidemenu"
-import AccountDropdown from "../account-dropdown"
+import AccountMenu from "../account-menu"
+
+import "./header.css"
 
 
 export default function Header({ hasSearchbox = true }) {
@@ -57,7 +59,7 @@ export default function Header({ hasSearchbox = true }) {
           svg={<Cog6ToothIcon />}
           customStyles="rounded-full color-neutral-300"
         /> */}
-        <AccountDropdown />
+        <AccountMenu />
       </div>
       <Presence trigger={isOpen}>
         <SideMenu setIsOpen={setIsOpen} />

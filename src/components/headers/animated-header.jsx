@@ -5,7 +5,7 @@ import SearchBox from "./search-box"
 
 
 export default function AnimatedHeader() {
-  const [ref, animate] = useAnimate()
+  const [scope, animate] = useAnimate()
   const headerRef = useRef(null)
   const searchboxRef = useRef(null)
   const [headerHeight, setHeaderHeight] = useState(0)
@@ -35,10 +35,7 @@ export default function AnimatedHeader() {
 
 
   return (
-    <motion.div
-      className="animated-header"
-      ref={ref}
-    >
+    <motion.div className="animated-header" ref={scope}>
       <motion.div
         ref={headerRef}
         style={{

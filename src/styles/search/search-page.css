@@ -3,7 +3,7 @@
   display: grid;
   /** `minmax(auto, min(35vw, 325px))` this should  equal to <aside>'s width */
   grid-template-columns: minmax(auto, min(35vw, 325px)) 1fr;
-  grid-template-rows: auto auto;
+  grid-template-rows: auto 1fr;
 
   & aside {
     grid-column: 1 / 2;

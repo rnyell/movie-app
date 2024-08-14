@@ -33,18 +33,17 @@ import { CompasIconSolid,
 } from "@lib/ui/icons"
 import logo from "@src/assets/logo.png"
 import { Presence } from "@lib/motion"
-import { Divider, Icon } from "@lib/ui/components"
-import AccountDropdown from "../account-dropdown"
+import { Divider } from "@lib/ui/components"
+import AccountMenu from "../account-menu"
 
 import "./navigation.css"
 
 const lg_links = [
-  { tag: "Home", href: "/", type: "link", icon: <HomeIcon />, activeIcon: <HomeIconSolid /> },
-  { tag: "Discover", href: "/discover", type: "link", icon: <CompasIcon />, activeIcon: <CompasIconSolid /> },
-  { tag: "Movies", href: "/discover/movies", type: "link", icon: <FilmIcon />, activeIcon: <FilmIconSolid /> },
-  { tag: "TV Shows", href: "/discover/series", type: "link", icon: <TvIcon />, activeIcon: <TvIconSolid /> },
-  { tag: "Tickets", href: "/tickets", type: "link", icon: <TicketIcon />, activeIcon: <TicketIconSolid /> },
-  { tag: "Settings", href: null, type: "button", icon: <Cog6ToothIcon />, activeIcon: <Cog6ToothIconSolid /> },
+  { tag: "Home", href: "/", icon: <HomeIcon />, activeIcon: <HomeIconSolid /> },
+  { tag: "Discover", href: "/discover", icon: <CompasIcon />, activeIcon: <CompasIconSolid /> },
+  { tag: "Movies", href: "/discover/movies", icon: <FilmIcon />, activeIcon: <FilmIconSolid /> },
+  { tag: "TV Shows", href: "/discover/series", icon: <TvIcon />, activeIcon: <TvIconSolid /> },
+  { tag: "Tickets", href: "/tickets", icon: <TicketIcon />, activeIcon: <TicketIconSolid /> },
 ]
 
 const sm_links = [
@@ -69,7 +68,29 @@ export default function Navigation() {
   }
 }
 
+/* on sm screen */
+function BottomNav() {
+  const { pathname } = useLocation()
 
+  return (
+    <div className="navigation" data-variant="menu">
+      <nav className="nav-links flex">
+        {sm_links.map(link => (
+          <Link
+            className={`link ${pathname === link.href && "is-active"}`}
+            to={link.href}
+            key={link.href}
+          >
+            <i className="icon icon-2xl">{pathname === link.href ? link.activeIcon : link.icon}</i>
+            {pathname === link.href && <motion.div className="indicator-dot absolute-x-center" layoutId="dot" />}
+          </Link>
+        ))}
+      </nav>
+    </div>
+  )
+}
+
+/* on lg screen */
 function SideNav() {
   const {windowWidth} = useWindowOffsets()
   const isCollapsable = windowWidth < breakpoints.md ? false : true
@@ -124,73 +145,91 @@ function SideNav() {
           <NavLink
             href={link.href}
             tag={link.tag}
-            type={link.type}
             icon={link.icon}
             activeIcon={link.activeIcon}
             isCollapsed={isCollapsed}
             key={link.href}
           />
         )}
-        <AccountDropdown isCollapsed={isCollapsed} />
+        <Divider variant="pale" width="almost-fill" />
+        <SettingsMenu isCollapsed={isCollapsed} />
+        <AccountMenu isCollapsed={isCollapsed} />
       </nav>
     </motion.div>
   )
 }
 
-function NavLink({
+export const tagMotion = {
+  initial: {
+    opacity: 0,
+    x: -10
+  },
+  animate: {
+    opacity: 1,
+    x: 0
+  },
+  exit: {
+    opacity: 0,
+    x: -15
+  },
+}
+
+export const tagTransition = {
+  duration: 0.25
+}
+
+export function NavLink({
   href,
+  type = "link",
   tag,
-  type,
   icon,
   activeIcon,
-  isCollapsed
+  isCollapsed,
+  ...props
 }) {
-  const [showSettings, setShowSettings] = useState(false)
   const location = useLocation()
   const isActive = location.pathname === href
   const Element = type === "link" ? Link : "button"
-  const isSettings = href === null
-  const ref = useRef(null)
-
-  useClickOutside(ref, () => setShowSettings(false))
-
-  function handleShowSettings() {
-    if (!showSettings) {
-      setShowSettings(true)
-    }
-  }
-
 
   return (
-    <>
-      {isSettings && <Divider variant="pale" width="almost-fill" />}
-      <Element
-        className={`link ${isActive ? "is-active" : ""} ${isSettings ? "settings" : ""}`}
-        to={href}
-        onClick={isSettings ? handleShowSettings : null}
-        ref={isSettings ? ref : null}
-      >
-        <i className="icon icon-md">{isActive ? activeIcon : icon}</i>
-        <Presence trigger={!isCollapsed}>
-          <motion.p
-            className="link-tag"
-            initial={{opacity: 0, x: -10}}
-            animate={{opacity: 1, x: 0}}
-            exit={{opacity: 0, x: -15}}
-            transition={{duration: 0.25}}
-          >
-            {tag}
-          </motion.p>
-        </Presence>
-        {isSettings && !isCollapsed && <i className="icon ml-auto"><ChevronDownIcon /></i>}
-        <Presence trigger={showSettings}>
-          <SettingsOptions />
-        </Presence>
-      </Element>
-    </>
+    <Element className={`link ${isActive ? "is-active" : ""}`} to={href} {...props}>
+      <i className="icon icon-md">{isActive ? activeIcon : icon}</i>
+      <Presence trigger={!isCollapsed}>
+        <motion.p className="tag" {...tagMotion} transition={tagTransition}>
+          {tag}
+        </motion.p>
+      </Presence>
+    </Element>
   )
 }
 
+function SettingsMenu({ isCollapsed }) {
+  const [isOpen, setOpen] = useState(false)
+  const ref = useRef(null)
+
+  useClickOutside(ref, () => setOpen(false))
+
+  function handleClick() {
+    if (!isOpen) {
+      setOpen(true)
+    }
+  }
+
+  return (
+    <div className="settings link" ref={ref} onClick={handleClick}>
+      <i className="icon icon-md"><Cog6ToothIcon /></i>
+      <Presence trigger={!isCollapsed}>
+        <motion.p className="tag" {...tagMotion} transition={tagTransition}>
+          Settings
+        </motion.p>
+      </Presence>
+      {!isCollapsed && <i className="icon ml-auto"><ChevronDownIcon /></i>}
+      <Presence trigger={isOpen}>
+        <SettingsOptions />
+      </Presence>
+    </div>
+  )
+}
 
 function SettingsOptions() {
   const [isOpen, setOpen] = useState(false)
@@ -247,12 +286,6 @@ function SettingsOptions() {
 
 function ThemeOptions() {
   const { prefState, prefDispatch } = useThemeContext()
-
-  useEffect(() => {
-    // if (prefState.theme !== "dark") {
-    //   setPrefs({...prefs, theme: "light"})
-    // }
-  }, [])
 
   function handleChange(e) {
     if (!e.target.checked) {
@@ -316,31 +349,5 @@ function ThemeOptions() {
         </div>
       </div>
     </motion.div>
-  )
-}
-
-
-function BottomNav() {
-  const location = useLocation()
-
-  return (
-    <div className="navigation" data-variant="menu">
-      <nav className="nav-links flex">
-        {sm_links.map(link => {
-          const isActive = location.pathname === link.href
-
-          return (
-            <Link
-              className={`link ${isActive && "is-active"}`}
-              to={link.href}
-              key={link.href}
-            >
-              <i className="icon icon-2xl">{isActive ? link.activeIcon : link.icon}</i>
-              {isActive && <motion.div className="indicator-dot absolute-x-center" layoutId="dot" />}
-            </Link>
-          )
-        })}
-      </nav>
-    </div>
   )
 }

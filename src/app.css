@@ -13,9 +13,5 @@
 @import "@src/styles/(selected-media)/trailers.css";
 @import "@src/styles/(selected-media)/pictures.css";
 
-/* components */
-@import "@src/styles/_components/account-dropdown.css";
-@import "@src/styles/_components/header.css";
-
 
 @import "@src/styles/main.css";

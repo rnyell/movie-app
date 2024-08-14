@@ -82,7 +82,7 @@
       overflow: hidden;
       opacity: 0.75;
       border-radius: 1.5rem;
-      box-shadow: var(--box-shadow-1);
+      box-shadow: var(--shadow-1);
     }
 
     & dl {
