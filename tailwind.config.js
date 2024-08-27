@@ -7,6 +7,18 @@ export default {
 
   theme: {
     extend: {
+      // borderRadius: {
+      //   DEFAULT: "0.25rem",
+      //   "none": "0",
+      //   "sm": "0.125rem",
+      //   "lg": "0.5rem",
+      // },
+      transitionProperty: {
+        bg: "background-color"
+      },
+      transitionDuration: {
+        "135": "135ms",
+      },
       keyframes: {
         "shimmer": {
           "100%": {

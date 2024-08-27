@@ -33,7 +33,7 @@
     & button {
       padding: 6.75cqw;
       gap: 0.5rem;
-      background-color: color-mix(in srgb, var(--color-neutral-500) 75%, transparent);
+      background-color: color-mix(var(--color-mode), var(--color-neutral-500) 75%, transparent);
       border-radius: 1rem;
       cursor: pointer;
     }

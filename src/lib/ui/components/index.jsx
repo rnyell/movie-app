@@ -1,15 +1,9 @@
-import * as Snap from "./snap"
 import Modal from "./modal"
+import * as Snap from "./snap"
+import * as Dropdown from "./dropdown"
 import Button from "./button"
 import Icon from "./icon"
-import Divider from "./divider"
 import Dot from "./dot"
+import Divider from "./divider"
 
-export {
-  Snap,
-  Modal,
-  Button,
-  Icon,
-  Divider,
-  Dot
-}
+export { Snap, Dropdown, Modal, Button, Icon, Divider, Dot }

@@ -63,6 +63,23 @@ export const modalBackdropMotion = {
   }
 }
 
+export const dropdownMenuMotion = {
+  // y = 1 | -1
+  initial: (y) => ({
+    opacity: 0.5,
+    y: y * 20,
+  }),
+  animate: {
+    opacity: 1,
+    x: 0,
+    y: 0,
+  },
+  exit: (y) => ({
+    opacity: 0,
+    y: y * 20,
+  }),
+}
+
 export const overlayMotion = {
   initial: {
     opacity: 0,

@@ -10,8 +10,9 @@ export function useAuth() {
 
 
 export default function AuthProvider({ children }) {
-  const [isLoaded, setLoaded] = useState(false)  // without loading state?
   const [session, setSession] = useState(null)
+  const [isLoggedIn, setLogIn] = useState(false)
+  const [isLoaded, setLoaded] = useState(false)  // without loading state?
 
   useEffect(() => {
     initSession()
@@ -31,6 +32,7 @@ export default function AuthProvider({ children }) {
 
       if (event === "SIGNED_OUT") {
         setSession(null)
+        setLogIn(false)
 
         if (location.pathname.includes("/account")) {
           location.pathname = "/"
@@ -60,6 +62,11 @@ export default function AuthProvider({ children }) {
     try {
       const session = await getAuthSession()
       setSession(session)
+      if (session) {
+        setLogIn(true)
+      } else {
+        setLogIn(false)
+      }
     } catch (err) {
       console.error(err)
     } finally {
@@ -67,9 +74,10 @@ export default function AuthProvider({ children }) {
     }
   }
 
+  const contextValue = { session, isLoggedIn, isLoaded }
 
   return (
-    <AuthContext.Provider value={{session, isLoaded}}>
+    <AuthContext.Provider value={contextValue}>
       <UserProvider>
         {children}
       </UserProvider>

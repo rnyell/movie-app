@@ -12,7 +12,8 @@ const userInitial = {
   id: null,
   name: "",
   username: "",
-  avatarUrl: ""
+  avatarUrl: "",
+  isAnonymous: false,
 }
 
 
@@ -29,6 +30,7 @@ export default function UserProvider({ children }) {
 
   async function initUserState() {
     const profile = await getUserProfile()
+    const isAnonymous = session?.user?.is_anonymous
 
     const {
       id,
@@ -36,17 +38,20 @@ export default function UserProvider({ children }) {
       full_name,
       avatar_url,
     } = profile
-  
+
     setUserState({
       id,
       username,
-      name: full_name,
+      fullName: full_name,
       avatarUrl: avatar_url,
+      isAnonymous
     })
   }
 
+  const contextValue = { userState, setUserState }
+
   return (
-    <UserContext.Provider value={{userState, setUserState}}>
+    <UserContext.Provider value={contextValue}>
       {children}
     </UserContext.Provider>
   )

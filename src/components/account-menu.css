@@ -1,55 +1,17 @@
 .account-menu {
-  position: relative;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-
   & .user-avatar {
-    width: 2.25rem;
-    aspect-ratio: 1;
-    flex-shrink: 0;
-    border-radius: var(--full-rounded);
-    outline: 1.5px solid var(--color-neutral-600);
     outline-offset: 2px;
-
-    & img {
-      width: 100%;
-      border-radius: var(--full-rounded);
-    }
-  
-    & .user-status {
-      width: 5.75px;
-      height: 5.75px;
-      bottom: 2px;
-      right: 2px;
-      background-color: greenyellow;
-      outline: 3px solid var(--color-neutral-900);
-    }
   }
 }
 
 /* these styles are similar to <NavLink /> of the `<Sidenav />` */
 [data-variant="sidenav"] .account-menu {
-  margin-block: auto 0.5rem;
-  padding: 0.75rem 1rem;
-  gap: 0.75rem;
   font-weight: 500;
   background-color: var(--color-neutral-900);
-  border-radius: 1rem;
   transition: background-color var(--duration-1) ease-in;
-
-  & .user-name {
-    font-size: min(0.8rem, 15px);
-  }
-
-  &:hover {
-    background-color: var(--color-neutral-700);
-  }
 }
 
 .navigation[data-collapsed="true"] .account-menu {
-  padding: 0.75rem;
-  align-self: center;
   outline: 1.2px solid var(--color-neutral-700);
 
   & .account-menu-options {
@@ -87,18 +49,6 @@
   }
 }
 
-/* ------------------------------------------------------ */
-/* side-menu */
-.side-menu .account-menu {
-  display: none;
-}
-
-/* ------------------------------------------------------ */
-/* small devices -- appears in <Header /> */
-.main-header .account-menu,
-.main-header .link {
-  display: none;
-}
 
 @media (width <= 520px) {
   .main-header .link {
@@ -121,14 +71,8 @@
 
   .main-header .account-menu {
     padding: var(--space-2);
-    display: block;
     border-radius: var(--full-rounded);
     transition: background-color var(--duration-1) ease-in;
-
-    & .user-name,
-    & > .icon {
-      display: none;
-    }
 
     &:hover {
       background-color: var(--color-neutral-600);

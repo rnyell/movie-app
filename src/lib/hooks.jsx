@@ -128,7 +128,7 @@ export function useGeoLocation() {
 }
 
 
-export function useClickOutside(ref, callback) {
+export function useClickOutside(ref, callback, { exceptions = [] } = {}) {
   const element = ref.current
   const callbackRef = useRef(null)
 
@@ -136,9 +136,12 @@ export function useClickOutside(ref, callback) {
     event.stopPropagation()
     const target = event.target
     const isOutside = !element?.contains(target)
-    
+    const isException = exceptions.some(exception => exception.current?.contains(target))
+
     if (isOutside) {
       callbackRef.current(event)
+    } else if (isException) {
+      return
     }
   }
 

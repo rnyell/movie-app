@@ -9,6 +9,6 @@
       "@services/*": ["./src/services/*"],
     }
   },
-  "include": ["**/*.js", "**/*.jsx"],
+  "include": ["**/*.js", "**/*.jsx", ".grave.jsx"],
   "exclude": ["node_modules"]
 }

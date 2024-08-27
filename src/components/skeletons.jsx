@@ -150,7 +150,7 @@ export function CardSkeleton({ variant }) {
     case "common": {
       return (
         <div
-          className={`${shimmer} relative w-[clamp(235px,_55vw,_300px)] shrink-0 bg-gray-800 rounded-3xl`}
+          className={`${shimmer} relative w-[clamp(235px,55vw,300px)] shrink-0 bg-gray-800 rounded-3xl`}
           style={{aspectRatio: "var(--landscape-ratio)"}}
         />
       )
@@ -172,7 +172,7 @@ export function CardSkeleton({ variant }) {
     case "bookmark": {
       return (
         <div
-          className="w-[clamp(170px,_40vw,_195px)] shrink-0 bg-gray-800 rounded-3xl animate-pulse"
+          className="w-[clamp(170px,40vw,195px)] shrink-0 bg-gray-800 rounded-3xl animate-pulse"
           style={{aspectRatio: "var(--portrait-ratio)"}}
         />
       )

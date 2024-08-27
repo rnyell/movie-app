@@ -23,6 +23,13 @@ export async function signInAnonymously() {
   }
 }
 
+export async function logOut() {
+  const { error } = await supabase.auth.signOut()
+  if (error) {
+    console.error(error)
+  }
+}
+
 export async function getAuthSession() {
   const { data, error } = await supabase.auth.getSession()
   const { session } = data

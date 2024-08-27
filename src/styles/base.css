@@ -66,6 +66,10 @@
     background-repeat: no-repeat;
   }
 
+  body:has(.side-menu) {
+    overflow: hidden;
+  }
+
   :root {
     --base-size: 1rem;
 
@@ -99,6 +103,9 @@
     --duration-3: 300ms;
     --shadow-1: 0 3px 1.25rem rgb(11 15 17 / 20%), 0 4px 0.5rem rgb(11 15 17 / 10%);
     /* --shadow-2: 0 20px 25px -5px rgb(0 0 0 / 10%), 0 8px 10px -6px rgb(0 0 0 / 10%); */
+
+    --color-space: in srgb;
+    --color-mode: var(--color-space, in oklab);
 
     --rgb-neutral-0: 246 250 254;
     --rgb-neutral-50: 238 243 247;
@@ -159,7 +166,7 @@
   
     --text-base-color: var(--color-neutral-100); /*? 100 or 200 */
     --bg-base-color: var(--color-neutral-950);
-    --bg-sidenav: color-mix(in srgb, var(--color-neutral-950), rgb(5, 11, 14));
+    --bg-sidenav: color-mix(var(--color-mode), var(--color-neutral-950), rgb(5, 11, 14));
   }
   
   [data-theme="light"] {
@@ -177,7 +184,7 @@
   
     --text-base-color: var(--color-neutral-100);
     --bg-base-color: var(--color-neutral-950);
-    --bg-sidenav: color-mix(in srgb, var(--color-neutral-950), #fefefe);
+    --bg-sidenav: color-mix(var(--color-mode), var(--color-neutral-950), #fefefe);
   }
   
   [data-accent="pink"] {

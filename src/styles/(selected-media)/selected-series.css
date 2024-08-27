@@ -9,7 +9,7 @@
     & .heading {
       font-size: 1rem !important;
       font-weight: 500 !important;
-      color: color-mix(in srgb, var(--color-accent-400) 55%, transparent) !important;
+      color: color-mix(var(--color-mode), var(--color-accent-400) 55%, transparent) !important;
     }
 
     & .creators {
@@ -119,7 +119,7 @@
         /* background-image: linear-gradient(rgb(11 15 17 / 20%) -10%, var(--color-neutral-950) 85%); */
         background-image: linear-gradient(
           transparent,
-          color-mix(in srgb, var(--color-neutral-950) 70%, transparent),
+          color-mix(var(--color-mode), var(--color-neutral-950) 70%, transparent),
           var(--color-neutral-950) 93%
         );
       }

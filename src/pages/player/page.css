@@ -9,7 +9,7 @@
     border-radius: var(--full-rounded);
 
     &:hover {
-      background-color: color-mix(in srgb, var(--color-neutral-200) 40%, transparent);
+      background-color: color-mix(var(--color-mode), var(--color-neutral-200) 40%, transparent);
     }
   }
 

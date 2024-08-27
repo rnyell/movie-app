@@ -36,7 +36,7 @@
 
 .seats {
   --available-seat-color: #ecd6e6;
-  --reserved-seat-color: color-mix(in srgb, var(--color-accent-500), rgb(11 15 17) 55%);
+  --reserved-seat-color: color-mix(var(--color-mode), var(--color-accent-500), rgb(11 15 17) 55%);
   --selected-seat-color: var(--color-accent-400);
   margin-inline: auto;
   padding: 1.5rem 0;
@@ -142,7 +142,7 @@
     
     &.reserved {
       background-color: var(--reserved-seat-color);
-      /* background-color: color-mix(in srgb, rgba(196, 54, 113), transparent 60%); */
+      /* background-color: color-mix(var(--color-mode), rgba(196, 54, 113), transparent 60%); */
     }
   }
   

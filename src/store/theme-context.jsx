@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useReducer } from "react"
-import { useGeoLocation } from "@lib/hooks"
-import { VPNError } from "@components/errors"
+import { useGeoLocation, useWindowOffsets } from "@lib/hooks"
 import { readLocalStorage, writeLocalStorage } from "@lib/utils"
+import { VPNError } from "@components/errors"
 
 const ThemeContext = createContext()
 
@@ -31,8 +31,10 @@ function themeReducer(state, action) {
 
 
 export default function ThemeProvider({ children }) {
-  const [prefState, prefDispatch] = useReducer(themeReducer, initialPreferences)
-  // const {country} = useGeoLocation()
+  const [preferences, prefDispatch] = useReducer(themeReducer, initialPreferences)
+  const { windowWidth } = useWindowOffsets()
+  const isMobile = windowWidth < 520
+  // const { country } = useGeoLocation()
   // const isVPNError = country === "IR"
   const isVPNError = false
 
@@ -48,9 +50,9 @@ export default function ThemeProvider({ children }) {
     if (accent) {
       htmlElement.dataset.accent = accent
     }
-  }, [prefState.theme, prefState.accent])
+  }, [preferences.theme, preferences.accent])
 
-  const contextValue = { prefState, prefDispatch }
+  const contextValue = { preferences, prefDispatch, windowWidth, isMobile }
 
 
   if (isVPNError) {
