@@ -6,42 +6,38 @@ const shimmer = `
   overflow-hidden before:content-[''] before:absolute before:inset-0 before:-translate-x-full before:animate-shimmer before:bg-gradient-to-r before:from-transparent before:via-slate-400/15 before:to-transparent
 `
 
-
 const initialLoadingMotion = {
   initial: {
-    opacity: 1
+    opacity: 1,
   },
   animate: {
     opacity: 1,
     transition: {
-      duration: 0.6
-    }
+      duration: 0.6,
+    },
   },
   exit: {
     opacity: 0.25,
     transition: {
       delay: 1,
       duration: 1,
-    }
-  }
+    },
+  },
 }
 
 const mainLoadingMotion = {
-  initial: {
-
-  },
-  animate: {
-
-  },
-  exit: {
-
-  }
+  initial: {},
+  animate: {},
+  exit: {},
 }
 
 export function InitialLoading() {
   return (
     <motion.div className="h-screen" {...initialLoadingMotion}>
-      <img className="w-full h-full grayscale-[55%] opacity-90" src="/vhs/gl1.gif" />
+      <img
+        className="w-full h-full grayscale-[55%] opacity-90"
+        src="/vhs/gl1.gif"
+      />
     </motion.div>
   )
 }
@@ -56,7 +52,9 @@ export function AppLoading() {
 
 export function HeroMovieSkeleton() {
   return (
-    <div className={`${shimmer} relative h-full aspect-[var(--landscape-ratio)] bg-gray-700 rounded-5xl`} />
+    <div
+      className={`${shimmer} relative h-full aspect-[var(--landscape-ratio)] bg-gray-700 rounded-5xl`}
+    />
   )
 }
 
@@ -70,13 +68,23 @@ export function SwiperSkeleton() {
       </div>
       <div className="mt-auto py-8 space-y-4">
         <div className="align-center gap-6">
-          <div className={`${shimmer} relative w-16 h-8 bg-gray-700/25 rounded-full`} />
-          <div className={`${shimmer} relative w-16 h-8 bg-gray-700/25 rounded-full`} />
+          <div
+            className={`${shimmer} relative w-16 h-8 bg-gray-700/25 rounded-full`}
+          />
+          <div
+            className={`${shimmer} relative w-16 h-8 bg-gray-700/25 rounded-full`}
+          />
         </div>
-        <div className={`${shimmer} relative w-48 h-6 bg-gray-500/75 rounded-4xl`} />
+        <div
+          className={`${shimmer} relative w-48 h-6 bg-gray-500/75 rounded-4xl`}
+        />
         <div className="align-center gap-5">
-          <div className={`${shimmer} relative w-12 h-3 bg-gray-700 rounded-4xl`} />
-          <div className={`${shimmer} relative w-8 h-3 bg-yellow-500/50 rounded-sm`} />
+          <div
+            className={`${shimmer} relative w-12 h-3 bg-gray-700 rounded-4xl`}
+          />
+          <div
+            className={`${shimmer} relative w-8 h-3 bg-yellow-500/50 rounded-sm`}
+          />
         </div>
       </div>
       <div className="my-4 align-center gap-4">
@@ -91,9 +99,13 @@ export function SwiperSkeleton() {
 export function SelectedMovieSkeleton() {
   return (
     <div className="min-h-[90vh] relative flex-col">
-      <div className={`${shimmer} absolute inset-0 bg-gradient-to-bl from-gray-600/50 to-[var(color-neutral-800)]`} />
+      <div
+        className={`${shimmer} absolute inset-0 bg-gradient-to-bl from-gray-600/50 to-[var(color-neutral-800)]`}
+      />
       <div className="mt-auto py-6 px-14 space-y-8">
-        <div className={`${shimmer} relative before:via-slate-300/50 w-48 h-8 bg-gray-400/50 rounded-2xl`} />
+        <div
+          className={`${shimmer} relative before:via-slate-300/50 w-48 h-8 bg-gray-400/50 rounded-2xl`}
+        />
         <div className="!mt-4 align-center gap-6 [&>*]:rounded-xl">
           <div className={`${shimmer} relative w-16 h-6 bg-gray-500/50`} />
           <div className={`${shimmer} relative w-16 h-4 bg-gray-700/25`} />
@@ -150,8 +162,8 @@ export function CardSkeleton({ variant }) {
     case "common": {
       return (
         <div
-          className={`${shimmer} relative w-[clamp(235px,55vw,300px)] shrink-0 bg-gray-800 rounded-3xl`}
-          style={{aspectRatio: "var(--landscape-ratio)"}}
+          className={`${shimmer} relative w-[clamp(245px,65vw,300px)] shrink-0 bg-gray-800 rounded-3xl`}
+          style={{ aspectRatio: "var(--landscape-ratio)" }}
         />
       )
     }
@@ -160,11 +172,15 @@ export function CardSkeleton({ variant }) {
         <div className="space-y-2">
           <div
             className={`${shimmer} relative w-full bg-gray-800 rounded-3xl`}
-            style={{aspectRatio: "var(--portrait-ratio)"}}
+            style={{ aspectRatio: "var(--portrait-ratio)" }}
           />
           <div className="align-center-col gap-2">
-            <div className={`${shimmer} relative w-[95px] h-3 bg-gray-700 rounded-3xl`} />
-            <div className={`${shimmer} relative w-10 h-2 bg-gray-800 rounded-3xl`} />
+            <div
+              className={`${shimmer} relative w-[95px] h-3 bg-gray-700 rounded-3xl`}
+            />
+            <div
+              className={`${shimmer} relative w-10 h-2 bg-gray-800 rounded-3xl`}
+            />
           </div>
         </div>
       )
@@ -173,7 +189,7 @@ export function CardSkeleton({ variant }) {
       return (
         <div
           className="w-[clamp(170px,40vw,195px)] shrink-0 bg-gray-800 rounded-3xl animate-pulse"
-          style={{aspectRatio: "var(--portrait-ratio)"}}
+          style={{ aspectRatio: "var(--portrait-ratio)" }}
         />
       )
     }
@@ -182,7 +198,7 @@ export function CardSkeleton({ variant }) {
 
 export function CardsSkeleton({ cardVariant }) {
   const { windowWidth: w } = useWindowOffsets()
-  const count = (w > 920) ? 6 : (w > 720) ? 5 : (w > 620) ? 4 : (w > 420) ? 3 : 2;
+  const count = w > 920 ? 6 : w > 720 ? 5 : w > 620 ? 4 : w > 420 ? 3 : 2
   /* i know, the readability is -zero- ... */
 
   return (
@@ -197,7 +213,9 @@ export function CardsSkeleton({ cardVariant }) {
 export function DetailsModalSkeleton() {
   return (
     <div className="w-full">
-      <div className={`${shimmer} relative w-full aspect-[var(--landscape-ratio)] rounded-4xl`}>
+      <div
+        className={`${shimmer} relative w-full aspect-[var(--landscape-ratio)] rounded-4xl`}
+      >
         <div className="absolute bottom-4 left-6">
           <div className="w-28 h-3.5 bg-gray-500 rounded-4xl" />
           <div className="w-32 h-2 mt-3 bg-zinc-700 rounded-xl" />
@@ -221,12 +239,20 @@ export function ListsModalSkeleton() {
   return (
     <div className="px-2 align-center-col gap-3">
       <div className="w-full align-center gap-3">
-        <span className={`${shimmer} relative size-6 inline-block border border-solid border-slate-700 rounded`} />
-        <div className={`${shimmer} relative w-20 h-3 bg-gray-700 rounded-2xl`} />
+        <span
+          className={`${shimmer} relative size-6 inline-block border border-solid border-slate-700 rounded`}
+        />
+        <div
+          className={`${shimmer} relative w-20 h-3 bg-gray-700 rounded-2xl`}
+        />
       </div>
       <div className="w-full align-center gap-3">
-        <span className={`${shimmer} relative size-6 inline-block border border-solid border-slate-700 rounded`} />
-        <div className={`${shimmer} relative w-24 h-3 bg-gray-700 rounded-2xl`} />
+        <span
+          className={`${shimmer} relative size-6 inline-block border border-solid border-slate-700 rounded`}
+        />
+        <div
+          className={`${shimmer} relative w-24 h-3 bg-gray-700 rounded-2xl`}
+        />
       </div>
     </div>
   )

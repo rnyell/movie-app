@@ -3,12 +3,12 @@ import { Modal, Button } from "@lib/ui/components"
 
 export function VPNError() {
   const icon_styles = `
-    size-9 absolute -top-2 -right-2 bg-[var(--bg-base-color)] text-[var(--color-neutral-400)] rounded-full outline outline-4 outline-[var(--bg-base-color)]
+    size-9 absolute -top-2 -right-2 bg-[var(--bg-base-color)] text-primary-400 rounded-full outline outline-4 outline-[var(--bg-base-color)]
   `
 
   return (
     <Modal withBackdrop={false} size="lg" customStyles="overflow-visible">
-      <div className="vpn-error p-6 relative flex-col rounded-4xl bg-[var(--color-neutral-800)]">
+      <div className="vpn-error p-6 relative flex-col rounded-4xl bg-primary-800">
         <p className="mb-2 leading-[1.5]">
           Due to some restrictions in your area, accessing some domains has been limited. Unfortunately to access our app, you must use a <b className="font-bold text-[var(--color-accent-400)]">VPN</b>.
         </p>

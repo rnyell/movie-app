@@ -107,6 +107,18 @@
   /* ------------------------------- */
   /* visual */
   /*~ TODO: config `rounded-n` in the config file */
+  .border-1 {
+    border-width: 1px;
+  }
+
+  .border-1\.5 {
+    border-width: 1.5px;
+  }
+
+  .border-2 {
+    border-width: 2px;
+  }
+
   .rounded-0 {
     border-radius: 0;
   }

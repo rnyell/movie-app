@@ -11,7 +11,7 @@ export function useThemeContext() {
 
 const initialPreferences = {
   theme: "dark",
-  accent: "pink",
+  accent: "plum",
 }
 
 function themeReducer(state, action) {
@@ -29,9 +29,11 @@ function themeReducer(state, action) {
   }
 }
 
-
 export default function ThemeProvider({ children }) {
-  const [preferences, prefDispatch] = useReducer(themeReducer, initialPreferences)
+  const [preferences, prefDispatch] = useReducer(
+    themeReducer,
+    initialPreferences,
+  )
   const { windowWidth } = useWindowOffsets()
   const isMobile = windowWidth < 520
   // const { country } = useGeoLocation()
@@ -39,21 +41,20 @@ export default function ThemeProvider({ children }) {
   const isVPNError = false
 
   useEffect(() => {
-    const htmlElement = document.documentElement
+    const rootElement = document.documentElement
     const theme = readLocalStorage("theme")
     const accent = readLocalStorage("accent")
 
     if (theme) {
-      htmlElement.dataset.theme = theme
+      rootElement.dataset.theme = theme
     }
 
     if (accent) {
-      htmlElement.dataset.accent = accent
+      rootElement.dataset.accent = accent
     }
   }, [preferences.theme, preferences.accent])
 
   const contextValue = { preferences, prefDispatch, windowWidth, isMobile }
-
 
   if (isVPNError) {
     return <VPNError />

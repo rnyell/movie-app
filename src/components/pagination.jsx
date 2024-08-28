@@ -1,6 +1,7 @@
 import { Link, useLocation, useSearchParams } from "react-router-dom"
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/outline"
 
+import "./pagination.css"
 
 export default function Pagination({ currentPage, allPagesArray }) {
   const [searchParams] = useSearchParams()

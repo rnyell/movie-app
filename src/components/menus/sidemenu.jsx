@@ -50,8 +50,8 @@ export default function SideMenu({ setOpen }) {
         onClick={() => setOpen(false)}
       />
       <motion.aside
-        className="side-menu w-[clamp(235px,25vw,260px)] fixed z-[var(--z-max)] text-[0.9rem]
-          bg-[var(--color-neutral-800)] rounded-4xl shadow-[0_2px_1rem_rgb(11_15_17/75%)]"
+        className="side-menu fixed z-[var(--z-max)] w-[clamp(235px,25vw,260px)] text-[0.9rem]
+          bg-primary-800 rounded-4xl shadow-[0_2px_1rem_rgb(11_15_17/75%)]"
         initial={{x: "-100%", opacity: 0.75}}
         animate={{x: 0, opacity: 1}}
         exit={{x: "-100%", opacity: 0.5}}
@@ -66,11 +66,11 @@ export default function SideMenu({ setOpen }) {
         <nav className="menu-links mt-4 flex-col">
           {links.map(link => (
             <Link
-              className="py-[0.65rem] px-4 flex gap-4 rounded-xl transition-bg duration-135 hover:bg-[var(--color-neutral-600)]"
+              className="py-[0.65rem] px-4 flex gap-4 rounded-xl transition-bg duration-135 hover:bg-primary-600"
               key={link.href}
               to={link.href}
             >
-              <i className="icon text-[var(--color-neutral-300)] w-[min(var(--icon-size-5),17px)]">{link.icon}</i>
+              <i className="icon text-primary-300 w-[min(var(--icon-size-5),17px)]">{link.icon}</i>
               <p className="link-tag">{link.tag}</p>
             </Link>
           ))}
@@ -82,7 +82,7 @@ export default function SideMenu({ setOpen }) {
             </Link>
           )}
           <div className="my-2" />
-          <div className="p-1 align-center justify-center gap-2 text-[0.65rem] text-[var(--color-neutral-400)] unselectable">
+          <div className="p-1 align-center justify-center gap-2 text-[0.65rem] text-primary-400 unselectable">
             <img className="logo w-4" src={logo} />
             <span>Dad's Best Movie App</span>
           </div>

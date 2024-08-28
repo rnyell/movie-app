@@ -3,7 +3,6 @@
 @import "@src/styles/search/filterbox.css";
 @import "@src/styles/search/side-filter.css";
 @import "@src/styles/search/sm-filter.css";
-@import "@src/styles/search/pagination.css";
 
 /* selected-media */
 @import "@src/styles/(selected-media)/selected-movie.css";

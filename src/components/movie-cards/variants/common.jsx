@@ -11,7 +11,6 @@ import { Card } from ".."
 import { Title } from "@components/movie-details"
 import PrimaryOverlay from "../overlays/primary-overlay"
 
-
 export default function CommonCard({ result, media, variant }) {
   const title = result.title || result.name
   const [cardRef, animate] = useAnimate()
@@ -22,7 +21,9 @@ export default function CommonCard({ result, media, variant }) {
   const { windowWidth } = useWindowOffsets()
   const { pathname } = useLocation()
   const isTouchDevice = windowWidth <= 520
-  const isGenrePage = pathname.startsWith("/discover/movies/") || pathname.startsWith("/discover/series/")
+  const isGenrePage =
+    pathname.startsWith("/discover/movies/") ||
+    pathname.startsWith("/discover/series/")
   const isScalable = !isTouchDevice && !isGenrePage
 
   useEffect(() => {
@@ -49,18 +50,17 @@ export default function CommonCard({ result, media, variant }) {
     }
   }
 
-
   return (
     <Card.Container
       isMotion
       data-variant={variant}
       ref={cardRef}
-      style={{width: "clamp(235px, 55vw, 300px)"}}
-      whileHover={isScalable && {width: 1.15 * cardWidth}}
+      style={{ width: "clamp(245px, 65vw, 300px)" }}
+      whileHover={isScalable && { width: 1.15 * cardWidth }}
       onHoverStart={() => !isTouchDevice && setCardOverlay(true)}
       onHoverEnd={() => !isTouchDevice && setCardOverlay(false)}
     >
-      {(isTouchDevice && cardOverlay) && (
+      {isTouchDevice && cardOverlay && (
         <Button
           variants="solid-blured"
           size="square-xs"

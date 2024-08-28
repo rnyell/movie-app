@@ -42,7 +42,7 @@ export default function AccountMenu({ isCollapsed = false, className }) {
     <div
       className={`account-menu ${cn(
         navLink_styles,
-        `mt-auto mb-2 py-3 align-center relative hover:bg[var(--color-neutral-700)] rounded-3xl cursor-pointer
+        `mt-auto mb-2 py-3 align-center relative hover:bg-primary-700 rounded-3xl cursor-pointer
         data-[collapsed=true]:p-3 data-[collapsed=true]:self-center`,
         className,
       )}`}
@@ -50,12 +50,12 @@ export default function AccountMenu({ isCollapsed = false, className }) {
       data-collapsed={isCollapsed}
       onClick={() => setOpen(true)}
     >
-      <div className="user-avatar size-9 shrink-0 relative outline outline-[1.5] outline-[var(--color-neutral-600)] rounded-full">
+      <div className="user-avatar size-9 shrink-0 relative outline outline-[1.5] outline-primary-600 rounded-full">
         <img className="w-100 rounded-full" src={imgSrc} />
         <span
           className="
             size-[5.75px] absolute bottom-[1.5px] right-[1.5px] 
-          bg-[greenyellow] outline outline-[3] outline-[var(--color-neutral-900)] rounded-full"
+          bg-[greenyellow] outline outline-[3] outline-primary-900 rounded-full"
         />
       </div>
       <Presence trigger={!isCollapsed}>

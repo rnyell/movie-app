@@ -1,5 +1,5 @@
-import { useState, useRef, forwardRef, createContext, useContext, useLayoutEffect } from "react"
-import { createPortal } from "react-dom"
+import { useState, useRef, createContext, useContext, useLayoutEffect } from "react"
+// import { createPortal } from "react-dom"
 import { motion } from "framer-motion"
 import { useClickOutside, useWindowOffsets } from "@lib/hooks"
 import { dropdownMenuMotion } from "@lib/motion/motions"
@@ -24,7 +24,7 @@ const targetClientInitial = {
 
 const menuClientInitial = { width: 0, height: 0 }
 
-export function Container({ children }) {
+export function Container({ children, className, ...rest }) {
   const ref = useRef(null)
   const [targetClient, setTargetClient] = useState(targetClientInitial)
   const [isOpen, setOpen] = useState(false)
@@ -40,7 +40,7 @@ export function Container({ children }) {
 
   return (
     <DropdownContext.Provider value={contextValue}>
-      <div ref={ref}>
+      <div className={className} ref={ref} {...rest}>
         {children}
       </div>
     </DropdownContext.Provider>
@@ -76,7 +76,8 @@ export function Menu({
   children,
   className,
   isNested = false,
-  position = {v: "bottom", h: null}
+  position = {v: "bottom", h: null},
+  ...rest
 }) {
   const { windowHeight } = useWindowOffsets()
   const { isOpen, targetClient } = useDropdownContext()
@@ -91,37 +92,46 @@ export function Menu({
   }, [isOpen])
 
 
-  const offset = 8
-  let top = targetClient.bottom + offset
-  let left
+  const baseWidth = "12rem"
+  const width = `max(${targetClient.width}px, ${baseWidth})`
+  const yoffset = 8
+  const xoffset = 4
+  let top = targetClient.bottom + yoffset
+  let left = targetClient.left
   // y & x are custom values for dynamic variants set framer-motion
   // TODO: use x for horizontal motion
   // let x
   let y
 
   if (position.v === "top") {
-    top = targetClient.top - menuClient.height - offset
-    left = targetClient.left
+    top = targetClient.top - menuClient.height - yoffset
     y = -1
 
-    if (targetClient.top - menuClient.height - offset < 0) {
-      top = targetClient.bottom + offset
+    if (targetClient.top - menuClient.height - yoffset < 0) {
+      top = targetClient.bottom + yoffset
       y = 1
     }
   } else if (position.v === "bottom") {
-    left = targetClient.left
     y = 1
 
-    if (windowHeight - targetClient.bottom < menuClient.height + offset) {
-      top = targetClient.top - menuClient.height - offset
+    if (windowHeight - targetClient.bottom < menuClient.height + yoffset) {
+      top = targetClient.top - menuClient.height - yoffset
       y = -1
     }
-  }
+  } /* else if (position.v === "align-top") {
+    top = targetClient.top
+    y = -1
+
+    if (windowHeight - targetClient.bottom < menuClient.height + yoffset) {
+      top = targetClient.top - menuClient.height
+      y = 1
+    }
+  } */
 
   if (position.h === "right") {
-    left = targetClient.left + targetClient.width
+    left = targetClient.left + targetClient.width - xoffset
   } else if (position.h === "left") {
-    left = -targetClient.left + offset
+    left = -targetClient.left + xoffset
   }
 
   // the parent <Dropdown.Container /> is a "positioned" element & the nested dropdown menu should be positioned based on it,
@@ -134,17 +144,16 @@ export function Menu({
     <Presence trigger={isOpen}>
       <motion.div
         className={cn("p-1 absolute z-50 flex-col gap-[0.325rem]", className)}
-        style={{ width: targetClient.width, top, left }}
-        data-menu
+        style={{ width, top, left }}
         ref={ref}
         custom={y}
         {...dropdownMenuMotion}
+        {...rest}
       >
         {children}
       </motion.div>
     </Presence>
   )
-
   // i think portal is better aproach but donno how to handle click outside, an opaque backdrop may be?
   // return createPortal(
   //   <Presence trigger={isOpen}>
@@ -165,7 +174,7 @@ export function Menu({
 
 export function MenuItem({ children, className, ...rest }) {
   return (
-    <div className={cn("cursor-default", className)} data-menu-item {...rest}>
+    <div className={cn("cursor-default", className)} {...rest}>
       {children}
     </div>
   )

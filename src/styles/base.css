@@ -26,11 +26,11 @@
     position: relative;
     isolation: isolate;
   }
-  
+
   [data-presence="true"] {
     height: 100%;
   }
-  
+
   .overlay {
     position: absolute;
     inset: 0;
@@ -38,18 +38,18 @@
     display: flex;
     flex-direction: column;
   }
-  
+
   .btn {
     display: inline-grid;
     place-items: center;
     font-weight: 500;
   }
-  
+
   .icon {
     display: inline-grid;
     place-items: center;
     aspect-ratio: 1 / 1;
-  
+
     & svg {
       min-width: 14px;
       max-width: 36px;
@@ -101,7 +101,8 @@
     --duration-1: 135ms;
     --duration-2: 215ms;
     --duration-3: 300ms;
-    --shadow-1: 0 3px 1.25rem rgb(11 15 17 / 20%), 0 4px 0.5rem rgb(11 15 17 / 10%);
+    --shadow-1: 0 3px 1.25rem rgb(11 15 17 / 20%),
+      0 4px 0.5rem rgb(11 15 17 / 10%);
     /* --shadow-2: 0 20px 25px -5px rgb(0 0 0 / 10%), 0 8px 10px -6px rgb(0 0 0 / 10%); */
 
     --color-space: in srgb;
@@ -120,7 +121,7 @@
     --rgb-neutral-900: 29 34 37;
     --rgb-neutral-950: 22 27 31;
     --rgb-neutral-1000: 16 20 22;
-    
+
     --rgb-opaque-dark: (11 15 17);
 
     --color-orange-300: rgb(245 197 24);
@@ -129,7 +130,7 @@
     --color-red-500: rgb(151 28 32);
     --color-red-600: brown;
     --color-aliceblue-200: rgb(240 248 255);
-  
+
     --icon-size-1: 0.25rem;
     --icon-size-2: 0.5rem;
     --icon-size-3: 0.75rem;
@@ -143,7 +144,7 @@
     --portrait-ratio: 0.665;
 
     --safe-space-to-scroll-bottom-nav: 90px;
-    
+
     --page-inline-padding: 1.75rem;
     --main-heading-font-size: 2rem;
     --main-heading-margin-bottom: 1rem;
@@ -163,39 +164,47 @@
     --color-neutral-800: rgb(var(--rgb-neutral-800));
     --color-neutral-900: rgb(var(--rgb-neutral-900));
     --color-neutral-950: rgb(var(--rgb-neutral-950));
-  
+
     --text-base-color: var(--color-neutral-100); /*? 100 or 200 */
     --bg-base-color: var(--color-neutral-950);
-    --bg-sidenav: color-mix(var(--color-mode), var(--color-neutral-950), rgb(5, 11, 14));
+    --bg-sidenav: color-mix(
+      var(--color-mode),
+      var(--color-neutral-950),
+      rgb(5 11 14)
+    );
   }
-  
+
   [data-theme="light"] {
-    --color-neutral-950: #f9fafb;
-    --color-neutral-900: #f3f4f6;
-    --color-neutral-800: #e5e7eb;
-    --color-neutral-700: #d1d5db;
-    --color-neutral-600: #9ca3af;
-    --color-neutral-500: #6b7280;
-    --color-neutral-400: #4b5563;
-    --color-neutral-300: #374151;
-    --color-neutral-200: #1f2937;
-    --color-neutral-100: #111827;
     --color-neutral-50: #030712;
-  
+    --color-neutral-100: #111827;
+    --color-neutral-200: #1f2937;
+    --color-neutral-300: #374151;
+    --color-neutral-400: #4b5563;
+    --color-neutral-500: #6b7280;
+    --color-neutral-600: #9ca3af;
+    --color-neutral-700: #d1d5db;
+    --color-neutral-800: #e5e7eb;
+    --color-neutral-900: #f3f4f6;
+    --color-neutral-950: #f9fafb;
+
     --text-base-color: var(--color-neutral-100);
     --bg-base-color: var(--color-neutral-950);
-    --bg-sidenav: color-mix(var(--color-mode), var(--color-neutral-950), #fefefe);
+    --bg-sidenav: color-mix(
+      var(--color-mode),
+      var(--color-neutral-950),
+      rgb(254 254 254)
+    );
   }
-  
-  [data-accent="pink"] {
-    --color-accent-100: #E48A94;
-    --color-accent-200: #DA697A;
-    --color-accent-300: #D3546A;
-    --color-accent-400: #C74361;
-    --color-accent-500: #BA3A5C;
-    --color-accent-600: #A72A4B;
+
+  [data-accent="plum"] {
+    --color-accent-100: #e48a94;
+    --color-accent-200: #da697a;
+    --color-accent-300: #d3546a;
+    --color-accent-400: #c74361;
+    --color-accent-500: #ba3a5c;
+    --color-accent-600: #a72a4b;
   }
-  
+
   [data-accent="violet"] {
     --color-accent-100: #a78bfa;
     --color-accent-200: #8b5cf6;
@@ -205,15 +214,22 @@
     --color-accent-600: #4c1d95;
     --color-accent-700: #2e1065;
   }
-  
-  /* [data-accent="indigo"] {} */
+
+  [data-accent="indigo"] {
+    --color-accent-100: #A5B4FC;
+    --color-accent-200: #818CF8;
+    --color-accent-300: #6366F1;
+    --color-accent-400: #4F46E5;
+    --color-accent-500: #4338CA;
+    --color-accent-600: #3730A3;
+  }
 }
 
 @layer typo {
   html {
     font-size: clamp(13.75px, 50% + 0.725vw, 17px);
   }
-  
+
   body {
     font-family: Montserrat, Calibri, sans-serif;
     line-height: 1.475;
@@ -221,7 +237,12 @@
     background-color: var(--bg-base-color);
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: Ubuntu, sans-serif;
     letter-spacing: 0.325px;
     line-height: 1.15;
@@ -277,7 +298,7 @@
   ::-webkit-scrollbar-corner {
     display: none;
   }
- 
+
   ::-webkit-scrollbar-track {
     background-color: var(--color-neutral-800);
   }

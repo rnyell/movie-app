@@ -1,21 +1,15 @@
 import { useEffect, useRef, useState } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { motion } from "framer-motion"
-import { useClickOutside, useWindowOffsets } from "@lib/hooks"
+import { useWindowOffsets } from "@lib/hooks"
 import { useAuth } from "@src/auth/auth-context"
-import { useThemeContext } from "@src/store"
 import { breakpoints } from "@lib/ui/configs"
 import {
   HomeIcon,
   TicketIcon,
   FilmIcon,
   TvIcon,
-  UserCircleIcon,
-  Cog6ToothIcon as CogIcon,
-  ChevronDownIcon,
-  ChevronRightIcon,
-  CommandLineIcon,
-  QuestionMarkCircleIcon,
+  UserCircleIcon
 } from "@heroicons/outline"
 import {
   HomeIcon as HomeIconSolid,
@@ -23,25 +17,21 @@ import {
   FilmIcon as FilmIconSolid,
   TvIcon as TvIconSolid,
   // Cog6ToothIcon as CogIconSolid,
-  MoonIcon,
-  SunIcon,
 } from "@heroicons/solid"
 import {
   CompasIconSolid,
   CompasIcon,
   WideChevronLeftIcon,
-  BugIcon,
-  Palette,
   // ArrowLeftToLineIcon
 } from "@lib/ui/icons"
 import logo from "@src/assets/logo.png"
 import { Presence } from "@lib/motion"
-import { Divider, Dropdown } from "@lib/ui/components"
-import AccountMenu from "../account-menu"
-
-import cn from "@src/lib/ui/cn"
-import "./navigation.css"
+import { Divider } from "@lib/ui/components"
 import Settings from "./settings"
+import AccountMenu from "../account-menu"
+import cn from "@lib/ui/cn"
+
+import "./navigation.css"
 
 const lg_links = [
   { tag: "Home", href: "/", icon: <HomeIcon />, activeIcon: <HomeIconSolid /> },
@@ -85,10 +75,9 @@ const sm_links = [
 
 export const navLink_styles = `
   py-[0.675rem] px-4 align-center gap-3 relative rounded-xl transition duration-135 text-[min(0.8rem,16px)]
-  hover:text-[var(--color-neutral-200)] hover:bg-[var(--color-neutral-900)]
-  data-[collapsed=true]:self-center
+  hover:text-primary-200 hover:bg-primary-900 data-[collapsed=true]:self-center
 `
-const navLinkActive_styles = `!text-[var(--color-neutral-100)] !bg-[var(--color-neutral-700)]`
+const navLinkActive_styles = `!text-primary-100 !bg-primary-700`
 
 export const tagMotion = {
   initial: {
@@ -105,9 +94,7 @@ export const tagMotion = {
   },
 }
 
-export const tagTransition = {
-  duration: 0.25,
-}
+export const tagTransition = { duration: 0.25 }
 
 export default function Navigation() {
   const { windowWidth } = useWindowOffsets()
@@ -130,8 +117,8 @@ function BottomNav() {
         {sm_links.map((link) => (
           <Link
             className={cn(
-              `p-[0.825rem] inline-flex relative text-[var(--color-neutral-400)]`,
-              { "text-[var(--color-neutral-100)]": pathname === link.href },
+              `p-[0.825rem] inline-flex relative text-primary-400`,
+              { "text-primary-100": pathname === link.href },
             )}
             to={link.href}
             key={link.href}
@@ -141,7 +128,7 @@ function BottomNav() {
             </i>
             {pathname === link.href && (
               <motion.div
-                className="indicator-dot size-[4px] absolute-x-center -bottom-[2px] rounded-full bg-[var(--color-neutral-200)]"
+                className="indicator-dot size-[4px] absolute-x-center -bottom-[2px] rounded-full bg-primary-200"
                 layoutId="dot"
               />
             )}
@@ -222,7 +209,6 @@ function SideNav() {
         ))}
         <Divider variant="pale" width="almost-fill" />
         <Settings isCollapsed={isCollapsed} />
-        {/* <SettingsMenu isCollapsed={isCollapsed} /> */}
         {session ? (
           <AccountMenu isCollapsed={isCollapsed} />
         ) : (
@@ -280,169 +266,5 @@ export function NavTag({ tag, isCollapsed }) {
         {tag}
       </motion.p>
     </Presence>
-  )
-}
-
-function SettingsMenu({ isCollapsed }) {
-  const [isOpen, setOpen] = useState(false)
-  const ref = useRef(null)
-
-  useClickOutside(ref, () => setOpen(false))
-
-  function handleClick() {
-    if (!isOpen) {
-      setOpen(true)
-    }
-  }
-
-  return (
-    <div
-      className={`settings ${navLink_styles}`}
-      data-collapsed={isCollapsed}
-      ref={ref}
-      onClick={handleClick}
-    >
-      <i className="icon icon-md">
-        <CogIcon />
-      </i>
-      <NavTag tag="Settings" isCollapsed={isCollapsed} />
-      {!isCollapsed && (
-        <i className="icon ml-auto">
-          <ChevronDownIcon />
-        </i>
-      )}
-      <Presence trigger={isOpen}>
-        <SettingsOptions />
-      </Presence>
-    </div>
-  )
-}
-
-function SettingsOptions() {
-  const [isOpen, setOpen] = useState(false)
-  const ref = useRef(null)
-
-  useClickOutside(ref, () => setOpen(false))
-
-  const variants = {
-    initial: {
-      opacity: 0.5,
-      y: -20,
-    },
-    animate: {
-      opacity: 1,
-      y: 0,
-    },
-    exit: {
-      opacity: 0,
-      y: -20,
-    },
-  }
-
-  return (
-    <motion.ul
-      className="settings-options flex-col absolute"
-      data-menu
-      ref={ref}
-      {...variants}
-    >
-      <li data-menu-item onClick={() => setOpen(!isOpen)}>
-        <i className="icon icon-md">
-          <Palette />
-        </i>
-        <p>Appearance</p>
-        <i className="icon icon-xs ml-auto">
-          <ChevronRightIcon />
-        </i>
-      </li>
-      <li data-menu-item>
-        <i className="icon icon-md">
-          <QuestionMarkCircleIcon />
-        </i>
-        <p>FAQ</p>
-      </li>
-      <a
-        data-menu-item
-        href="https://github.com/rnyell/movie-app"
-        target="_blank"
-      >
-        <i className="icon icon-md">
-          <CommandLineIcon />
-        </i>
-        <p>Contribute</p>
-      </a>
-      <a data-menu-item href="https://t.me/" target="_blank">
-        <i className="icon icon-md">
-          <BugIcon />
-        </i>
-        <p>Report Issues</p>
-      </a>
-      <Presence trigger={isOpen}>
-        <ThemeOptions />
-      </Presence>
-    </motion.ul>
-  )
-}
-
-function ThemeOptions() {
-  const { preferences, prefDispatch } = useThemeContext()
-
-  function handleChange(e) {
-    if (!e.target.checked) {
-      prefDispatch({ type: "change_theme", theme: "light" })
-    } else {
-      prefDispatch({ type: "change_theme", theme: "dark" })
-    }
-  }
-
-  const variants = {
-    initial: {
-      opacity: 0.5,
-      x: -12,
-      y: 2,
-    },
-    animate: {
-      opacity: 1,
-      x: 0,
-      y: 0,
-    },
-    exit: {
-      opacity: 0,
-      x: -12,
-      y: 2,
-    },
-  }
-
-  return (
-    <motion.div className="themes-options absolute" data-menu {...variants}>
-      <div data-menu-item>
-        <label htmlFor="mode">
-          <p>Theme</p>
-          <span className="checkbox">
-            <i className="icon icon-xs">
-              {preferences.theme === "dark" ? <MoonIcon /> : <SunIcon />}
-            </i>
-            <input
-              type="checkbox"
-              name="theme"
-              id="mode"
-              checked={preferences.theme === "dark"}
-              onChange={handleChange}
-            />
-          </span>
-        </label>
-      </div>
-      <div data-menu-item>
-        <p>Accent</p>
-        <div>
-          <label htmlFor="accent-1">
-            <input type="radio" name="accent" id="accent-1" />
-          </label>
-          <label htmlFor="accent-2">
-            <input type="radio" name="accent" id="accent-2" />
-          </label>
-        </div>
-      </div>
-    </motion.div>
   )
 }
