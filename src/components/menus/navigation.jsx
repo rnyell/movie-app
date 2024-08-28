@@ -28,8 +28,10 @@ import logo from "@src/assets/logo.png"
 import { Presence } from "@lib/motion"
 import { Divider } from "@lib/ui/components"
 import Settings from "./settings"
-import AccountMenu from "../account-menu"
+import UserPanel from "./user-panel"
 import cn from "@lib/ui/cn"
+
+import { navLink_styles, navLinkActive_styles, tagMotion, tagTransition } from "./utils"
 
 import "./navigation.css"
 
@@ -73,28 +75,6 @@ const sm_links = [
   },
 ]
 
-export const navLink_styles = `
-  py-[0.675rem] px-4 align-center gap-3 relative rounded-xl transition duration-135 text-[min(0.8rem,16px)]
-  hover:text-primary-200 hover:bg-primary-900 data-[collapsed=true]:self-center
-`
-const navLinkActive_styles = `!text-primary-100 !bg-primary-700`
-
-export const tagMotion = {
-  initial: {
-    opacity: 0,
-    x: -10,
-  },
-  animate: {
-    opacity: 1,
-    x: 0,
-  },
-  exit: {
-    opacity: 0,
-    x: -15,
-  },
-}
-
-export const tagTransition = { duration: 0.25 }
 
 export default function Navigation() {
   const { windowWidth } = useWindowOffsets()
@@ -182,14 +162,8 @@ function SideNav() {
       <div className="relative w-full">
         <Divider variant="pale" />
         {isCollapsable && (
-          <button
-            className="btn toggle-btn absolute-y-center"
-            onClick={() => setCollapse(!isCollapsed)}
-          >
-            <motion.i
-              className="icon toggle-icon icon-xs"
-              style={isCollapsed ? { rotateZ: 180 } : { rotateZ: 0 }}
-            >
+          <button className="btn toggle-btn absolute-y-center" onClick={() => setCollapse(!isCollapsed)}>
+            <motion.i className="icon toggle-icon icon-xs" style={isCollapsed ? {rotateZ: 180} : {rotateZ: 0}}>
               <WideChevronLeftIcon />
             </motion.i>
           </button>
@@ -210,13 +184,13 @@ function SideNav() {
         <Divider variant="pale" width="almost-fill" />
         <Settings isCollapsed={isCollapsed} />
         {session ? (
-          <AccountMenu isCollapsed={isCollapsed} />
+          <UserPanel isCollapsed={isCollapsed} />
         ) : (
           <NavLink
+            className="mt-auto mb-6"
             isCollapsed={isCollapsed}
             href="/login"
             icon={<UserCircleIcon />}
-            className="mt-auto mb-6"
           >
             <NavTag tag="Log In" isCollapsed={isCollapsed} />
           </NavLink>

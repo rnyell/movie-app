@@ -48,7 +48,7 @@ export function Container({ children, className, ...rest }) {
 }
 
 
-export function Trigger({ children, className }) {
+export function Trigger({ children, className, ...rest }) {
   const { isOpen, setOpen, setTargetClient } = useDropdownContext()
   const ref = useRef(null)
 
@@ -66,7 +66,12 @@ export function Trigger({ children, className }) {
   }
 
   return (
-    <div className={cn("cursor-default", className)} onClick={handleClick} ref={ref}>
+    <div
+      className={cn("cursor-default", className)}
+      onClick={handleClick}
+      ref={ref}
+      {...rest}
+    >
       {children}
     </div>
   )

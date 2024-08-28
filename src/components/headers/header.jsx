@@ -8,7 +8,7 @@ import { Presence } from "@lib/motion"
 import { Button } from "@lib/ui/components"
 import SearchBox from "./search-box"
 import SideMenu from "../menus/sidemenu"
-import AccountMenu from "../account-menu"
+import UserPanel from "../menus/user-panel"
 
 import "./header.css"
 
@@ -66,7 +66,7 @@ export default function Header({ hasSearchbox = true }) {
         )}
         {isMobile &&
           (isLoggedIn ? (
-            <AccountMenu isCollapsed={true} />
+            <UserPanel isCollapsed={true} data-shape="" />
           ) : (
             <Link to="/login">
               <Button

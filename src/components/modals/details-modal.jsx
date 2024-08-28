@@ -27,6 +27,7 @@ export default function DetailsModal({ result, setClose, price }) {
   } = mediaDetails
 
   function handleBooking() {
+    setClose()
     navigate("/booking", {
       state: {
         id,

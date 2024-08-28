@@ -99,21 +99,3 @@ export const overlayMotion = {
     }
   }
 }
-
-// export const dropdownItemsMotion = {
-//   initial: {
-//     opacity: 0.5,
-//     y: isDesktop ? 25 : -20,
-//     x: isDesktop ? 0 : 5,
-//   },
-//   animate: {
-//     opacity: 1,
-//     y: 0,
-//     x: 0,
-//   },
-//   exit: {
-//     opacity: 0,
-//     y: isDesktop ? 25 : -20,
-//     x: isDesktop ? 0 : 5,
-//   }
-// }

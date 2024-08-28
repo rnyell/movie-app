@@ -8,12 +8,10 @@ import {
 } from "@heroicons/outline"
 import { MoonIcon, SunIcon } from "@heroicons/solid"
 import { BugIcon, Palette } from "@lib/ui/icons"
+import cn from "@lib/ui/cn"
 import { Dropdown } from "@lib/ui/components"
-import { navLink_styles, NavTag } from "./navigation"
-import cn from "@src/lib/ui/cn"
-
-const menu_styles = "p-1 z-50 gap-[0.325rem] text-[min(0.8rem,16px)] bg-primary-900 border-1.5 border-solid border-primary-700 rounded-3xl"
-const menuItem_styles = "py-[0.675rem] px-4 align-center gap-3 text-primary-200 rounded-[0.75rem] hover:bg-primary-700"
+import { NavTag } from "./navigation"
+import { navLink_styles, menu_styles, menuItem_styles } from "./utils"
 
 
 export default function Settings({ isCollapsed }) {

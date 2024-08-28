@@ -14,7 +14,7 @@ import {
 } from "@heroicons/outline"
 import { CompasIcon } from "@lib/ui/icons"
 import { Divider } from "@lib/ui/components"
-import AccountMenu from "../account-menu"
+import UserPanel from "./user-panel"
 import logo from "@src/assets/logo.png"
 
 import "./sidemenu.css"
@@ -59,7 +59,7 @@ export default function SideMenu({ setOpen }) {
       >
         {isLoggedIn && (
           <>
-            <AccountMenu className="mt-2" />
+            <UserPanel className="mt-2" />
             <Divider space="md" width="almost-fill" />
           </>
         )}
