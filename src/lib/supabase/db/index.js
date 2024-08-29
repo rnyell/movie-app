@@ -1,5 +1,7 @@
 export * from "./profiles"
 export * from "./lists"
 export * from "./bookmarks"
+export * from "./liked"
+export * from "./watched"
 export * from "./played-movies"
 export * from "./played-series"
