@@ -6,7 +6,7 @@ import { BookmarkIcon } from "@heroicons/outline"
 import { useLoader } from "@lib/hooks"
 import { Button, Snap } from "@lib/ui/components"
 import { EllipsisVerticalIcon } from "@heroicons/solid"
-import { CardsSkeleton } from "@src/components/skeletons"
+import { CardsSkeleton } from "@components/skeletons"
 import MovieCard from "@components/movie-cards/movie-card"
 import Section from "./section"
 
@@ -19,9 +19,12 @@ import Section from "./section"
 
 export default function Watchlist() {
   const { modalDispatch } = useAppContext()
-  const { data: watchLaterItems, isLoading, error } = useLoader(getWatchLaterItems)
+  const {
+    data: watchLaterItems,
+    isLoading,
+    error,
+  } = useLoader(getWatchLaterItems)
   const isEmpty = watchLaterItems?.length === 0
-
 
   return (
     <Section sectionName="watchlist">
@@ -44,11 +47,17 @@ export default function Watchlist() {
         ) : isEmpty ? (
           <div className="empty-watchlist-msg empty-msg">
             <p>Your watchlist is currently empty.</p>
-            <p>To keep track of the stuff you want to watch, just tap the bookmark icon: <i className="icon"><BookmarkIcon /></i></p>
+            <p>
+              To keep track of the stuff you want to watch, just tap the
+              bookmark icon:{" "}
+              <i className="icon">
+                <BookmarkIcon />
+              </i>
+            </p>
           </div>
         ) : (
           <Snap.Container customStyles="p-5">
-            {watchLaterItems?.slice(0, 12).map(item =>
+            {watchLaterItems?.slice(0, 12).map((item) => (
               <Snap.Item align="center" key={item.id}>
                 <MovieCard
                   result={item.id}
@@ -56,7 +65,7 @@ export default function Watchlist() {
                   variant="bookmarked"
                 />
               </Snap.Item>
-            )}
+            ))}
           </Snap.Container>
         )}
       </div>

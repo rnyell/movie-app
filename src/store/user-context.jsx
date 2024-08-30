@@ -10,8 +10,9 @@ export function useUserContext() {
 
 const userInitial = {
   id: null,
-  name: "",
   username: "",
+  email: "",
+  fullName: "",
   avatarUrl: "",
   isAnonymous: false,
 }
@@ -35,6 +36,7 @@ export default function UserProvider({ children }) {
     const {
       id,
       username,
+      email,
       full_name,
       avatar_url,
     } = profile
@@ -42,6 +44,7 @@ export default function UserProvider({ children }) {
     setUserState({
       id,
       username,
+      email,
       fullName: full_name,
       avatarUrl: avatar_url,
       isAnonymous

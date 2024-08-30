@@ -11,7 +11,7 @@ import {
   PrimeVideoIcon
 } from "@lib/ui/icons"
 
-import cls from "@src/lib/ui/cls"
+import cls from "@lib/ui/cls"
 import classes from "./rates.module.css"
 
 

@@ -3,12 +3,14 @@ import { getWatchLaterListId } from "./lists"
 
 
 export async function getAllBookmarkedItems() {
-  // const userId = await getUserId()
+  const userId = await getUserId()
   const { data, error } = await supabase
   .from("bookmarks")
   .select("*")
+  // .eq("")
 
   console.log("all bookmarks", data)
+  console.log(data);
   
   if (error) {
     console.error(error)

@@ -1,17 +1,16 @@
 import { useLoader } from "@lib/hooks"
 import { getRecommendedMovies, getRecommendedSeries } from "@services"
 import { Snap } from "@lib/ui/components"
-import { CardsSkeleton } from "@src/components/skeletons"
+import { CardsSkeleton } from "@components/skeletons"
 import MovieCard from "@components/movie-cards/movie-card"
 
-
 export default function RecommendSection() {
-  const { data: recMovies, isLoading: isMoviesLoading } = useLoader(
-    () => getRecommendedMovies(872585)
+  const { data: recMovies, isLoading: isMoviesLoading } = useLoader(() =>
+    getRecommendedMovies(872585),
   )
 
-  const { data: recSeries, isLoading: isSeriesLoading } = useLoader(
-    () => getRecommendedSeries(1396)
+  const { data: recSeries, isLoading: isSeriesLoading } = useLoader(() =>
+    getRecommendedSeries(1396),
   )
 
   return (
@@ -25,7 +24,7 @@ export default function RecommendSection() {
             <CardsSkeleton cardVariant="common" />
           ) : (
             <Snap.Container>
-              {recMovies.map(movie => (
+              {recMovies.map((movie) => (
                 <Snap.Item key={movie.id}>
                   <MovieCard result={movie} media="movie" variant="common" />
                 </Snap.Item>
@@ -43,7 +42,7 @@ export default function RecommendSection() {
             <CardsSkeleton cardVariant="common" />
           ) : (
             <Snap.Container>
-              {recSeries.map(movie => (
+              {recSeries.map((movie) => (
                 <Snap.Item key={movie.id}>
                   <MovieCard result={movie} media="tv" variant="common" />
                 </Snap.Item>

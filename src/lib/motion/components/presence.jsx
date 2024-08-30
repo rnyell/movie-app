@@ -8,7 +8,11 @@ export function Presence({
 }) {
   return (
     <AnimatePresence mode={mode} initial={initial}>
-      {trigger && children}
+      {trigger && (
+        <>
+          {children}
+        </>
+      )}
     </AnimatePresence>
   )
 }

@@ -1,6 +1,7 @@
 import { motion } from "framer-motion"
 import { Overlay } from "./movie-cards"
-import { useWindowOffsets } from "@src/lib/hooks"
+import { useWindowOffsets } from "@lib/hooks"
+import cn from "@src/lib/ui/cn"
 
 const shimmer = `
   overflow-hidden before:content-[''] before:absolute before:inset-0 before:-translate-x-full before:animate-shimmer before:bg-gradient-to-r before:from-transparent before:via-slate-400/15 before:to-transparent
@@ -162,7 +163,7 @@ export function CardSkeleton({ variant }) {
     case "common": {
       return (
         <div
-          className={`${shimmer} relative w-[clamp(245px,65vw,300px)] shrink-0 bg-gray-800 rounded-3xl`}
+          className={`${shimmer} relative w-[clamp(245px,65vw,300px)] shrink-0 bg-primary-700 rounded-3xl`}
           style={{ aspectRatio: "var(--landscape-ratio)" }}
         />
       )
@@ -170,17 +171,10 @@ export function CardSkeleton({ variant }) {
     case "result": {
       return (
         <div className="space-y-2">
-          <div
-            className={`${shimmer} relative w-full bg-gray-800 rounded-3xl`}
-            style={{ aspectRatio: "var(--portrait-ratio)" }}
-          />
+          <div className={cn(shimmer, "relative w-full bg-primary-700 rounded-3xl")} style={{ aspectRatio: "var(--portrait-ratio)" }} />
           <div className="align-center-col gap-2">
-            <div
-              className={`${shimmer} relative w-[95px] h-3 bg-gray-700 rounded-3xl`}
-            />
-            <div
-              className={`${shimmer} relative w-10 h-2 bg-gray-800 rounded-3xl`}
-            />
+            <div className={cn(shimmer, "relative w-[95px] h-3 bg-primary-600 rounded-3xl")} />
+            <div className={cn(shimmer, "relative w-10 h-2 bg-primary-800 rounded-3xl")} />
           </div>
         </div>
       )
@@ -188,7 +182,7 @@ export function CardSkeleton({ variant }) {
     case "bookmark": {
       return (
         <div
-          className="w-[clamp(170px,40vw,195px)] shrink-0 bg-gray-800 rounded-3xl animate-pulse"
+          className="w-[clamp(170px,40vw,195px)] shrink-0 bg-primary-700 rounded-3xl animate-pulse"
           style={{ aspectRatio: "var(--portrait-ratio)" }}
         />
       )
@@ -213,9 +207,7 @@ export function CardsSkeleton({ cardVariant }) {
 export function DetailsModalSkeleton() {
   return (
     <div className="w-full">
-      <div
-        className={`${shimmer} relative w-full aspect-[var(--landscape-ratio)] rounded-4xl`}
-      >
+      <div className={cn(shimmer, "relative w-full aspect-[var(--landscape-ratio)] rounded-4xl")}>
         <div className="absolute bottom-4 left-6">
           <div className="w-28 h-3.5 bg-gray-500 rounded-4xl" />
           <div className="w-32 h-2 mt-3 bg-zinc-700 rounded-xl" />
@@ -239,20 +231,12 @@ export function ListsModalSkeleton() {
   return (
     <div className="px-2 align-center-col gap-3">
       <div className="w-full align-center gap-3">
-        <span
-          className={`${shimmer} relative size-6 inline-block border border-solid border-slate-700 rounded`}
-        />
-        <div
-          className={`${shimmer} relative w-20 h-3 bg-gray-700 rounded-2xl`}
-        />
+        <span className={cn(shimmer, "relative size-6 inline-block border border-solid border-primary-700 rounded")} />
+        <div className={cn(shimmer, "relative w-20 h-3 bg-primary-700 rounded-2xl")} />
       </div>
       <div className="w-full align-center gap-3">
-        <span
-          className={`${shimmer} relative size-6 inline-block border border-solid border-slate-700 rounded`}
-        />
-        <div
-          className={`${shimmer} relative w-24 h-3 bg-gray-700 rounded-2xl`}
-        />
+        <span className={cn(shimmer, "relative size-6 inline-block border border-solid border-primary-700 rounded")} />
+        <div className={cn(shimmer, "relative w-24 h-3 bg-primary-700 rounded-2xl")} />
       </div>
     </div>
   )

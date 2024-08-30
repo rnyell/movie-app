@@ -1,10 +1,5 @@
-import {
-  useState,
-  useRef,
-  createContext,
-  useContext,
-  useLayoutEffect,
-} from "react"
+import { useState, useRef, useLayoutEffect, createContext, useContext } from "react"
+import { createPortal } from "react-dom"
 import { motion } from "framer-motion"
 import { useClickOutside, useWindowOffsets } from "@lib/hooks"
 import { dropdownMenuMotion } from "@lib/motion/motions"
@@ -28,14 +23,21 @@ const targetClientInitial = {
 
 const menuClientInitial = { width: 0, height: 0 }
 
-export function Container({ children, className, ...rest }) {
+export function Container({ children, className, strategy = "fixed", ...rest }) {
   const ref = useRef(null)
   const [targetClient, setTargetClient] = useState(targetClientInitial)
   const [isOpen, setOpen] = useState(false)
 
-  useClickOutside(ref, () => setOpen(false))
+  useClickOutside(ref, closeMenu)
 
-  const contextValue = { isOpen, setOpen, targetClient, setTargetClient }
+  function closeMenu() {
+    console.log(strategy);
+    if (strategy === "fixed") {
+      setOpen(false)
+    }
+  }
+
+  const contextValue = { isOpen, setOpen, targetClient, setTargetClient, strategy }
 
   return (
     <DropdownContext.Provider value={contextValue}>
@@ -81,8 +83,9 @@ export function Menu({
   placement = "left-start/bottom",
   ...rest
 }) {
+  // strategy: "fixed" | "portal"
   const { windowWidth, windowHeight } = useWindowOffsets()
-  const { isOpen, targetClient } = useDropdownContext()
+  const { isOpen, setOpen, targetClient, strategy } = useDropdownContext()
   const [menuClient, setMenuClient] = useState(menuClientInitial)
   const ref = useRef(null)
 
@@ -140,15 +143,15 @@ export function Menu({
     y = 1
   } */ else if (placement === "right/start") {
     left = targetClient.right + offsetX + 2
-    top = targetClient.top - 2
-    //! `2` is a hacky fix
+    top = targetClient.top - 3.5
+    //! `2` & `3.5` are hacky fixes
     // when menu is nested, there might be a padding of the <Target />'s parent. we should fix it somehow
     y = 1
   } /* else if (placement === "right/end") {
     y = 1
   } */
 
-  if (placement.includes("top") && targetClient.top - menuClient.height - offsetY < 0) {
+  if (placement.includes("top") && targetClient.top - menuClient.height - offsetY < offsetY) {
     top = targetClient.bottom + offsetY
     y = 1
   } else if (placement.includes("bottom") && windowHeight - targetClient.bottom < menuClient.height + offsetY) {
@@ -161,37 +164,39 @@ export function Menu({
     left = targetClient.left + offsetX + 2
   }
 
-  return (
-    <Presence trigger={isOpen}>
-      <motion.div
-        className={cn("p-1 fixed z-50 flex-col gap-[0.325rem]", className)}
-        style={{ width, top, left }}
-        ref={ref}
-        custom={y}
-        {...dropdownMenuMotion}
-        {...rest}
-      >
-        {children}
-      </motion.div>
-    </Presence>
-  )
-  // i think portal is better aproach but donno how to handle click outside, an opaque backdrop may be?
-  // update: enhanced floating via rplacing `absolute` positioning with `fixed`, removed from the document flow and posed based on viewport'
-  // so it's kinda a "portall" to the viewport
-  /* return createPortal(
-       <Presence trigger={isOpen}>
-         <motion.div
-           className={cn("p-1 absolute z-50 flex-col gap-[0.325rem]", className)}
-           style={{ width: targetClient.width, top, left }}
-           data-menu
-           ref={ref}
-           {...dropdownMenuMotion}
-         >
-           {children}
-         </motion.div>
-       </Presence>,
-       document.getElementById("portal")
-   )*/
+  if (strategy === "fixed") {
+    return (
+      <Presence trigger={isOpen}>
+        <motion.div
+          className={cn("p-1 fixed z-100 flex-col gap-[0.325rem]", className)}
+          style={{ width, top, left }}
+          ref={ref}
+          custom={y}
+          {...dropdownMenuMotion}
+          {...rest}
+        >
+          {children}
+        </motion.div>
+      </Presence>
+    )
+  } else if (strategy === "portal") {
+    return createPortal(
+      <Presence trigger={isOpen}>
+        <div className="fixed inset-0 z-50" onClick={() => setOpen(false)} />
+        <motion.div
+          className={cn("p-1 fixed z-100 flex-col gap-[0.325rem]", className)}
+          style={{ width, top, left }}
+          ref={ref}
+          custom={y}
+          {...dropdownMenuMotion}
+          {...rest}
+        >
+          {children}
+        </motion.div>
+      </Presence>,
+      document.getElementById("portal")
+    )
+  }
 }
 
 export function MenuItem({ children, className, ...rest }) {

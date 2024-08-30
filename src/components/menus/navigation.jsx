@@ -4,6 +4,7 @@ import { motion } from "framer-motion"
 import { useWindowOffsets } from "@lib/hooks"
 import { useAuth } from "@src/auth/auth-context"
 import { breakpoints } from "@lib/ui/configs"
+import cn from "@lib/ui/cn"
 import {
   HomeIcon,
   TicketIcon,
@@ -16,27 +17,26 @@ import {
   TicketIcon as TicketIconSolid,
   FilmIcon as FilmIconSolid,
   TvIcon as TvIconSolid,
-  // Cog6ToothIcon as CogIconSolid,
 } from "@heroicons/solid"
-import {
-  CompasIconSolid,
-  CompasIcon,
-  WideChevronLeftIcon,
-  // ArrowLeftToLineIcon
-} from "@lib/ui/icons"
-import logo from "@src/assets/logo.png"
+import { CompasIconSolid, CompasIcon, WideChevronLeftIcon } from "@lib/ui/icons"
 import { Presence } from "@lib/motion"
 import { Divider } from "@lib/ui/components"
 import Settings from "./settings"
 import UserPanel from "./user-panel"
-import cn from "@lib/ui/cn"
 
 import { navLink_styles, navLinkActive_styles, tagMotion, tagTransition } from "./utils"
+
+import logo from "@src/assets/logo.png"
 
 import "./navigation.css"
 
 const lg_links = [
-  { tag: "Home", href: "/", icon: <HomeIcon />, activeIcon: <HomeIconSolid /> },
+  {
+    tag: "Home",
+    href: "/",
+    icon: <HomeIcon />,
+    activeIcon: <HomeIconSolid />
+  },
   {
     tag: "Discover",
     href: "/discover",
@@ -68,11 +68,7 @@ const sm_links = [
   { href: "/discover", icon: <CompasIcon />, activeIcon: <CompasIconSolid /> },
   { href: "/", icon: <HomeIcon />, activeIcon: <HomeIconSolid /> },
   { href: "/discover/series", icon: <TvIcon />, activeIcon: <TvIconSolid /> },
-  {
-    href: "/discover/movies",
-    icon: <FilmIcon />,
-    activeIcon: <FilmIconSolid />,
-  },
+  { href: "/discover/movies", icon: <FilmIcon />, activeIcon: <FilmIconSolid /> },
 ]
 
 
@@ -182,7 +178,7 @@ function SideNav() {
           </NavLink>
         ))}
         <Divider variant="pale" width="almost-fill" />
-        <Settings isCollapsed={isCollapsed} />
+        <Settings loc="sidenav" isCollapsed={isCollapsed} />
         {session ? (
           <UserPanel isCollapsed={isCollapsed} />
         ) : (

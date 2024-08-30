@@ -50,17 +50,15 @@ export const modalBackdropMotion = {
     opacity: 0.85
   },
   animate: {
-    opacity: 1,
-    transition: {
-      duration: 0.3
-    }
+    opacity: 1
   },
   exit: {
-    opacity: 0.85,
-    transition: {
-      duration: 0.3
-    }
+    opacity: 0.85
   }
+}
+
+export const modalBackdroptransition = {
+  duration: 0.25
 }
 
 export const dropdownMenuMotion = {

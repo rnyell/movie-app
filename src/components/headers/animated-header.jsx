@@ -1,8 +1,12 @@
 import { useEffect, useRef, useState } from "react"
-import { motion, useScroll, useMotionValueEvent, useAnimate } from "framer-motion"
+import {
+  motion,
+  useScroll,
+  useMotionValueEvent,
+  useAnimate,
+} from "framer-motion"
 import Header from "./header"
 import SearchBox from "./search-box"
-
 
 export default function AnimatedHeader() {
   const [scope, animate] = useAnimate()
@@ -22,7 +26,7 @@ export default function AnimatedHeader() {
     const headerEl = headerRef.current
     const searchboxEl = searchboxRef.current
     const transition = { duration: 0.35, ease: "backOut" }
-  
+
     if (latestValue > previousValue && latestValue > 60) {
       animate(headerEl, { y: -headerHeight }, transition)
       animate(searchboxEl, { y: -headerHeight - 8, scaleX: 1.05 }, transition)
@@ -32,7 +36,6 @@ export default function AnimatedHeader() {
       animate(searchboxEl, { y: 0, scaleX: 1 }, transition)
     }
   })
-
 
   return (
     <motion.div className="animated-header" ref={scope}>
@@ -45,7 +48,7 @@ export default function AnimatedHeader() {
           zIndex: "105",
         }}
       >
-        <Header hasSearchbox={false} />
+        <Header withSearchbox={false} />
       </motion.div>
       <motion.div
         ref={searchboxRef}

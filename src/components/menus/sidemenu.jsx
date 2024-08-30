@@ -3,18 +3,12 @@ import { createPortal } from "react-dom"
 import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
 import { useAuth } from "@src/auth/auth-context"
-import {
-  HomeIcon,
-  TicketIcon,
-  FilmIcon,
-  TvIcon,
-  Squares2X2Icon,
-  Cog6ToothIcon,
-  UserCircleIcon,
-} from "@heroicons/outline"
+import { HomeIcon, TicketIcon, FilmIcon, TvIcon, UserCircleIcon } from "@heroicons/outline"
 import { CompasIcon } from "@lib/ui/icons"
+import { modalBackdropMotion, modalBackdroptransition } from "@lib/motion/motions"
 import { Divider } from "@lib/ui/components"
 import UserPanel from "./user-panel"
+
 import logo from "@src/assets/logo.png"
 
 import "./sidemenu.css"
@@ -27,6 +21,7 @@ const links = [
   { tag: "Tickets", href: "/tickets", icon: <TicketIcon /> },
 ]
 
+
 export default function SideMenu({ setOpen }) {
   const { isLoggedIn } = useAuth()
 
@@ -36,26 +31,26 @@ export default function SideMenu({ setOpen }) {
         setOpen(false)
       }
     })
-  }, [])
 
+    // TODO: remove listener
+    // using `abort()` ?
+  }, [])
 
   return createPortal(
     <>
       <motion.div
-        className="fixed inset-0 z-50 bg-[rgb(20_25_28/25%)]"
-        initial={{opacity: 0.8}}
-        animate={{opacity: 1}}
-        exit={{opacity: 0.8}}
-        transition={{duration: 0.2}}
+        className="fixed inset-0 z-100 bg-[rgb(20_25_28/25%)]"
         onClick={() => setOpen(false)}
+        {...modalBackdropMotion}
+        transition={modalBackdroptransition}
       />
       <motion.aside
-        className="side-menu fixed z-[var(--z-max)] w-[clamp(235px,25vw,260px)] text-[0.9rem]
+        className="side-menu absolute z-100 w-[clamp(235px,25vw,260px)] text-[0.9rem]
           bg-primary-800 rounded-4xl shadow-[0_2px_1rem_rgb(11_15_17/75%)]"
-        initial={{x: "-100%", opacity: 0.75}}
-        animate={{x: 0, opacity: 1}}
-        exit={{x: "-100%", opacity: 0.5}}
-        transition={{duration: 0.35, type: "spring"}}
+        initial={{left: "-100%", opacity: 0.75}}
+        animate={{left: 0, opacity: 1}}
+        exit={{left: "-100%", opacity: 0.5, transition: { duration: 0.5 }}}
+        transition={{duration: 0.35, type: "spring", bounce: 0.175}}
       >
         {isLoggedIn && (
           <>
@@ -63,7 +58,7 @@ export default function SideMenu({ setOpen }) {
             <Divider space="md" width="almost-fill" />
           </>
         )}
-        <nav className="menu-links mt-4 flex-col">
+        <nav className="menu-links mt-4 flex-col gap-1">
           {links.map(link => (
             <Link
               className="py-[0.65rem] px-4 flex gap-4 rounded-xl transition-bg duration-135 hover:bg-primary-600"

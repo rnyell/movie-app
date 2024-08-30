@@ -8,13 +8,13 @@ import {
 } from "@heroicons/outline"
 import { MoonIcon, SunIcon } from "@heroicons/solid"
 import { BugIcon, Palette } from "@lib/ui/icons"
-import cn from "@lib/ui/cn"
 import { Dropdown } from "@lib/ui/components"
+import cn from "@lib/ui/cn"
 import { NavTag } from "./navigation"
 import { navLink_styles, menu_styles, menuItem_styles } from "./utils"
 
 
-export default function Settings({ isCollapsed, loc = "sidenav" }) {
+export default function Settings({ isCollapsed, loc }) {
   // loc: "sidenav" | "menu"
   function navigateBlank(url) {
     window.open(url, "_blank", "noopener, noreferrer")
@@ -52,8 +52,8 @@ export default function Settings({ isCollapsed, loc = "sidenav" }) {
 function Themes({ loc }) {
   const { preferences, prefDispatch } = useThemeContext()
 
-  const common_styles = "size-[22px] relative block bg-primary-200 rounded-full bg-gradient-to-br"
-  const checked_styles = "content-[''] before:size-[12px] before:absolute-center before:bg-primary-700 before:rounded-full"
+  const radio_styles = "size-[22px] relative block bg-primary-200 rounded-full bg-gradient-to-br"
+  const radioChecked_styles = "content-[''] before:size-[12px] before:absolute-center before:bg-primary-700 before:rounded-full"
 
   function handleThemeChange(e) {
     if (!e.target.checked) {
@@ -111,8 +111,8 @@ function Themes({ loc }) {
                 onChange={handleAccentChange}
               />
               <span className={cn(
-                `${common_styles} from-[#D3546A] to-[#A72A4B]`,
-                { [checked_styles]: preferences.accent === "plum" }
+                `${radio_styles} from-[#D3546A] to-[#A72A4B]`,
+                { [radioChecked_styles]: preferences.accent === "plum" }
                 )} />
               <p className="text-[85%] text-primary-300">Plum</p>
             </label>
@@ -127,8 +127,8 @@ function Themes({ loc }) {
                 onChange={handleAccentChange}
               />
               <span className={cn(
-                `${common_styles} from-[#7c3aed] to-[#4c1d95]`,
-                {[checked_styles]: preferences.accent === "violet"}
+                `${radio_styles} from-[#7c3aed] to-[#4c1d95]`,
+                {[radioChecked_styles]: preferences.accent === "violet"}
               )} />
               <p className="text-[85%] text-primary-300">Violet</p>
             </label>
@@ -143,8 +143,8 @@ function Themes({ loc }) {
                 onChange={handleAccentChange}
               />
               <span className={cn(
-                `${common_styles} from-[#6366F1] to-[#3730A3]`,
-                { [checked_styles]: preferences.accent === "indigo" }
+                `${radio_styles} from-[#6366F1] to-[#3730A3]`,
+                { [radioChecked_styles]: preferences.accent === "indigo" }
                 )} />
               <p className="text-[85%] text-primary-300">Indigo</p>
             </label>

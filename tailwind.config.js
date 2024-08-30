@@ -7,6 +7,10 @@ export default {
 
   theme: {
     extend: {
+      zIndex: {
+        "100": 100,
+        "max": 10000
+      },
       colors: {
         "primary-50": "var(--color-neutral-50)",
         "primary-100": "var(--color-neutral-100)",

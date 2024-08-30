@@ -1,4 +1,4 @@
-import cls from "@src/lib/ui/cls"
+import cls from "@lib/ui/cls"
 import classes from "./overview.module.css"
 
 export default function Overview({
@@ -10,7 +10,7 @@ export default function Overview({
   return (
     <p
       className={cls(classes, ["overview", fontSize], customStyles)}
-      style={{WebkitLineClamp: lines}}
+      style={{ WebkitLineClamp: lines }}
     >
       {text}
     </p>

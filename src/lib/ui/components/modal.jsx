@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react"
 import { createPortal } from "react-dom"
 import { motion } from "framer-motion"
-import { modalBackdropMotion, modalMotion, modalTransition } from "@lib/motion/motions"
+import { modalBackdropMotion, modalBackdroptransition, modalMotion, modalTransition } from "@lib/motion/motions"
 
 import cls from "../cls"
 import classes from "./modal.module.css"
@@ -36,6 +36,7 @@ export default function Modal({
           className={cls(classes, ["modalBackdrop"])}
           onClick={setClose}
           {...modalBackdropMotion}
+          transition={modalBackdroptransition}
         />
       )}
       <motion.div

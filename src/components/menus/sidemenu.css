@@ -1,10 +1,6 @@
 .side-menu {
   padding: 0.4rem;
   top: calc(60px + 1.75vw);
-
-  & .menu-links {
-    gap: 0.25rem;
-  }
 }
 
 @media (width <= 780px) {

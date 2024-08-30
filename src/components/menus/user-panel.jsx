@@ -9,14 +9,19 @@ import {
   ArrowLeftStartOnRectangleIcon,
 } from "@heroicons/outline"
 import { Dropdown } from "@lib/ui/components"
-import cn from "@src/lib/ui/cn"
-
-import { navLink_styles, menuItem_styles, menu_styles, tagMotion, tagTransition } from "./utils"
 import Settings from "./settings"
+import cn from "@lib/ui/cn"
 
+import {
+  navLink_styles,
+  menuItem_styles,
+  menu_styles,
+  tagMotion,
+  tagTransition,
+} from "./utils"
 
 export default function UserPanel({ isCollapsed, appearance = "panel" }) {
-  // appearance: "panle" | "button" | "avatar"
+  // appearance: "panel" | "button" | "avatar"
   const isButton = isCollapsed
   const isAvatar = appearance === "avatar"
   const placement = isAvatar ? "bottom/end" : isButton ? "top/start" : "top"
@@ -50,9 +55,9 @@ export default function UserPanel({ isCollapsed, appearance = "panel" }) {
       <Dropdown.Trigger
         className={cn(
           navLink_styles,
-          "py-3 align-center bg-primary-900 hover:bg-primary-700 rounded-3xl cursor-pointer",
+          "py-3 align-center gap-0 bg-primary-900 hover:bg-primary-700 rounded-3xl cursor-pointer",
           "data-[appearance=button]:p-3 data-[appearance=button]:outline data-[appearance=button]:outline-[1.2px] data-[appearance=button]:outline-primary-700",
-          "data-[appearance=avatar]:p-2 data-[appearance=avatar]:bg-transparent"
+          "data-[appearance=avatar]:p-2 data-[appearance=avatar]:bg-transparent",
         )}
         data-collapsed={isCollapsed}
         data-appearance={isCollapsed ? "button" : appearance}
@@ -62,13 +67,13 @@ export default function UserPanel({ isCollapsed, appearance = "panel" }) {
           data-appearance={appearance}
         >
           <img className="w-100 rounded-full" src={imgSrc} />
-          <span className="size-[5.75px] absolute bottom-[1.5px] right-[1.5px] bg-[greenyellow] outline outline-[3] outline-primary-900 rounded-full" />
         </div>
         {appearance !== "avatar" && (
           <Presence trigger={!isCollapsed}>
-            <motion.p className="font-medium" {...tagMotion} transition={tagTransition}>
-              {user_name}
-            </motion.p>
+            <motion.div className="pl-3 grow" {...tagMotion} transition={tagTransition}>
+              <p className="font-medium">{user_name}</p>
+              <p className="w-[85%] truncate text-[0.575rem] font-semibold text-gray-500">alan321dl@gmail.com</p>
+            </motion.div>
             <i className="icon icon-md ml-auto">
               <ChevronUpDownIcon />
             </i>
@@ -76,7 +81,10 @@ export default function UserPanel({ isCollapsed, appearance = "panel" }) {
         )}
       </Dropdown.Trigger>
       <Dropdown.Menu className={menu_styles} placement={placement}>
-        <Dropdown.MenuItem className={menuItem_styles} onClick={() => navigate("/account")}>
+        <Dropdown.MenuItem
+          className={menuItem_styles}
+          onClick={() => navigate("/account")}
+        >
           <UserCircleIcon className="size-[1.125rem]" />
           <p>Account</p>
         </Dropdown.MenuItem>
@@ -85,7 +93,10 @@ export default function UserPanel({ isCollapsed, appearance = "panel" }) {
             <Settings loc="menu" />
           </Dropdown.MenuItem>
         )}
-        <Dropdown.MenuItem className={`${menuItem_styles} text-[var(--color-red-600)]`} onClick={handleLogout}>
+        <Dropdown.MenuItem
+          className={`${menuItem_styles} text-[var(--color-red-600)]`}
+          onClick={handleLogout}
+        >
           <ArrowLeftStartOnRectangleIcon className="size-[1.125rem]" />
           <p>Logout</p>
         </Dropdown.MenuItem>
@@ -93,7 +104,6 @@ export default function UserPanel({ isCollapsed, appearance = "panel" }) {
     </Dropdown.Container>
   )
 }
-
 
 function Avatar({ src, ...rest }) {
   return (

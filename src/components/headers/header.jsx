@@ -5,14 +5,15 @@ import { useAuth } from "@src/auth/auth-context"
 import { useThemeContext } from "@src/store"
 import { BellIcon, UserCircleIcon } from "@heroicons/outline"
 import { Presence } from "@lib/motion"
-import { Button } from "@lib/ui/components"
+import { Button, Dropdown } from "@lib/ui/components"
 import SearchBox from "./search-box"
 import SideMenu from "../menus/sidemenu"
 import UserPanel from "../menus/user-panel"
 
 import "./header.css"
+import { menu_styles } from "../menus/utils"
 
-export default function Header({ hasSearchbox = true }) {
+export default function Header({ withSearchbox = true }) {
   const { isLoggedIn } = useAuth()
   const { isMobile } = useThemeContext()
   const { pathname } = useLocation()
@@ -23,14 +24,11 @@ export default function Header({ hasSearchbox = true }) {
   useEffect(() => {
     if (pathname === "/") {
       setDataset("default normal")
-    } else if (pathname.startsWith("/search") && hasSearchbox) {
+    } else if (pathname.startsWith("/search") && withSearchbox) {
       setDataset("stretched sticky")
-    } else if (pathname.startsWith("/search") && !hasSearchbox) {
+    } else if (pathname.startsWith("/search") && !withSearchbox) {
       setDataset("animated")
-    } else if (
-      pathname.startsWith("/movies") ||
-      pathname.startsWith("/series")
-    ) {
+    } else if (pathname.startsWith("/movies") || pathname.startsWith("/series")) {
       setDataset("default transparent")
     } else {
       setDataset("default sticky")
@@ -46,14 +44,7 @@ export default function Header({ hasSearchbox = true }) {
         <SearchBox dataset={dataset} />
       </div>
       <div className="icons align-center">
-        <Button
-          variants="ghost"
-          size="square-md"
-          iconOnly
-          iconSize="xl"
-          svg={<BellIcon />}
-          customStyles="rounded-full color-neutral-300"
-        />
+        <Notif />
         {isMobile &&
           (isLoggedIn ? (
             <UserPanel appearance="avatar" />
@@ -112,5 +103,25 @@ function HamberIcon({ setOpen, isOpen }) {
         animate={isOpen ? { rotateZ: -45, width: 20, y: -1.5 } : { rotateZ: 0 }}
       />
     </i>
+  )
+}
+
+function Notif() {
+  return (
+    <Dropdown.Container strategy="portal">
+      <Dropdown.Trigger>
+        <Button
+          variants="ghost"
+          size="square-md"
+          iconOnly
+          iconSize="xl"
+          svg={<BellIcon />}
+          customStyles="rounded-full color-neutral-300"
+        />
+      </Dropdown.Trigger>
+      <Dropdown.Menu className={`${menu_styles} p-4`} placement="bottom/end">
+        Wow, such empty!
+      </Dropdown.Menu>
+    </Dropdown.Container>
   )
 }
