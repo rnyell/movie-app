@@ -11,7 +11,7 @@
   }
 
   &[data-set~="sticky"] {
-    /* position: sticky; */
+    position: sticky;
     top: 0;
     z-index: var(--z-50);
     background-color: var(--color-neutral-950);

@@ -105,15 +105,15 @@ export default function UserPanel({ isCollapsed, appearance = "panel" }) {
   )
 }
 
-function Avatar({ src, ...rest }) {
-  return (
-    <div
-      className="size-9 shrink-0 relative outline outline-[1.5] outline-primary-600 outline-offset-2 rounded-full"
-      {...rest}
-    >
-      <img className="w-100 rounded-full" src={imgSrc} />
-      <span className="size-[5.75px] absolute bottom-[1.5px] right-[1.5px] bg-[greenyellow] outline outline-[3] outline-primary-900 rounded-full" />
-      <div />
-    </div>
-  )
-}
+// function Avatar({ src, ...rest }) {
+//   return (
+//     <div
+//       className="size-9 shrink-0 relative outline outline-[1.5] outline-primary-600 outline-offset-2 rounded-full"
+//       {...rest}
+//     >
+//       <img className="w-100 rounded-full" src={imgSrc} />
+//       <span className="size-[5.75px] absolute bottom-[1.5px] right-[1.5px] bg-[greenyellow] outline outline-[3] outline-primary-900 rounded-full" />
+//       <div />
+//     </div>
+//   )
+// }
