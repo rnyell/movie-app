@@ -67,7 +67,7 @@ export const dropdownMenuMotion = {
   // y = 1 | -1
   initial: (y) => ({
     opacity: 0.5,
-    y: y * 20,
+    y: y * 10,
   }),
   animate: {
     opacity: 1,
@@ -76,7 +76,7 @@ export const dropdownMenuMotion = {
   },
   exit: (y) => ({
     opacity: 0,
-    y: y * 20,
+    y: y * 10,
   }),
 }
 

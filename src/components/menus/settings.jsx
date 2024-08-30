@@ -14,7 +14,8 @@ import { NavTag } from "./navigation"
 import { navLink_styles, menu_styles, menuItem_styles } from "./utils"
 
 
-export default function Settings({ isCollapsed }) {
+export default function Settings({ isCollapsed, loc = "sidenav" }) {
+  // loc: "sidenav" | "menu"
   function navigateBlank(url) {
     window.open(url, "_blank", "noopener, noreferrer")
   }
@@ -26,25 +27,20 @@ export default function Settings({ isCollapsed }) {
         <NavTag tag="Settings" isCollapsed={isCollapsed} />
         {!isCollapsed && <i className="icon ml-auto"><ChevronDownIcon /></i>}
       </Dropdown.Trigger>
-        {/* styles for collapsed sidenav. dropped cuz of complexity */}
-        {/* the `-right-[12.25rem]` is totally a magic number
-        className="data-[collapsed=true]:!left-auto data-[collapsed=true]:!-right-[12.25rem]"
-        data-collapsed={isCollapsed}
-        position={isCollapsed ? {v: "align-top", h: "right"} : {v: "bottom", h: null}} */}
-      <Dropdown.Menu className={menu_styles}>
+      <Dropdown.Menu className={menu_styles} placement={isCollapsed ? "right/start" : "bottom"}>
         <Dropdown.MenuItem style={{all: "unset"}}>
-          <Themes />
+          <Themes loc={loc} />
         </Dropdown.MenuItem>
         <Dropdown.MenuItem className={menuItem_styles}>
-          <i className="icon icon-md"><QuestionMarkCircleIcon /></i>
+          <i className="icon icon-sm"><QuestionMarkCircleIcon /></i>
           <p>FAQ</p>
         </Dropdown.MenuItem>
         <Dropdown.MenuItem className={menuItem_styles} onClick={() => navigateBlank("https://github.com/rnyell/movie-app")}>
-          <i className="icon icon-md"><CommandLineIcon /></i>
+          <i className="icon icon-sm"><CommandLineIcon /></i>
           <p>Contribute</p>
         </Dropdown.MenuItem>
         <Dropdown.MenuItem className={menuItem_styles} onClick={() => navigateBlank("https://t.me/")}>
-          <i className="icon icon-md"><BugIcon /></i>
+          <i className="icon icon-sm"><BugIcon /></i>
           <p>Report Issues</p>
         </Dropdown.MenuItem>
       </Dropdown.Menu>
@@ -53,11 +49,11 @@ export default function Settings({ isCollapsed }) {
 }
 
 
-function Themes() {
+function Themes({ loc }) {
   const { preferences, prefDispatch } = useThemeContext()
 
   const common_styles = "size-[22px] relative block bg-primary-200 rounded-full bg-gradient-to-br"
-  const checked_styles = "content-[''] before:size-[12px] before:absolute-center before:bg-slate-50 before:rounded-full"
+  const checked_styles = "content-[''] before:size-[12px] before:absolute-center before:bg-primary-700 before:rounded-full"
 
   function handleThemeChange(e) {
     if (!e.target.checked) {
@@ -75,11 +71,11 @@ function Themes() {
   return (
     <Dropdown.Container>
       <Dropdown.Trigger className={`${navLink_styles} text-primary-200 hover:text-unset hover:bg-primary-700`}>
-        <i className="icon icon-md"><Palette /></i>
+        <i className="icon icon-sm"><Palette /></i>
         <p>Appearance</p>
         <i className="icon icon-xs ml-auto"><ChevronRightIcon /></i>
       </Dropdown.Trigger>
-      <Dropdown.Menu className={menu_styles} isNested position={{v: "bottom", h: "right"}}>
+      <Dropdown.Menu className={menu_styles} placement={loc === "menu" ? "left/start" : "right/start"}>
         <Dropdown.MenuItem className={`${menuItem_styles} py-0 gap-0`}>
           <p>Theme</p>
           <label className="p-3 h-full grow align-center" htmlFor="mode">

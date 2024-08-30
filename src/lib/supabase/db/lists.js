@@ -11,8 +11,7 @@ export async function getUserLists() {
   if (error) {
     console.error("Failed to fetch user's lists", error)
   }
-  
-  // console.log("user's lists", data)
+
   return data
 }
 
@@ -81,12 +80,13 @@ export async function deleteList(listId) {
 }
 
 //================================================================
-//================================================================
+/* helper funcs */
 function generateShareId() {
   const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+  const shareIdLength = 8
   let shareId = ""
 
-  for (let i = 0; i <= 8; i++) {
+  for (let i = 0; i <= shareIdLength; i++) {
     shareId += charset.charAt(Math.floor(
       Math.random() * charset.length
     ))
@@ -96,16 +96,13 @@ function generateShareId() {
 }
 
 async function isShareIdUnique(shareId) {
-  const { data, error } = await supabase
-    .from("lists")
-    .select("share_id")
+  const { data, error } = await supabase.from("lists").select("share_id")
 
   if (error) {
     console.error(error)
   }
 
   const shareIds = data.map(d => d.share_id)
-  console.log(shareIds)
 
   if (shareIds.includes(shareId)) {
     return false

@@ -25,6 +25,7 @@ export async function signInAnonymously() {
 
 export async function logOut() {
   const { error } = await supabase.auth.signOut()
+
   if (error) {
     console.error(error)
   }

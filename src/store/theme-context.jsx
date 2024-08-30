@@ -30,12 +30,9 @@ function themeReducer(state, action) {
 }
 
 export default function ThemeProvider({ children }) {
-  const [preferences, prefDispatch] = useReducer(
-    themeReducer,
-    initialPreferences,
-  )
+  const [preferences, prefDispatch] = useReducer(themeReducer, initialPreferences)
   const { windowWidth } = useWindowOffsets()
-  const isMobile = windowWidth < 520
+  const isMobile = windowWidth <= 520
   // const { country } = useGeoLocation()
   // const isVPNError = country === "IR"
   const isVPNError = false

@@ -1,6 +1,5 @@
 import { supabase, getUserId } from "../auth"
 
-
 export async function getUserProfile() {
   const userId = await getUserId()
   const { data, error } = await supabase
@@ -33,7 +32,7 @@ export async function getPlayedMoviesFromUser() {
   return data?.played_movies
 }
 
-export async function updatePlayedMoviesOnProfiles(type, movieId) {
+export async function updatePlayedMoviesOnProfile(type, movieId) {
   const userId = await getUserId()
   const previousMovies = await getPlayedMoviesFromUser()
   let updatedMovies = []
@@ -44,7 +43,7 @@ export async function updatePlayedMoviesOnProfiles(type, movieId) {
       break
     }
     case "delete": {
-      const filtered = previousMovies.filter(id => id !== movieId)
+      const filtered = previousMovies.filter((id) => id !== movieId)
       updatedMovies = [...filtered]
       break
     }
@@ -58,14 +57,14 @@ export async function updatePlayedMoviesOnProfiles(type, movieId) {
     .from("profiles")
     .update({ played_movies: updatedMovies })
     .eq("id", userId)
-  
+
   if (error) {
     console.log("Failed to update played movies in user's profile")
     console.error(error)
   }
 }
 
-export async function updatePlayedSeriesOnProfiles(type, movieId) {
+export async function updatePlayedSeriesOnProfile(type, movieId) {
   const userId = await getUserId()
   const previousSeries = await getPlayedMoviesFromUser()
   let updatedSeries = []
@@ -76,7 +75,7 @@ export async function updatePlayedSeriesOnProfiles(type, movieId) {
       break
     }
     case "delete": {
-      const filtered = previousSeries.filter(id => id !== movieId)
+      const filtered = previousSeries.filter((id) => id !== movieId)
       updatedSeries = [...filtered]
       break
     }
@@ -90,7 +89,7 @@ export async function updatePlayedSeriesOnProfiles(type, movieId) {
     .from("profiles")
     .update({ played_series: updatedSeries })
     .eq("id", userId)
-  
+
   if (error) {
     console.log("Failed to update played movies in user's profile")
     console.error(error)

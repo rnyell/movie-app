@@ -1,5 +1,10 @@
-import { useState, useRef, createContext, useContext, useLayoutEffect } from "react"
-// import { createPortal } from "react-dom"
+import {
+  useState,
+  useRef,
+  createContext,
+  useContext,
+  useLayoutEffect,
+} from "react"
 import { motion } from "framer-motion"
 import { useClickOutside, useWindowOffsets } from "@lib/hooks"
 import { dropdownMenuMotion } from "@lib/motion/motions"
@@ -11,7 +16,6 @@ const DropdownContext = createContext(null)
 function useDropdownContext() {
   return useContext(DropdownContext)
 }
-
 
 const targetClientInitial = {
   width: 0,
@@ -31,12 +35,7 @@ export function Container({ children, className, ...rest }) {
 
   useClickOutside(ref, () => setOpen(false))
 
-  const contextValue = {
-    isOpen,
-    setOpen,
-    targetClient,
-    setTargetClient
-  }
+  const contextValue = { isOpen, setOpen, targetClient, setTargetClient }
 
   return (
     <DropdownContext.Provider value={contextValue}>
@@ -46,7 +45,6 @@ export function Container({ children, className, ...rest }) {
     </DropdownContext.Provider>
   )
 }
-
 
 export function Trigger({ children, className, ...rest }) {
   const { isOpen, setOpen, setTargetClient } = useDropdownContext()
@@ -80,75 +78,93 @@ export function Trigger({ children, className, ...rest }) {
 export function Menu({
   children,
   className,
-  isNested = false,
-  position = {v: "bottom", h: null},
+  placement = "left-start/bottom",
   ...rest
 }) {
-  const { windowHeight } = useWindowOffsets()
+  const { windowWidth, windowHeight } = useWindowOffsets()
   const { isOpen, targetClient } = useDropdownContext()
   const [menuClient, setMenuClient] = useState(menuClientInitial)
   const ref = useRef(null)
 
   useLayoutEffect(() => {
     if (isOpen) {
-      const { width, height }  = ref.current?.getBoundingClientRect()
+      const { width, height } = ref.current?.getBoundingClientRect()
       setMenuClient({ ...menuClient, width, height })
     }
   }, [isOpen])
 
-
+  const offsetY = 8
+  const offsetX = 8
   const baseWidth = "12rem"
   const width = `max(${targetClient.width}px, ${baseWidth})`
-  const yoffset = 8
-  const xoffset = 4
-  let top = targetClient.bottom + yoffset
-  let left = targetClient.left
-  // y & x are custom values for dynamic variants set framer-motion
+  let top, left;
+  // y & x are custom values for dynamic variants, set framer-motion
   // TODO: use x for horizontal motion
-  // let x
-  let y
+  let x, y;
+  // top -> y = -1
+  // bottom -> y = 1
 
-  if (position.v === "top") {
-    top = targetClient.top - menuClient.height - yoffset
+  if (placement === "top") {
+    left = targetClient.left + (targetClient.width / 2) - (menuClient.width / 2)
+    top = targetClient.top - menuClient.height - offsetY
     y = -1
-
-    if (targetClient.top - menuClient.height - yoffset < 0) {
-      top = targetClient.bottom + yoffset
-      y = 1
-    }
-  } else if (position.v === "bottom") {
+  } else if (placement === "top/start") {
+    left = targetClient.left
+    top = targetClient.top - menuClient.height - offsetY
+    y = -1
+  } /* else if (placement === "top/end") {
+    // left
+    // top
+    y = -1
+  } */ else if (placement === "bottom") {
+    left = targetClient.left + (targetClient.width / 2) - (menuClient.width / 2)
+    top = targetClient.bottom + offsetY
     y = 1
-
-    if (windowHeight - targetClient.bottom < menuClient.height + yoffset) {
-      top = targetClient.top - menuClient.height - yoffset
-      y = -1
-    }
-  } /* else if (position.v === "align-top") {
-    top = targetClient.top
-    y = -1
-
-    if (windowHeight - targetClient.bottom < menuClient.height + yoffset) {
-      top = targetClient.top - menuClient.height
-      y = 1
-    }
+  } /* else if (placement === "bottom/start") {
+    y = 1
+  } */ else if (placement === "bottom/end") {
+    left = targetClient.right - menuClient.width
+    top = targetClient.bottom + offsetY
+    y = 1
+  } /* else if (placement === "left") {
+    left = targetClient.left - menuClient.width
+    // top 
+    y = 1
+  } */ else if (placement === "left/start") {
+    left = targetClient.left - menuClient.width - offsetX
+    top = targetClient.top - 2
+    y = 1
+  } /* else if (placement === "left/end") {
+    y = 1
+  } else if (placement === "right") {
+    y = 1
+  } */ else if (placement === "right/start") {
+    left = targetClient.right + offsetX + 2
+    top = targetClient.top - 2
+    //! `2` is a hacky fix
+    // when menu is nested, there might be a padding of the <Target />'s parent. we should fix it somehow
+    y = 1
+  } /* else if (placement === "right/end") {
+    y = 1
   } */
 
-  if (position.h === "right") {
-    left = targetClient.left + targetClient.width - xoffset
-  } else if (position.h === "left") {
-    left = -targetClient.left + xoffset
-  }
-
-  // the parent <Dropdown.Container /> is a "positioned" element & the nested dropdown menu should be positioned based on it,
-  // so the nested's top property should be 0 => aligned horizontally to its parent menu.
-  if (isNested) {
-    top = 0
+  if (placement.includes("top") && targetClient.top - menuClient.height - offsetY < 0) {
+    top = targetClient.bottom + offsetY
+    y = 1
+  } else if (placement.includes("bottom") && windowHeight - targetClient.bottom < menuClient.height + offsetY) {
+    top = targetClient.top - menuClient.height - offsetY
+    y = -1
+  } else if (placement.includes("right") && windowHeight - targetClient.top < menuClient.height) {
+    top = targetClient.top - menuClient.height
+    y = -1
+  } else if (placement.includes("right/") && windowWidth - targetClient.right < menuClient.width) {
+    left = targetClient.left + offsetX + 2
   }
 
   return (
     <Presence trigger={isOpen}>
       <motion.div
-        className={cn("p-1 absolute z-50 flex-col gap-[0.325rem]", className)}
+        className={cn("p-1 fixed z-50 flex-col gap-[0.325rem]", className)}
         style={{ width, top, left }}
         ref={ref}
         custom={y}
@@ -160,22 +176,23 @@ export function Menu({
     </Presence>
   )
   // i think portal is better aproach but donno how to handle click outside, an opaque backdrop may be?
-  // return createPortal(
-  //   <Presence trigger={isOpen}>
-  //     <motion.div
-  //       className={cn("p-1 absolute z-50 flex-col gap-[0.325rem]", className)}
-  //       style={{ width: targetClient.width, top, left }}
-  //       data-menu
-  //       ref={ref}
-  //       {...dropdownMenuMotion}
-  //     >
-  //       {children}
-  //     </motion.div>
-  //   </Presence>,
-  //   document.getElementById("portal")
-  // )
+  // update: enhanced floating via rplacing `absolute` positioning with `fixed`, removed from the document flow and posed based on viewport'
+  // so it's kinda a "portall" to the viewport
+  /* return createPortal(
+       <Presence trigger={isOpen}>
+         <motion.div
+           className={cn("p-1 absolute z-50 flex-col gap-[0.325rem]", className)}
+           style={{ width: targetClient.width, top, left }}
+           data-menu
+           ref={ref}
+           {...dropdownMenuMotion}
+         >
+           {children}
+         </motion.div>
+       </Presence>,
+       document.getElementById("portal")
+   )*/
 }
-
 
 export function MenuItem({ children, className, ...rest }) {
   return (

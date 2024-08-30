@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom"
 import { motion } from "framer-motion"
 import { useAuth } from "@src/auth/auth-context"
 import { useThemeContext } from "@src/store"
-import { BellIcon, Cog6ToothIcon, UserCircleIcon } from "@heroicons/outline"
+import { BellIcon, UserCircleIcon } from "@heroicons/outline"
 import { Presence } from "@lib/motion"
 import { Button } from "@lib/ui/components"
 import SearchBox from "./search-box"
@@ -54,19 +54,9 @@ export default function Header({ hasSearchbox = true }) {
           svg={<BellIcon />}
           customStyles="rounded-full color-neutral-300"
         />
-        {isMobile && (
-          <Button
-            variants="ghost"
-            size="square-md"
-            iconOnly
-            iconSize="xl"
-            svg={<Cog6ToothIcon />}
-            customStyles="rounded-full color-neutral-300"
-          />
-        )}
         {isMobile &&
           (isLoggedIn ? (
-            <UserPanel isCollapsed={true} data-shape="" />
+            <UserPanel appearance="avatar" />
           ) : (
             <Link to="/login">
               <Button
