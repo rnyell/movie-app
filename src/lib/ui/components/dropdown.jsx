@@ -31,7 +31,6 @@ export function Container({ children, className, strategy = "fixed", ...rest }) 
   useClickOutside(ref, closeMenu)
 
   function closeMenu() {
-    console.log(strategy);
     if (strategy === "fixed") {
       setOpen(false)
     }
