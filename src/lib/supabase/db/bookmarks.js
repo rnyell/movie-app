@@ -1,23 +1,29 @@
-import { supabase, getUserId } from "../auth"
-import { getWatchLaterListId } from "./lists"
+import { supabase } from "../auth"
+import { getUserListsIds, getWatchLaterListId } from "./lists"
 
 
-export async function getAllBookmarkedItems() {
-  const userId = await getUserId()
+export async function isItemBookmarked(item) {
+  const listIds = await getUserListsIds()
+
   const { data, error } = await supabase
-  .from("bookmarks")
-  .select("*")
-  // .eq("")
+    .from("bookmarks")
+    .select("id")
+    .eq("id", item.id)
+    .eq("media", item.media)
+    .in('list_id', listIds)
+    .limit(1)
 
-  console.log("all bookmarks", data)
-  console.log(data);
-  
   if (error) {
     console.error(error)
   }
-  
-  return data
+
+  if (data.length > 0) {
+    return true
+  } else {
+    return false
+  }
 }
+
 
 export async function getWatchLaterItems() {
   const listId = await getWatchLaterListId()
@@ -53,41 +59,6 @@ export async function getListsIdsByBookmarkedItem(item) {
   return ids
 }
 
-export async function getBookmarkedItemByListId(listId) {
-  const { data, error } = await supabase
-    .from("bookmarks")
-    .select("*")
-    .eq("list_id", listId)
-
-  if (error) {
-    console.error(error)
-  }
-
-  // console.log(data)
-  return data
-}
-
-export async function isItemBookmarked(item) {
-  const userId = await getUserId()
-  const { data, error } = await supabase
-    .from("bookmarks")
-    .select("*")
-    .eq("id", item.id)
-    .eq("media", item.media)
-    .limit(1)
-
-  if (error) {
-    console.error(error)
-  }
-
-  // console.log(data)
-
-  if (data.length > 0) {
-    return true
-  } else {
-    return false
-  }
-}
 
 export async function updateBookmarks(type, listId, item) {
   if (type === "add") {
@@ -112,7 +83,38 @@ export async function updateBookmarks(type, listId, item) {
   }
 }
 
+// ----
+// export async function getAllBookmarkedItems() {
+//   const userId = await getUserId()
+//   const { data, error } = await supabase
+//   .from("bookmarks")
+//   .select("*")
+//   .eq("")
 
+//   console.log("all bookmarks", data)
+//   console.log(data);
+  
+//   if (error) {
+//     console.error(error)
+//   }
+  
+//   return data
+// }
+
+// export async function getBookmarkedItemByListId(listId) {
+//   const { data, error } = await supabase
+//     .from("bookmarks")
+//     .select("*")
+//     .eq("list_id", listId)
+
+//   if (error) {
+//     console.error(error)
+//   }
+
+//   return data
+// }
+
+// ----
 // export async function isItemBookmarked(item) {
 //   const { data, error } = await supabase
 //     .from("bookmarks")

@@ -15,6 +15,21 @@ export async function getUserLists() {
   return data
 }
 
+export async function getUserListsIds() {
+  const userId = await getUserId()
+  const { data, error } = await supabase
+    .from("lists")
+    .select("id")
+    .eq("creator_id", userId)
+  
+  if (error) {
+    console.error("Failed to fetch user's lists", error)
+  }
+
+  const listsIdsArray = data.map(d => d.id)
+  return listsIdsArray
+}
+
 export async function getWatchLaterListId() {
   const userId = await getUserId()
   const { data, error } = await supabase

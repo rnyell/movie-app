@@ -5,19 +5,8 @@ import { useWindowOffsets } from "@lib/hooks"
 import { useAuth } from "@src/auth/auth-context"
 import { breakpoints } from "@lib/ui/configs"
 import cn from "@lib/ui/cn"
-import {
-  HomeIcon,
-  TicketIcon,
-  FilmIcon,
-  TvIcon,
-  UserCircleIcon
-} from "@heroicons/outline"
-import {
-  HomeIcon as HomeIconSolid,
-  TicketIcon as TicketIconSolid,
-  FilmIcon as FilmIconSolid,
-  TvIcon as TvIconSolid,
-} from "@heroicons/solid"
+import { HomeIcon as HomeIconSolid, FilmIcon as FilmIconSolid, TvIcon as TvIconSolid } from "@heroicons/solid"
+import { HomeIcon, FilmIcon, TvIcon, UserCircleIcon } from "@heroicons/outline"
 import { CompasIconSolid, CompasIcon, WideChevronLeftIcon } from "@lib/ui/icons"
 import { Presence } from "@lib/motion"
 import { Divider } from "@lib/ui/components"
@@ -55,16 +44,9 @@ const lg_links = [
     icon: <TvIcon />,
     activeIcon: <TvIconSolid />,
   },
-  {
-    tag: "Tickets",
-    href: "/tickets",
-    icon: <TicketIcon />,
-    activeIcon: <TicketIconSolid />,
-  },
 ]
 
 const sm_links = [
-  { href: "/tickets", icon: <TicketIcon />, activeIcon: <TicketIconSolid /> },
   { href: "/discover", icon: <CompasIcon />, activeIcon: <CompasIconSolid /> },
   { href: "/", icon: <HomeIcon />, activeIcon: <HomeIconSolid /> },
   { href: "/discover/series", icon: <TvIcon />, activeIcon: <TvIconSolid /> },

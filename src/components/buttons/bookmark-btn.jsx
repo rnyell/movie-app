@@ -14,6 +14,8 @@ export default function BookmarkButton({ item, setModal, ...props }) {
     { dependencies: [item.id] }
   )
 
+  console.log(isBookmarked)
+
   function showListsModal() {
     modalDispatch({
       type: "save",

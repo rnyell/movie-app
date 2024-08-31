@@ -26,7 +26,14 @@ export default function Rates({
   customStyles,
   ...props
 }) {
-  const { data, isLoading } = useLoader(() => getAdditionalDetails(extId))
+  const { data, isLoading } = useLoader(getRates)
+
+  async function getRates() {
+    if (variant === "verbose") {
+      const data = await getAdditionalDetails(extId)
+      return data
+    }
+  }
 
   switch (variant) {
     case "square": {

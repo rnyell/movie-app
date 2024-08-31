@@ -1,24 +1,21 @@
 import { useEffect, useState } from "react"
-// import { useUserContext } from "@src/store"
 import { getUserLists, updateBookmarks, getListsIdsByBookmarkedItem, createList } from "@lib/supabase/db"
 import { PlusIcon, LockClosedIcon, XMarkIcon } from "@heroicons/outline"
 import { Modal, Button, Icon, Divider } from "@lib/ui/components"
 import { useLoader } from "@lib/hooks"
+import { ListsModalSkeleton } from "../skeletons"
 
 import "./lists-modal.css"
-import { ListsModalSkeleton } from "../skeletons"
 
 
 export default function ListsModal({ item, setClose }) {
-  // const { userState } = useUserContext()
-  // list type: [ {id: 'uuid', name: 'str', items: []} ]
-  // const lists = userState.lists
   const [checkedListIds, setCheckedListIds] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [isCreatingNewList, setIsCreatingNewList] = useState(false)
-
+  
   const { data: lists, isLoading: listsLoading } = useLoader(getUserLists)
   const listIds = lists?.map(list => list.id)
+  // list: [ {id: 'uuid', name: 'str', items: []} ]
 
   useEffect(() => {
     loader()
@@ -57,7 +54,6 @@ export default function ListsModal({ item, setClose }) {
       if (listName.trim() !== "") {
         const createdList = await createList(listName, isPrivate)
         updateBookmarks("add", createdList.id, item)
-        // console.log('list successfully created', createdList)
       }
     }
 

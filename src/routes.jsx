@@ -6,16 +6,16 @@ import NotFound from "@pages/not-found"
 import { SearchProvider } from "./store"
 
 import HomePage from "@pages/(home)/page"
-const LoginPage = lazy(() => import("@pages/login/page"))
-const Account = lazy(() => import("@pages/account/page"))
 import Discover from "@pages/discover/page"
+import SearchPage from "@pages/search/page"
 const MoviesPage = lazy(() => import("@pages/discover/movies/page"))
 const SeriesPage = lazy(() => import("@pages/discover/series/page"))
 const GenrePage = lazy(() => import("@pages/discover/genres/page"))
-import SearchPage from "@pages/search/page"
-import SelectedMovie from "@pages/(selected-media)/selected-movie/page"
-import SelectedSeries from "@pages/(selected-media)/selected-series/page"
+const SelectedMovie = lazy(() => import("@pages/(selected-media)/selected-movie/page"))
+const SelectedSeries = lazy(() => import("@pages/(selected-media)/selected-series/page"))
 const Player = lazy(() => import("@pages/player/page"))
+const LoginPage = lazy(() => import("@pages/login/page"))
+const Account = lazy(() => import("@pages/account/page"))
 
 import AuthRoute from "./auth/auth-route"
 
