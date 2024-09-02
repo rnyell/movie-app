@@ -107,7 +107,7 @@ function Themes({ loc }) {
                 name="accent"
                 id="plum"
                 value="plum"
-                checked={preferences.accent === "plum"}
+                defaultChecked={preferences.accent === "plum"}
                 onChange={handleAccentChange}
               />
               <span className={cn(
@@ -123,7 +123,7 @@ function Themes({ loc }) {
                 name="accent"
                 id="violet"
                 value="violet"
-                checked={preferences.accent === "violet"}
+                defaultChecked={preferences.accent === "violet"}
                 onChange={handleAccentChange}
               />
               <span className={cn(
@@ -139,7 +139,7 @@ function Themes({ loc }) {
                 name="accent"
                 id="indigo"
                 value="indigo"
-                checked={preferences.accent === "indigo"}
+                defaultChecked={preferences.accent === "indigo"}
                 onChange={handleAccentChange}
               />
               <span className={cn(

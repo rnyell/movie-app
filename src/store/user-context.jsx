@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react"
 import { useAuth } from "@src/auth/auth-context"
-import { getUserProfile } from "@lib/supabase/db"
+import { getUserListsCount, getUserProfile } from "@lib/supabase/db"
 
 const UserContext = createContext(null)
 
@@ -14,6 +14,7 @@ const userInitial = {
   email: "",
   fullName: "",
   avatarUrl: "",
+  listsCount: 1,
   isAnonymous: false,
 }
 
@@ -32,6 +33,7 @@ export default function UserProvider({ children }) {
   async function initUserState() {
     const profile = await getUserProfile()
     const isAnonymous = session?.user?.is_anonymous
+    const listsCount = await getUserListsCount()
 
     const {
       id,
@@ -47,6 +49,7 @@ export default function UserProvider({ children }) {
       email,
       fullName: full_name,
       avatarUrl: avatar_url,
+      listsCount,
       isAnonymous
     })
   }

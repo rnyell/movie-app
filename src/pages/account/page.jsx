@@ -12,7 +12,7 @@ import "./page.css"
 export default function Account() {
   return (
     <ViewTransition>
-      <Page pageName="account">
+      <Page className="gap-16">
         <Profile />
         <Divider />
         <WatchHistory />

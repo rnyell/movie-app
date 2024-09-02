@@ -1,32 +1,26 @@
-.account {
-  gap: 3rem;
+.empty-msg {
+  padding: var(--space-4) var(--space-2);
+  line-height: 2;
 
-  & .empty-msg {
-    padding: var(--space-4) var(--space-2);
-    line-height: 2;
-
-    & a {
-      text-decoration: underline;
-      color: var(--color-accent-300);
-    }
+  & a {
+    text-decoration: underline;
+    color: var(--color-accent-300);
   }
 }
 
-.account .watchlist {
-  & .empty-watchlist-msg {
-    & .icon {
-      margin-inline: var(--space-2);
-      padding: var(--space-2);
-      vertical-align: bottom;
-      color: var(--color-neutral-100);
-      background-color: rgb(20 23 26 / 15%);
-      backdrop-filter: blur(5px);
-      border-radius: 0.625rem;
-      border: var(--outline-size-1) solid var(--color-neutral-400);
+& .empty-watchlist-msg {
+  & .icon {
+    margin-inline: var(--space-2);
+    padding: var(--space-2);
+    vertical-align: bottom;
+    color: var(--color-neutral-100);
+    background-color: rgb(20 23 26 / 15%);
+    backdrop-filter: blur(5px);
+    border-radius: 0.625rem;
+    border: var(--outline-size-1) solid var(--color-neutral-400);
 
-      & svg {
-        width: var(--icon-size-6);
-      }
+    & svg {
+      width: var(--icon-size-6);
     }
   }
 }

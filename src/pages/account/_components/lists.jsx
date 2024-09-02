@@ -1,36 +1,23 @@
 import { useLoader } from "@lib/hooks"
 import { getUserLists } from "@lib/supabase/db"
-import { Button } from "@lib/ui/components"
-import { EllipsisVerticalIcon } from "@heroicons/solid"
-import Section from "./section"
-
-import classes from "./section.module.css"
+import { Snap } from "@lib/ui/components"
 import ListCard from "./list-card"
+import Header from "./header"
+
 
 export default function Lists() {
   const { data: lists, isLoading } = useLoader(getUserLists)
 
   return (
-    <Section sectionName="lists">
-      <header className="flex">
-        <h3 className="heading">Your Lists</h3>
-        <Button
-          variants="ghost"
-          size="square-xs"
-          customStyles="ml-auto"
-          iconOnly
-          iconSize="md"
-          svg={<EllipsisVerticalIcon />}
-        />
-      </header>
-      <div className={classes.container}>
+    <section>
+      <Header heading="Your Lists" href="/account/lists" />
+      <Snap.Container customStyles="mt-4 p-2">
         {lists?.map(list => (
-          <ListCard
-            key={list.id}
-            list={list}
-          />
+          <Snap.Item customStyles="p-2" key={list.id}>
+            <ListCard list={list} />
+          </Snap.Item>
         ))}
-      </div>
-    </Section>
+      </Snap.Container>
+    </section>
   )
 }

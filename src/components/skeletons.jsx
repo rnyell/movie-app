@@ -7,6 +7,17 @@ const shimmer = `
   overflow-hidden before:content-[''] before:absolute before:inset-0 before:-translate-x-full before:animate-shimmer before:bg-gradient-to-r before:from-transparent before:via-slate-400/15 before:to-transparent
 `
 
+export function Spinner({ className }) {
+  return (
+    <div className={cn("flex-center size-5", className)}>
+      <svg class="animate-spin size-10/12 text-primary-200" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <circle class="text-primary-400" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" />
+        <path class="text-primary-800" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+      </svg>
+    </div>
+  )
+}
+
 const initialLoadingMotion = {
   initial: {
     opacity: 1,
@@ -226,18 +237,15 @@ export function DetailsModalSkeleton() {
   )
 }
 
-export function ListsModalSkeleton() {
-  //~ TODO: for better ux, just lists number should be store somewhere (e.g. UserContext) to show skeleton based on the real number of lists instead of 2 or a random number. the lists number is given as a prop
+export function ListsModalSkeleton({ count = 1 }) {
   return (
-    <div className="px-2 align-center-col gap-3">
-      <div className="w-full align-center gap-3">
-        <span className={cn(shimmer, "relative size-6 inline-block border border-solid border-primary-700 rounded")} />
-        <div className={cn(shimmer, "relative w-20 h-3 bg-primary-700 rounded-2xl")} />
-      </div>
-      <div className="w-full align-center gap-3">
-        <span className={cn(shimmer, "relative size-6 inline-block border border-solid border-primary-700 rounded")} />
-        <div className={cn(shimmer, "relative w-24 h-3 bg-primary-700 rounded-2xl")} />
-      </div>
+    <div className="px-2 align-center-col gap-4">
+      {[...Array(count).keys()].map((_, i) => (
+        <div className="w-full align-center gap-3" key={i}>
+          <span className={cn(shimmer, "relative size-6 inline-block border border-solid border-primary-700 rounded")} />
+          <div className={cn(shimmer, "relative w-20 h-3 bg-primary-700 rounded-2xl")} />
+        </div>
+      ))}
     </div>
   )
 }

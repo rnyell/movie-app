@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { getUserLists, updateBookmarks, getListsIdsByBookmarkedItem, createList } from "@lib/supabase/db"
+import { useUserContext } from "@src/store"
 import { PlusIcon, LockClosedIcon, XMarkIcon } from "@heroicons/outline"
 import { Modal, Button, Icon, Divider } from "@lib/ui/components"
 import { useLoader } from "@lib/hooks"
@@ -9,13 +10,13 @@ import "./lists-modal.css"
 
 
 export default function ListsModal({ item, setClose }) {
+  const { userState } = useUserContext()
   const [checkedListIds, setCheckedListIds] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [isCreatingNewList, setIsCreatingNewList] = useState(false)
   
   const { data: lists, isLoading: listsLoading } = useLoader(getUserLists)
   const listIds = lists?.map(list => list.id)
-  // list: [ {id: 'uuid', name: 'str', items: []} ]
 
   useEffect(() => {
     loader()
@@ -82,7 +83,7 @@ export default function ListsModal({ item, setClose }) {
           <p className="mb-6 font-semibold">Save {item.media === "movie" ? "movie" : "series"} to . . .</p>
           <div className="lists flex-col">
             {isLoading || listsLoading ? (
-              <ListsModalSkeleton />
+              <ListsModalSkeleton count={userState.listsCount} />
             ) : (
               <>
                 {lists.map(list => (

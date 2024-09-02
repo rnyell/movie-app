@@ -44,6 +44,21 @@ export async function getWatchLaterItems() {
   }
 }
 
+
+export async function getBookmarksByListId(listId) {
+  const { data, error } = await supabase
+    .from("bookmarks")
+    .select("*")
+    .eq("list_id", listId)
+
+  if (error) {
+    console.error(error)
+  }
+
+  return data
+}
+
+
 export async function getListsIdsByBookmarkedItem(item) {
   const { data, error } = await supabase
     .from("bookmarks")
@@ -98,19 +113,6 @@ export async function updateBookmarks(type, listId, item) {
 //     console.error(error)
 //   }
   
-//   return data
-// }
-
-// export async function getBookmarkedItemByListId(listId) {
-//   const { data, error } = await supabase
-//     .from("bookmarks")
-//     .select("*")
-//     .eq("list_id", listId)
-
-//   if (error) {
-//     console.error(error)
-//   }
-
 //   return data
 // }
 

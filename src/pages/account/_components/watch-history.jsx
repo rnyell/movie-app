@@ -3,9 +3,8 @@ import { useAppContext } from "@src/store"
 import { getPlayedMoviesFromUser } from "@lib/supabase/db"
 import { useLoader } from "@lib/hooks"
 import { Button, Snap } from "@lib/ui/components"
-import { EllipsisVerticalIcon } from "@heroicons/solid"
 import MovieCard from "@components/movie-cards/movie-card"
-import Section from "./section"
+import Header from "./header"
 
 
 export default function WatchHistory() {
@@ -21,21 +20,10 @@ export default function WatchHistory() {
     })
   }
 
-
   return (
-    <Section sectionName="played">
-      <header className="align-center">
-        <h3 className="heading">Played History</h3>
-        <Button
-          variants="ghost"
-          size="square-xs"
-          customStyles="ml-auto"
-          iconOnly
-          iconSize="lg"
-          svg={<EllipsisVerticalIcon />}
-        />
-      </header>
-      <div>
+    <section>
+      <Header heading="Played History" />
+      <>
         {playedMovies?.length === 0 ? (
           <div className="empty-history-msg empty-msg">
             <p>You haven't watched any movies yet.</p>
@@ -54,9 +42,9 @@ export default function WatchHistory() {
             ))}
           </Snap.Container>
         )}
-      </div>
+      </>
       {playedMovies?.length !== 0 && (
-        <div className="cta flex mt-6">
+        <div className="flex mt-6">
           <Button
             variants="danger"
             customStyles="ml-auto"
@@ -66,6 +54,6 @@ export default function WatchHistory() {
           </Button>
         </div>
       )}
-    </Section>
+    </section>
   )
 }

@@ -1,14 +1,11 @@
-import { useState } from "react"
-import { Link } from "react-router-dom"
 import { getWatchLaterItems } from "@lib/supabase/db"
 import { useAppContext } from "@src/store"
 import { BookmarkIcon } from "@heroicons/outline"
 import { useLoader } from "@lib/hooks"
-import { Button, Snap } from "@lib/ui/components"
-import { EllipsisVerticalIcon } from "@heroicons/solid"
+import { Snap } from "@lib/ui/components"
 import { CardsSkeleton } from "@components/skeletons"
 import MovieCard from "@components/movie-cards/movie-card"
-import Section from "./section"
+import Header from "./header"
 
 /* //~TODO:
   1. change view: list or grid
@@ -19,29 +16,13 @@ import Section from "./section"
 
 export default function Watchlist() {
   const { modalDispatch } = useAppContext()
-  const {
-    data: watchLaterItems,
-    isLoading,
-    error,
-  } = useLoader(getWatchLaterItems)
+  const { data: watchLaterItems, isLoading } = useLoader(getWatchLaterItems)
   const isEmpty = watchLaterItems?.length === 0
 
   return (
-    <Section sectionName="watchlist">
-      <header className="flex">
-        <h3 className="heading">Watchlist</h3>
-        <div className="align-center ml-auto">
-          <Button
-            variants="ghost"
-            size="square-xs"
-            iconOnly
-            iconSize="md"
-            svg={<EllipsisVerticalIcon />}
-          />
-          <Link to="">View All</Link>
-        </div>
-      </header>
-      <div>
+    <section>
+      <Header heading="Watchlist" />
+      <>
         {isLoading ? (
           <CardsSkeleton cardVariant="bookmark" />
         ) : isEmpty ? (
@@ -68,7 +49,7 @@ export default function Watchlist() {
             ))}
           </Snap.Container>
         )}
-      </div>
-    </Section>
+      </>
+    </section>
   )
 }

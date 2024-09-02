@@ -1,6 +1,17 @@
 import { supabase, getUserId } from "../auth"
 
 
+export async function getAllPublicLists() {
+  const { data, error } = await supabase.from("lists").select("*")
+  
+  if (error) {
+    console.error("Failed to fetch public lists", error)
+  }
+
+  return data
+}
+
+
 export async function getUserLists() {
   const userId = await getUserId()
   const { data, error } = await supabase
@@ -13,6 +24,11 @@ export async function getUserLists() {
   }
 
   return data
+}
+
+export async function getUserListsCount() {
+  const data = await getUserLists()
+  return data.length
 }
 
 export async function getUserListsIds() {
@@ -48,6 +64,20 @@ export async function getWatchLaterListId() {
     console.error("Something went wrong... the user does not have the \"Watch Later\" list.")
     return null
   }
+}
+
+export async function getListsByShareId(shareId) {
+  const { data, error } = await supabase
+    .from("lists")
+    .select("*")
+    .eq("share_id", shareId)
+    .single()
+
+  if (error) {
+    console.error(error)
+  }
+
+  return data
 }
 
 export async function createList(name, isPrivate) {

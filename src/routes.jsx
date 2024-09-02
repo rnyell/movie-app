@@ -15,7 +15,10 @@ const SelectedMovie = lazy(() => import("@pages/(selected-media)/selected-movie/
 const SelectedSeries = lazy(() => import("@pages/(selected-media)/selected-series/page"))
 const Player = lazy(() => import("@pages/player/page"))
 const LoginPage = lazy(() => import("@pages/login/page"))
+const PublicLists = lazy(() => import("@pages/lists/page"))
+const SelectedList = lazy(() => import("@pages/lists/[share-id]/page"))
 const Account = lazy(() => import("@pages/account/page"))
+const UserLists = lazy(() => import("@pages/account/lists/page"))
 
 import AuthRoute from "./auth/auth-route"
 
@@ -69,6 +72,18 @@ export const routeTree = [{
             </AuthRoute>
           )
         },
+        {
+          path: "/account/lists",
+          element: <UserLists />
+        },
+        {
+          path: "/lists",
+          element: <PublicLists />
+        },
+        {
+          path: "/lists/:shareId",
+          element: <SelectedList />
+        }
       ]
     },
     {

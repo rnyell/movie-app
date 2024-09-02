@@ -3,18 +3,17 @@ import { useAppContext } from "@src/store"
 import { isItemBookmarked } from "@lib/supabase/db"
 import { BookmarkIcon } from "@heroicons/outline"
 import { Button } from "@lib/ui/components"
+import { Spinner } from "../skeletons"
 
 
 export default function BookmarkButton({ item, setModal, ...props }) {
   const { modalDispatch } = useAppContext()
   const { variants, size, iconSize, customStyles } = props
 
-  const { data: isBookmarked = false } = useLoader(
+  const { data: isBookmarked, isLoading } = useLoader(
     () => isItemBookmarked(item),
     { dependencies: [item.id] }
   )
-
-  console.log(isBookmarked)
 
   function showListsModal() {
     modalDispatch({
@@ -26,6 +25,13 @@ export default function BookmarkButton({ item, setModal, ...props }) {
     })
   }
 
+  if (isLoading) {
+    return (
+      <Button size={size} customStyles={customStyles}>
+        <Spinner className="size-7" />
+      </Button>
+    )
+  }
 
   return (
     <Button

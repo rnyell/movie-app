@@ -45,7 +45,7 @@ export default function SecondaryOverlay({ result, media, ...rest }) {
           </>
         ) : (
           <>
-            <BookmarkDeleteButton setModal={setModal} />
+            <BookmarkDeleteButton size="square-md" setModal={setModal} />
             <LinkButton
               linkData={{id, media, blank: false}}
               size="square-md"

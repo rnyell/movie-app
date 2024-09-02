@@ -45,12 +45,10 @@ export default {
         },
       },
       animation: {
-        shimmer: "shimmer 1.75s infinite"
+        shimmer: "shimmer 1.75s infinite",
+        pulse: "pulse 1.75s infinite"
       }
     },
-    animation: {
-      pulse: "pulse 1.75s infinite"
-    }
   },
 
   corePlugins: {

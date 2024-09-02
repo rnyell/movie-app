@@ -11,18 +11,13 @@ const intro_topics = [
     tag: "Search",
     desc: "Find your next movie or tv show to watch"
   },
-  {
-    href: "/onscreen",
-    tag: "In Theaters",
-    desc: "Book Tickets for Movies in Theaters Near You"
-  },
 ]
 
 
 export default function Discover() {
   return (
     <ViewTransition>
-      <Page pageName="discover-page">
+      <Page className="discover-page">
         <section className="intro-section">
           {/* <h3>Explore Movies</h3> */}
           <div className="boxes">
@@ -36,7 +31,6 @@ export default function Discover() {
             ))}
           </div>
         </section>
-        {/* <NewsSction /> */}
         <RecommendSection />
       </Page>
     </ViewTransition>

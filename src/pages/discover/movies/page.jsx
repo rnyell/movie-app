@@ -16,7 +16,7 @@ export default function MoviesPage() {
 
   return (
     <ViewTransition>
-      <Page pageName="movies-page">
+      <Page className="movies-page">
         <section className="hot-movies-section">
           <header className="flex">
             <h3 className="heading">Hot Movies</h3>

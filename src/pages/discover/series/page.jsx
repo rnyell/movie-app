@@ -16,7 +16,7 @@ export default function SeriesPage() {
 
   return (
     <ViewTransition>
-      <Page pageName="series-page">
+      <Page className="series-page">
         <section className="hot-series-section">
           <header className="flex">
             <h4 className="heading">Hot Series</h4>
