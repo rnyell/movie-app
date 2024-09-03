@@ -223,6 +223,18 @@
     --color-accent-500: #4338CA;
     --color-accent-600: #3730A3;
   }
+
+  [data-cursor="auto"] {
+    cursor: auto;
+  }
+
+  [data-cursor="custom"] {
+    cursor: none;
+
+    & > * * {
+      cursor: none !important;
+    }
+  }
 }
 
 @layer typo {
@@ -333,7 +345,7 @@
     display: inline-block;
     text-underline-offset: 2px;
     text-decoration-skip-ink: auto;
-    cursor: default;
+    /* cursor: default; */
   }
 
   label {

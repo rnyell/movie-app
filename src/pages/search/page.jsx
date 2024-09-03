@@ -28,8 +28,10 @@ export default function SearchPage() {
       <main>
         {isInitialMarkup ? (
           <div className="mt-10 p-4 w-5/6 flex-col items-start 2xl:flex-row gap-2 text-xl">
-            <p>Discover TMDb's movies and series.</p>
-            <p>Use filter and sorts to refine your searches.</p>
+            <div>
+              <p>Discover TMDb's movies and series.</p>
+              <p>Use filter and sorts to refine your searches.</p>
+            </div>
             <img className="mx-auto py-4 w-5/6 max-w-[400px] block" src={corn} />
           </div>
         ) : (

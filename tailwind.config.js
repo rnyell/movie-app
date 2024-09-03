@@ -1,4 +1,4 @@
-/** @type {import('tailwindcss').Config} */
+/** @type {import("tailwindcss").Config} */
 export default {
   content: [
     "./index.html",
@@ -6,10 +6,20 @@ export default {
   ],
 
   theme: {
+    screens: {
+      /* change medias to desktop-first */
+      "2xl": {"max": "1535px"},
+      "xl": {"max": "1279px"},
+      "lg": {"max": "1023px"},
+      "md": {"max": "759px"},
+      "sm": {"max": "639px"},
+      "xs": {"max": "519px"},
+    },
     extend: {
       zIndex: {
         "100": 100,
-        "max": 10000
+        "max": 10_000,
+        "infinite": 1_000_000,
       },
       colors: {
         "primary-50": "var(--color-neutral-50)",

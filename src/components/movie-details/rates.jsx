@@ -66,7 +66,7 @@ export default function Rates({
         return <div className="w-full h-20" />
       }
 
-      const variable = [
+      const iconsSet = [
         { tag: 'imdb', icon1: <IMDBIcon />, icon2: <IMDB2Icon /> },
         { tag: 'rotten', icon1: <RottenTomatoesIcon />, icon2: <RottenTomatoesGreenIcon /> },
         { tag: 'metacritic', icon1: <MetacriticIcon />, icon2: <PrimeVideoIcon /> }
@@ -80,10 +80,10 @@ export default function Rates({
         >
           {data?.Ratings?.map((rate, idx) => (
             <div className={classes.box} key={idx}>
-              <span>{rate.Value}</span>
-              <i className={`${classes[variable[idx].tag]} icon`}>
-                {variable[idx].icon1}
+              <i className={`${classes[iconsSet[idx].tag]} icon`}>
+                {iconsSet[idx].icon1}
               </i>
+              <span>{rate.Value}</span>
             </div>
           ))}
         </div>

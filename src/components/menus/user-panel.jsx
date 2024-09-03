@@ -55,7 +55,7 @@ export default function UserPanel({ isCollapsed, appearance = "panel" }) {
       <Dropdown.Trigger
         className={cn(
           navLink_styles,
-          "py-3 align-center gap-0 bg-primary-900 hover:bg-primary-700 rounded-3xl cursor-pointer",
+          "py-3 align-center gap-0 bg-primary-900 hover:bg-primary-700 rounded-3xl cursor-pointer lg:px-3",
           "data-[appearance=button]:p-3 data-[appearance=button]:outline data-[appearance=button]:outline-[1.2px] data-[appearance=button]:outline-primary-700",
           "data-[appearance=avatar]:p-2 data-[appearance=avatar]:bg-transparent",
         )}
@@ -70,21 +70,18 @@ export default function UserPanel({ isCollapsed, appearance = "panel" }) {
         </div>
         {appearance !== "avatar" && (
           <Presence trigger={!isCollapsed}>
-            <motion.div className="pl-3 grow" {...tagMotion} transition={tagTransition}>
-              <p className="font-medium">{user_name}</p>
+            <motion.div className="pl-3 w-max sm:px-2" {...tagMotion} transition={tagTransition}>
+              <p className="w-max font-medium">{user_name}</p>
               <p className="w-[85%] truncate text-[0.575rem] font-semibold text-gray-500">alan321dl@gmail.com</p>
             </motion.div>
-            <i className="icon icon-md ml-auto">
+            <i className="icon icon-md ml-auto absolute-y-center right-2">
               <ChevronUpDownIcon />
             </i>
           </Presence>
         )}
       </Dropdown.Trigger>
       <Dropdown.Menu className={menu_styles} placement={placement}>
-        <Dropdown.MenuItem
-          className={menuItem_styles}
-          onClick={() => navigate("/account")}
-        >
+        <Dropdown.MenuItem className={menuItem_styles} onClick={() => navigate("/account")}>
           <UserCircleIcon className="size-[1.125rem]" />
           <p>Account</p>
         </Dropdown.MenuItem>

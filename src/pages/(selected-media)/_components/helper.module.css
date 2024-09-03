@@ -1,0 +1,9 @@
+.helper {
+  /* width: 100%; */
+  /* max-width: 45vw; */
+  scrollbar-width: none;
+
+  & span:last-child i {
+    display: none;
+  }
+}

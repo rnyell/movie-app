@@ -3,7 +3,7 @@ import { createPortal } from "react-dom"
 import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
 import { useAuth } from "@src/auth/auth-context"
-import { HomeIcon, TicketIcon, FilmIcon, TvIcon, UserCircleIcon } from "@heroicons/outline"
+import { HomeIcon, FilmIcon, TvIcon, UserCircleIcon } from "@heroicons/outline"
 import { CompasIcon } from "@lib/ui/icons"
 import { modalBackdropMotion, modalBackdroptransition } from "@lib/motion/motions"
 import { Divider } from "@lib/ui/components"
@@ -15,10 +15,9 @@ import "./sidemenu.css"
 
 const links = [
   { tag: "Home", href: "/", icon: <HomeIcon /> },
-  { tag: "Discover", href: "/discover", icon: <CompasIcon /> },
   { tag: "Movies", href: "/discover/movies", icon: <FilmIcon /> },
   { tag: "TV Shows", href: "/discover/series", icon: <TvIcon /> },
-  { tag: "Tickets", href: "/tickets", icon: <TicketIcon /> },
+  { tag: "Discover", href: "/discover", icon: <CompasIcon /> },
 ]
 
 

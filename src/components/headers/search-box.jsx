@@ -5,10 +5,10 @@ import { useClickOutside } from "@lib/hooks"
 import { transformTitleToURL } from "@lib/utils"
 
 
-export default function SearchBox({ dataset }) {
-  const [userInput, setUserInput] = useState("")
-  const inputRef = useRef(null)
+export default function SearchBox({ variant }) {
   const boxRef = useRef(null)
+  const inputRef = useRef(null)
+  const [userInput, setUserInput] = useState("")
   const [searchParams, setSearchParams] = useSearchParams()
   const navigate = useNavigate()
   const location = useLocation()
@@ -28,14 +28,14 @@ export default function SearchBox({ dataset }) {
   }
   
   function handleSearchMovie(title) {
-    if (title && dataset.includes("default")) {
+    if (title && variant === "default") {
       navigate("/search")
       setSearchParams({query: title, page: 1})
       return
-    } else if (title && dataset.includes("stretched")) {
+    } else if (title && variant === "stretched") {
       setSearchParams({query: title, page: 1})
       return
-    } else if (title && dataset.includes("animated")) {
+    } else if (title && variant === "animated") {
       setSearchParams({query: title, page: 1})
       return
     }
@@ -46,10 +46,10 @@ export default function SearchBox({ dataset }) {
 
     if (!formattedInput) {
       return
-    } else if (!formattedInput && dataset.includes("default")) {
+    } else if (!formattedInput && variant === "default") {
       inputRef.current.focus()
       return
-    } else if (formattedInput && dataset.includes("default")) {
+    } else if (formattedInput && variant === "default") {
       handleSearchMovie(formattedInput)
       return
     }
@@ -60,7 +60,7 @@ export default function SearchBox({ dataset }) {
   function handleClickOutside({target}) {
     const element = boxRef.current
     const isOutside = !element.contains(target)
-    if (element && isOutside && dataset.includes("default")) {
+    if (element && isOutside && variant === "default") {
       setUserInput("")
     }
   }
@@ -74,7 +74,7 @@ export default function SearchBox({ dataset }) {
   return (
     <div 
       className="search-box"
-      data-set={dataset}
+      data-variant={variant}
       ref={boxRef}
       tabIndex={0}
       onKeyDown={keyPressHandler}

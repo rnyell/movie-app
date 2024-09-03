@@ -12,6 +12,7 @@ export function useThemeContext() {
 const initialPreferences = {
   theme: "dark",
   accent: "plum",
+  cursor: "auto"
 }
 
 function themeReducer(state, action) {
@@ -25,6 +26,11 @@ function themeReducer(state, action) {
       const { accent } = action
       writeLocalStorage("accent", accent)
       return { ...state, accent }
+    }
+    case "change_cursor": {
+      const { cursor } = action
+      writeLocalStorage("cursor", cursor)
+      return { ...state, cursor }
     }
   }
 }
@@ -41,13 +47,20 @@ export default function ThemeProvider({ children }) {
     const rootElement = document.documentElement
     const theme = readLocalStorage("theme")
     const accent = readLocalStorage("accent")
+    const cursor = readLocalStorage("cursor")
 
     if (theme) {
       rootElement.dataset.theme = theme
+      prefDispatch({ type: "change_theme", theme })
     }
 
     if (accent) {
       rootElement.dataset.accent = accent
+      prefDispatch({ type: "change_accent", accent })
+    }
+
+    if (cursor) {
+      rootElement.dataset.cursor = cursor
     }
   }, [preferences.theme, preferences.accent])
 

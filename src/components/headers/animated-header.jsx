@@ -60,7 +60,7 @@ export default function AnimatedHeader() {
           zIndex: "100",
         }}
       >
-        <SearchBox dataset="animated" />
+        <SearchBox variant="animated" />
       </motion.div>
     </motion.div>
   )

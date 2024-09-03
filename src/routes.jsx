@@ -1,26 +1,27 @@
 import { lazy, Suspense } from "react"
 
-import Layout from "@components/layouts/layout"
-import NotFound from "@pages/not-found"
+import AuthRoute from "./auth/auth-route"
 
 import { SearchProvider } from "./store"
+
+import Layout from "@components/layouts/layout"
 
 import HomePage from "@pages/(home)/page"
 import Discover from "@pages/discover/page"
 import SearchPage from "@pages/search/page"
+import LoginPage from "@pages/login/page"
+import NotFound from "@pages/not-found"
+
 const MoviesPage = lazy(() => import("@pages/discover/movies/page"))
 const SeriesPage = lazy(() => import("@pages/discover/series/page"))
 const GenrePage = lazy(() => import("@pages/discover/genres/page"))
 const SelectedMovie = lazy(() => import("@pages/(selected-media)/selected-movie/page"))
 const SelectedSeries = lazy(() => import("@pages/(selected-media)/selected-series/page"))
-const Player = lazy(() => import("@pages/player/page"))
-const LoginPage = lazy(() => import("@pages/login/page"))
 const PublicLists = lazy(() => import("@pages/lists/page"))
 const SelectedList = lazy(() => import("@pages/lists/[share-id]/page"))
 const Account = lazy(() => import("@pages/account/page"))
 const UserLists = lazy(() => import("@pages/account/lists/page"))
-
-import AuthRoute from "./auth/auth-route"
+const Player = lazy(() => import("@pages/player/page"))
 
 
 export const routeTree = [{
@@ -42,47 +43,85 @@ export const routeTree = [{
         },
         {
           path: "/discover/movies",
-          element: <MoviesPage />,
+          element: (
+            <Suspense fallback={null}>
+              <MoviesPage />
+            </Suspense>
+          ),
         },
         {
           path: "/discover/series",
-          element: <SeriesPage />
+          element: (
+            <Suspense fallback={null}>
+              <SeriesPage />
+            </Suspense>
+          )
         },
         {
-          path: "/discover/movies/:id",
-          element: <GenrePage />
+          path: "/discover/movies/:genreId",
+          element: (
+            <Suspense fallback={null}>
+              <GenrePage />
+            </Suspense>
+          )
         },
         {
-          path: "/discover/series/:id",
-          element: <GenrePage />
+          path: "/discover/series/:genreId",
+          element: (
+            <Suspense fallback={null}>
+              <GenrePage />
+            </Suspense>
+          )
         },
         {
           path: "/movies/:id",
-          element: <SelectedMovie />
+          element: (
+            <Suspense fallback={null}>
+              <SelectedMovie />
+            </Suspense>
+          )
         },
         {
           path: "/series/:id",
-          element: <SelectedSeries />
+          element: (
+            <Suspense fallback={null}>
+              <SelectedSeries />
+            </Suspense>
+          )
         },
         {
           path: "/account",
           element: (
             <AuthRoute>
-              <Account />
+              <Suspense fallback={null}>
+                <Account />
+              </Suspense>
             </AuthRoute>
           )
         },
         {
           path: "/account/lists",
-          element: <UserLists />
+          element: (
+            <Suspense fallback={null}>
+              <UserLists />
+            </Suspense>
+          )
         },
         {
           path: "/lists",
-          element: <PublicLists />
+          element: (
+            <Suspense fallback={null}>
+              <PublicLists />
+            </Suspense>
+          )
         },
         {
           path: "/lists/:shareId",
-          element: <SelectedList />
+          element: (
+            <Suspense fallback={null}>
+              <SelectedList />
+            </Suspense>
+          )
         }
       ]
     },
@@ -102,7 +141,9 @@ export const routeTree = [{
           path: "/player",
           element: (
             <AuthRoute>
-              <Player />
+              <Suspense fallback={null}>
+                <Player />
+              </Suspense>
             </AuthRoute>
           )
         },

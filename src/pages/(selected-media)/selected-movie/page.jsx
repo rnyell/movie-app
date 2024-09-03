@@ -1,15 +1,19 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import { useWindowOffsets } from "@lib/hooks"
 import { IMAGES_URL } from "@services"
 import { formatRuntime, getMovieDirector } from "@services/movie-utils"
+import { useWindowOffsets } from "@lib/hooks"
 import { useMediaDetails } from "@services/hooks"
+import { formatLongNumber } from "@lib/utils"
 import { ViewTransition } from "@lib/motion"
 import { Snap, Dot } from "@lib/ui/components"
 import { SelectedMovieSkeleton } from "@components/skeletons"
 import { Overview, Casts, Rates, Genres } from "@components/movie-details"
 import { WatchButton, BookmarkButton, FaveButton } from "@components/buttons"
 import MovieCard from "@components/movie-cards/movie-card"
+import Languages from "../_components/languages"
+import Companies from "../_components/companies"
+import Countries from "../_components/countries"
 import Pictures from "../_components/pictures"
 import Trailers from "../_components/trailers"
 
@@ -51,11 +55,6 @@ export default function SelectedMovie() {
     spoken_languages,
   } = mediaDetails
 
-  // console.log(mediaDetails)
-  // credits is undefined. why??
-  // const { cast } = credits
-  // console.log(cast)
-
   useEffect(() => {
     handleResize()
   }, [mediaDetails, windowWidth])
@@ -95,15 +94,11 @@ export default function SelectedMovie() {
               <Dot />
               <span className="runtime">{formatRuntime(runtime)}</span>
               <Dot />
-              <Genres
-                genres={genres}
-                media={media}
-                customStyles="color-neutral-300"
-              />
+              <Genres genres={genres} media={media} shape="chip" customStyles="color-neutral-300" />
             </div>
             <Overview
               text={overview}
-              lines="unset"
+              lines="5"
               fontSize="fs-lg"
               customStyles="mb-8"
             />
@@ -133,42 +128,35 @@ export default function SelectedMovie() {
               <dl>
                 <div className="td">
                   <dt>Director:</dt>
-                  <dd>{getMovieDirector(credits.crew)}</dd>
-                </div>
-                <div className="td">
-                  <dt>Writer:</dt>
-                  <dd>{getMovieDirector(credits.crew)}</dd>
-                </div>
-                <div className="td">
-                  <dt>Country:</dt>
                   <dd>
-                    {production_countries.map((pc) => (
-                      <span key={pc.name}>
-                        {pc.name === "United States of America"
-                          ? "US"
-                          : pc.name}
-                      </span>
-                    ))}
+                    <p className="w-max">{getMovieDirector(credits.crew)}</p>
                   </dd>
                 </div>
                 <div className="td">
-                  <dt>Languages:</dt>
+                  <dt>{production_countries?.length > 1 ? "Countries:" : "Country:"}</dt>
                   <dd>
-                    {spoken_languages.map((lang) => (
-                      <span key={lang.english_name}>
-                        {lang.english_name}
-                        <i>, </i>
-                      </span>
-                    ))}
+                    <Countries countries={production_countries} />
+                  </dd>
+                </div>
+                <div className="td">
+                  <dt>{spoken_languages?.length > 1 ? "Languages:" : "Language:"}</dt>
+                  <dd>
+                    <Languages languages={spoken_languages} />
+                  </dd>
+                </div>
+                <div className="td">
+                  <dt>{production_companies?.length > 1 ? "Companies:" : "Company:"}</dt>
+                  <dd>
+                    <Companies companies={production_companies} />
                   </dd>
                 </div>
                 <div className="td">
                   <dt>Budget:</dt>
-                  <dd>{budget}</dd>
+                  <dd>{formatLongNumber(budget)}</dd>
                 </div>
                 <div className="td">
                   <dt>Revenue:</dt>
-                  <dd>{revenue}</dd>
+                  <dd>{formatLongNumber(revenue)}</dd>
                 </div>
               </dl>
             </div>

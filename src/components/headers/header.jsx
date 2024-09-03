@@ -9,42 +9,48 @@ import { Button, Dropdown } from "@lib/ui/components"
 import SearchBox from "./search-box"
 import SideMenu from "../menus/sidemenu"
 import UserPanel from "../menus/user-panel"
+import { menu_styles } from "../menus/utils"
 
 import "./header.css"
-import { menu_styles } from "../menus/utils"
+
+const datasetInitial = {
+  position: "static",
+  variant: "default",
+}
 
 export default function Header({ withSearchbox = true }) {
   const { isLoggedIn } = useAuth()
   const { isMobile } = useThemeContext()
   const { pathname } = useLocation()
+  const [dataset, setDataset] = useState(datasetInitial)
   const [isOpen, setOpen] = useState(false)
-  const [dataset, setDataset] = useState("default")
 
-  /* TODO: better ways to handle dataset for searchbox */
+  console.log(dataset, pathname)
+
   useEffect(() => {
-    if (pathname === "/") {
-      setDataset("default normal")
-    } else if (pathname.startsWith("/search") && withSearchbox) {
-      setDataset("stretched sticky")
-    } else if (pathname.startsWith("/search") && !withSearchbox) {
-      setDataset("animated")
+    if (pathname.startsWith("/search")) {
+      if (withSearchbox) {
+        setDataset({ position: "sticky", variant: "stretched" })
+      } else {
+        setDataset({ position: "sticky", variant: "animated" })
+      }
     } else if (pathname.startsWith("/movies") || pathname.startsWith("/series")) {
-      setDataset("default transparent")
+      setDataset({ position: "absolute", variant: "transparent" })
     } else {
-      setDataset("default sticky")
+      setDataset({ position: "sticky", variant: "default" })
     }
   }, [pathname])
 
   return (
-    <header className="main-header align-center" data-set={dataset}>
-      {(dataset.includes("stretched") || dataset.includes("animated")) && (
+    <header className="main-header align-center" data-variant={dataset.variant} data-position={dataset.position}>
+      {(dataset.variant === "stretched" || dataset.variant === "animated") && (
         <HamberIcon setOpen={setOpen} isOpen={isOpen} />
       )}
       <div className="search-box-wrapper shrink-0 min-w-0">
-        <SearchBox dataset={dataset} />
+        <SearchBox variant={dataset.variant} />
       </div>
       <div className="icons align-center">
-        <Notif />
+        <Notification />
         {isMobile &&
           (isLoggedIn ? (
             <UserPanel appearance="avatar" />
@@ -69,12 +75,12 @@ export default function Header({ withSearchbox = true }) {
 }
 
 function HamberIcon({ setOpen, isOpen }) {
-  const iconStyles = {
+  const icon_styles = {
     position: "relative",
     gap: 1,
   }
 
-  const lineStyles = {
+  const line_styles = {
     borderRadius: 10,
     backgroundColor: "var(--color-neutral-300)",
     transformOrigin: "center",
@@ -83,18 +89,18 @@ function HamberIcon({ setOpen, isOpen }) {
   return (
     <i
       className="icon flex-col-center cursor-pointer"
-      style={iconStyles}
+      style={icon_styles}
       onClick={() => setOpen(!isOpen)}
     >
       <motion.span
         className="line"
-        style={{ ...lineStyles, height: 1.5, width: 20, y: -1 }}
+        style={{ ...line_styles, height: 1.5, width: 20, y: -1 }}
         animate={isOpen ? { rotateZ: 45, y: 1 } : { rotateZ: 0 }}
       />
       <motion.span
         className="line"
         style={{
-          ...lineStyles,
+          ...line_styles,
           marginRight: "auto",
           height: 1.5,
           width: 16,
@@ -106,7 +112,7 @@ function HamberIcon({ setOpen, isOpen }) {
   )
 }
 
-function Notif() {
+function Notification() {
   return (
     <Dropdown.Container strategy="portal">
       <Dropdown.Trigger>

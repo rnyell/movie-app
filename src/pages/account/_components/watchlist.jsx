@@ -11,7 +11,7 @@ import Header from "./header"
   1. change view: list or grid
   2. sort base on the time movie is watched
   3. filter movie or tv show on watchlist
-  4. a dropdown menu for these (sorting filtering etc.) also with a "delete all" option for `handleClearAllBookmarksBtn`
+  4. a dropdown menu for these (sorting filtering etc.) also with a "delete all"
 */
 
 export default function Watchlist() {

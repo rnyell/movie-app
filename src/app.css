@@ -10,7 +10,5 @@
 @import "@src/styles/(selected-media)/shared-styles.css";
 @import "@src/styles/(selected-media)/network-logo.css";
 @import "@src/styles/(selected-media)/trailers.css";
-@import "@src/styles/(selected-media)/pictures.css";
-
 
 @import "@src/styles/main.css";

@@ -10,8 +10,10 @@ import { SelectedMovieSkeleton } from "@components/skeletons"
 import { Overview, Casts, Rates, Genres } from "@components/movie-details"
 import MovieCard from "@components/movie-cards/movie-card"
 import NetworkLogo from "../_components/network-logo"
-import Pictures from "../_components/pictures"
+import Languages from "../_components/languages"
+import Countries from "../_components/countries"
 import Trailers from "../_components/trailers"
+import Pictures from "../_components/pictures"
 
 const imgUrlInit = {
   width: "w500",
@@ -97,7 +99,7 @@ export default function SelectedSeries() {
                 {number_of_seasons} {`${number_of_seasons > 1 ? "Seasons" : "Season"}`}
               </span>
               <Dot />
-              <Genres genres={genres} media={media} customStyles="color-neutral-300" />
+              <Genres genres={genres} media={media} shape="chip" customStyles="color-neutral-300" />
             </div>
             <Overview
               text={overview}
@@ -156,23 +158,15 @@ export default function SelectedSeries() {
                   <dd>{episode_run_time}</dd>
                 </div>
                 <div className="td">
-                  <dt>Country:</dt>
+                  <dt>{production_countries?.length > 1 ? "Countries:" : "Country:"}</dt>
                   <dd>
-                    {production_countries.map(pc => (
-                      <span key={pc.name}>
-                        {pc.name === "United States of America" ? "US" : pc.name}
-                      </span>
-                    ))}
+                    <Countries countries={production_countries} />
                   </dd>
                 </div>
                 <div className="td">
-                  <dt>Languages:</dt>
+                  <dt>{spoken_languages?.length > 1 ? "Languages:" : "Language:"}</dt>
                   <dd>
-                    {spoken_languages.map(lang => (
-                      <span key={lang.english_name}>
-                        {lang.english_name}<i>,</i>
-                      </span>
-                    ))}
+                    <Languages languages={spoken_languages} />
                   </dd>
                 </div>
               </dl>

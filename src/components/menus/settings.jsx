@@ -85,7 +85,7 @@ function Themes({ loc }) {
                 type="checkbox"
                 name="theme"
                 id="mode"
-                checked={preferences.theme === "dark"}
+                defaultChecked={preferences.theme === "dark"}
                 onChange={handleThemeChange}
               />
               <i className={`

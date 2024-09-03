@@ -6,6 +6,8 @@ import { Presence } from "@lib/motion"
 import { Button, Modal } from "@lib/ui/components"
 import ImageSlider from "./image-slider"
 
+import "./pictures.css"
+
 
 export default function Pictures({ images }) {
   const {backdrops} = images
@@ -45,24 +47,24 @@ function Gallery({ images, setModal }) {
     setCurrIndex(idx)
   }
 
-  const variants={
-    initial: {
-      y: -25,
-      opacity: 0.75,
-      scale: 0.98
-    },
-    animate: {
-      y: 0,
-      opacity: 1,
-      scale: 1
-    },
-    exit: {
-      y: -35,
-      opacity: 0.75,
-      scale: 0.98
-    }
-  }
-  const transition={duration: 0.35, ease: "easeOut"}
+  // const variants={
+  //   initial: {
+  //     y: -25,
+  //     opacity: 0.75,
+  //     scale: 0.98
+  //   },
+  //   animate: {
+  //     y: 0,
+  //     opacity: 1,
+  //     scale: 1
+  //   },
+  //   exit: {
+  //     y: -35,
+  //     opacity: 0.75,
+  //     scale: 0.98
+  //   }
+  // }
+  // const transition={duration: 0.35, ease: "easeOut"}
 
   return (
     <Modal variants="showcase" setClose={() => setModal(false)}>

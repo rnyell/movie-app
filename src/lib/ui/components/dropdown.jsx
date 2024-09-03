@@ -23,7 +23,13 @@ const targetClientInitial = {
 
 const menuClientInitial = { width: 0, height: 0 }
 
-export function Container({ children, className, strategy = "fixed", ...rest }) {
+export function Container({
+  children,
+  className,
+  strategy = "position",
+  ...rest
+}) {
+  // strategy: "position" | "portal" | "contextual"
   const ref = useRef(null)
   const [targetClient, setTargetClient] = useState(targetClientInitial)
   const [isOpen, setOpen] = useState(false)
@@ -31,7 +37,7 @@ export function Container({ children, className, strategy = "fixed", ...rest }) 
   useClickOutside(ref, closeMenu)
 
   function closeMenu() {
-    if (strategy === "fixed") {
+    if (strategy === "position") {
       setOpen(false)
     }
   }
@@ -82,7 +88,6 @@ export function Menu({
   placement = "left-start/bottom",
   ...rest
 }) {
-  // strategy: "fixed" | "portal"
   const { windowWidth, windowHeight } = useWindowOffsets()
   const { isOpen, setOpen, targetClient, strategy } = useDropdownContext()
   const [menuClient, setMenuClient] = useState(menuClientInitial)
@@ -163,7 +168,7 @@ export function Menu({
     left = targetClient.left + offsetX + 2
   }
 
-  if (strategy === "fixed") {
+  if (strategy === "position") {
     return (
       <Presence trigger={isOpen}>
         <motion.div
@@ -194,6 +199,21 @@ export function Menu({
         </motion.div>
       </Presence>,
       document.getElementById("portal")
+    )
+  } else if (strategy === "contextual") {
+    return (
+      <Presence trigger={isOpen}>
+        <motion.div
+          className={cn("p-1 flex-col gap-[0.325rem]", className)}
+          style={{ width, top, left }}
+          ref={ref}
+          custom={y}
+          {...dropdownMenuMotion}
+          {...rest}
+        >
+          {children}
+        </motion.div>
+      </Presence>
     )
   }
 }

@@ -5,8 +5,13 @@ import { useWindowOffsets } from "@lib/hooks"
 import { useAuth } from "@src/auth/auth-context"
 import { breakpoints } from "@lib/ui/configs"
 import cn from "@lib/ui/cn"
-import { HomeIcon as HomeIconSolid, FilmIcon as FilmIconSolid, TvIcon as TvIconSolid } from "@heroicons/solid"
-import { HomeIcon, FilmIcon, TvIcon, UserCircleIcon } from "@heroicons/outline"
+import {
+  HomeIcon as HomeIconSolid,
+  FilmIcon as FilmIconSolid,
+  TvIcon as TvIconSolid,
+  MagnifyingGlassIcon as SearchIcon
+} from "@heroicons/solid"
+import { HomeIcon, FilmIcon, TvIcon, UserCircleIcon, MagnifyingGlassIcon as SearchIconSolid } from "@heroicons/outline"
 import { CompasIconSolid, CompasIcon, WideChevronLeftIcon } from "@lib/ui/icons"
 import { Presence } from "@lib/motion"
 import { Divider } from "@lib/ui/components"
@@ -19,18 +24,12 @@ import logo from "@src/assets/logo.png"
 
 import "./navigation.css"
 
-const lg_links = [
+const feed_links = [
   {
     tag: "Home",
     href: "/",
     icon: <HomeIcon />,
     activeIcon: <HomeIconSolid />
-  },
-  {
-    tag: "Discover",
-    href: "/discover",
-    icon: <CompasIcon />,
-    activeIcon: <CompasIconSolid />,
   },
   {
     tag: "Movies",
@@ -46,11 +45,27 @@ const lg_links = [
   },
 ]
 
+const explore_links = [
+  {
+    tag: "Discover",
+    href: "/discover",
+    icon: <CompasIcon />,
+    activeIcon: <CompasIconSolid />,
+  },
+  {
+    tag: "Search",
+    href: "/search",
+    icon: <SearchIcon />,
+    activeIcon: <SearchIconSolid />,
+  },
+]
+
 const sm_links = [
-  { href: "/discover", icon: <CompasIcon />, activeIcon: <CompasIconSolid /> },
-  { href: "/", icon: <HomeIcon />, activeIcon: <HomeIconSolid /> },
   { href: "/discover/series", icon: <TvIcon />, activeIcon: <TvIconSolid /> },
   { href: "/discover/movies", icon: <FilmIcon />, activeIcon: <FilmIconSolid /> },
+  { href: "/", icon: <HomeIcon />, activeIcon: <HomeIconSolid /> },
+  { href: "/discover", icon: <CompasIcon />, activeIcon: <CompasIconSolid /> },
+  { href: "/search", icon: <SearchIcon />, activeIcon: <SearchIconSolid /> },
 ]
 
 
@@ -117,7 +132,7 @@ function SideNav() {
       data-variant="sidenav"
       data-collapsed={isCollapsed}
       ref={sidenavRef}
-      animate={isCollapsed ? { width: 80 } : { width: "min(230px, 21vw)" }}
+      animate={isCollapsed ? { width: 80 } : { width: "min(230px, 21.5vw)" }}
       transition={{ duration: 0.375, type: "tween", ease: "easeOut" }}
     >
       <div className="logo-wrapper">
@@ -138,7 +153,7 @@ function SideNav() {
         )}
       </div>
       <div className="relative w-full">
-        <Divider variant="pale" />
+        {/* <Divider variant="pale" /> */}
         {isCollapsable && (
           <button className="btn toggle-btn absolute-y-center" onClick={() => setCollapse(!isCollapsed)}>
             <motion.i className="icon toggle-icon icon-xs" style={isCollapsed ? {rotateZ: 180} : {rotateZ: 0}}>
@@ -148,7 +163,20 @@ function SideNav() {
         )}
       </div>
       <nav className="nav-links mt-6 grow gap-1.5 flex-col">
-        {lg_links.map((link) => (
+        {feed_links.map((link) => (
+          <NavLink
+            isCollapsed={isCollapsed}
+            href={link.href}
+            icon={link.icon}
+            activeIcon={link.activeIcon}
+            key={link.href}
+          >
+            <NavTag tag={link.tag} isCollapsed={isCollapsed} />
+          </NavLink>
+        ))}
+        <Divider variant="pale" width="almost-fill" />
+        {/* <h6 className="mt-2 text-[0.75rem] text-gray-500">Explore</h6> */}
+        {explore_links.map(link => (
           <NavLink
             isCollapsed={isCollapsed}
             href={link.href}

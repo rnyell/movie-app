@@ -9,7 +9,7 @@ import MovieCard from "@components/movie-cards/movie-card"
 export default function GenrePage() {
   const [isLoading, setIsLoading] = useState(true)
   const [results, setResults] = useState([])
-  const { id: genreId } = useParams()
+  const { genreId } = useParams()
   const media = location.pathname.split("/")[2] === "movies" ? "movie" : "tv"
   const genreName = media === "movie" ? MOVIE_GENRES[genreId] : TV_GENRES[genreId]
 

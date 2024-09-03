@@ -42,40 +42,24 @@ export function transformTitleToURL(title) {
   return title.trim().toLowerCase().replaceAll(" ", "-")
 }
 
+export function formatLongNumber(num, precision = 2) {
+  const units = [
+    { suffix: " T", threshold: 1e12 },
+    { suffix: " B", threshold: 1e9 },
+    { suffix: " M", threshold: 1e6 },
+    { suffix: " K", threshold: 1e3 },
+    { suffix: "", threshold: 1 },
+  ]
 
-export const weekObjShort = {
-  0: "Mon",
-  1: "Tue",
-  2: "Wed",
-  3: "Thu",
-  4: "Fri",
-  5: "Sat",
-  6: "Sun",
-}
+  const found = units.find(unit => Math.abs(num) >= unit.threshold)
 
-export const weekObj = {
-  0: "Monday",
-  1: "Tuesday",
-  2: "Wednesday",
-  3: "Thursday",
-  4: "Friday",
-  5: "Saturday",
-  6: "Sunday",
-}
-
-export const monthObj = {
-  0: "January",
-  1: "February",
-  2: "March",
-  3: "April",
-  4: "May",
-  5: "June",
-  6: "July",
-  7: "August",
-  8: "September",
-  9: "October",
-  10: "November",
-  11: "December",
+  if (found) {
+    const d = num / found.threshold
+    const fixed = Number.isInteger(d) ? d : d.toFixed(precision)
+    return fixed + found.suffix
+  } else {
+    return num
+  }
 }
 
 

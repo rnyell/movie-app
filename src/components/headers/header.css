@@ -10,14 +10,30 @@
     gap: 0.325rem;
   }
 
-  &[data-set~="sticky"] {
+  /* position */
+  &[data-position="static"] {
+    position: static;
+  }
+
+  &[data-position="sticky"] {
     position: sticky;
     top: 0;
     z-index: var(--z-50);
+  }
+
+  &[data-position="absolute"] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: var(--z-50);
+  }
+
+  /* variant */
+  &[data-variant="default"] {
     background-color: var(--color-neutral-950);
   }
 
-  &[data-set~="stretched"] {
+  &[data-variant="stretched"] {
     grid-column: 1 / -1;
     grid-row: 1 / 2;
     background-color: rgb(var(--rgb-neutral-800) / 80%);
@@ -29,11 +45,7 @@
     }
   }
 
-  &[data-set~="transparent"] {
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: var(--z-50);
+  &[data-variant="transparent"] {
     /* background-color: transparent !important; */
     background-image: linear-gradient(rgb(11 15 17 / 25%) 20%, transparent) !important;
     backdrop-filter: unset !important;
@@ -43,7 +55,7 @@
     }
   }
 
-  &[data-set~="animated"] {
+  &[data-variant="animated"] {
     & .icons {
       margin-left: auto;
     }
@@ -114,7 +126,7 @@
     }
   }
 
-  &[data-set~="stretched"] {
+  &[data-variant="stretched"] {
     --box-height: 3rem;
     width: unset;
 
@@ -124,7 +136,7 @@
     }
   }
 
-  &[data-set~="transparent"] {
+  &[data-variant="transparent"] {
     border: none;
     
     & .search-input {
@@ -137,8 +149,8 @@
     }
   }
 
-  &[data-set~="stretched"],
-  &[data-set~="animated"] {
+  &[data-variant="stretched"],
+  &[data-variant="animated"] {
     & .icon-wrapper {
       --icon-size-4: 1.5rem;
       height: 100%;
@@ -148,7 +160,7 @@
     }
   }
 
-  &[data-set~="animated"] {
+  &[data-variant="animated"] {
     --box-width: 3rem;
     --box-height: 3.5rem;
     --icon-size-4: 1.5rem;
@@ -179,8 +191,9 @@
   }
 }
 
+/* media queries */
 @media (width <= 620px) {
-  .main-header[data-set~="animated"] {
+  .main-header[data-variant="animated"] {
     --icon-size-6: 1.75rem;
     position: sticky;
     top: 0;
@@ -193,9 +206,9 @@
 @media (width <= 520px) {
   .main-header {
     --icon-size-6: 1.75rem;
-    position: sticky;
-    top: 0;
-    z-index: var(--z-50);
+    position: sticky !important;
+    top: 0 !important;
+    z-index: var(--z-50) !important;
     background-color: rgb(var(--rgb-neutral-800) / 80%) !important;
     backdrop-filter: blur(20px) !important;
 
@@ -208,7 +221,9 @@
       margin-left: 1rem;
     }
 
-    &[data-set~="transparent"] {
+    &[data-variant="transparent"] {
+      background-color: unset !important;
+
       & .search-box-wrapper {
         margin-inline: 0 auto;
       }

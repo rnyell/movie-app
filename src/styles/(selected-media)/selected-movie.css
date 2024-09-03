@@ -18,7 +18,7 @@
 @container main-container (inline-size < 720px) {
   .selected-movie {
     & .main-details {
-      padding: 0 3rem 1rem !important;
+      padding: 0 2rem 1rem !important;
     }
   }
 }

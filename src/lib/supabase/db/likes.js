@@ -10,7 +10,7 @@ export async function isItemLiked(item) {
     .eq("user_id", userId)
     .limit(1)
 
-  if (data.length > 0) {
+  if (data?.length > 0) {
     return true
   } else {
     return false
