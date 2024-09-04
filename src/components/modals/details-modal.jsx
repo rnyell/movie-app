@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { IMAGES_URL } from "@services"
 import { useMediaDetails } from "@services/hooks"
 import { formatRuntime, formatReleaseDate, getMovieDirector } from "@services/movie-utils"
@@ -9,9 +9,8 @@ import { DetailsModalSkeleton } from "../skeletons"
 import "./details-modal.css"
 
 
-export default function DetailsModal({ result, setClose, price }) {
+export default function DetailsModal({ result, setClose }) {
   const { mediaDetails, isLoading } = useMediaDetails("movie", result.id)
-  const navigate = useNavigate()
 
   const {
     id,
@@ -25,19 +24,6 @@ export default function DetailsModal({ result, setClose, price }) {
     credits,
     overview,
   } = mediaDetails
-
-  function handleBooking() {
-    setClose()
-    navigate("/booking", {
-      state: {
-        id,
-        title,
-        poster_path,
-        backdrop_path,
-        price,
-      }
-    })
-  }
 
   // TODO: `.movie-details-modal` is unnecessary. style the <Modal /> itself
   return (
@@ -89,7 +75,6 @@ export default function DetailsModal({ result, setClose, price }) {
           </>
         )}
         <div className="p-6 w-full align-center gap-2">
-          <span className="price unselectable">${price}</span>
           <Button
             variants="outline-lite"
             customStyles="ml-auto"
@@ -97,7 +82,9 @@ export default function DetailsModal({ result, setClose, price }) {
           >
             Dismiss
           </Button>
-          <Button variants="solid-accent" onClick={handleBooking}>Buy Ticket</Button>
+          <Button variants="solid-accent">
+            <Link to={`/movies/${id}`}>More Info</Link>
+          </Button>
         </div>
       </div>
     </Modal>

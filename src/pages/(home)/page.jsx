@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform } from "framer-motion"
 import { useWindowOffsets } from "@lib/hooks"
 import { ViewTransition } from "@lib/motion"
 import HeroSection from "./_components/hero-section"
-import FeaturedSection, { MoviesSection, SeriesSection, ScreenSection } from "./_components/featured-section"
+import FeaturedSection, { MoviesSection, SeriesSection } from "./_components/featured-section"
 
 import "./page.css"
 
@@ -11,7 +11,7 @@ import "./page.css"
 export default function HomePage() {
   const { windowWidth } = useWindowOffsets()
   const isMobile = windowWidth <= 520
-  const scrollContainer = useRef(null)
+  // const scrollContainer = useRef(null)
   const heroWrapper = useRef(null)
   
   // useEffect(() => {
@@ -75,14 +75,6 @@ export default function HomePage() {
               transition={{duration: 0.25}}
             >
               <SeriesSection />
-            </motion.div>
-            <motion.div
-              initial={{opacity: 0, scale: 0.97}}
-              whileInView={{opacity: 1, scale: 1}}
-              viewport={{amount: 0.15}}
-              transition={{duration: 0.25}}
-            >
-              <ScreenSection />
             </motion.div>
             <div className="bg-effect" />
           </>

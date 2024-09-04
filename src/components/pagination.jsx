@@ -15,7 +15,7 @@ export default function Pagination({ currentPage, allPagesArray }) {
   }
   
   return (
-    <div className="pagination align-center">
+    <div className="pagination mx-auto align-center">
       <Link
         to={createLinkUrl(currentPage - 1)} 
         className={

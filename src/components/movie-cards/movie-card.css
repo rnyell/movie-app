@@ -1,16 +1,3 @@
-[data-variant="screen"] {
-  & .price {
-    height: 2.175rem;
-    aspect-ratio: 1;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--color-neutral-300);
-    background-color: var(--color-neutral-700);
-    border-radius: 0.625rem;
-  }
-}
-
-/*-------------------------------------------------------------------------------------------------------*/
 [data-variant="played"] {
   & .bar {
     height: max(3px, 0.35vh);

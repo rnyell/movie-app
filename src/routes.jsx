@@ -39,7 +39,7 @@ export const routeTree = [{
         },
         {
           path: "/discover",
-          element: <Discover />
+          element: <Discover />,
         },
         {
           path: "/discover/movies",
@@ -58,15 +58,7 @@ export const routeTree = [{
           )
         },
         {
-          path: "/discover/movies/:genreId",
-          element: (
-            <Suspense fallback={null}>
-              <GenrePage />
-            </Suspense>
-          )
-        },
-        {
-          path: "/discover/series/:genreId",
+          path: "/discover/genres",
           element: (
             <Suspense fallback={null}>
               <GenrePage />

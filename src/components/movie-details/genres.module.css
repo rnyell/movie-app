@@ -5,28 +5,30 @@
   font-size: inherit;  /*! it's better a `font-size` is set by the <Genres />'s container */
   color: rgb(var(--rgb-neutral-200));
 
-  & span {
-    flex-shrink: 0;
-    white-space: nowrap;
-  }
-
-  & span:last-child i {
-    display: none;
-  }
-
   &[data-multiline="true"] {
     flex-wrap: wrap;
+  }
+}
+
+.genre {
+  flex-shrink: 0;
+  white-space: nowrap;
+
+  &:last-child i {
+    display: none;
   }
 }
 
 /* ------------------------------------------------------------ */
 /* shape */
 .normal {
-  & span {}
+  & .genre {
+    
+  }
 }
 
 .chip {
-  & span {
+  & .genre {
     padding: 0.5em 0.575em;
     font-size: 85%;
     background-color: rgb(30 36 39 / 35%);

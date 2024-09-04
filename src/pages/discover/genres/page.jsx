@@ -1,47 +1,47 @@
-import { useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
-import { MOVIE_GENRES, TV_GENRES, getMediaByGenre } from "@services"
+import { useSearchParams, useLocation } from "react-router-dom"
+import { MOVIE_GENRES, TV_GENRES, getResultsByGenre } from "@services"
 import { ViewTransition } from "@lib/motion"
+import { useLoader } from "@lib/hooks"
+import { generatePagination } from "@lib/utils"
 import Page from "@components/layouts/page"
 import MovieCard from "@components/movie-cards/movie-card"
-
+import Pagination from "@components/pagination"
 
 export default function GenrePage() {
-  const [isLoading, setIsLoading] = useState(true)
-  const [results, setResults] = useState([])
-  const { genreId } = useParams()
-  const media = location.pathname.split("/")[2] === "movies" ? "movie" : "tv"
+  const [searchParams] = useSearchParams()
+  const location = useLocation()
+  const media = searchParams.get("m")
+  const genreId = searchParams.get("id")
+  const currentPage = +searchParams.get("page")
+  const allPagesArray = generatePagination(currentPage, 20)
+
   const genreName = media === "movie" ? MOVIE_GENRES[genreId] : TV_GENRES[genreId]
 
-  useEffect(() => {
-    loadData()
-  }, [])
-
-  async function loadData() {
-    const data = await getMediaByGenre(media, genreId)
-    setResults(data)
-    setIsLoading(false)
-  }
-
+  const { data, isLoading } = useLoader(
+    () => getResultsByGenre(media, genreId, currentPage),
+    { dependencies: [location.search] },
+  )
 
   return (
     <ViewTransition>
       <Page className="genre-page">
         <header>
-          <h2 className="heading">{genreName} {media === "movie" ? "Movies" : "Series"}</h2>
+          <h2 className="heading">
+            {genreName} {media === "movie" ? "Movies" : "Series"}
+          </h2>
         </header>
         <div className="genre-movies-container">
-          {!isLoading && (
-            results.map(result =>
+          {!isLoading &&
+            data?.results?.map((result) => (
               <MovieCard
-                key={result.id}
                 result={result}
                 media={media}
-                variant="common"
+                variant="simple"
+                key={result.id}
               />
-            )
-          )}
+            ))}
         </div>
+        <Pagination allPagesArray={allPagesArray} currentPage={currentPage} />
       </Page>
     </ViewTransition>
   )

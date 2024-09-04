@@ -98,7 +98,6 @@ export const seriesDisplayedGenres = [
   { name: "Crime", id: "80" },
 ]
 
-
 export async function getComingMovies() {
   const path = "3/movie/upcoming"
   const params = {
@@ -117,7 +116,7 @@ export async function getOnScreenMovies() {
     page: 1,
     language: "en-US",
     region: "US",
-    api_key: API_KEY
+    api_key: API_KEY,
   }
   const data = await request(path, params)
   const { results } = data
@@ -149,7 +148,7 @@ export async function getTrendingMovies() {
     sort_by: "popularity.desc",
     "vote_count.gte": 200,
     without_genres: "16,99,10770",
-    api_key: API_KEY
+    api_key: API_KEY,
   }
   const data = await request(path, params)
   const { results } = data
@@ -169,51 +168,51 @@ export async function getTrendingSeries() {
     "vote_count.gte": 200,
     include_null_first_air_dates: false,
     without_genres: "99,10762,10763,10764,10766,10767",
-    api_key: API_KEY
+    api_key: API_KEY,
   }
   const data = await request(path, params)
   const { results } = data
   return results
 }
 
-
 export async function getAllResults(title = "", lang = "en-US") {
   let results = []
-  const formattedTitle = title?.split(' ').join("+")
+  const formattedTitle = title?.split(" ").join("+")
   const path = "3/search/multi"
   const params = {
     query: formattedTitle,
     language: lang,
-    api_key: API_KEY
+    api_key: API_KEY,
   }
   // this call is to fetch total_pages for getting iterate count
   const data = await request(path, params)
 
   for (let i = 1; i <= data.total_pages; i++) {
-    const data = await request(path, {...params, page: i})
+    const data = await request(path, { ...params, page: i })
     results.push(...data.results)
   }
 
-  results = results.filter(res => res.media_type !== "person" && res.vote_count > 45)
+  results = results.filter(
+    (res) => res.media_type !== "person" && res.vote_count > 45,
+  )
   const ITEMS_PER_PAGE = 18
   const pages = Math.ceil(results.length / ITEMS_PER_PAGE)
   return { results, pages }
 }
 
-
-export async function getMediaByGenre(type, genreId) {
+export async function getResultsByGenre(type, genreId, page = 1) {
   const isAnimation = genreId === 16
   const isTalkShow = genreId === 10767
-  const path = (type === "movie") ? "3/discover/movie" : "3/discover/tv"
+  const path = type === "movie" ? "3/discover/movie" : "3/discover/tv"
   const params = {
     language: "en-US",
+    page: page,
     with_genres: genreId,
     without_genres: `${isAnimation ? "" : "16"},${isTalkShow ? "" : "10767"},99,10762,10763,10764,10766`,
-    api_key: API_KEY
+    api_key: API_KEY,
   }
   const data = await request(path, params)
-  const { results } = data
-  return results
+  return data
 }
 
 export async function getMediaRuntime(type, mediaId) {
@@ -228,7 +227,7 @@ export async function getMovieDetails(movieId) {
   const path = `3/movie/${movieId}`
   const params = {
     append_to_response: "credits,videos,images,recommendations",
-    api_key: API_KEY
+    api_key: API_KEY,
   }
   const data = await request(path, params)
   return data
@@ -238,7 +237,7 @@ export async function getSeriesDetails(seriesId) {
   const path = `3/tv/${seriesId}`
   const params = {
     append_to_response: "credits,videos,images,recommendations,episode_groups",
-    api_key: API_KEY
+    api_key: API_KEY,
   }
   const data = await request(path, params)
   return data
@@ -250,7 +249,6 @@ export async function getAdditionalDetails(id) {
   const data = await res.json()
   return data
 }
-
 
 //+ https://developer.themoviedb.org/reference/tv-series-on-the-air-list
 //+ https://api.themoviedb.org/3/tv/{series_id}

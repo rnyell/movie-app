@@ -91,20 +91,20 @@ export default function AppProvider({ children }) {
   const [modals, modalDispatch] = useReducer(modalReducer, modalsInit)
 
   const { data: moviesState, isLoading, error } = useLoader(loadMovies)
-  // const { popular, movies, series, screen } = moviesState
-  // const contextValue = { popular, movies, series, screen }
 
   async function loadMovies() {
-    const popularMovies = getPopularMovies()
-    const screenMovies = getOnScreenMovies()
-    const trendingMovies = getTrendingMovies()
-    const trendingSeries = getTrendingSeries()
+    // const screenMovies = getOnScreenMovies()
+    // const popularMovies = getPopularMovies()
+    // const trendingMovies = getTrendingMovies()
+    // const trendingSeries = getTrendingSeries()
 
-    const [popular, screen, movies, series] = await Promise.all([
-      popularMovies, screenMovies, trendingMovies, trendingSeries
+    const [popular, movies, series] = await Promise.all([
+      getPopularMovies(),
+      getTrendingMovies(),
+      getTrendingSeries(),
     ])
 
-    return { popular, movies, series, screen }
+    return { popular, movies, series }
   }
 
 

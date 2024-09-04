@@ -17,7 +17,7 @@ export function useLoader(fn, options = { dependencies: [] }) {
     return () => {
       controller.abort("Request canceled")
     }
-  }, [...deps])
+  }, deps)
 
   async function loader() {
     try {

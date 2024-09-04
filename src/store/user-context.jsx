@@ -32,8 +32,8 @@ export default function UserProvider({ children }) {
 
   async function initUserState() {
     const profile = await getUserProfile()
-    const isAnonymous = session?.user?.is_anonymous
     const listsCount = await getUserListsCount()
+    const isAnonymous = session?.user?.is_anonymous
 
     const {
       id,

@@ -29,7 +29,7 @@
 /* ------------------------------------------------------------ */
 /* variant */
 .card[data-variant="common"] {
-  /* width is set by JS */
+  /* the `width` is set by JS */
   scroll-margin-left: 5px;
   border-radius: 1.5rem;
   box-shadow: var(--shadow-1);
@@ -74,7 +74,7 @@
 }
 
 /* ------------------------------------------------------------ */
-.card[data-variant="screen"] {
+.card[data-variant="simple"] {
   --radius: 1.2rem;
 
   padding: var(--space-2);

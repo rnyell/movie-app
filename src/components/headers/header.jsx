@@ -25,8 +25,6 @@ export default function Header({ withSearchbox = true }) {
   const [dataset, setDataset] = useState(datasetInitial)
   const [isOpen, setOpen] = useState(false)
 
-  console.log(dataset, pathname)
-
   useEffect(() => {
     if (pathname.startsWith("/search")) {
       if (withSearchbox) {

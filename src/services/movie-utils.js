@@ -29,10 +29,10 @@ export function getMovieGenres(genres) {
   let returnValue = []
   genres.forEach(genre => {
     if (genre.name === "Science Fiction") {
-      returnValue.push("Sci-Fi")
+      returnValue.push({ id: genre.id, name: "Sci-Fi" })
       return
     }
-    returnValue.push(genre.name)
+    returnValue.push({ id: genre.id, name: genre.name })
   })
 
   return returnValue
@@ -43,11 +43,11 @@ export function getGenresWithIds(media = "movie", ids = []) {
 
   if (media === "movie") {
     ids.forEach(id => {
-      returnValue.push(MOVIE_GENRES[id])
+      returnValue.push({ id, name: MOVIE_GENRES[id] })
     })
   } else if (media === "tv") {
     ids.forEach(id => {
-      returnValue.push(TV_GENRES[id])
+      returnValue.push({ id, name: TV_GENRES[id] })
     })
   }
 

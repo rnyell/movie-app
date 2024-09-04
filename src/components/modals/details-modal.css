@@ -26,13 +26,4 @@
       color: var(--color-neutral-300);
     }
   }
-
-  & .price {
-    padding: 0.5rem 0.75rem;
-    font-size: 1.35rem;
-    font-weight: 600;
-    color: var(--color-neutral-400);
-    background-color: var(--color-neutral-700);
-    border-radius: 0.75rem;
-  }
 }
