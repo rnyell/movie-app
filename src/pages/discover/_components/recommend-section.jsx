@@ -5,21 +5,21 @@ import { CardsSkeleton } from "@components/skeletons"
 import MovieCard from "@components/movie-cards/movie-card"
 
 export default function RecommendSection() {
-  const { data: recMovies, isLoading: isMoviesLoading } = useLoader(() =>
-    getRecommendedMovies(872585),
+  const { data: recMovies, isLoading: isMoviesLoading } = useLoader(
+    () => getRecommendedMovies(872585)
   )
 
-  const { data: recSeries, isLoading: isSeriesLoading } = useLoader(() =>
-    getRecommendedSeries(1396),
+  const { data: recSeries, isLoading: isSeriesLoading } = useLoader(
+    () => getRecommendedSeries(1396)
   )
 
   return (
     <>
       <section className="recommend-section">
-        <header>
-          <h4 className="heading">Recommended Movies</h4>
+        <header className="mb-3">
+          <h4>Recommended Movies</h4>
         </header>
-        <div className="h-90%">
+        <div>
           {isMoviesLoading ? (
             <CardsSkeleton cardVariant="common" />
           ) : (
@@ -34,8 +34,8 @@ export default function RecommendSection() {
         </div>
       </section>
       <section className="recommend-section">
-        <header>
-          <h4 className="heading">Top Series</h4>
+        <header className="mb-3">
+          <h4>Top Series</h4>
         </header>
         <div className="h-full">
           {isSeriesLoading ? (

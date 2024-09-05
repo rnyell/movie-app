@@ -1,7 +1,7 @@
-import { createContext, useContext, useReducer, useState } from "react"
+import { createContext, useContext, useReducer } from "react"
 import { AnimatePresence } from "framer-motion"
 import { useLoader } from "@lib/hooks"
-import { getPopularMovies, getOnScreenMovies, getTrendingMovies, getTrendingSeries } from "@services"
+import { getPopularMovies, getTrendingMovies, getTrendingSeries } from "@services"
 import { InitialLoading, AppLoading } from "@components/skeletons"
 import AuthProvider from "@src/auth/auth-context"
 import ThemeProvider from "./theme-context"
@@ -93,28 +93,27 @@ export default function AppProvider({ children }) {
   const { data: moviesState, isLoading, error } = useLoader(loadMovies)
 
   async function loadMovies() {
-    // const screenMovies = getOnScreenMovies()
-    // const popularMovies = getPopularMovies()
-    // const trendingMovies = getTrendingMovies()
-    // const trendingSeries = getTrendingSeries()
+    const p1 = getPopularMovies()
+    const p2 = getTrendingMovies()
+    const p3 = getTrendingSeries()
 
-    const [popular, movies, series] = await Promise.all([
-      getPopularMovies(),
-      getTrendingMovies(),
-      getTrendingSeries(),
-    ])
+    const [popular, movies, series] = await Promise.all([p1, p2, p3])
 
     return { popular, movies, series }
   }
 
+  // a `setLoading(true)` to start app loading on some async jobs like logout
+  const contextValue = { moviesState, modals, modalDispatch }
+
 
   return (
+    // sync or wait??
     <AnimatePresence mode="wait" initial={true}>
       {isLoading ? (
         isInitialLoad ? <InitialLoading /> : <AppLoading />
       ) : (
-        <div key="nothing-but-for-AnimatePresence" data-presence>
-          <AppContext.Provider value={{ moviesState, modals, modalDispatch }}>
+        <div key="nothing-but-for-AnimatePresence" data-presence> 
+          <AppContext.Provider value={contextValue}>
             <ThemeProvider>
               <AuthProvider>
                 {children}

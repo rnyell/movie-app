@@ -85,7 +85,8 @@ export function Trigger({ children, className, ...rest }) {
 export function Menu({
   children,
   className,
-  placement = "left-start/bottom",
+  placement = "bottom",
+  autoWidth = false,
   ...rest
 }) {
   const { windowWidth, windowHeight } = useWindowOffsets()
@@ -103,7 +104,7 @@ export function Menu({
   const offsetY = 8
   const offsetX = 8
   const baseWidth = "12rem"
-  const width = `max(${targetClient.width}px, ${baseWidth})`
+  const width = autoWidth ? "auto" : `max(${targetClient.width}px, ${baseWidth})`
   let top, left;
   // y & x are custom values for dynamic variants, set framer-motion
   // TODO: use x for horizontal motion

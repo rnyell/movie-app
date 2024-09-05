@@ -11,9 +11,9 @@ export default function Lists() {
   return (
     <section>
       <Header heading="Your Lists" href="/account/lists" />
-      <Snap.Container customStyles="mt-4 p-2">
+      <Snap.Container className="mt-4 p-2">
         {lists?.map(list => (
-          <Snap.Item customStyles="p-2" key={list.id}>
+          <Snap.Item className="p-2" key={list.id}>
             <ListCard list={list} />
           </Snap.Item>
         ))}

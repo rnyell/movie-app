@@ -7,7 +7,7 @@ import SearchResults from "./_components/search-results"
 import { useSearchResults } from "./_hooks"
 
 import corn from "@src/assets/corn.png"
-
+import SortDropdown from "./_components/toolbar/sorts/sort-dropdown"
 
 export default function SearchPage() {
   const { windowWidth } = useWindowOffsets()
@@ -21,7 +21,7 @@ export default function SearchPage() {
 
   return (
     <div className="search-page">
-      {isLgScreen ? <Header /> : <AnimatedHeader />}
+      {/* {isLgScreen ? <Header /> : <AnimatedHeader />} */}
       <aside data-screen={isLgScreen ? "lg-screen" : "sm-screen"}>
         <FilterBox searchResults={searchResults} setSearchResults={setSearchResults} />
       </aside>
@@ -37,12 +37,17 @@ export default function SearchPage() {
         ) : (
           <>
             {isLgScreen && (
-              <header className="align-center ::after-abs">
+              <header className="w-full pt-4 pb-6 px-2 relative align-center">
                 <h2 className="heading">
                   Results for:
                   <span className="searched-title">{query.replaceAll("-", " ")}</span>
                 </h2>
-                <div className="sort-dropdown-portal"></div>
+                <SortDropdown
+                  className="ml-auto"
+                  searchResults={searchResults}
+                  setSearchResults={setSearchResults}
+                />
+                <div className="w-full h-[1px] absolute bottom-0 bg-primary-600" />
               </header>
             )}
             <SearchResults isLoading={isLoading} searchResults={searchResults} />

@@ -180,7 +180,7 @@ export default function SelectedSeries() {
           <div className="related-content">
             <h4 className="heading">More Like This</h4>
             <div className="related-movies">
-              <Snap.Container customStyles="h-full">
+              <Snap.Container className="h-full">
                 {recommendations.results.slice(0, 9).map(movie => (
                   <Snap.Item key={movie.id}>
                     <MovieCard result={movie} media={media} variant="series" />

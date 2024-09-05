@@ -51,7 +51,7 @@ export function SeriesSection() {
           Explore more <ChevronRightIcon />
         </Link>
       </header>
-      <Snap.Container customStyles="min-h-60">
+      <Snap.Container className="min-h-60">
         {moviesState.series.slice(0, 12).map((movie) => (
           <Snap.Item key={movie.id}>
             <MovieCard result={movie} media="tv" variant="series" />

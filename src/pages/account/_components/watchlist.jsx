@@ -37,7 +37,7 @@ export default function Watchlist() {
             </p>
           </div>
         ) : (
-          <Snap.Container customStyles="p-5">
+          <Snap.Container className="p-5">
             {watchLaterItems?.slice(0, 12).map((item) => (
               <Snap.Item align="center" key={item.id}>
                 <MovieCard

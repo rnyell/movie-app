@@ -1,18 +1,18 @@
 import cls from "@lib/ui/cls"
 
-import classes from "./snap.module.css"
+import styles from "./snap.module.css"
 
 
 export function Container({
   children,
+  className,
   direction = "x",
   strictness = "proximity",
-  customStyles = "",
   ...props
 }) {
   return (
     <div
-      className={cls(classes, ["container", direction, strictness], customStyles)}
+      className={`${cls(styles, ["container", direction, strictness])} ${className}`}
       {...props}
     >
       {children}
@@ -22,13 +22,13 @@ export function Container({
 
 export function Item({
   children,
+  className,
   align = "start",
-  customStyles = "",
   ...props
 }) {
   return (
     <div
-      className={cls(classes, ["item", align], customStyles)}
+      className={`${cls(styles, ["item", align])} ${className}`}
       {...props}
     >
       {children}

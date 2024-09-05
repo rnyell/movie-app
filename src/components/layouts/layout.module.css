@@ -4,8 +4,7 @@
   display: grid;
   grid-template-columns: auto 1fr;
 
-  & main {
-    padding-bottom: var(--safe-space-to-scroll-bottom-nav);
+  & > main {
     width: 100%;
     grid-column: 2 / 3;
     container-name: main-container;
@@ -24,7 +23,8 @@
   @media (width <= 520px) {
     grid-template-columns: 1fr;
 
-    & main {
+    & > main {
+      padding-bottom: var(--safe-space-to-scroll-bottom-nav);
       grid-column: unset;
     }
   }

@@ -17,6 +17,11 @@
   /* scroll-snap-stop: var(--scroll-stop); */
   /* scroll through all items with a single swing. 'normal' should pass through all items, while 'always' will stop at the second item */
 
+  @media (width <= 480px) {
+    padding-block: 0.5rem;
+    min-height: unset;
+  }
+
   @media (width <= 440px) {
     gap: 1rem;
   }

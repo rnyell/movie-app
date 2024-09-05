@@ -20,12 +20,6 @@
   --bg-checked: var(--color-neutral-300);
   --text-checked: var(--color-neutral-950);
 
-  & .filter-title,
-  & .sort-title {
-    margin-block: 0 var(--space-4);
-    color: var(--color-accent-100);
-  }
-
   & .type-filter {
     & .type-group {
       gap: var(--space-2);

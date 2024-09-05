@@ -26,16 +26,18 @@ export default function Header({ withSearchbox = true }) {
   const [isOpen, setOpen] = useState(false)
 
   useEffect(() => {
-    if (pathname.startsWith("/search")) {
+    if (pathname === "/") {
+      setDataset({ variant: "default", position: "static" })
+    } else if (pathname.startsWith("/search")) {
       if (withSearchbox) {
-        setDataset({ position: "sticky", variant: "stretched" })
+        setDataset({ variant: "stretched", position: "sticky" })
       } else {
-        setDataset({ position: "sticky", variant: "animated" })
+        setDataset({ variant: "animated", position: "sticky" })
       }
     } else if (pathname.startsWith("/movies") || pathname.startsWith("/series")) {
-      setDataset({ position: "absolute", variant: "transparent" })
+      setDataset({ variant: "transparent", position: "absolute" })
     } else {
-      setDataset({ position: "sticky", variant: "default" })
+      setDataset({ variant: "default", position: "sticky" })
     }
   }, [pathname])
 

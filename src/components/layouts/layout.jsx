@@ -52,13 +52,14 @@ export default function Layout({ variant }) {
     }
     case "secondary": {
       return (
-        <Valve />
-        // <div className={classes.primary}>
-        //   <Navigation />
-        //   <main>
-        //     <Valve />
-        //   </main>
-        // </div>
+        // <Valve />
+        <div className={classes.primary}>
+          <Navigation />
+          <main>
+            <Header />
+            <Valve />
+          </main>
+        </div>
       )
     }
   }

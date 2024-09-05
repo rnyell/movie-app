@@ -1,21 +1,29 @@
 import { motion } from "framer-motion"
 import { useSearch } from "@src/store"
 import { Divider } from "@lib/ui/components"
-import { filterResults, sortResults } from "../../../_utils"
+import {
+  filterResults,
+  sortResults,
+  submitBtn_styles,
+  title_styles,
+} from "../../../_utils"
 import TypeList from "./type-list"
 import GenresList from "./genres-list"
 
-
 export default function FilterItems({ setSearchResults, setFilterIsOpen }) {
-  const {searchState, searchOptions, optionsDispatch} = useSearch()
+  const { searchState, searchOptions, optionsDispatch } = useSearch()
   const initialResults = searchState.results
 
-  function filteredNSortedResults(initialResults, selectedType, selectedGenres) {
-    const {results, pages} = filterResults(initialResults, selectedType, selectedGenres)
+  function sortFilteredResults(initialResults, selectedType, selectedGenres) {
+    const { results, pages } = filterResults(
+      initialResults,
+      selectedType,
+      selectedGenres
+    )
     const sortby = searchOptions.sorts.sortby
     const order = searchOptions.sorts.order
     const sortedResults = sortResults(results, sortby, order)
-    return {results: sortedResults, pages}
+    return { results: sortedResults, pages }
   }
 
   function handleSubmitFilters(e) {
@@ -24,8 +32,12 @@ export default function FilterItems({ setSearchResults, setFilterIsOpen }) {
     const formData = new FormData(e.target)
     const selectedType = formData.get("type")
     const selectedGenres = formData.getAll("genre")
-    const {results, pages} = filteredNSortedResults(initialResults, selectedType, selectedGenres)
-    setSearchResults({results, pages})
+    const { results, pages } = sortFilteredResults(
+      initialResults,
+      selectedType,
+      selectedGenres
+    )
+    setSearchResults({ results, pages })
     optionsDispatch({ type: "set_type", media: selectedType })
     optionsDispatch({ type: "set_genres", ids: selectedGenres })
     setFilterIsOpen(false)
@@ -34,18 +46,17 @@ export default function FilterItems({ setSearchResults, setFilterIsOpen }) {
   const dropdownVariants = {
     initial: {
       opacity: 0,
-      y: 10
+      y: 10,
     },
     animate: {
       opacity: 1,
-      y: 0
+      y: 0,
     },
     exit: {
       opacity: 0,
-      y: 10
-    }
+      y: 10,
+    },
   }
-
 
   return (
     <motion.div
@@ -57,12 +68,12 @@ export default function FilterItems({ setSearchResults, setFilterIsOpen }) {
     >
       <form onSubmit={handleSubmitFilters} className="flex-col">
         <div className="filter-card type-filter">
-          <h6 className="filter-title">Type</h6>
+          <h6 className={title_styles}>Type</h6>
           <TypeList />
         </div>
         <Divider variant="bold" width="almost-fill" thickness="thin" />
         <div className="filter-card genres-filter ::after-abs">
-          <h6 className="filter-title">Genres</h6>
+          <h6 className={title_styles}>Genres</h6>
           <GenresList />
         </div>
         <Divider variant="bold" width="almost-fill" thickness="thin" />
@@ -71,7 +82,7 @@ export default function FilterItems({ setSearchResults, setFilterIsOpen }) {
           title="feature currently is not available"
           className="filter-card lang-filter"
         >
-          <h6 className="filter-title">Language & Country</h6>
+          <h6 className={title_styles}>Language & Country</h6>
           <div className="group flex-col">
             <label htmlFor="langs" className="align-center">
               <span>Language:</span>
@@ -95,7 +106,7 @@ export default function FilterItems({ setSearchResults, setFilterIsOpen }) {
             </label>
           </div>
         </div>
-        <button type="submit">Apply</button>
+        <button className={submitBtn_styles}>Apply</button>
       </form>
     </motion.div>
   )

@@ -14,6 +14,7 @@ export default {
       "md": {"max": "759px"},
       "sm": {"max": "639px"},
       "xs": {"max": "519px"},
+      "2xs": {"max": "439px"},
     },
     extend: {
       zIndex: {

@@ -1,7 +1,7 @@
 import { motion } from "framer-motion"
-import { Overlay } from "./movie-cards"
 import { useWindowOffsets } from "@lib/hooks"
-import cn from "@src/lib/ui/cn"
+import cn from "@lib/ui/cn"
+import { Overlay } from "./movie-cards"
 
 const shimmer = `
   overflow-hidden before:content-[''] before:absolute before:inset-0 before:-translate-x-full before:animate-shimmer before:bg-gradient-to-r before:from-transparent before:via-slate-400/15 before:to-transparent
@@ -37,11 +37,6 @@ const initialLoadingMotion = {
   },
 }
 
-const mainLoadingMotion = {
-  initial: {},
-  animate: {},
-  exit: {},
-}
 
 export function InitialLoading() {
   return (
@@ -56,7 +51,7 @@ export function InitialLoading() {
 
 export function AppLoading() {
   return (
-    <motion.div className="main-loading" {...mainLoadingMotion}>
+    <motion.div>
       <div />
     </motion.div>
   )
@@ -177,6 +172,11 @@ export function CardSkeleton({ variant }) {
           className={`${shimmer} relative w-[clamp(245px,65vw,300px)] shrink-0 bg-primary-700 rounded-3xl`}
           style={{ aspectRatio: "var(--landscape-ratio)" }}
         />
+      )
+    }
+    case "simple": {
+      return (
+        <div className={`${shimmer} relative aspect-[1.25] w-[clamp(200px,60vw,285px)] shrink-0 bg-primary-700 rounded-3xl`} />
       )
     }
     case "result": {

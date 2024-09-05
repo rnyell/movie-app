@@ -8,7 +8,7 @@ export function Valve() {
   const outlet = useOutlet()
 
   return (
-    <AnimatePresence mode="wait" initial={true}>
+    <AnimatePresence initial={false}>
       {outlet && cloneElement(outlet, { key: location.pathname })}
     </AnimatePresence>
   )

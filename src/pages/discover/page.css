@@ -1,19 +1,10 @@
 .discover-page,
 .movies-page,
 .series-page {
-  gap: 4.5rem;
-
-  & section {
-    height: clamp(250px, 35vh, 400px);
-  }
-
-  & header {
-    align-items: baseline;
-  }
-
-  & .heading {
-    font-size: 1.45rem;
-  }
+  /* & section { */
+    /* we need a fixed height cuz the <Common /> card is scaled when hover and causes the overflow. so a larger height was need to prevent overflow */
+    /* height: clamp(250px, 35vh, 400px); */
+  /* } */
 
   & header a {
     margin-left: auto;
@@ -26,74 +17,51 @@
     & svg {
       width: var(--icon-size-4);
       stroke-width: 2px;
+      transition: transform var(--duration-1);
     }
     
     &:hover {
-      text-decoration: underline;
       background-color: var(--color-neutral-700);
-
-      & svg {
-        transform: translateX(4px);
-      }
     }
-  }
-}
 
-.recommend-section {
-  & header {
-    margin-bottom: 0.75rem;
-  }
-}
-
-.hot-movies-section,
-.hot-series-section {
-  & header {
-    padding: 0.625rem 0;
-  }
-
-  & .heading {
-    color: rgb(233, 176, 77);
-  }
-
-  & .fire-icon {
-    margin-left: 0.5rem;
-    width: var(--icon-size-5);
-    color: rgb(233, 176, 77);
+    &:hover svg {
+      transform: translateX(4px);
+    }
   }
 }
 
 .genre-page {
-  & .genre-movies-container {
+  & .container {
     margin-top: 2rem;
     display: grid;
     /* grid-template-columns: repeat(4, 1fr); */
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
-    gap: 2rem 1.75rem;
+    justify-items: center;
+    gap: 1.75rem 1.5rem;
   }
 }
 
-
+/* queries */
 @container main-container (inline-size <= 1080px) {
   .genre-page {
-    & .genre-movies-container {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.75rem 1.5rem;
-    }
-  }
-}
-
-@container main-container (inline-size <= 780px) {
-  .genre-page {
-    & .genre-movies-container {
+    & .container {
       grid-template-columns: repeat(3, 1fr);
       gap: 1.5rem 1.25rem;
     }
   }
 }
 
+@container main-container (inline-size <= 780px) {
+  .genre-page {
+    & .container {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+}
+
 @container main-container (inline-size <= 680px) {
   .genre-page {
-    & .genre-movies-container {
+    & .container {
       grid-template-columns: repeat(2, 1fr);
       gap: 1.25rem 1rem;
     }
@@ -102,10 +70,10 @@
 
 @container main-container (inline-size <= 520px) {
   .genre-page {
-    & .genre-movies-container {
+    & .container {
       grid-template-columns: 75vw;
       justify-content: center;
-      gap: 1.5rem;
+      gap: 1.25rem;
     }
   }
 }
@@ -119,13 +87,13 @@
   }
 }
 
-@media (width <= 520px) {
+/* @media (width <= 520px) {
   .discover-page,
   .movies-page,
   .series-page {
-    & section {
+    & section { */
       /* `w <= 520px` is in the touch range, so the movie-card["common"] is not scaled on hover */
-      height: auto;
-    }
+      /* height: auto; */
+    /* }
   }
-}
+} */

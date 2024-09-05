@@ -1,25 +1,22 @@
 export const pageTransitionMotion = {
   initial: {
     opacity: 0.25,
-    // y: 1,
-    x: 20,
+    x: 18,
   },
   animate: {
     opacity: 1,
     scale: 1,
-    // y: 0,
     x: 0,
     transition: {
-      duration: 0.5,
+      duration: 0.375,
       ease: "easeIn"
     }
   },
   exit: {
-    opacity: 0.15,
-    // y: 1,
+    opacity: 0.1,
     x: -20,
     transition: {
-      duration: 0.5,
+      duration: 0.3,
       ease: "easeOut"
     }
   }

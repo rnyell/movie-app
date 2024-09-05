@@ -6,6 +6,7 @@ import { generatePagination } from "@lib/utils"
 import Page from "@components/layouts/page"
 import MovieCard from "@components/movie-cards/movie-card"
 import Pagination from "@components/pagination"
+import { CardSkeleton } from "@components/skeletons"
 
 export default function GenrePage() {
   const [searchParams] = useSearchParams()
@@ -17,21 +18,23 @@ export default function GenrePage() {
 
   const genreName = media === "movie" ? MOVIE_GENRES[genreId] : TV_GENRES[genreId]
 
-  const { data, isLoading } = useLoader(
+  let { data, isLoading } = useLoader(
     () => getResultsByGenre(media, genreId, currentPage),
-    { dependencies: [location.search] },
+    { dependencies: [location.search] }
   )
 
   return (
     <ViewTransition>
       <Page className="genre-page">
         <header>
-          <h2 className="heading">
-            {genreName} {media === "movie" ? "Movies" : "Series"}
-          </h2>
+          <h2>{genreName} {media === "movie" ? "Movies" : "Series"}</h2>
         </header>
-        <div className="genre-movies-container">
-          {!isLoading &&
+        <div className="container mt-8">
+          {isLoading ? (
+            [...Array(20).keys()].map((_, i) => (
+              <CardSkeleton variant="simple" key={i} />
+            ))
+          ) : (
             data?.results?.map((result) => (
               <MovieCard
                 result={result}
@@ -39,9 +42,12 @@ export default function GenrePage() {
                 variant="simple"
                 key={result.id}
               />
-            ))}
+            ))
+          )}
         </div>
-        <Pagination allPagesArray={allPagesArray} currentPage={currentPage} />
+        <div className="mx-auto pt-6 pb-2">
+          <Pagination allPagesArray={allPagesArray} currentPage={currentPage} />
+        </div>
       </Page>
     </ViewTransition>
   )

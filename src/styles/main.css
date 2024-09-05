@@ -216,11 +216,6 @@
   }
 
   /* ------------------------------- */
-  /* sizes */  
-  .h-90\% {
-    height: 90%;
-  }
-
   /* TODO: add to tw.config.js*/
   .square-sm {
     width: 1rem;

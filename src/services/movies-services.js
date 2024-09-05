@@ -110,18 +110,18 @@ export async function getComingMovies() {
   return results
 }
 
-export async function getOnScreenMovies() {
-  const path = "3/movie/now_playing"
-  const params = {
-    page: 1,
-    language: "en-US",
-    region: "US",
-    api_key: API_KEY,
-  }
-  const data = await request(path, params)
-  const { results } = data
-  return results
-}
+// export async function getOnScreenMovies() {
+//   const path = "3/movie/now_playing"
+//   const params = {
+//     page: 1,
+//     language: "en-US",
+//     region: "US",
+//     api_key: API_KEY,
+//   }
+//   const data = await request(path, params)
+//   const { results } = data
+//   return results
+// }
 
 export async function getPopularMovies() {
   //+ '/3/discover/movie?include_video=false&sort_by=popularity.desc'

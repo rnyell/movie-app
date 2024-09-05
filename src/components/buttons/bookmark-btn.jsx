@@ -27,7 +27,7 @@ export default function BookmarkButton({ item, setModal, ...props }) {
 
   if (isLoading) {
     return (
-      <Button size={size} customStyles={customStyles}>
+      <Button variants="solid-blured" size={size} customStyles={customStyles}>
         <Spinner className="size-7" />
       </Button>
     )

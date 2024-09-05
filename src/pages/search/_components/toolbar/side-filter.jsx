@@ -1,31 +1,18 @@
-import { useEffect, useRef  } from "react"
-import { createPortal } from "react-dom"
-import { useWindowOffsets } from "@lib/hooks"
 import { useSearch } from "@src/store"
-import { filterResults, sortResults } from "../../_utils"
+import { filterResults, sortResults, title_styles } from "../../_utils"
 import TypeList from "./filters/type-list"
 import GenresList from "./filters/genres-list"
-import SortDropdown from "./sorts/sort-dropdown"
 
+export default function SideFilter({ setSearchResults }) {
+  const { searchState, searchOptions, optionsDispatch } = useSearch()
 
-export default function SideFilter({ searchResults, setSearchResults }) {
-  const {searchState, searchOptions, optionsDispatch} = useSearch()
-  const {windowWidth} = useWindowOffsets()
-  const portalRef = useRef()
-  const params = new URLSearchParams(location.search)
-  const query = params.get("query")
-
-  useEffect(() => {
-    const container = document.querySelector(".sort-dropdown-portal")
-    portalRef.current = container
-  }, [windowWidth, query])
-
-  function filteredNSortedResults(initialResults, selectedType, selectedGenres) {
-    const {results, pages} = filterResults(initialResults, selectedType, selectedGenres)
+  /* add to _utils */
+  function sortFilteredResults(initialResults, selectedType, selectedGenres) {
+    const { results, pages } = filterResults( initialResults, selectedType, selectedGenres)
     const sortby = searchOptions.sorts.sortby
     const order = searchOptions.sorts.order
     const sortedResults = sortResults(results, sortby, order)
-    return {results: sortedResults, pages}
+    return { results: sortedResults, pages }
   }
 
   function handleSubmitFilters(e) {
@@ -35,41 +22,30 @@ export default function SideFilter({ searchResults, setSearchResults }) {
     const initialResults = searchState.results
     const selectedType = formData.get("type")
     const selectedGenres = formData.getAll("genre")
-    const {results, pages} = filteredNSortedResults(initialResults, selectedType, selectedGenres)
-    setSearchResults({results, pages})
+    const { results, pages } = sortFilteredResults(initialResults, selectedType, selectedGenres)
+    setSearchResults({ results, pages })
     optionsDispatch({ type: "set_type", media: selectedType })
     optionsDispatch({ type: "set_genres", ids: selectedGenres })
   }
-
 
   return (
     <div className="side-filter ::after-abs">
       <form name="side-filter" className="flex-col" onSubmit={handleSubmitFilters}>
         <div className="form-content flex-col">
-          
-          {windowWidth >= 620 && portalRef.current && (
-            createPortal(
-              <SortDropdown
-                searchResults={searchResults}
-                setSearchResults={setSearchResults}
-              />,
-              portalRef.current
-            )
-          )}
-
           <div className="filter-card type-filter">
-            <h6 className="filter-title">Type</h6>
+            <h6 className={title_styles}>Type</h6>
             <TypeList />
           </div>
           <div className="filter-card genres-filter ::after-abs">
-            <h6 className="filter-title">Genres</h6>
+            <h6 className={title_styles}>Genres</h6>
             <GenresList />
           </div>
-          <div className="filter-card date-filter"
+          <div
+            className="filter-card date-filter"
             data-feature-not-available
             title="feature currently is not available"
           >
-            <h6 className="filter-title">Releasee Date</h6>
+            <h6 className={title_styles}>Releasee Date</h6>
             <div className="group date-group flex-col">
               <label htmlFor="from" className="align-center">
                 <span>from:</span>
@@ -81,11 +57,12 @@ export default function SideFilter({ searchResults, setSearchResults }) {
               </label>
             </div>
           </div>
-          <div className="filter-card lang-filter"
+          <div
+            className="filter-card lang-filter"
             data-feature-not-available
             title="feature currently is not available"
           >
-            <h6 className="filter-title">Country &amp; language</h6>
+            <h6 className={title_styles}>Country &amp; language</h6>
             <div className="group lang-group flex-col">
               <label htmlFor="langs" className="align-center">
                 <span>Language:</span>
