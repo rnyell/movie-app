@@ -3,15 +3,14 @@ import { motion } from "framer-motion"
 import { useThemeContext, useUserContext } from "@src/store"
 import { logOut } from "@lib/supabase/auth"
 import { Presence } from "@lib/motion"
+import { Dropdown } from "@lib/ui/components"
+import cn from "@lib/ui/cn"
 import {
   UserCircleIcon,
   ChevronUpDownIcon,
   ArrowLeftStartOnRectangleIcon,
 } from "@heroicons/outline"
-import { Dropdown } from "@lib/ui/components"
 import Settings from "./settings"
-import cn from "@lib/ui/cn"
-
 import {
   navLink_styles,
   menuItem_styles,
@@ -49,6 +48,7 @@ export default function UserPanel({ isCollapsed, appearance = "panel" }) {
   return (
     <Dropdown.Container
       className="mt-auto mb-2 data-[collapsed=true]:self-center data-[appearance=avatar]:mt-0 data-[appearance=avatar]:mb-0"
+      strategy="portal"
       data-collapsed={isCollapsed}
       data-appearance={appearance}
     >

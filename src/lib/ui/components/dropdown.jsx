@@ -1,4 +1,6 @@
-import { useState, useRef, useLayoutEffect, createContext, useContext } from "react"
+"use client"
+
+import { useState, useRef, useLayoutEffect, createContext, useContext, useEffect } from "react"
 import { createPortal } from "react-dom"
 import { motion } from "framer-motion"
 import { useClickOutside, useWindowOffsets } from "@lib/hooks"
@@ -8,7 +10,7 @@ import cn from "../cn"
 
 const DropdownContext = createContext(null)
 
-function useDropdownContext() {
+export function useDropdownContext() {
   return useContext(DropdownContext)
 }
 
@@ -27,12 +29,22 @@ export function Container({
   children,
   className,
   strategy = "position",
+  floatingDisabled = false,
   ...rest
 }) {
   // strategy: "position" | "portal" | "contextual"
   const ref = useRef(null)
   const [targetClient, setTargetClient] = useState(targetClientInitial)
   const [isOpen, setOpen] = useState(false)
+
+  // TODO: add modality effect
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden"
+    } else {
+      document.body.style.overflow = "unset"
+    }
+  }, [isOpen])
 
   useClickOutside(ref, closeMenu)
 
@@ -42,7 +54,15 @@ export function Container({
     }
   }
 
-  const contextValue = { isOpen, setOpen, targetClient, setTargetClient, strategy }
+  const contextValue = {
+    isOpen,
+    setOpen,
+    closeMenu,
+    targetClient,
+    setTargetClient,
+    strategy,
+    floatingDisabled
+  }
 
   return (
     <DropdownContext.Provider value={contextValue}>
@@ -90,7 +110,7 @@ export function Menu({
   ...rest
 }) {
   const { windowWidth, windowHeight } = useWindowOffsets()
-  const { isOpen, setOpen, targetClient, strategy } = useDropdownContext()
+  const { isOpen, setOpen, targetClient, strategy, floatingDisabled } = useDropdownContext()
   const [menuClient, setMenuClient] = useState(menuClientInitial)
   const ref = useRef(null)
 
@@ -128,9 +148,11 @@ export function Menu({
     left = targetClient.left + (targetClient.width / 2) - (menuClient.width / 2)
     top = targetClient.bottom + offsetY
     y = 1
-  } /* else if (placement === "bottom/start") {
+  } else if (placement === "bottom/start") {
+    left = targetClient.left
+    top = targetClient.bottom + offsetY
     y = 1
-  } */ else if (placement === "bottom/end") {
+  } else if (placement === "bottom/end") {
     left = targetClient.right - menuClient.width
     top = targetClient.bottom + offsetY
     y = 1
@@ -156,24 +178,30 @@ export function Menu({
     y = 1
   } */
 
-  if (placement.includes("top") && targetClient.top - menuClient.height - offsetY < offsetY) {
-    top = targetClient.bottom + offsetY
-    y = 1
-  } else if (placement.includes("bottom") && windowHeight - targetClient.bottom < menuClient.height + offsetY) {
-    top = targetClient.top - menuClient.height - offsetY
-    y = -1
-  } else if (placement.includes("right") && windowHeight - targetClient.top < menuClient.height) {
-    top = targetClient.top - menuClient.height
-    y = -1
-  } else if (placement.includes("right/") && windowWidth - targetClient.right < menuClient.width) {
-    left = targetClient.left + offsetX + 2
+  if (!floatingDisabled) {
+    if (placement.includes("top") && targetClient.top - menuClient.height - offsetY < offsetY) {
+      top = targetClient.bottom + offsetY
+      y = 1
+    } else if (placement.includes("bottom") && windowHeight - targetClient.bottom < menuClient.height + offsetY) {
+      top = targetClient.top - menuClient.height - offsetY
+      y = -1
+      if (top < 0) {
+        top = (windowHeight / 2) - (menuClient.height / 2)
+      }
+    } else if (placement.includes("right") && windowHeight - targetClient.top < menuClient.height) {
+      top = targetClient.top - menuClient.height
+      y = -1
+    } else if (placement.includes("right/") && windowWidth - targetClient.right < menuClient.width) {
+      left = targetClient.left + offsetX + 2
+    }
   }
+
 
   if (strategy === "position") {
     return (
       <Presence trigger={isOpen}>
         <motion.div
-          className={cn("p-1 fixed z-100 flex-col gap-[0.325rem]", className)}
+          className={cn("p-1 fixed z-max flex-col gap-[0.325rem]", className)}
           style={{ width, top, left }}
           ref={ref}
           custom={y}
@@ -187,9 +215,9 @@ export function Menu({
   } else if (strategy === "portal") {
     return createPortal(
       <Presence trigger={isOpen}>
-        <div className="fixed inset-0 z-50" onClick={() => setOpen(false)} />
+        <div className="fixed inset-0 z-100" onClick={() => setOpen(false)} />
         <motion.div
-          className={cn("p-1 fixed z-100 flex-col gap-[0.325rem]", className)}
+          className={cn("p-1 fixed z-max flex-col gap-[0.325rem]", className)}
           style={{ width, top, left }}
           ref={ref}
           custom={y}

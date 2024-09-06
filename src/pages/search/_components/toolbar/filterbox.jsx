@@ -1,31 +1,21 @@
 import { useWindowOffsets } from "@lib/hooks"
 import SideFilter from "./side-filter"
-import SmFilter from "./sm-filter"
+import FilterBar from "./filterbar"
 
 export default function FilterBox({ searchResults, setSearchResults }) {
-  const {windowWidth} = useWindowOffsets()
-  const isLgScreen = windowWidth >= 620
-  const searchParams = new URLSearchParams(location.search)
-  const query = searchParams.get("query")
+  const { windowWidth } = useWindowOffsets()
 
   return (
-    <>
-      {isLgScreen ? (
-        <SideFilter
-          searchResults={searchResults}
-          setSearchResults={setSearchResults}
-        />
-      ) : query !== null ? (
-        <>
-          <h2 className="heading">
-            Results for: <span className="searched-title">{query.replaceAll("-", " ")}</span>
-          </h2>
-          <SmFilter
-            searchResults={searchResults}
-            setSearchResults={setSearchResults}
-          />
-        </>
-      ) : null}
-    </>
+    windowWidth >= 620 ? (
+      <SideFilter
+        searchResults={searchResults}
+        setSearchResults={setSearchResults}
+      />
+    ) : (
+      <FilterBar
+        searchResults={searchResults}
+        setSearchResults={setSearchResults}
+      />
+    )
   )
 }

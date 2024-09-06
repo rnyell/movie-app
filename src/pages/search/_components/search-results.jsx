@@ -41,7 +41,9 @@ export default function SearchResults({ isLoading, searchResults }) {
         </motion.div>
       </section>
       {!searchState.error && (
-        <Pagination currentPage={currentPage} allPagesArray={allPagesArray} />
+        <div className="py-2">
+          <Pagination currentPage={currentPage} allPagesArray={allPagesArray} />
+        </div>
       )}
     </>
   )

@@ -1,25 +1,26 @@
 .side-filter {
-  --outline-width: -1.5px;
-  margin-top: var(--space-4);
-  padding-bottom: 4rem;
+  height: 100%;
   position: relative;
-  /* background-image: linear-gradient(120deg, var(--color-neutral-800), var(--color-neutral-950)); */
   background-color: var(--bg-sidenav);
-  border-radius: 0 3rem 0 0;
+  /* background-image: linear-gradient(180deg, var(--color-neutral-900), var(--bg-sidenav)); */
+  /* border-radius: 0 3rem 0 0; */
   
-  /* &::after {
-    width: calc(100.35% - var(--outline-width));
-    height: 55%;
-    left: 0;
-    top: var(--outline-width);
+  &::after {
+    content: "";
+    width: calc(100% - -1.5px);
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: -1.5px;
     z-index: var(--z-neg5);
     border-radius: inherit;
-    background-image: linear-gradient(120deg, var(--color-accent-600), transparent);
-  } */
+    /* background-image: linear-gradient(120deg, var(--color-accent-300), transparent); */
+    background-image: linear-gradient(180deg, transparent, var(--color-neutral-500), transparent);
+  }
 
   & form {
     padding: var(--space-4) var(--space-5);
-    height: 72.5vh;
+    height: 72vh;
     position: relative;
     
     & .form-content {
@@ -29,42 +30,6 @@
       scrollbar-width: none;
       padding-bottom: 4.5rem;
       gap: 1.5rem;
-    }
-
-    & button[type="submit"] {
-      width: 85%;
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      translate: -50% 0;
-
-      &:active {
-        translate: -50% 2px;
-      }
-    }
-  }
-  
-  & .filter-card {
-    width: 100%;
-    align-items: flex-start;
-  }
-  
-  & .type-group {
-    & label {
-      padding: var(--space-2);
-      flex: 1;
-      font-size: 0.75rem;
-    }
-  }
-  
-  & .genres-group {
-    width: 100%;
-    gap: 0.35rem;
-
-    & label {
-      padding: var(--space-2);
-      font-size: 0.625rem;
-      border-radius: var(--full-rounded);
     }
   }
 
@@ -103,7 +68,7 @@
     }
 
     & div:has(> select) {
-      /* to remove default arrow */
+      /* to hide default arrow */
       &::after {
         pointer-events: none;
         height: 90%;

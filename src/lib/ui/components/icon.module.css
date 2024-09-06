@@ -32,6 +32,10 @@
   width: 1.525rem;
 }
 
+.xxl svg {
+  width: 1.75rem;
+}
+
 /* ----------------- */
 /* colors */
 .fill svg {

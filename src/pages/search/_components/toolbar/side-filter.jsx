@@ -1,5 +1,5 @@
 import { useSearch } from "@src/store"
-import { filterResults, sortResults, title_styles } from "../../_utils"
+import { filterResults, sortResults, title_styles, submitBtn_styles } from "../../_utils"
 import TypeList from "./filters/type-list"
 import GenresList from "./filters/genres-list"
 
@@ -29,19 +29,19 @@ export default function SideFilter({ setSearchResults }) {
   }
 
   return (
-    <div className="side-filter ::after-abs">
+    <div className="side-filter">
       <form name="side-filter" className="flex-col" onSubmit={handleSubmitFilters}>
         <div className="form-content flex-col">
-          <div className="filter-card type-filter">
+          <div className="w-full">
             <h6 className={title_styles}>Type</h6>
             <TypeList />
           </div>
-          <div className="filter-card genres-filter ::after-abs">
+          <div className="w-full relative before:content-[''] before:w-full before:h-9 before:absolute before:z-10 before:bottom-0 before:bg-gradient-to-b before:from-transparent before:to-primary-950">
             <h6 className={title_styles}>Genres</h6>
             <GenresList />
           </div>
           <div
-            className="filter-card date-filter"
+            className="w-full date-filter"
             data-feature-not-available
             title="feature currently is not available"
           >
@@ -58,7 +58,7 @@ export default function SideFilter({ setSearchResults }) {
             </div>
           </div>
           <div
-            className="filter-card lang-filter"
+            className="w-full lang-filter"
             data-feature-not-available
             title="feature currently is not available"
           >
@@ -87,7 +87,7 @@ export default function SideFilter({ setSearchResults }) {
             </div>
           </div>
         </div>
-        <button type="submit">Apply Filters</button>
+        <button className={`${submitBtn_styles} active:translate-y-[2px]`}>Apply Filters</button>
       </form>
     </div>
   )

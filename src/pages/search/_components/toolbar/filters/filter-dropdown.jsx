@@ -1,35 +1,20 @@
-import { useRef, useState } from "react"
+import { Dropdown } from "@lib/ui/components"
 import { FunnelIcon } from "@heroicons/outline"
-import { useClickOutside } from "@lib/hooks"
-import { Presence } from "@lib/motion"
 import FilterItems from "./filter-items"
+import { trigger_styles, menu_styles } from "../../../_utils"
 
-
-export default function FilterDropdown({setSearchResults}) {
-  const [filterIsOpen, setFilterIsOpen] = useState(false)
-  const ref = useRef(null)
-  
-  useClickOutside(ref, handleClickOutside)
-
-  function handleClickOutside() {
-    if (filterIsOpen) setFilterIsOpen(false)
-  }
-
-
+export default function FilterDropdown({ setSearchResults }) {
   return (
-    <div
-      className={`filter-dropdown ${filterIsOpen && "is-open"}`}
-      ref={ref}
-      onClick={() => setFilterIsOpen(true)}
-    >
-      <p>Filters</p>
-      <i className="icon"><FunnelIcon /></i>
-      <Presence trigger={filterIsOpen}>
-        <FilterItems 
-          setSearchResults={setSearchResults}
-          setFilterIsOpen={setFilterIsOpen}
-        />
-      </Presence>
-    </div>
+    <Dropdown.Container>
+      <Dropdown.Trigger className={trigger_styles}>
+        <p>Filters</p>
+        <i className="icon icon-md">
+          <FunnelIcon />
+        </i>
+      </Dropdown.Trigger>
+      <Dropdown.Menu className={menu_styles} placement="bottom/start" autoWidth>
+        <FilterItems setSearchResults={setSearchResults} />
+      </Dropdown.Menu>
+    </Dropdown.Container>
   )
 }

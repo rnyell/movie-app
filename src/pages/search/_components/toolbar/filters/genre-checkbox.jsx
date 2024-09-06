@@ -18,9 +18,13 @@ export default function GenreCheckbox({ genre }) {
     setIsChecked(target.checked)
   }
 
+  const label_styles = `
+    p-2 text-[0.65rem] text-center rounded-2xl bg-primary-700 transition-colors
+    hover:bg-primary-600 has-[:checked]:bg-primary-300 has-[:checked]:text-primary-900
+  `
 
   return (
-    <label htmlFor={genre.name}>
+    <label className={label_styles} htmlFor={genre.name}>
       {genre.name}
       <input
         type="checkbox"

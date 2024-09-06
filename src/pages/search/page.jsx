@@ -1,13 +1,14 @@
 import { useSearchParams } from "react-router-dom"
 import { useWindowOffsets } from "@lib/hooks"
+import Navigation from "@components/menus/navigation"
 import Header from "@components/headers/header"
-import AnimatedHeader from "@components/headers/animated-header"
+import ElasticHeader from "@components/headers/elastic-header"
 import FilterBox from "./_components/toolbar/filterbox"
 import SearchResults from "./_components/search-results"
+import SortDropdown from "./_components/toolbar/sorts/sort-dropdown"
 import { useSearchResults } from "./_hooks"
 
 import corn from "@src/assets/corn.png"
-import SortDropdown from "./_components/toolbar/sorts/sort-dropdown"
 
 export default function SearchPage() {
   const { windowWidth } = useWindowOffsets()
@@ -18,16 +19,23 @@ export default function SearchPage() {
 
   const { searchResults, setSearchResults, isLoading } = useSearchResults(query)
 
-
   return (
     <div className="search-page">
-      {/* {isLgScreen ? <Header /> : <AnimatedHeader />} */}
+      <div className="header-container">
+        {isLgScreen ? <Header /> : <ElasticHeader />}
+      </div>
+      <div className="sidenav-container">
+        <Navigation />
+      </div>
       <aside data-screen={isLgScreen ? "lg-screen" : "sm-screen"}>
-        <FilterBox searchResults={searchResults} setSearchResults={setSearchResults} />
+        <FilterBox
+          searchResults={searchResults}
+          setSearchResults={setSearchResults}
+        />
       </aside>
       <main>
         {isInitialMarkup ? (
-          <div className="mt-10 p-4 w-5/6 flex-col items-start 2xl:flex-row gap-2 text-xl">
+          <div className="mt-10 p-4 w-5/6 flex items-start gap-2 xs:flex-col text-xl">
             <div>
               <p>Discover TMDb's movies and series.</p>
               <p>Use filter and sorts to refine your searches.</p>
@@ -37,10 +45,12 @@ export default function SearchPage() {
         ) : (
           <>
             {isLgScreen && (
-              <header className="w-full pt-4 pb-6 px-2 relative align-center">
+              <header className="w-full pt-10 pb-8 px-2 relative align-center">
                 <h2 className="heading">
                   Results for:
-                  <span className="searched-title">{query.replaceAll("-", " ")}</span>
+                  <span className="searched-title">
+                    {query.replaceAll("-", " ")}
+                  </span>
                 </h2>
                 <SortDropdown
                   className="ml-auto"

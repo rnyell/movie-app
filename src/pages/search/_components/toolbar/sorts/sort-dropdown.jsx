@@ -1,9 +1,13 @@
+import { useWindowOffsets } from "@lib/hooks"
 import { EqualizerIcon } from "@lib/ui/icons"
 import { Dropdown } from "@lib/ui/components"
 import SortItems from "./sort-items"
 import { trigger_styles, menu_styles } from "../../../_utils"
 
 export default function SortDropdown({ searchResults, setSearchResults, className }) {
+  const { windowWidth } = useWindowOffsets()
+  const placement = windowWidth >= 620 ? "bottom/end" : "bottom"
+
   return (
     <Dropdown.Container className={className} strategy="portal">
       <Dropdown.Trigger className={trigger_styles}>
@@ -12,7 +16,7 @@ export default function SortDropdown({ searchResults, setSearchResults, classNam
           <EqualizerIcon />
         </i>
       </Dropdown.Trigger>
-      <Dropdown.Menu className={menu_styles} placement="bottom/end" autoWidth>
+      <Dropdown.Menu className={menu_styles} placement={placement} autoWidth>
         <SortItems searchResults={searchResults} setSearchResults={setSearchResults} />
       </Dropdown.Menu>
     </Dropdown.Container>

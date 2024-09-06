@@ -15,10 +15,11 @@
 
   & header {
     display: flex;
+    align-items: center;
+    margin-bottom: var(--sub-heading-margin-bottom);
 
     & .heading {
       color: var(--color-accent-300);
-      margin-bottom: var(--sub-heading-margin-bottom);
 
       &::selection {
         background-color: var(--color-neutral-100);
@@ -42,9 +43,9 @@
     }
 
     & svg {
-      transition: transform var(--duration-2);
       margin-left: var(--space-1);
       width: var(--icon-size-4);
+      transition: transform var(--duration-2);
     }
 
     & p {

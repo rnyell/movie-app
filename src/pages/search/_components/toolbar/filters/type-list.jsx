@@ -3,7 +3,7 @@ import TypeCheckbox from "./type-checkbox"
 
 export default function TypeList() {
   return (
-    <div className="group type-group flex">
+    <div className="mt-4 flex gap-2">
       {MEDIA_TYPES.map(type => (
         <TypeCheckbox key={type} type={type} />
       ))}

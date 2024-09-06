@@ -1,5 +1,6 @@
 import { useRef } from "react"
 import { Outlet } from "react-router-dom"
+import { useThemeContext } from "@src/store"
 import { Valve } from "@lib/motion"
 import Cursor from "@lib/ui/components/cursor"
 import { CursorIcon } from "@lib/ui/icons"
@@ -8,11 +9,9 @@ import Navigation from "../menus/navigation"
 import DisplayedModal from "../modals/displayed-modal"
 
 import classes from "./layout.module.css"
-import { useThemeContext } from "@src/store"
-
 
 export default function Layout({ variant }) {
-  const { preferences } = useThemeContext()
+  const { preferences: { cursor } } = useThemeContext()
   const ref = useRef(null)
 
   function onMouseMove(event) {
@@ -26,14 +25,13 @@ export default function Layout({ variant }) {
     ref.current.animate(frames, transition)
   }
 
-
   switch (variant) {
     case "root": {
       return (
-        <div onMouseMove={preferences.cursor === "custom" ? onMouseMove : null}>
+        <div onMouseMove={cursor === "custom" ? onMouseMove : null}>
           <Outlet />
           <DisplayedModal />
-          <Cursor className={`text-gray-50 ${preferences.cursor !== "custom" && "!hidden"}`} ref={ref}>
+          <Cursor className={`text-gray-50 ${cursor !== "custom" && "!hidden"}`} ref={ref}>
             <CursorIcon />
           </Cursor>
         </div>
@@ -52,14 +50,7 @@ export default function Layout({ variant }) {
     }
     case "secondary": {
       return (
-        // <Valve />
-        <div className={classes.primary}>
-          <Navigation />
-          <main>
-            <Header />
-            <Valve />
-          </main>
-        </div>
+        <Valve />
       )
     }
   }

@@ -44,7 +44,7 @@ export default function SideMenu({ setOpen }) {
         transition={modalBackdroptransition}
       />
       <motion.aside
-        className="side-menu absolute z-100 w-[clamp(235px,25vw,260px)] text-[0.9rem]
+        className="side-menu p-[0.4rem] absolute z-100 w-[clamp(235px,25vw,260px)] text-[0.9rem]
           bg-primary-800 rounded-4xl shadow-[0_2px_1rem_rgb(11_15_17/75%)]"
         initial={{left: "-100%", opacity: 0.75}}
         animate={{left: 0, opacity: 1}}
@@ -70,8 +70,8 @@ export default function SideMenu({ setOpen }) {
           ))}
           <Divider space="md" width="almost-fill" />
           {!isLoggedIn && (
-            <Link className="link" to="/login">
-              <i className="icon">{<UserCircleIcon />}</i>
+            <Link className="py-[0.65rem] px-4 flex gap-4 rounded-xl transition-bg duration-135 hover:bg-primary-600" to="/login">
+              <i className="icon text-primary-300 w-[min(var(--icon-size-5),17px)]">{<UserCircleIcon />}</i>
               <p className="link-tag">Log In</p>
             </Link>
           )}

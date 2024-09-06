@@ -1,10 +1,44 @@
-import { XMarkIcon } from "@heroicons/outline"
 import { ALL_GENRES } from "@services"
 import { useSearch } from "@src/store"
+import { Divider } from "@lib/ui/components"
+import { XMarkIcon } from "@heroicons/outline"
+import FilterDropdown from "./filters/filter-dropdown"
+import SortDropdown from "./sorts/sort-dropdown"
 import { sortResults, filterResults } from "../../_utils"
 
+export default function FilterBar({ searchResults, setSearchResults }) {
+  const { searchOptions } = useSearch()
+  //? is it reactvie enough? or useLocation w useSearchParams
+  const searchParams = new URLSearchParams(location.search)
+  const query = searchParams.get("query")
 
-export default function SelectedFiltersBar({ setSearchResults }) {
+  if (query) {
+    return (
+      <div>
+        <h2 className="heading">
+          Results for:{" "}
+          <span className="searched-title">
+            {query?.replaceAll("-", " ")}
+          </span>
+        </h2>
+        <div className="mt-6 inline-flex gap-2">
+          <FilterDropdown setSearchResults={setSearchResults} />
+          <SortDropdown
+            searchResults={searchResults}
+            setSearchResults={setSearchResults}
+          />
+        </div>
+        {searchOptions.isFiltered && (
+          <SelectedFilters setSearchResults={setSearchResults} />
+        )}
+        <Divider space="md" width="almost-fill" />
+      </div>
+    )
+  }
+}
+
+
+function SelectedFilters({ setSearchResults }) {
   const {searchState, searchOptions, optionsDispatch} = useSearch()
 
   function handleRemovedFilters({removed, value}) {
@@ -33,9 +67,8 @@ export default function SelectedFiltersBar({ setSearchResults }) {
     }
   }
 
-
   return (
-    <div className="selected-filters flex">
+    <div className="selected-filters mt-6 flex">
       {searchOptions.filters.type !== "all" ? (
         <div className="selected-type flex">
           <span className="align-center">
@@ -53,7 +86,7 @@ export default function SelectedFiltersBar({ setSearchResults }) {
         {searchOptions.filters.genres.map(id => (
           <span key={id} className="align-center">
             <b>{ALL_GENRES[id]}</b>
-            <i className="icon ::before-abs" onClick={() => handleRemovedFilters({removed:"genre", value: id})}>
+            <i className="icon ::before-abs" onClick={() => handleRemovedFilters({removed: "genre", value: id})}>
               <XMarkIcon />
             </i>
           </span>

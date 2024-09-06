@@ -94,6 +94,7 @@ export default function SearchProvider({children}) {
   const [searchState, searchDispatch] = useReducer(searchReducer, searchInitial)
   const [searchOptions, optionsDispatch] = useReducer(searchOptionsRedcuer, searchOptionsInitial)
   // naming: searchState -> search, searchOptions -> options
+  // TODO: put isSorted or isFiltered directky in the context value instead of inside another object (searchOption)
 
   return (
     <SearchContext.Provider

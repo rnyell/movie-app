@@ -53,6 +53,10 @@ export function formatLongNumber(num, precision = 2) {
 
   const found = units.find(unit => Math.abs(num) >= unit.threshold)
 
+  if (num === 0) {
+    return "N/A"
+  }
+
   if (found) {
     const d = num / found.threshold
     const fixed = Number.isInteger(d) ? d : d.toFixed(precision)
