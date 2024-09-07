@@ -175,7 +175,7 @@ function SideNav() {
           </NavLink>
         ))}
         <Divider variant="pale" width="almost-fill" />
-        {/* <h6 className="mt-2 text-[0.75rem] text-gray-500">Explore</h6> */}
+        {/* <h6 className="mt-2 text-xs text-gray-500">Explore</h6> */}
         {explore_links.map(link => (
           <NavLink
             isCollapsed={isCollapsed}

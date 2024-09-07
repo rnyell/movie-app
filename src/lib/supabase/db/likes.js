@@ -1,4 +1,5 @@
-import { getUserId, supabase } from "../auth"
+import { supabase } from ".."
+import { getUserId } from "../auth"
 
 export async function isItemLiked(item) {
   const userId = await getUserId()

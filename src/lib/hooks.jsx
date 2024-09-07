@@ -31,7 +31,7 @@ export function useLoader(fn, options = { dependencies: [] }) {
      }
   }
 
-  return { data, isLoading, error }
+  return { data, setData, error, isLoading }
 }
 
 

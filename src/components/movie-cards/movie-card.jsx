@@ -5,7 +5,7 @@ import SeriesCard from "./variants/series"
 import PlayedCard from "./variants/played"
 import BookmarkedCard from "./variants/bookmarked"
 
-export default function MovieCard({ result, media, variant }) {
+export default function MovieCard({ result, media, variant, ...rest }) {
   switch (variant) {
     case "common": {
       return <CommonCard {...{result, media, variant}} />
@@ -25,7 +25,7 @@ export default function MovieCard({ result, media, variant }) {
 
     case "bookmarked": {
       const id = result
-      return <BookmarkedCard {...{id, media, variant}} />
+      return <BookmarkedCard {...{id, media, variant}} {...rest} />
     }
 
     case "result": {

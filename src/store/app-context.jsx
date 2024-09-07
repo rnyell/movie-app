@@ -1,11 +1,14 @@
 import { createContext, useContext, useReducer } from "react"
 import { AnimatePresence } from "framer-motion"
 import { useLoader } from "@lib/hooks"
-import { getPopularMovies, getTrendingMovies, getTrendingSeries } from "@services"
+import {
+  getPopularMovies,
+  getTrendingMovies,
+  getTrendingSeries,
+} from "@services"
 import { InitialLoading, AppLoading } from "@components/skeletons"
 import AuthProvider from "@src/auth/auth-context"
 import ThemeProvider from "./theme-context"
-
 
 const AppContext = createContext(null)
 
@@ -20,13 +23,13 @@ const modalsInit = {
 }
 
 function modalReducer(state, action) {
-  switch(action.type) {
+  switch (action.type) {
     case "watch": {
       return {
         variant: "watch",
         isOpen: true,
         data: {
-          errMsg: "You need to be logged in to watch movies!"
+          errMsg: "You need to be logged in to watch movies!",
         },
       }
     }
@@ -37,8 +40,9 @@ function modalReducer(state, action) {
         data: {
           id: action.data.id,
           media: action.data.media,
-          errMsg: "You need to be logged in to save movies and create watchlists."
-        }
+          errMsg:
+            "You need to be logged in to save movies and create watchlists.",
+        },
       }
     }
     case "fave": {
@@ -47,8 +51,8 @@ function modalReducer(state, action) {
         isOpen: true,
         data: {
           msg: "Added to your favorites!",
-          errMsg: "Like it? Log in to create favorite lists"
-        }
+          errMsg: "Like it? Log in to create favorite lists",
+        },
       }
     }
     case "movie_info": {
@@ -56,9 +60,9 @@ function modalReducer(state, action) {
         variant: "movie_info",
         isOpen: true,
         data: {
-          result : action.data.result,
-          media : action.data.media
-        }
+          result: action.data.result,
+          media: action.data.media,
+        },
       }
     }
     case "movie_details": {
@@ -66,18 +70,19 @@ function modalReducer(state, action) {
         variant: "movie_details",
         isOpen: true,
         data: {
-          result : action.data.result,
-          price : action.data.price
-        }
+          result: action.data.result,
+          price: action.data.price,
+        },
       }
     }
-    case "confirm_modal": {
+    case "confirmation": {
       return {
-        variant: "confirm_modal",
+        variant: "confirmation",
         isOpen: true,
         data: {
-          msg: action.data.msg
-        }
+          msg: action.data.msg,
+          onConfirm: action.data.onConfirm
+        },
       }
     }
     case "none": {
@@ -105,19 +110,20 @@ export default function AppProvider({ children }) {
   // a `setLoading(true)` to start app loading on some async jobs like logout
   const contextValue = { moviesState, modals, modalDispatch }
 
-
   return (
     // sync or wait??
     <AnimatePresence mode="wait" initial={true}>
       {isLoading ? (
-        isInitialLoad ? <InitialLoading /> : <AppLoading />
+        isInitialLoad ? (
+          <InitialLoading />
+        ) : (
+          <AppLoading />
+        )
       ) : (
-        <div key="nothing-but-for-AnimatePresence" data-presence> 
+        <div key="nothing-but-for-AnimatePresence" data-presence>
           <AppContext.Provider value={contextValue}>
             <ThemeProvider>
-              <AuthProvider>
-                {children}
-              </AuthProvider>
+              <AuthProvider>{children}</AuthProvider>
             </ThemeProvider>
           </AppContext.Provider>
         </div>

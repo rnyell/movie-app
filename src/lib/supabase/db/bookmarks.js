@@ -1,6 +1,5 @@
-import { supabase } from "../auth"
+import { supabase } from ".."
 import { getUserListsIds, getWatchLaterListId } from "./lists"
-
 
 export async function isItemBookmarked(item) {
   const listIds = await getUserListsIds()
@@ -10,7 +9,7 @@ export async function isItemBookmarked(item) {
     .select("id")
     .eq("id", item.id)
     .eq("media", item.media)
-    .in('list_id', listIds)
+    .in("list_id", listIds)
     .limit(1)
 
   if (error) {
@@ -23,7 +22,6 @@ export async function isItemBookmarked(item) {
     return false
   }
 }
-
 
 export async function getWatchLaterItems() {
   const listId = await getWatchLaterListId()
@@ -44,7 +42,6 @@ export async function getWatchLaterItems() {
   }
 }
 
-
 export async function getBookmarksByListId(listId) {
   const { data, error } = await supabase
     .from("bookmarks")
@@ -58,7 +55,6 @@ export async function getBookmarksByListId(listId) {
   return data
 }
 
-
 export async function getListsIdsByBookmarkedItem(item) {
   const { data, error } = await supabase
     .from("bookmarks")
@@ -67,35 +63,51 @@ export async function getListsIdsByBookmarkedItem(item) {
     .eq("media", item.media)
 
   if (error) {
-    console.error('Error finding lists:', error)
+    console.error("Error finding lists:", error)
   }
-  
-  const ids = data.map(list => list.list_id)
+
+  const ids = data.map((list) => list.list_id)
   return ids
 }
 
-
 export async function updateBookmarks(type, listId, item) {
+  let response = {
+    error: null,
+    status: null,
+    statusText: null,
+  }
+
   if (type === "add") {
-    const { error } = await supabase
+    const { error, status, statusText } = await supabase
       .from("bookmarks")
       .upsert({
         id: item.id,
         media: item.media,
-        list_id: listId
+        list_id: listId,
       })
-  
-    if (error) console.error(error)
+
+    response = { error, status, statusText }
+
+    if (error) {
+      console.error(error)
+    }
   } else if (type === "delete") {
-    const { error } = await supabase
+    const { error, status, statusText } = await supabase
       .from("bookmarks")
       .delete()
       .eq("id", item.id)
       .eq("media", item.media)
       .eq("list_id", listId)
-  
-    if (error) console.error(error)
+
+    response = { error, status, statusText }
+
+    if (error) {
+      console.error(error)
+    }
   }
+
+  console.log(response) //? why this is called so many times?
+  return response
 }
 
 // ----
@@ -108,11 +120,11 @@ export async function updateBookmarks(type, listId, item) {
 
 //   console.log("all bookmarks", data)
 //   console.log(data);
-  
+
 //   if (error) {
 //     console.error(error)
 //   }
-  
+
 //   return data
 // }
 
@@ -140,41 +152,4 @@ export async function updateBookmarks(type, listId, item) {
 //     // .limit(1)
 //   console.log(data)
 //   if (error) console.error(error)
-// }
-
-// isItBooked({id: 1022789, media: "movie"})
-// async function isItBooked(item) {
-//   const allLists = await getUserLists()
-//   const listsIds = allLists.map(list => list.id)
-//   console.log(listsIds)
-
-//   const { data, error } = await supabase
-//     .from("bookmarks")
-//     .select(`*`)
-//     .eq("id", item.id)
-//     .eq("media", item.media)
-//     .in("list_id", listsIds)
-
-//   console.log('is it??', data)
-
-//   if (error) {
-//     console.error(error)
-//   }
-// }
-
-// async function test() {
-//   const userId = await getUserId()
-//   const { data, error } = await supabase
-//     .from("bookmarks")
-//     .select(`
-//       id,
-//       title,
-//       media,
-//       added_at,
-//       lists!inner (id, name, creator_id)
-//     `)
-//     .eq('lists.creator_id', userId)
-//   if (error) console.error(error)
-//   console.log('test', data)
-//   return data
 // }

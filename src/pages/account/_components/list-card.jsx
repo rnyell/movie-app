@@ -15,7 +15,9 @@ export default function ListCard({ list }) {
     if (!list.is_private) {
       navigate(`/lists/${list.share_id}`)
     } else {
-      // navigate("/lists", { state: { listId: list.id } })
+      navigate("/account/lists/p", {
+        state: { listId: list.id, listName: list.name }
+      })
     }
   }
 
@@ -34,7 +36,7 @@ export default function ListCard({ list }) {
 
   return (
     <div className="group w-64 overflow-hidden rounded-xl transition-shadow shadow-[0_2px_0.75rem_rgb(0_0_0_/_35%)] hover:bg-primary-900">
-      <div className="grid grid-cols-2 grid-rows-2 gap-1 border-1 border-solid border-primary-700 rounded-xl">
+      <div className="grid grid-cols-2 grid-rows-2 gap-1 grid-flow-dense border-1 border-solid border-primary-700 rounded-xl">
         {thumbs?.map(thumb => <Thumb thumb={thumb} key={thumb.id} /> )}
       </div>
       <div className="p-3 pb-4">

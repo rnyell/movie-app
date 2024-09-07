@@ -12,7 +12,7 @@ export default function LoginModal({ setClose, message }) {
 
   return (
     <Modal size="md" customStyles="top-[20%]" setClose={setClose}>
-      <div className="login-box align-center-col">
+      <div className="p-3 align-center-col gap-2 bg-primary-800">
         <Button
           variants="ghost"
           size="square-sm"
@@ -22,15 +22,15 @@ export default function LoginModal({ setClose, message }) {
           customStyles="absolute top-3 right-3 rounded-full"
           onClick={setClose}
         />
-        <p className="msg">{message}</p>
-        <div className="flex-col">
+        <p className="mt-8 mb-6 w-[85%] font-medium">{message}</p>
+        <div className="w-4/5 flex-col gap-3">
           <Button size="md" customStyles="rounded-full" onClick={signInWithGoogle}>
             <Icon size="lg" svg={<GoogleIcon />} />
-            <span>Log in with Google</span>
+            <span className="mx-auto text-[0.9rem] font-medium">Log in with Google</span>
           </Button>
           <Button size="md" customStyles="rounded-full" onClick={handleAnonymousSingIn}>
             <Icon size="lg" svg={<DominoMaskIcon />} />
-            <span>Continue anonymously</span>
+            <span className="mx-auto text-[0.9rem] font-medium">Continue anonymously</span>
           </Button>
         </div>
       </div>

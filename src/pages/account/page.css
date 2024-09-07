@@ -8,7 +8,7 @@
   }
 }
 
-& .empty-watchlist-msg {
+& .empty-WatchlistSection-msg {
   & .icon {
     margin-inline: var(--space-2);
     padding: var(--space-2);

@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from "react"
 import { useLocation } from "react-router-dom"
 import { useAnimate } from "framer-motion"
+import { IMAGES_URL } from "@services"
 import { Presence } from "@lib/motion"
 import { useWindowOffsets, useClickOutside } from "@lib/hooks"
-import { IMAGES_URL } from "@services"
 import { XMarkIcon } from "@heroicons/outline"
 import { EllipsisIcon } from "@lib/ui/icons"
 import { Button } from "@lib/ui/components"
-import { Card } from ".."
 import { Title } from "@components/movie-details"
+import { Card } from ".."
 import PrimaryOverlay from "../overlays/primary-overlay"
 
 export default function CommonCard({ result, media, variant }) {

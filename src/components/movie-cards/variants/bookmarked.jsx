@@ -1,5 +1,4 @@
-import { useState } from "react"
-import { useAnimate } from "framer-motion"
+import { useRef, useState } from "react"
 import { IMAGES_URL } from "@services"
 import { useMediaDetails } from "@services/hooks"
 import { useAppContext } from "@src/store"
@@ -12,21 +11,21 @@ import { Button } from "@lib/ui/components"
 import { Card } from ".."
 import { Title } from "@components/movie-details"
 import SecondaryOverlay from "../overlays/secondary-overlay"
+import { updateBookmarks } from "@src/lib/supabase/db"
 
 // runtime & release date for tv shows?
 
-export default function BookmarkedCard({ id, media, variant }) {
+export default function BookmarkedCard({ id, media, variant, listId }) {
   const { modalDispatch } = useAppContext()
   const [cardOverlay, setCardOverlay] = useState(false)
-  const [showModal, setShowModal] = useState(false)
-  const [cardRef, animate] = useAnimate()
+  const cardRef = useRef()
 
   const { windowWidth } = useWindowOffsets()
   const isTouchDevice = windowWidth <= 520
 
   useClickOutside(cardRef, hideOverlay)
 
-  /**/let { mediaDetails, isLoading } = useMediaDetails(media, id)
+  const { mediaDetails, isLoading } = useMediaDetails(media, id)
 
   if (media === "movie") {
     // `var` used to let (pun!) variables to be accessible outside of `if` cardRef.
@@ -43,22 +42,24 @@ export default function BookmarkedCard({ id, media, variant }) {
 
   function showOverlay() {
     setCardOverlay(true)
-    // animate(".title", { y: -45, opacity: 0 }, { duration: 0.2 })
   }
 
   function hideOverlay() {
     setCardOverlay(false)
-    // animate(".title", { y: 0, opacity: 1 }, { duration: 0.2 })
   }
 
-  // function d() {
-  //   modalDispatch({
-  //     type: "confirm",
-  //     data: {
-  //       msg: "Are you sure you want to remove this movie from your watchlist?"
-  //     }
-  //   })
-  // }
+  function deleteBookmark() {
+    modalDispatch({
+      type: "confirmation",
+      data: {
+        msg: "Are you sure you want to remove this from your list?",
+        onConfirm: function() {
+          const item = { id, media }
+          updateBookmarks("delete", listId, item)
+        }
+      }
+    })
+  }
 
 
   if (isLoading) {
@@ -75,10 +76,10 @@ export default function BookmarkedCard({ id, media, variant }) {
       >
       <Presence trigger={cardOverlay}>
         <SecondaryOverlay
+          variant="bookmarked"
           result={mediaDetails}
           media={media}
-          card="bookmarked"
-          setModal={setShowModal}
+          setModal={deleteBookmark}
         />
       </Presence>
       <div className="ambient" style={{backgroundImage: `url(${IMAGES_URL}original${poster_path})`}} />

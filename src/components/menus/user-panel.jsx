@@ -3,7 +3,7 @@ import { motion } from "framer-motion"
 import { useThemeContext, useUserContext } from "@src/store"
 import { logOut } from "@lib/supabase/auth"
 import { Presence } from "@lib/motion"
-import { Dropdown } from "@lib/ui/components"
+import { Dropdown, Avatar } from "@lib/ui/components"
 import cn from "@lib/ui/cn"
 import {
   UserCircleIcon,
@@ -62,12 +62,11 @@ export default function UserPanel({ isCollapsed, appearance = "panel" }) {
         data-collapsed={isCollapsed}
         data-appearance={isCollapsed ? "button" : appearance}
       >
-        <div
-          className="size-9 shrink-0 relative outline outline-[1.5] outline-primary-600 outline-offset-2 rounded-full data-[appearance=avatar]:size-11"
+        <Avatar
+          className="size-9 data-[appearance=avatar]:size-10"
           data-appearance={appearance}
-        >
-          <img className="w-100 rounded-full" src={imgSrc} />
-        </div>
+          src={imgSrc}
+        />
         {appearance !== "avatar" && (
           <Presence trigger={!isCollapsed}>
             <motion.div className="pl-3 w-max sm:px-2" {...tagMotion} transition={tagTransition}>
@@ -101,16 +100,3 @@ export default function UserPanel({ isCollapsed, appearance = "panel" }) {
     </Dropdown.Container>
   )
 }
-
-// function Avatar({ src, ...rest }) {
-//   return (
-//     <div
-//       className="size-9 shrink-0 relative outline outline-[1.5] outline-primary-600 outline-offset-2 rounded-full"
-//       {...rest}
-//     >
-//       <img className="w-100 rounded-full" src={imgSrc} />
-//       <span className="size-[5.75px] absolute bottom-[1.5px] right-[1.5px] bg-[greenyellow] outline outline-[3] outline-primary-900 rounded-full" />
-//       <div />
-//     </div>
-//   )
-// }

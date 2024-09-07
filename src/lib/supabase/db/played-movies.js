@@ -1,4 +1,5 @@
-import { supabase, getUserId } from "../auth"
+import { supabase } from ".."
+import { getUserId } from "../auth"
 
 async function getPlayedMovieCount(id) {
   const userId = await getUserId()

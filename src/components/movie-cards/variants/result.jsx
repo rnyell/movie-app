@@ -79,7 +79,7 @@ export default function ResultCard({ result, media, variant }) {
           <SecondaryOverlay
             result={result}
             media={media}
-            card="result"
+            variant="result"
             setModal={showInfoModal}
           />
         </Presence>

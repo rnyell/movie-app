@@ -63,7 +63,7 @@ export const TouchWidget = forwardRef((props, ref) => {
   const { windowWidth } = useWindowOffsets()
   const isTouchDevice = windowWidth <= 520
 
-  return isTouchDevice && (
+  return isTouchDevice ? (
     <div
       className={cls(classes, ["touchWidget"], customStyles)}
       ref={ref}
@@ -71,5 +71,5 @@ export const TouchWidget = forwardRef((props, ref) => {
     >
       {children}
     </div>
-  )
+  ) : null
 })

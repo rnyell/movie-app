@@ -16,7 +16,7 @@ export default function MoviesPage() {
     <ViewTransition>
       <Page className="movies-page gap-16">
         <section>
-          <header className="py-2.5 align-center text-yellow-500">
+          <header className="py-2.5 align-center text-amber-400">
             <h3>Hot Movies</h3>
             <i className="icon fire-icon ml-2 size-5">
               <FireIconSolid />

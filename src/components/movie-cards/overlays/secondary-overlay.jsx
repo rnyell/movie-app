@@ -4,10 +4,9 @@ import { BookmarkButton, InfoButton, LinkButton, BookmarkDeleteButton } from "@c
 import { Title, Overview } from "@components/movie-details"
 
 
-export default function SecondaryOverlay({ result, media, ...rest }) {
+export default function SecondaryOverlay({ result, media, variant, setModal }) {
   const id = result.id
   const title = result.title || result.name
-  const { card, setModal } = rest
 
   return (
     <Overlay.Container variant="secondary">
@@ -20,7 +19,7 @@ export default function SecondaryOverlay({ result, media, ...rest }) {
         />
       </Overlay.Header>
       <Overlay.Details>
-        {card === "bookmarked" && (
+        {variant === "bookmarked" && (
           <span className="release-date">
             {formatReleaseDate(result.release_date)}
           </span>
@@ -28,7 +27,7 @@ export default function SecondaryOverlay({ result, media, ...rest }) {
         <Overview text={result.overview} lines={4} fontSize="fs-sm" customStyles="mt-4" />
       </Overlay.Details>
       <Overlay.Actions>
-        {card === "result" ? (
+        {variant === "result" ? (
           <>
             <BookmarkButton
               item={{id, media}}
@@ -45,7 +44,7 @@ export default function SecondaryOverlay({ result, media, ...rest }) {
           </>
         ) : (
           <>
-            <BookmarkDeleteButton size="square-md" setModal={setModal} />
+            <BookmarkDeleteButton size="square-md" onClick={setModal} />
             <LinkButton
               linkData={{id, media, blank: false}}
               size="square-md"

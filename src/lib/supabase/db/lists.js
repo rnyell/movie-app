@@ -1,4 +1,5 @@
-import { supabase, getUserId } from "../auth"
+import { supabase } from ".."
+import { getUserId } from "../auth"
 
 
 export async function getAllPublicLists() {
@@ -93,7 +94,7 @@ export async function createList(name, isPrivate) {
     }
   }
 
-  const { data, error } = await supabase
+  const { data, error, status, statusText } = await supabase
     .from("lists")
     .insert({
       name: name,
@@ -108,10 +109,12 @@ export async function createList(name, isPrivate) {
     console.error(error)
   }
 
-  return data
+  return { data, error, status, statusText }
 }
 
-// export async function addListDescription(desc) {}
+export async function updateList() {
+
+}
 
 export async function deleteList(listId) {
   const { error } = await supabase

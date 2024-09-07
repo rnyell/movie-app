@@ -2,12 +2,11 @@ import { ViewTransition } from "@lib/motion"
 import Page from "@components/layouts/page"
 import { Divider } from "@lib/ui/components"
 import Profile from "./_components/profile"
-import WatchHistory from "./_components/watch-history"
-import Watchlist from "./_components/watchlist"
+import PlayedSection from "./_components/played-section"
+import WatchlistSection from "./_components/WatchlistSection-section"
 import Lists from "./_components/lists"
 
 import "./page.css"
-
 
 export default function Account() {
   return (
@@ -15,9 +14,9 @@ export default function Account() {
       <Page className="gap-16">
         <Profile />
         <Divider />
-        <WatchHistory />
+        <PlayedSection />
         <Divider />
-        <Watchlist />
+        <WatchlistSection />
         <Divider />
         <Lists />
       </Page>

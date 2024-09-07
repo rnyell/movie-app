@@ -40,9 +40,10 @@ export default function ListsModal({ item, setClose }) {
   async function submitSelectedLists(e) {
     e.preventDefault()
 
-    listIds.forEach(listId => {
+    listIds.forEach(async (listId) => {
       if (checkedListIds.includes(listId)) {
-        updateBookmarks("add", listId, item)
+        let r = await updateBookmarks("add", listId, item)
+        console.log(r)
       } else {
         updateBookmarks("delete", listId, item)
       }
@@ -53,8 +54,8 @@ export default function ListsModal({ item, setClose }) {
       const isPrivate = formData.get("publicity") === "private"
       const listName = formData.get("list-name")
       if (listName.trim() !== "") {
-        const createdList = await createList(listName, isPrivate)
-        updateBookmarks("add", createdList.id, item)
+        const listResponse = await createList(listName, isPrivate)
+        const bookResponse = await updateBookmarks("add", listResponse.data.id, item)
       }
     }
 

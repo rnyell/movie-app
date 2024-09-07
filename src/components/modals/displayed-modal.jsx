@@ -65,10 +65,10 @@ export default function DisplayedModal() {
           />
         )
       }
-      case "confirm_modal": {
+      case "confirmation": {
         return (
           <ConfirmModal
-            confirmText={modals.data.msg}
+            msg={modals.data.msg}
             onConfirm={modals.data.onConfirm}
             setClose={setClose}
           />

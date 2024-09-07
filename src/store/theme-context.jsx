@@ -11,7 +11,7 @@ export function useThemeContext() {
 
 const initialPreferences = {
   theme: "dark",
-  accent: "plum",
+  accent: "indigo",
   cursor: "auto"
 }
 
@@ -61,6 +61,7 @@ export default function ThemeProvider({ children }) {
 
     if (cursor) {
       rootElement.dataset.cursor = cursor
+      prefDispatch({ type: "change_accent", cursor })
     }
   }, [preferences.theme, preferences.accent])
 

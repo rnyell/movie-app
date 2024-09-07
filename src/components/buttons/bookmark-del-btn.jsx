@@ -1,11 +1,7 @@
-import { useAppContext } from "@src/store"
 import { BookmarkSlashIcon } from "@heroicons/solid"
-import { Button, Icon } from "@lib/ui/components"
+import { Button } from "@lib/ui/components"
 
-
-export default function BookmarkDeleteButton({ size }) {
-  const { modalDispatch } = useAppContext()
-
+export default function BookmarkDeleteButton({ size, onClick }) {
   return (
     <Button
       variants="solid-blured"
@@ -13,7 +9,7 @@ export default function BookmarkDeleteButton({ size }) {
       iconOnly
       iconSize="md"
       svg={<BookmarkSlashIcon />}
-      onClick={() => setModal(true)}
+      onClick={onClick}
     />
   )
 }

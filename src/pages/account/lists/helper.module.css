@@ -1,0 +1,23 @@
+.listsContainer {
+  display: grid;
+  /* grid-template-columns: repeat(4, 1fr); */
+  /* grid-template-columns: repeat(auto-fill, minmax(0, auto)); */
+  /* grid-template-columns: repeat(auto-fit, minmax(175px, 1fr)); */
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 255px), 1fr));
+  gap: 1.5rem;
+}
+
+.bookmarksContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
+  justify-items: center;
+  gap: 1.25rem;
+
+  /* @media (width <= 720px) {
+
+  } */
+
+  @media (width <= 520px) {
+    grid-template-columns: auto auto;
+  }
+}
