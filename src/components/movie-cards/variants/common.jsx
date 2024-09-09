@@ -21,9 +21,7 @@ export default function CommonCard({ result, media, variant }) {
   const { windowWidth } = useWindowOffsets()
   const { pathname } = useLocation()
   const isTouchDevice = windowWidth <= 520
-  const isGenrePage =
-    pathname.startsWith("/discover/movies/") ||
-    pathname.startsWith("/discover/series/")
+  const isGenrePage = pathname === "/discover/genres"
   const isScalable = !isTouchDevice && !isGenrePage
 
   useEffect(() => {

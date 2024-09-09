@@ -24,7 +24,7 @@ export default function PrivateList() {
         )
       }
     },
-    { event: "DELETE", table: "bookmarks" }
+    { event: "*", table: "bookmarks" }
   )
 
   if (isLoading) {

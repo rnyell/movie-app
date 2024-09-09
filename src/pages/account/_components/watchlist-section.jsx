@@ -10,7 +10,7 @@ import MovieCard from "@components/movie-cards/movie-card"
 /* //~TODO:
   1. change view: list or grid
   2. sort base on the time movie is watched
-  3. filter movie or tv show on WatchlistSection
+  3. filter movie or tv show on watchlist
   4. a dropdown menu for these (sorting filtering etc.) also with a "delete all"
 */
 
@@ -34,12 +34,12 @@ export default function WatchlistSection() {
   return (
     <section>
       <header className="flex">
-        <h3 className="mb-5">WatchlistSection</h3>
+        <h3 className="mb-5">Watchlist</h3>
         <div className="ml-auto align-center gap-4">
           <Link
             className="p-2 text-sm rounded-md hover:bg-primary-700"
             to="/account/lists/p"
-            state={{ listId, listName: "WatchlistSection" }}
+            state={{ listId, listName: "watchlist" }}
           >
             View All
           </Link>
@@ -49,8 +49,8 @@ export default function WatchlistSection() {
         {isLoading ? (
           <CardsSkeleton cardVariant="bookmark" />
         ) : isEmpty ? (
-          <div className="empty-WatchlistSection-msg empty-msg">
-            <p>Your WatchlistSection is currently empty.</p>
+          <div className="empty-watchlist-msg empty-msg">
+            <p>Your watchlist is currently empty.</p>
             <p>
               To keep track of the stuff you want to watch, just tap the
               bookmark icon:{" "}

@@ -6,9 +6,9 @@ import {
   getTrendingMovies,
   getTrendingSeries,
 } from "@services"
-import { InitialLoading, AppLoading } from "@components/skeletons"
 import AuthProvider from "@src/auth/auth-context"
 import ThemeProvider from "./theme-context"
+import { InitialLoading, AppLoading } from "@components/skeletons"
 
 const AppContext = createContext(null)
 
@@ -28,9 +28,7 @@ function modalReducer(state, action) {
       return {
         variant: "watch",
         isOpen: true,
-        data: {
-          errMsg: "You need to be logged in to watch movies!",
-        },
+        data: { errMsg: "You need to be logged in to watch movies!" },
       }
     }
     case "save": {
@@ -40,8 +38,7 @@ function modalReducer(state, action) {
         data: {
           id: action.data.id,
           media: action.data.media,
-          errMsg:
-            "You need to be logged in to save movies and create watchlists.",
+          errMsg: "You need to be logged in to save movies or create watchlists."
         },
       }
     }
@@ -69,10 +66,14 @@ function modalReducer(state, action) {
       return {
         variant: "movie_details",
         isOpen: true,
-        data: {
-          result: action.data.result,
-          price: action.data.price,
-        },
+        data: { result: action.data.result },
+      }
+    }
+    case "edit_list": {
+      return {
+        variant: "edit_list",
+        isOpen: true,
+        data: { listId: action.data.listId },
       }
     }
     case "confirmation": {
@@ -123,7 +124,9 @@ export default function AppProvider({ children }) {
         <div key="nothing-but-for-AnimatePresence" data-presence>
           <AppContext.Provider value={contextValue}>
             <ThemeProvider>
-              <AuthProvider>{children}</AuthProvider>
+              <AuthProvider>
+                {children}
+              </AuthProvider>
             </ThemeProvider>
           </AppContext.Provider>
         </div>

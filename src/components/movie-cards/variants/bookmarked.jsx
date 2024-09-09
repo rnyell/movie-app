@@ -53,9 +53,9 @@ export default function BookmarkedCard({ id, media, variant, listId }) {
       type: "confirmation",
       data: {
         msg: "Are you sure you want to remove this from your list?",
-        onConfirm: function() {
+        onConfirm: async function() {
           const item = { id, media }
-          updateBookmarks("delete", listId, item)
+          const t = await updateBookmarks("delete", listId, item)
         }
       }
     })

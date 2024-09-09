@@ -30,7 +30,7 @@ export default function Lists() {
         </div>
       </header>
       <Snap.Container className="p-2 gap-4">
-        {/* return user lists except the default "WatchlistSection" */}
+        {/* return user lists except the default "watchlist" */}
         {lists?.map((list) => {
           if (list.id !== watchlistId) {
             return (

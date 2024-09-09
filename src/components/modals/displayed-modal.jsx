@@ -1,3 +1,4 @@
+// import { lazy } from "react"
 import { useAppContext } from "@src/store"
 import { useAuth } from "@src/auth/auth-context"
 import { Presence } from "@lib/motion"
@@ -6,6 +7,7 @@ import ListsModal from "./lists-modal"
 import InfoModal from "./info-modal"
 import DetailsModal from "./details-modal"
 import ConfirmModal from "./confirm-modal"
+import EditList from "./edit-list"
 
 export default function DisplayedModal() {
   const { modals, modalDispatch } = useAppContext()
@@ -60,9 +62,13 @@ export default function DisplayedModal() {
         return (
           <DetailsModal
             result={modals.data.result}
-            price={modals.data.price}
             setClose={setClose}
           />
+        )
+      }
+      case "edit_list": {
+        return (
+          <EditList listId={modals.data.listId} />
         )
       }
       case "confirmation": {

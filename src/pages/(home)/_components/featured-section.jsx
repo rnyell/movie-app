@@ -20,7 +20,7 @@ export function MoviesSection() {
     <section className="movies-section">
       <header>
         <h2 className="heading">Trending Movies</h2>
-        <Link to="/onscreen">
+        <Link to="/discover/movies">
           Explore more <ChevronRightIcon />
         </Link>
       </header>

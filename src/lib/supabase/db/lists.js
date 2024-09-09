@@ -1,10 +1,9 @@
 import { supabase } from ".."
 import { getUserId } from "../auth"
 
-
 export async function getAllPublicLists() {
   const { data, error } = await supabase.from("lists").select("*")
-  
+
   if (error) {
     console.error("Failed to fetch public lists", error)
   }
@@ -12,14 +11,13 @@ export async function getAllPublicLists() {
   return data
 }
 
-
 export async function getUserLists() {
   const userId = await getUserId()
   const { data, error } = await supabase
     .from("lists")
     .select("*")
     .eq("creator_id", userId)
-  
+
   if (error) {
     console.error("Failed to fetch user's lists", error)
   }
@@ -38,12 +36,12 @@ export async function getUserListsIds() {
     .from("lists")
     .select("id")
     .eq("creator_id", userId)
-  
+
   if (error) {
     console.error("Failed to fetch user's lists", error)
   }
 
-  const listsIdsArray = data.map(d => d.id)
+  const listsIdsArray = data.map((d) => d.id)
   return listsIdsArray
 }
 
@@ -62,12 +60,28 @@ export async function getWatchLaterListId() {
   if (data[0].name === "Watch Later") {
     return data[0].id
   } else {
-    console.error("Something went wrong... the user does not have the \"Watch Later\" list.")
+    console.error(
+      'Something went wrong... the user does not have the "Watch Later" list.'
+    )
     return null
   }
 }
 
-export async function getListsByShareId(shareId) {
+export async function getListById(listId) {
+  const { data, error } = await supabase
+   .from("lists")
+   .select("*")
+   .eq("id", listId)
+   .single()
+
+  if (error) {
+    console.error(error)
+  }
+
+  return data
+}
+
+export async function getListByShareId(shareId) {
   const { data, error } = await supabase
     .from("lists")
     .select("*")
@@ -112,12 +126,10 @@ export async function createList(name, isPrivate) {
   return { data, error, status, statusText }
 }
 
-export async function updateList() {
-
-}
+export async function updateList() {}
 
 export async function deleteList(listId) {
-  const { error } = await supabase
+  const { error, status, statusText } = await supabase
     .from("lists")
     .delete()
     .eq("id", listId)
@@ -125,19 +137,20 @@ export async function deleteList(listId) {
   if (error) {
     console.error(error)
   }
+
+  return { error, status, statusText }
 }
 
 //================================================================
 /* helper funcs */
 function generateShareId() {
-  const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+  const charset =
+    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
   const shareIdLength = 8
   let shareId = ""
 
   for (let i = 0; i <= shareIdLength; i++) {
-    shareId += charset.charAt(Math.floor(
-      Math.random() * charset.length
-    ))
+    shareId += charset.charAt(Math.floor(Math.random() * charset.length))
   }
 
   return shareId
@@ -150,7 +163,7 @@ async function isShareIdUnique(shareId) {
     console.error(error)
   }
 
-  const shareIds = data.map(d => d.share_id)
+  const shareIds = data.map((d) => d.share_id)
 
   if (shareIds.includes(shareId)) {
     return false

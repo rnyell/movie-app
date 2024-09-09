@@ -1,12 +1,17 @@
 import { useEffect, useRef } from "react"
 import { createPortal } from "react-dom"
 import { motion } from "framer-motion"
-import { modalBackdropMotion, modalBackdroptransition, modalMotion, modalTransition } from "@lib/motion/motions"
-
+import {
+  modalBackdropMotion,
+  modalBackdroptransition,
+  modalMotion,
+  modalTransition
+} from "@lib/motion/motions"
+import cn from "@lib/ui/cn"
 import cls from "../cls"
+
 import classes from "./modal.module.css"
-
-
+// clean this customStyles messssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
 export default function Modal({
   children,
   setClose,
@@ -51,6 +56,6 @@ export default function Modal({
         {children}
       </motion.div>
     </>,
-    document.getElementById("portal")
+    document.getElementById("modal")
   )
 }

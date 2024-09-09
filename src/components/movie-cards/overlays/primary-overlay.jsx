@@ -9,10 +9,10 @@ import { PrimaryOverlaySkeleton } from "@components/skeletons"
 
 export default function PrimaryOverlay({ result, media }) {
   const { id } = result
-  const linkData = { id, media, blank: true }
   const { mediaDetails, isLoading } = useMediaDetails(media, id)
   const { windowWidth } = useWindowOffsets()
   const btnSize = windowWidth >= 460 ? "square-md" : "square-sm"
+  const linkData = { id, media, blank: true }
 
   if (isLoading) {
     return <PrimaryOverlaySkeleton />

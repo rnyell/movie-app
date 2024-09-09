@@ -1,9 +1,8 @@
 .side-filter {
   height: 100%;
   position: relative;
-  background-color: var(--bg-sidenav);
-  /* background-image: linear-gradient(180deg, var(--color-neutral-900), var(--bg-sidenav)); */
-  /* border-radius: 0 3rem 0 0; */
+  /* background-color: var(--bg-sidenav); */
+  background-image: linear-gradient(-120deg, var(--color-neutral-800), var(--bg-sidenav));
   
   &::after {
     content: "";
@@ -14,7 +13,6 @@
     top: -1.5px;
     z-index: var(--z-neg5);
     border-radius: inherit;
-    /* background-image: linear-gradient(120deg, var(--color-accent-300), transparent); */
     background-image: linear-gradient(180deg, transparent, var(--color-neutral-500), transparent);
   }
 
