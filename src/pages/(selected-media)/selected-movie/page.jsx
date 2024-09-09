@@ -5,8 +5,8 @@ import { formatRuntime, getMovieDirector } from "@services/movie-utils"
 import { useWindowOffsets } from "@lib/hooks"
 import { useMediaDetails } from "@services/hooks"
 import { formatLongNumber } from "@lib/utils"
-import { ViewTransition } from "@lib/motion"
 import { Snap, Dot } from "@lib/ui/components"
+import Page from "@components/layouts/page"
 import { SelectedMovieSkeleton } from "@components/skeletons"
 import { Overview, Casts, Rates, Genres } from "@components/movie-details"
 import { WatchButton, BookmarkButton, FaveButton } from "@components/buttons"
@@ -80,7 +80,7 @@ export default function SelectedMovie() {
   }
 
   return (
-    <ViewTransition>
+    <Page viewTransition headless>
       <div className="selected-media selected-movie">
         <section className="poster-wrapper isolated-stack ::after-abs">
           <div
@@ -94,7 +94,12 @@ export default function SelectedMovie() {
               <Dot />
               <span className="runtime">{formatRuntime(runtime)}</span>
               <Dot />
-              <Genres genres={genres} media={media} shape="chip" customStyles="color-neutral-300" />
+              <Genres
+                genres={genres}
+                media={media}
+                shape="chip"
+                customStyles="color-neutral-300"
+              />
             </div>
             <Overview
               text={overview}
@@ -105,18 +110,18 @@ export default function SelectedMovie() {
             <div className="cta-btns flex">
               <WatchButton
                 item={{ id, title, media }}
+                className="rounded-full"
                 text="Watch"
                 size="xl"
                 iconSize="xl"
-                customStyles="rounded-full"
               />
               <FaveButton item={{ id, media }} />
               <BookmarkButton
                 item={{ id, media }}
-                variants="outline-bold"
-                size="square-xl"
+                className="rounded-full"
+                variant="outline-bold"
+                size="xl"
                 iconSize="xl"
-                customStyles="rounded-full"
               />
             </div>
           </div>
@@ -133,19 +138,29 @@ export default function SelectedMovie() {
                   </dd>
                 </div>
                 <div className="td">
-                  <dt>{production_countries?.length > 1 ? "Countries:" : "Country:"}</dt>
+                  <dt>
+                    {production_countries?.length > 1
+                      ? "Countries:"
+                      : "Country:"}
+                  </dt>
                   <dd>
                     <Countries countries={production_countries} />
                   </dd>
                 </div>
                 <div className="td">
-                  <dt>{spoken_languages?.length > 1 ? "Languages:" : "Language:"}</dt>
+                  <dt>
+                    {spoken_languages?.length > 1 ? "Languages:" : "Language:"}
+                  </dt>
                   <dd>
                     <Languages languages={spoken_languages} />
                   </dd>
                 </div>
                 <div className="td">
-                  <dt>{production_companies?.length > 1 ? "Companies:" : "Company:"}</dt>
+                  <dt>
+                    {production_companies?.length > 1
+                      ? "Companies:"
+                      : "Company:"}
+                  </dt>
                   <dd>
                     <Companies companies={production_companies} />
                   </dd>
@@ -191,6 +206,6 @@ export default function SelectedMovie() {
           </div>
         </section>
       </div>
-    </ViewTransition>
+    </Page>
   )
 }

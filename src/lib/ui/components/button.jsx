@@ -1,39 +1,73 @@
+import { cva } from "cva"
+import cn from "../cn"
 import Icon from "./icon"
-import classes from "./button.module.css"
-import cls from "../cls"
 
+import classes from "./button.module.css"
+
+const styles = cva(classes.button, {
+  variants: {
+    variant: {
+      "solid-primary": classes["solid-primary"],
+      "solid-secondary": classes["solid-secondary"],
+      "solid-accent": classes["solid-accent"],
+      "solid-blured": classes["solid-blured"],
+      "outline-lite": classes["outline-lite"],
+      "outline-bold": classes["outline-bold"],
+      "outline-blured": classes["outline-blured"],
+      "ghost": classes.ghost,
+      "danger": classes.danger,
+    },
+    // color: { TODO
+    //   primary: classes.primary,
+    //   secondary: classes.primary,
+    //   accent: classes.accent,
+    // },
+    size: {
+      xs: classes.xs,
+      sm: classes.sm,
+      md: classes.md,
+      lg: classes.lg,
+      xl: classes.xl,
+    },
+  },
+  defaultVariants: {
+    variant: "solid-primary",
+    size: "md"
+  }
+})
 
 export default function Button({
   children,
-  type = "button",
-  variants = "solid-primary",
-  size = "md",
-  customStyles = "",
+  variant,
+  size,
+  className,
+  isSquare = false,
   iconOnly = false,
   iconSize = "md",
   iconFill,
+  iconClassname,
   svg,
-  iconCustomStyles = "",
-  ...props
+  type = "button",
+  ...rest
 }) {
-
   return (
     <button
-      className={cls(classes, ["button", variants, size], customStyles)}
+      className={cn(styles({ variant, size, className }))}
+      data-square={isSquare}
       type={type}
       role="button"
-      {...props}
+      {...rest}
     >
       {iconOnly ? (
         <Icon
-          svg={svg}
+          className={iconClassname}
           size={iconSize}
           fill={iconFill}
-          customStyles={iconCustomStyles}
+          svg={svg}
         />
-      ) : 
+      ) : (
         children
-      }
+      )}
     </button>
   )
 }

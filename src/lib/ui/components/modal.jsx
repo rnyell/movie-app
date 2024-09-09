@@ -3,22 +3,42 @@ import { createPortal } from "react-dom"
 import { motion } from "framer-motion"
 import {
   modalBackdropMotion,
-  modalBackdroptransition,
+  modalBackdropTransition,
   modalMotion,
-  modalTransition
+  modalTransition,
 } from "@lib/motion/motions"
-import cn from "@lib/ui/cn"
-import cls from "../cls"
-
+import { cva } from "cva"
+import cn from "../cn"
 import classes from "./modal.module.css"
-// clean this customStyles messssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+
+const styles = cva(classes.modal, {
+  variants: {
+    variant: {
+      default: classes.default,
+      confirm: classes.confirm,
+      showcase: classes.showcase,
+    },
+    size: {
+      sm: classes.sm,
+      md: classes.md,
+      lg: classes.lg,
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+    size: "md",
+  },
+})
+
 export default function Modal({
   children,
-  setClose,
-  variants = "default",
+  className,
+  variant,
   size,
-  customStyles,
+  setClose,
   withBackdrop = true,
+  backdropClassName,
+  ...rest
 }) {
   const ref = useRef()
 
@@ -33,25 +53,28 @@ export default function Modal({
     }
   }
 
-
   return createPortal(
     <>
       {withBackdrop && (
         <motion.div
-          className={cls(classes, ["modalBackdrop"])}
+          className={cn(
+            "fixed inset-0 z-100 bg-[rgb(35_38_40_/_70%)] blur-[5px]",
+            backdropClassName
+          )}
           onClick={setClose}
           {...modalBackdropMotion}
-          transition={modalBackdroptransition}
+          transition={modalBackdropTransition}
         />
       )}
       <motion.div
-        className={cls(classes, ["modal", variants, size], customStyles)}
+        className={cn(styles({ variant, size, className }))}
         role="dialog"
         tabIndex={0}
         onKeyDown={closeModalOnEscape}
         ref={ref}
         {...modalMotion}
         transition={modalTransition}
+        {...rest}
       >
         {children}
       </motion.div>

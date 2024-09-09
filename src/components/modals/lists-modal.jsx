@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react"
-import { getUserLists, updateBookmarks, getListsIdsByBookmarkedItem, createList } from "@lib/supabase/db"
+import {
+  getUserLists,
+  updateBookmarks,
+  getListsIdsByBookmarkedItem,
+  createList,
+} from "@lib/supabase/db"
 import { useUserContext } from "@src/store"
 import { PlusIcon, LockClosedIcon, XMarkIcon } from "@heroicons/outline"
 import { Modal, Button, Icon, Divider } from "@lib/ui/components"
@@ -8,15 +13,14 @@ import { ListsModalSkeleton } from "../skeletons"
 
 import "./lists-modal.css"
 
-
 export default function ListsModal({ item, setClose }) {
   const { userState } = useUserContext()
   const [checkedListIds, setCheckedListIds] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [isCreatingNewList, setIsCreatingNewList] = useState(false)
-  
+
   const { data: lists, isLoading: listsLoading } = useLoader(getUserLists)
-  const listIds = lists?.map(list => list.id)
+  const listIds = lists?.map((list) => list.id)
 
   useEffect(() => {
     loader()
@@ -30,10 +34,10 @@ export default function ListsModal({ item, setClose }) {
 
   function handleChange(listId) {
     if (checkedListIds.includes(listId)) {
-      const filtered = checkedListIds.filter(id => id !== listId)
-      setCheckedListIds(prev => filtered)
+      const filtered = checkedListIds.filter((id) => id !== listId)
+      setCheckedListIds((prev) => filtered)
     } else {
-      setCheckedListIds(prev => [...prev, listId])
+      setCheckedListIds((prev) => [...prev, listId])
     }
   }
 
@@ -55,7 +59,11 @@ export default function ListsModal({ item, setClose }) {
       const listName = formData.get("list-name")
       if (listName.trim() !== "") {
         const listResponse = await createList(listName, isPrivate)
-        const bookResponse = await updateBookmarks("add", listResponse.data.id, item)
+        const bookResponse = await updateBookmarks(
+          "add",
+          listResponse.data.id,
+          item
+        )
       }
     }
 
@@ -68,26 +76,28 @@ export default function ListsModal({ item, setClose }) {
     setIsCreatingNewList(true)
   }
 
-
   return (
     <Modal setClose={setClose} size="sm">
       <div className="lists-modal">
         <form id="lists-form" onSubmit={submitSelectedLists}>
           <Button
-            variants="ghost"
-            size="square-sm"
-            customStyles="absolute top-4 right-4 rounded-full"
+            variant="ghost"
+            size="sm"
+            className="absolute top-4 right-4 rounded-full"
+            isSquare
             iconOnly
             svg={<XMarkIcon />}
             onClick={setClose}
           />
-          <p className="mb-6 font-semibold">Save {item.media === "movie" ? "movie" : "series"} to . . .</p>
+          <p className="mb-6 font-semibold">
+            Save {item.media === "movie" ? "movie" : "series"} to . . .
+          </p>
           <div className="lists flex-col">
             {isLoading || listsLoading ? (
               <ListsModalSkeleton count={userState.listsCount} />
             ) : (
               <>
-                {lists.map(list => (
+                {lists.map((list) => (
                   <label
                     className="align-center"
                     htmlFor={list.id}
@@ -103,9 +113,13 @@ export default function ListsModal({ item, setClose }) {
                     />
                     <span>{list.name}</span>
                     {list.is_private ? (
-                      <Icon svg={<LockClosedIcon />} size="sm" customStyles="ml-auto" />
+                      <Icon
+                        className="ml-auto"
+                        svg={<LockClosedIcon />}
+                        size="sm"
+                      />
                     ) : (
-                      <div style={{width: 16, height: 16}} />
+                      <div style={{ width: 16, height: 16 }} />
                     )}
                   </label>
                 ))}
@@ -117,15 +131,21 @@ export default function ListsModal({ item, setClose }) {
           <div className="mt-6 flex gap-2">
             <Button
               type={isCreatingNewList ? "submit" : "button"}
-              variants={isCreatingNewList ? "solid-primary" : "outline-lite"}
+              variant={isCreatingNewList ? "solid-primary" : "outline-lite"}
               size="md"
-              customStyles={isCreatingNewList ? "grow" : ""}
+              className={isCreatingNewList ? "grow" : ""}
               onClick={isCreatingNewList ? null : showCreatingList}
             >
               <Icon svg={<PlusIcon />} size="sm" />
-              <span>{isCreatingNewList ? "Create & Save" : "Create new list"}</span>
+              <span>
+                {isCreatingNewList ? "Create & Save" : "Create new list"}
+              </span>
             </Button>
-            {!isCreatingNewList && <Button type="submit" size="md" customStyles="grow">Save</Button>}
+            {!isCreatingNewList && (
+              <Button type="submit" size="md" className="grow">
+                Save
+              </Button>
+            )}
           </div>
         </form>
       </div>

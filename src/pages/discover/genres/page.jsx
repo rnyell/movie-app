@@ -1,6 +1,5 @@
 import { useSearchParams, useLocation } from "react-router-dom"
 import { MOVIE_GENRES, TV_GENRES, getResultsByGenre } from "@services"
-import { ViewTransition } from "@lib/motion"
 import { useLoader } from "@lib/hooks"
 import { generatePagination } from "@lib/utils"
 import Page from "@components/layouts/page"
@@ -24,31 +23,29 @@ export default function GenrePage() {
   )
 
   return (
-    <ViewTransition>
-      <Page className="genre-page">
-        <header>
-          <h2>{genreName} {media === "movie" ? "Movies" : "Series"}</h2>
-        </header>
-        <div className="container mt-8">
-          {isLoading ? (
-            [...Array(20).keys()].map((_, i) => (
-              <CardSkeleton variant="simple" key={i} />
-            ))
-          ) : (
-            data?.results?.map((result) => (
-              <MovieCard
-                result={result}
-                media={media}
-                variant="simple"
-                key={result.id}
-              />
-            ))
-          )}
-        </div>
-        <div className="mx-auto pt-6 pb-2">
-          <Pagination allPagesArray={allPagesArray} currentPage={currentPage} />
-        </div>
-      </Page>
-    </ViewTransition>
+    <Page className="genre-page" viewTransition>
+      <header>
+        <h2>{genreName} {media === "movie" ? "Movies" : "Series"}</h2>
+      </header>
+      <div className="container mt-8">
+        {isLoading ? (
+          [...Array(20).keys()].map((_, i) => (
+            <CardSkeleton variant="simple" key={i} />
+          ))
+        ) : (
+          data?.results?.map((result) => (
+            <MovieCard
+              result={result}
+              media={media}
+              variant="simple"
+              key={result.id}
+            />
+          ))
+        )}
+      </div>
+      <div className="mx-auto pt-6 pb-2">
+        <Pagination allPagesArray={allPagesArray} currentPage={currentPage} />
+      </div>
+    </Page>
   )
 }

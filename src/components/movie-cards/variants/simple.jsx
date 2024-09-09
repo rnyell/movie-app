@@ -28,9 +28,9 @@ export default function SimpleCard({ result, media, variant }) {
       <Card.Body customStyles="flex">
         <Title title={title || name} width="90%" />
         <InfoButton
-          variants="outline-bold"
-          size="square-xs"
-          customStyles="ml-auto"
+          className="ml-auto"
+          variant="outline-bold"
+          size="xs"
           iconSize="sm"
           setModal={showDetailsModal}
         />

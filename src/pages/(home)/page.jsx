@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { useWindowOffsets } from "@lib/hooks"
-import { ViewTransition } from "@lib/motion"
+import Page from "@components/layouts/page"
 import HeroSection from "./_components/hero-section"
 import FeaturedSection, { MoviesSection, SeriesSection } from "./_components/featured-section"
 
@@ -41,7 +41,7 @@ export default function HomePage() {
 
 
   return (
-    <ViewTransition>
+    <Page headless viewTransition>
       <div className="home-page">
         {isMobile ? (
           <>
@@ -80,6 +80,6 @@ export default function HomePage() {
           </>
         )}
       </div>
-    </ViewTransition>
+    </Page>
   )
 }

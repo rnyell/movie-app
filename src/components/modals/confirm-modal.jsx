@@ -2,15 +2,15 @@ import { Modal, Button } from "@lib/ui/components"
 
 export default function ConfirmModal({ msg, onConfirm, setClose }) {
   return (
-    <Modal setClose={setClose} size="lg" variants="confirm">
+    <Modal setClose={setClose} size="lg" variant="confirm">
       <div className="flex-col">
         <p>{msg}</p>
         <div className="mt-8 ml-auto mr-2 flex gap-4">
-          <Button variants="outline-lite" size="md" onClick={setClose}>
+          <Button variant="outline-lite" size="md" onClick={setClose}>
             Cancel
           </Button>
           <Button
-            variants="danger"
+            variant="danger"
             size="md"
             onClick={() => {
               onConfirm()

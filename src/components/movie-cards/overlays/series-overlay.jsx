@@ -43,7 +43,9 @@ export default function SeriesOverlay({ result }) {
           <span className="release-date">
             {in_production || number_of_seasons === 1
               ? formatReleaseDate(first_air_date)
-              : `${formatReleaseDate(first_air_date)} ‒ ${formatReleaseDate(last_air_date)}`}
+              : `${formatReleaseDate(first_air_date)} ‒ ${formatReleaseDate(
+                  last_air_date
+                )}`}
           </span>
           <Dot />
           <span>
@@ -52,11 +54,11 @@ export default function SeriesOverlay({ result }) {
         </div>
       </Overlay.Details>
       <Overlay.Actions>
-        <LinkButton size="square-md" linkData={linkData} />
+        <LinkButton size="md" linkData={linkData} />
         <BookmarkButton
           item={{ id, media }}
-          variants="solid-blured"
-          size="square-md"
+          variant="solid-blured"
+          size="md"
           iconSize="md"
         />
       </Overlay.Actions>

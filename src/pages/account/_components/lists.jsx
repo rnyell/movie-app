@@ -15,8 +15,9 @@ export default function Lists() {
         <h3 className="mb-5">Your Lists</h3>
         <div className="ml-auto align-center gap-4">
           <Button
-            variants="ghost"
-            size="square-xs"
+            variant="ghost"
+            size="xs"
+            isSquare
             iconOnly
             iconSize="md"
             svg={<EllipsisVerticalIcon />}

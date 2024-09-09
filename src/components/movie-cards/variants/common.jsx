@@ -60,13 +60,14 @@ export default function CommonCard({ result, media, variant }) {
     >
       {isTouchDevice && cardOverlay && (
         <Button
-          variants="solid-blured"
-          size="square-xs"
-          customStyles="absolute top-3 right-3 z-50 rounded-lg"
+          variant="solid-blured"
+          size="xs"
+          className="absolute top-3 right-3 z-50 rounded-lg"
+          isSquare
           iconOnly
           iconSize="md"
           svg={<XMarkIcon />}
-          iconCustomStyles="stroke-3"
+          iconClassname="stroke-3"
           onClick={hideOverlay}
         />
       )}
@@ -79,13 +80,14 @@ export default function CommonCard({ result, media, variant }) {
         <Card.TouchWidget ref={widgetRef} customStyles="align-center">
           <Title title={title} width="85%" />
           <Button
-            variants="solid-blured"
-            size="square-xs"
-            customStyles="ml-auto rounded-lg"
+            variant="solid-blured"
+            size="xs"
+            className="ml-auto rounded-lg"
+            isSquare
             iconOnly
             iconSize="md"
             svg={<EllipsisIcon />}
-            iconCustomStyles="stroke-3"
+            iconClassname="stroke-3"
             onClick={showOverlay}
           />
         </Card.TouchWidget>

@@ -5,7 +5,11 @@ import { IMAGES_URL } from "@services"
 import { useMediaDetails } from "@services/hooks"
 import { formatReleaseDate } from "@services/movie-utils"
 import { useAppContext } from "@src/store"
-import { ArrowTopRightOnSquareIcon, ChevronRightIcon, ChevronLeftIcon } from "@heroicons/outline"
+import {
+  ArrowTopRightOnSquareIcon,
+  ChevronRightIcon,
+  ChevronLeftIcon,
+} from "@heroicons/outline"
 import { ListPlusIcon, IMDB2Icon, RottenTomatoesIcon } from "@lib/ui/icons"
 import { Button, Dot } from "@lib/ui/components"
 import WatchButton from "@components/buttons/watch-btn"
@@ -14,13 +18,12 @@ import { SwiperSkeleton } from "@components/skeletons"
 
 import classes from "./swiper.module.css"
 
-
 export default function Swiper({
   result,
   posters,
   currIndex,
   showNextMovie,
-  showPrevMovie
+  showPrevMovie,
 }) {
   const media = "movie"
   const { id } = result
@@ -28,12 +31,7 @@ export default function Swiper({
   const { modalDispatch } = useAppContext()
   const navigate = useNavigate()
 
-  const {
-    title,
-    release_date,
-    genres,
-    vote_average: rate,
-  } = mediaDetails
+  const { title, release_date, genres, vote_average: rate } = mediaDetails
 
   const backgroundImage = `url("${IMAGES_URL}original${posters[currIndex]}")`
 
@@ -48,13 +46,13 @@ export default function Swiper({
   }
 
   function onSelectMovie() {
-    navigate(`/movies/${(id)}`)
+    navigate(`/movies/${id}`)
   }
 
   function onSaveMovie() {
     modalDispatch({
       type: "save",
-      data: { id, media }
+      data: { id, media },
     })
   }
 
@@ -65,7 +63,7 @@ export default function Swiper({
   const direction = isIncremented ? 1 : -1
 
   const posterMotion = {
-    initial: direction => ({
+    initial: (direction) => ({
       opacity: 0.1,
       x: direction * 100,
     }),
@@ -77,19 +75,19 @@ export default function Swiper({
         bounce: 0.275,
         duration: 0.5,
         delay: 0.075,
-      }
+      },
     },
-    exit: direction => ({
+    exit: (direction) => ({
       opacity: 0,
       x: direction * -120,
       transition: {
-        duration: 0.375
-      }
-    })
+        duration: 0.375,
+      },
+    }),
   }
 
   const detailsMotion = {
-    initial: direction => ({
+    initial: (direction) => ({
       opacity: 0.2,
       x: direction * 75,
     }),
@@ -100,15 +98,15 @@ export default function Swiper({
         type: "spring",
         duration: 0.375,
         delay: 0.05,
-      }
+      },
     },
-    exit: direction => ({
+    exit: (direction) => ({
       opacity: 0,
       x: direction * -90,
       transition: {
-        duration: 0.25
-      }
-    })
+        duration: 0.25,
+      },
+    }),
   }
   /* -------------------------------- */
 
@@ -121,63 +119,73 @@ export default function Swiper({
       <motion.div className={classes.swiper} key={id}>
         <motion.div
           className={classes.bgPoster}
-          style={{backgroundImage}}
+          style={{ backgroundImage }}
           {...posterMotion}
           custom={direction}
         />
         <div className="align-center gap-1.5 ml-auto">
           <Button
-            variants="solid-secondary"
-            size="square-md"
-            customStyles="rounded-full bg-rgb-800"
+            variant="solid-secondary"
+            size="md"
+            className="rounded-full bg-rgb-800"
+            isSquare
             iconOnly
             svg={<ChevronLeftIcon />}
             onClick={handlePrevMovie}
           />
           <Button
-            variants="solid-secondary"
-            size="square-md"
-            customStyles="rounded-full bg-rgb-800"
+            variant="solid-secondary"
+            size="md"
+            className="rounded-full bg-rgb-800"
+            isSquare
             iconOnly
             svg={<ChevronRightIcon />}
             onClick={handleNextMovie}
           />
         </div>
-        <motion.div className="mt-auto py-12 flex-col gap-2" {...detailsMotion} custom={direction}>
+        <motion.div
+          className="mt-auto py-12 flex-col gap-2"
+          {...detailsMotion}
+          custom={direction}
+        >
           <Genres genres={genres} media={media} shape="chip" />
           <h1 className={classes.title}>{title}</h1>
           <div className="align-center gap-3">
-          <span className={classes.releaseDate}>{formatReleaseDate(release_date)}</span>
-          <Dot scale="1.5" />
-          <Rates
-            rate={rate}
-            variant="star"
-            starSize="icon-xl"
-            starSvg={<IMDB2Icon />}
-            customStyles="fs-larger"
-          />
+            <span className={classes.releaseDate}>
+              {formatReleaseDate(release_date)}
+            </span>
+            <Dot scale="1.5" />
+            <Rates
+              rate={rate}
+              variant="star"
+              starSize="icon-xl"
+              starSvg={<IMDB2Icon />}
+              customStyles="fs-larger"
+            />
           </div>
         </motion.div>
         <div className="align-center gap-3">
           <WatchButton
-            item={{id, media, title}}
+            item={{ id, media, title }}
+            className="grow rounded-xl"
             text="Watch"
             size="lg"
-            customStyles="grow rounded-xl"
           />
           <Button
-            variants="outline-blured"
-            size="square-lg"
-            customStyles="rounded-xl"
+            className="rounded-xl"
+            variant="outline-blured"
+            size="lg"
+            isSquare
             iconOnly
             iconSize="lg"
             svg={<ArrowTopRightOnSquareIcon />}
             onClick={onSelectMovie}
           />
           <Button
-            variants="outline-blured"
-            size="square-lg"
-            customStyles="rounded-xl"
+            variant="outline-blured"
+            size="lg"
+            className="rounded-xl"
+            isSquare
             iconOnly
             iconSize="lg"
             svg={<ListPlusIcon />}

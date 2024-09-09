@@ -29,15 +29,9 @@ export default function BookmarkedCard({ id, media, variant, listId }) {
 
   if (media === "movie") {
     // `var` used to let (pun!) variables to be accessible outside of `if` cardRef.
-    var {
-      title,
-      poster_path,
-    } = mediaDetails
+    var { title, poster_path } = mediaDetails
   } else if (media === "tv") {
-    var {
-      name: title,
-      poster_path,
-    } = mediaDetails
+    var { name: title, poster_path } = mediaDetails
   }
 
   function showOverlay() {
@@ -53,14 +47,13 @@ export default function BookmarkedCard({ id, media, variant, listId }) {
       type: "confirmation",
       data: {
         msg: "Are you sure you want to remove this from your list?",
-        onConfirm: async function() {
+        onConfirm: async function () {
           const item = { id, media }
           const t = await updateBookmarks("delete", listId, item)
-        }
-      }
+        },
+      },
     })
   }
-
 
   if (isLoading) {
     return <CardSkeleton variant="bookmark" />
@@ -74,27 +67,33 @@ export default function BookmarkedCard({ id, media, variant, listId }) {
         onHoverStart={!isTouchDevice && showOverlay}
         onHoverEnd={!isTouchDevice && hideOverlay}
       >
-      <Presence trigger={cardOverlay}>
-        <SecondaryOverlay
-          variant="bookmarked"
-          result={mediaDetails}
-          media={media}
-          setModal={deleteBookmark}
+        <Presence trigger={cardOverlay}>
+          <SecondaryOverlay
+            variant="bookmarked"
+            result={mediaDetails}
+            media={media}
+            setModal={deleteBookmark}
+          />
+        </Presence>
+        <div
+          className="ambient"
+          style={{
+            backgroundImage: `url(${IMAGES_URL}original${poster_path})`,
+          }}
         />
-      </Presence>
-      <div className="ambient" style={{backgroundImage: `url(${IMAGES_URL}original${poster_path})`}} />
       </Card.Figure>
       <Card.Body customStyles="align-center gap-1">
         <Title title={title} width="90%" />
         <Card.TouchWidget customStyles="ml-auto">
           <Button
-            variants="solid-blured"
-            size="square-xs"
-            customStyles="rounded-lg"
+            variant="solid-blured"
+            size="xs"
+            className="rounded-lg"
+            isSquare
             iconOnly
             iconSize="md"
             svg={cardOverlay ? <XMarkIcon /> : <EllipsisIcon />}
-            iconCustomStyles="stroke-3 unselectable"
+            iconClassname="stroke-3 unselectable"
             onClick={() => setCardOverlay(!cardOverlay)}
           />
         </Card.TouchWidget>

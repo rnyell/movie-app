@@ -7,16 +7,16 @@ export function VPNError() {
   `
 
   return (
-    <Modal withBackdrop={false} size="lg" customStyles="overflow-visible">
+    <Modal withBackdrop={false} size="lg" className="overflow-visible">
       <div className="vpn-error p-6 relative flex-col rounded-4xl bg-primary-800">
         <p className="mb-2 leading-[1.5]">
           Due to some restrictions in your area, accessing some domains has been limited. Unfortunately to access our app, you must use a <b className="font-bold text-[var(--color-accent-400)]">VPN</b>.
         </p>
         <p className="mb-2 leading-[1.5]">Once connected, please <u className="decoration-[var(--color-accent-300)]">reload the page</u> or <u className="decoration-[var(--color-accent-300)]">press the button bellow</u> to continue.</p>
         <Button
-          variants="solid-accent"
+          variant="solid-accent"
           size="lg"
-          customStyles="ml-auto w-28"
+          className="ml-auto w-28"
           onClick={() => window.location.reload()}
         >
           Reload

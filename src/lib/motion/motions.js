@@ -9,53 +9,53 @@ export const pageTransitionMotion = {
     x: 0,
     transition: {
       duration: 0.375,
-      ease: "easeIn"
-    }
+      ease: "easeIn",
+    },
   },
   exit: {
     opacity: 0.1,
     x: -20,
     transition: {
       duration: 0.3,
-      ease: "easeOut"
-    }
-  }
+      ease: "easeOut",
+    },
+  },
 }
 
 export const modalMotion = {
   initial: {
     y: -50,
-    opacity: 0.65
+    opacity: 0.65,
   },
   animate: {
     y: 0,
-    opacity: 1
+    opacity: 1,
   },
   exit: {
     y: -75,
-    opacity: 0
-  }
+    opacity: 0,
+  },
 }
 
 export const modalTransition = {
   duration: 0.45,
-  ease: "easeOut"
+  ease: "easeOut",
 }
 
 export const modalBackdropMotion = {
   initial: {
-    opacity: 0.85
+    opacity: 0.85,
   },
   animate: {
-    opacity: 1
+    opacity: 1,
   },
   exit: {
-    opacity: 0.85
-  }
+    opacity: 0.85,
+  },
 }
 
-export const modalBackdroptransition = {
-  duration: 0.25
+export const modalBackdropTransition = {
+  duration: 0.25,
 }
 
 export const dropdownMenuMotion = {
@@ -83,14 +83,14 @@ export const overlayMotion = {
     opacity: 1,
     transition: {
       duration: 0.25,
-      ease: "easeOut"
-    }
+      ease: "easeOut",
+    },
   },
   exit: {
     opacity: 0,
     transition: {
       duration: 0.25,
-      ease: "easeIn"
-    }
-  }
+      ease: "easeIn",
+    },
+  },
 }

@@ -34,7 +34,10 @@ export default function Header({ withSearchbox = true }) {
       } else {
         setDataset({ variant: "animated", position: "sticky" })
       }
-    } else if (pathname.startsWith("/movies") || pathname.startsWith("/series")) {
+    } else if (
+      pathname.startsWith("/movies") ||
+      pathname.startsWith("/series")
+    ) {
       setDataset({ variant: "transparent", position: "absolute" })
     } else {
       setDataset({ variant: "default", position: "sticky" })
@@ -42,7 +45,11 @@ export default function Header({ withSearchbox = true }) {
   }, [pathname])
 
   return (
-    <header className="main-header align-center" data-variant={dataset.variant} data-position={dataset.position}>
+    <header
+      className="main-header align-center"
+      data-variant={dataset.variant}
+      data-position={dataset.position}
+    >
       {/* {(dataset.variant === "stretched" || dataset.variant === "animated") && (
         <HamberIcon setOpen={setOpen} isOpen={isOpen} />
       )} */}
@@ -60,12 +67,13 @@ export default function Header({ withSearchbox = true }) {
             ) : (
               <Link to="/login">
                 <Button
-                  variants="ghost"
-                  size="square-md"
+                  variant="ghost"
+                  size="md"
+                  className="rounded-full color-neutral-300"
+                  isSquare
                   iconOnly
                   iconSize="xxl"
                   svg={<UserCircleIcon />}
-                  customStyles="rounded-full color-neutral-300"
                 />
               </Link>
             ))}
@@ -121,12 +129,13 @@ function Notification() {
     <Dropdown.Container strategy="portal">
       <Dropdown.Trigger>
         <Button
-          variants="ghost"
-          size="square-md"
+          variant="ghost"
+          size="md"
+          className="rounded-full color-neutral-300"
+          isSquare
           iconOnly
           iconSize="xxl"
           svg={<BellIcon />}
-          customStyles="rounded-full color-neutral-300"
         />
       </Dropdown.Trigger>
       <Dropdown.Menu className={`${menu_styles} p-4`} placement="bottom/end">

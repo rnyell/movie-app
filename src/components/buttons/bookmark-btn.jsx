@@ -5,10 +5,9 @@ import { BookmarkIcon } from "@heroicons/outline"
 import { Button } from "@lib/ui/components"
 import { Spinner } from "../skeletons"
 
-
 export default function BookmarkButton({ item, setModal, ...props }) {
   const { modalDispatch } = useAppContext()
-  const { variants, size, iconSize, customStyles } = props
+  const { variant, size, iconSize, className } = props
 
   const { data: isBookmarked, isLoading } = useLoader(
     () => isItemBookmarked(item),
@@ -20,14 +19,19 @@ export default function BookmarkButton({ item, setModal, ...props }) {
       type: "save",
       data: {
         id: item.id,
-        media: item.media
-      }
+        media: item.media,
+      },
     })
   }
 
   if (isLoading) {
     return (
-      <Button variants="solid-blured" size={size} customStyles={customStyles}>
+      <Button
+        className={className}
+        variant="solid-blured"
+        size={size}
+        isSquare
+      >
         <Spinner className="size-7" />
       </Button>
     )
@@ -35,9 +39,10 @@ export default function BookmarkButton({ item, setModal, ...props }) {
 
   return (
     <Button
-      variants={isBookmarked ? "solid-primary" : variants}
+      className={className}
+      variant={isBookmarked ? "solid-primary" : variant}
       size={size}
-      customStyles={customStyles}
+      isSquare
       iconOnly
       iconSize={iconSize}
       iconFill={isBookmarked ? "fill" : ""}

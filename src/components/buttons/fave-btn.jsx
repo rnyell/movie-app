@@ -5,7 +5,6 @@ import { HeartIcon } from "@heroicons/outline"
 import { Button } from "@lib/ui/components"
 import { Spinner } from "../skeletons"
 
-
 export default function FaveButton({ item }) {
   const { modalDispatch } = useAppContext()
   const { id, media } = item
@@ -21,7 +20,12 @@ export default function FaveButton({ item }) {
 
   if (isLoading) {
     return (
-      <Button variants="outline-bold" size="square-xl" customStyles="rounded-full">
+      <Button
+        className="rounded-full"
+        variant="outline-bold"
+        size="xl"
+        isSquare
+      >
         <Spinner className="size-8" />
       </Button>
     )
@@ -29,9 +33,10 @@ export default function FaveButton({ item }) {
 
   return (
     <Button
-      variants={isFaved ? "solid-primary" : "outline-bold"}
-      size="square-xl"
-      customStyles="rounded-full"
+      className="rounded-full"
+      variant={isFaved ? "solid-primary" : "outline-bold"}
+      size="xl"
+      isSquare
       iconOnly
       iconSize="xl"
       iconFill={isFaved ? "fill" : ""}

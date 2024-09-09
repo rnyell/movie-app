@@ -14,12 +14,11 @@ import WatchButton from "@components/buttons/watch-btn"
 
 import classes from "./hero.module.css"
 
-
 export default function HeroMovie({
   result,
   currIndex,
   showNextMovie,
-  showPrevMovie
+  showPrevMovie,
 }) {
   const id = result.id
   const media = "movie"
@@ -40,13 +39,13 @@ export default function HeroMovie({
   const backgroundImage = `url("${IMAGES_URL}original${bg_path}")`
 
   function onSelectMovie() {
-    navigate(`/movies/${(id)}`)
+    navigate(`/movies/${id}`)
   }
 
   function onSaveMovie() {
     modalDispatch({
       type: "save",
-      data: { id, media }
+      data: { id, media },
     })
   }
 
@@ -67,7 +66,7 @@ export default function HeroMovie({
   const direction = isIncremented ? 1 : -1
 
   const posterMotion = {
-    initial: direction => ({
+    initial: (direction) => ({
       opacity: 0.1,
       x: direction * 50,
     }),
@@ -79,19 +78,19 @@ export default function HeroMovie({
         bounce: 0.2,
         duration: 0.375,
         delay: 0.075,
-      }
+      },
     },
-    exit: direction => ({
+    exit: (direction) => ({
       opacity: 0,
       x: direction * -50,
       transition: {
-        duration: 0.475
-      }
-    })
+        duration: 0.475,
+      },
+    }),
   }
 
   const detailsMotion = {
-    initial: direction => ({
+    initial: (direction) => ({
       opacity: 0.2,
       x: direction * 50,
     }),
@@ -102,15 +101,15 @@ export default function HeroMovie({
         type: "spring",
         duration: 0.575,
         delay: 0.05,
-      }
+      },
     },
-    exit: direction => ({
+    exit: (direction) => ({
       opacity: 0,
       x: direction * -50,
       transition: {
-        duration: 0.35
-      }
-    })
+        duration: 0.35,
+      },
+    }),
   }
   /* -------------------------------- */
 
@@ -121,10 +120,10 @@ export default function HeroMovie({
           <HeroMovieSkeleton />
         ) : (
           <motion.div className={classes.gridContainer} key={id}>
-            <div className={classes.ambient} style={{backgroundImage}} />
+            <div className={classes.ambient} style={{ backgroundImage }} />
             <motion.div
               className={classes.bgPoster}
-              style={{backgroundImage}}
+              style={{ backgroundImage }}
               {...posterMotion}
               custom={direction}
             />
@@ -135,7 +134,9 @@ export default function HeroMovie({
             >
               <h2 className={classes.title}>{title}</h2>
               <div className="mt-4 align-center gap-3">
-                <span className={classes.releaseDate}>{formatReleaseDate(release_date)}</span>
+                <span className={classes.releaseDate}>
+                  {formatReleaseDate(release_date)}
+                </span>
                 <Dot scale="1.5" />
                 <Rates
                   rate={rate}
@@ -157,38 +158,40 @@ export default function HeroMovie({
             </div>
             <div className={`${classes.btns} flex gap-3`}>
               <WatchButton
-                item={{id, title, media}}
-                customStyles="px-7 rounded-2xl"
+                item={{ id, title, media }}
+                className="px-7 rounded-2xl"
                 text="Watch"
               />
               <Button
-                variants="outline-blured"
-                customStyles="rounded-2xl"
+                variant="outline-blured"
+                className="rounded-2xl"
                 onClick={onSelectMovie}
               >
                 <Icon svg={<ArrowTopRightOnSquareIcon />} />
                 Details
               </Button>
               <Button
-                variants="outline-blured"
-                customStyles="rounded-2xl"
+                variant="outline-blured"
+                className="rounded-2xl"
                 onClick={onSaveMovie}
               >
                 <Icon svg={<ListPlusIcon />} size="md" />
                 Save
               </Button>
               <Button
-                variants="outline-blured"
-                size="square-md"
-                customStyles="ml-auto rounded-2xl"
+                variant="outline-blured"
+                size="md"
+                className="ml-auto rounded-2xl"
+                isSquare
                 onClick={handlePrevMovie}
               >
                 <Icon svg={<ChevronLeftIcon className="stroke-3" />} size="md" />
               </Button>
               <Button
-                variants="outline-blured"
-                size="square-md"
-                customStyles="rounded-2xl"
+                variant="outline-blured"
+                size="md"
+                className="rounded-2xl"
+                isSquare
                 onClick={handleNextMovie}
               >
                 <Icon svg={<ChevronRightIcon className="stroke-3" />} size="md" />

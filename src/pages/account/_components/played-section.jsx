@@ -25,8 +25,9 @@ export default function PlayedSection() {
         <h3 className="mb-5">Played History</h3>
         <div className="ml-auto align-center gap-4">
           <Button
-            variants="ghost"
-            size="square-xs"
+            variant="ghost"
+            size="xs"
+            isSquare
             iconOnly
             iconSize="md"
             svg={<EllipsisVerticalIcon />}
@@ -57,8 +58,8 @@ export default function PlayedSection() {
       {playedMovies?.length !== 0 && (
         <div className="flex mt-6">
           <Button
-            variants="danger"
-            customStyles="ml-auto"
+            variant="danger"
+            className="ml-auto"
             onClick={clearPlayedHistory}
           >
             Clear History

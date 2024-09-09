@@ -11,7 +11,7 @@ export default function PrimaryOverlay({ result, media }) {
   const { id } = result
   const { mediaDetails, isLoading } = useMediaDetails(media, id)
   const { windowWidth } = useWindowOffsets()
-  const btnSize = windowWidth >= 460 ? "square-md" : "square-sm"
+  const btnSize = windowWidth >= 460 ? "md" : "sm"
   const linkData = { id, media, blank: true }
 
   if (isLoading) {
@@ -45,12 +45,13 @@ export default function PrimaryOverlay({ result, media }) {
             <WatchButton
               item={{ id, title, media }}
               size={btnSize}
+              isSquare
               iconSize="md"
             />
             <LinkButton linkData={linkData} size={btnSize} iconSize="md" />
             <BookmarkButton
               item={{ id, media }}
-              variants="solid-blured"
+              variant="solid-blured"
               size={btnSize}
               iconSize="md"
             />
@@ -84,7 +85,9 @@ export default function PrimaryOverlay({ result, media }) {
             <span>
               {in_production
                 ? formatReleaseDate(first_air_date)
-                : `${formatReleaseDate(first_air_date)} ‒ ${formatReleaseDate(last_air_date)}`}
+                : `${formatReleaseDate(first_air_date)} ‒ ${formatReleaseDate(
+                    last_air_date
+                  )}`}
             </span>
             <Dot />
             <span>
@@ -95,12 +98,13 @@ export default function PrimaryOverlay({ result, media }) {
             <WatchButton
               item={{ id, title, media }}
               size={btnSize}
+              isSquare
               iconSize="md"
             />
             <LinkButton linkData={linkData} size={btnSize} iconSize="md" />
             <BookmarkButton
               item={{ id, media }}
-              variants="solid-blured"
+              variant="solid-blured"
               size={btnSize}
               iconSize="md"
             />

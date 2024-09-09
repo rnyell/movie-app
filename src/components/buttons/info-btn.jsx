@@ -2,13 +2,14 @@ import { InfoIcon } from "@lib/ui/icons"
 import { Button } from "@lib/ui/components"
 
 export default function InfoButton({ setModal, ...props }) {
-  const { variants, size, iconSize, customStyles } = props
+  const { variant, size, iconSize, className } = props
 
   return (
     <Button
-      variants={variants}
+      className={className}
+      variant={variant}
       size={size}
-      customStyles={customStyles}
+      isSquare
       iconOnly
       iconSize={iconSize}
       svg={<InfoIcon />}

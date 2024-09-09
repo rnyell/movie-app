@@ -12,7 +12,6 @@ import { Card } from ".."
 import { Title } from "@components/movie-details"
 import SecondaryOverlay from "../overlays/secondary-overlay"
 
-
 export default function ResultCard({ result, media, variant }) {
   const { modalDispatch } = useAppContext()
   const { windowWidth } = useWindowOffsets()
@@ -29,7 +28,7 @@ export default function ResultCard({ result, media, variant }) {
   function showInfoModal() {
     modalDispatch({
       type: "movie_info",
-      data: { result, media }
+      data: { result, media },
     })
   }
 
@@ -51,9 +50,9 @@ export default function ResultCard({ result, media, variant }) {
       ref={cardRef}
       isMotion
       layout="position"
-      initial={{opacity: 0.5}}
-      animate={{opacity: 1}}
-      transition={{duration: 0.2}}
+      initial={{ opacity: 0.5 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.2 }}
     >
       <Card.Figure
         isMotion
@@ -63,13 +62,14 @@ export default function ResultCard({ result, media, variant }) {
       >
         {isTouchDevice && (
           <Button
-            variants="solid-blured"
-            size="square-sm"
-            customStyles={`${cardOverlay ? "opacity-0" : ""} absolute top-3 right-3 z-50`}
+            variant="solid-blured"
+            size="sm"
+            className={`${cardOverlay ? "opacity-0" : ""} absolute top-3 right-3 z-50`}
+            isSquare
             iconOnly
             iconSize="lg"
             svg={<EllipsisIcon />}
-            iconCustomStyles="unselectable"
+            iconClassname="unselectable"
             onClick={cardOverlay ? handleHoverEnd : handleHoverStart}
             // svg={cardOverlay ? <XMarkIcon /> : <EllipsisIcon />}
             // {/* why onClick doesn't work without `unselectable` on icon !? */}
@@ -96,9 +96,9 @@ export default function ResultCard({ result, media, variant }) {
         <div className="align-center w-full">
           <p className="release-date">{formatReleaseDate(releaseDate)}</p>
           <Icon
+            className="ml-auto stroke-3 media-icon"
             size="lg"
             svg={media === "movie" ? <FilmIcon /> : <TvIcon />}
-            customStyles="ml-auto stroke-3 media-icon"
           />
         </div>
       </Card.Body>

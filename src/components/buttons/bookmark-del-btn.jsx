@@ -4,8 +4,9 @@ import { Button } from "@lib/ui/components"
 export default function BookmarkDeleteButton({ size, onClick }) {
   return (
     <Button
-      variants="solid-blured"
+      variant="solid-blured"
       size={size}
+      isSquare
       iconOnly
       iconSize="md"
       svg={<BookmarkSlashIcon />}

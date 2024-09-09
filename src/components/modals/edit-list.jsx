@@ -7,7 +7,7 @@ export default function EditList({ listId }) {
   console.log(data)
 
   return (
-    <Modal>
+    <Modal className="">
       <form>
         <div>
 

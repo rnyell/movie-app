@@ -8,22 +8,27 @@ import ImageSlider from "./image-slider"
 
 import "./pictures.css"
 
-
 export default function Pictures({ images }) {
-  const {backdrops} = images
+  const { backdrops } = images
   const [isOpen, setOpen] = useState(false)
 
   return (
     <div className="pictures">
       <h4 className="heading">Photos</h4>
       <div className="preview">
-        {backdrops.slice(0, 5).map(img => (
+        {backdrops.slice(0, 5).map((img) => (
           <figure key={img.file_path}>
             <img src={`${IMAGES_URL}w500${img.file_path}`} />
           </figure>
         ))}
-        <button className="btn photo-btn" type="button" onClick={() => setOpen(true)}>
-          <div className="icon"><PhotoIcon /></div>
+        <button
+          className="btn photo-btn"
+          type="button"
+          onClick={() => setOpen(true)}
+        >
+          <div className="icon">
+            <PhotoIcon />
+          </div>
           <span>More Images</span>
         </button>
       </div>
@@ -34,9 +39,8 @@ export default function Pictures({ images }) {
   )
 }
 
-
 function Gallery({ images, setModal }) {
-  const {backdrops, posters} = images
+  const { backdrops, posters } = images
   const TABS = ["Images", "Posters"]
   const [selectedTab, setSelectedTab] = useState(TABS[0])
   const [currIndex, setCurrIndex] = useState(0)
@@ -67,12 +71,13 @@ function Gallery({ images, setModal }) {
   // const transition={duration: 0.35, ease: "easeOut"}
 
   return (
-    <Modal variants="showcase" setClose={() => setModal(false)}>
+    <Modal variant="showcase" setClose={() => setModal(false)}>
       <div className="gallery">
         <Button
-          variants="ghost"
-          size="square-lg"
-          customStyles="absolute top-6 right-6 rounded-full transition-none"
+          variant="ghost"
+          size="lg"
+          className="absolute top-6 right-6 rounded-full transition-none"
+          isSquare
           iconOnly
           iconSize="lg"
           svg={<XMarkIcon />}
@@ -80,7 +85,7 @@ function Gallery({ images, setModal }) {
         />
         <h3>Gallery</h3>
         <nav className="tabs flex">
-          {TABS.map(tab => (
+          {TABS.map((tab) => (
             <motion.b
               className="tab"
               key={tab}
@@ -101,7 +106,11 @@ function Gallery({ images, setModal }) {
             {selectedTab === "Images" ? (
               <div className="images container">
                 {backdrops.slice(0, 24).map((img, idx) => (
-                  <figure className="thumbnail" onClick={() => handleThumbnailClick(idx)} key={img.file_path}>
+                  <figure
+                    className="thumbnail"
+                    onClick={() => handleThumbnailClick(idx)}
+                    key={img.file_path}
+                  >
                     <img src={`${IMAGES_URL}w500${img.file_path}`} />
                   </figure>
                 ))}
@@ -109,7 +118,11 @@ function Gallery({ images, setModal }) {
             ) : (
               <div className="posters container">
                 {posters.slice(0, 12).map((img, idx) => (
-                  <figure className="thumbnail" onClick={() => handleThumbnailClick(idx)} key={img.file_path}>
+                  <figure
+                    className="thumbnail"
+                    onClick={() => handleThumbnailClick(idx)}
+                    key={img.file_path}
+                  >
                     <img src={`${IMAGES_URL}w500${img.file_path}`} />
                   </figure>
                 ))}

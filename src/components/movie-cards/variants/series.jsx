@@ -9,7 +9,6 @@ import { Card } from ".."
 import { Title, Rates } from "@components/movie-details"
 import SeriesOverlay from "../overlays/series-overlay"
 
-
 export default function SeriesCard({ result, variant }) {
   const [cardOverlay, setCardOverlay] = useState()
   const cardRef = useRef(null)
@@ -27,8 +26,8 @@ export default function SeriesCard({ result, variant }) {
       variant={variant}
       ref={cardRef}
       isMotion
-      whileHover={!isTouchDevice && {scale: 1.05}}
-      transition={{type: "tween", duration: 0.175}}
+      whileHover={!isTouchDevice && { scale: 1.05 }}
+      transition={{ type: "tween", duration: 0.175 }}
       onHoverStart={() => !isTouchDevice && setCardOverlay(true)}
       onHoverEnd={() => !isTouchDevice && setCardOverlay(false)}
     >
@@ -41,12 +40,13 @@ export default function SeriesCard({ result, variant }) {
         <Title title={result.name} size="md" />
         <Card.TouchWidget customStyles="ml-auto">
           <Button
-            variants="solid-blured"
-            size="square-xs"
+            variant="solid-blured"
+            size="xs"
+            isSquare
             iconOnly
             iconSize="lg"
             svg={cardOverlay ? <XMarkIcon /> : <EllipsisIcon />}
-            iconCustomStyles="unselectable"
+            iconClassname="unselectable"
             onClick={() => setCardOverlay(!cardOverlay)}
           />
         </Card.TouchWidget>

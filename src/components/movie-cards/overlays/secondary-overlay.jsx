@@ -1,8 +1,12 @@
 import { formatReleaseDate } from "@services/movie-utils"
 import { Overlay } from ".."
-import { BookmarkButton, InfoButton, LinkButton, BookmarkDeleteButton } from "@components/buttons"
+import {
+  BookmarkButton,
+  InfoButton,
+  LinkButton,
+  BookmarkDeleteButton,
+} from "@components/buttons"
 import { Title, Overview } from "@components/movie-details"
-
 
 export default function SecondaryOverlay({ result, media, variant, setModal }) {
   const id = result.id
@@ -24,30 +28,35 @@ export default function SecondaryOverlay({ result, media, variant, setModal }) {
             {formatReleaseDate(result.release_date)}
           </span>
         )}
-        <Overview text={result.overview} lines={4} fontSize="fs-sm" customStyles="mt-4" />
+        <Overview
+          text={result.overview}
+          lines={4}
+          fontSize="fs-sm"
+          customStyles="mt-4"
+        />
       </Overlay.Details>
       <Overlay.Actions>
         {variant === "result" ? (
           <>
             <BookmarkButton
-              item={{id, media}}
-              variants="solid-blured"
-              size="square-md"
+              item={{ id, media }}
+              variant="solid-blured"
+              size="md"
               iconSize="md"
             />
             <InfoButton
               setModal={setModal}
-              variants="solid-blured"
-              size="square-md"
+              variant="solid-blured"
+              size="md"
               iconSize="lg"
             />
           </>
         ) : (
           <>
-            <BookmarkDeleteButton size="square-md" onClick={setModal} />
+            <BookmarkDeleteButton size="md" onClick={setModal} />
             <LinkButton
-              linkData={{id, media, blank: false}}
-              size="square-md"
+              linkData={{ id, media, blank: false }}
+              size="md"
               iconSize="md"
             />
           </>

@@ -6,9 +6,13 @@ import { Button, Modal } from "@lib/ui/components"
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/outline"
 import { XMarkIcon } from "@heroicons/solid"
 
-
-export default function ImageSlider({ images, currIndex, setCurrIndex, setModal }) {
-  const {windowWidth} = useWindowOffsets()
+export default function ImageSlider({
+  images,
+  currIndex,
+  setCurrIndex,
+  setModal,
+}) {
+  const { windowWidth } = useWindowOffsets()
   const imagesCount = images.length
   const thumbsRef = useRef(null)
   // const [thumbsRef, animate] = useAnimate()
@@ -16,7 +20,7 @@ export default function ImageSlider({ images, currIndex, setCurrIndex, setModal 
   const imgRef = useRef(null)
   // const [imgWidth, setImgWidth] = useState(0)
   const [constraints, setConstraints] = useState(0)
-  const gapWidth = 4  // the "4" value is 4px which is set by CSS
+  const gapWidth = 4 // the "4" value is 4px which is set by CSS
   // const totalGapsWidth = (images.length - 1) * gapWidth
 
   // const xTranslate = useMotionValue(0)
@@ -36,13 +40,13 @@ export default function ImageSlider({ images, currIndex, setCurrIndex, setModal 
       setModal(false)
     } else if (event.code === "ArrowLeft") {
       // showPrevImage(1) //? not working
-      setCurrIndex(prev => {
+      setCurrIndex((prev) => {
         if (prev - 1 <= -1) {
           return 0
         } else return prev - 1
       })
     } else if (event.code === "ArrowRight") {
-      setCurrIndex(prev => {
+      setCurrIndex((prev) => {
         if (prev + 1 >= imagesCount) {
           return imagesCount - 1
         } else return prev + 1
@@ -53,7 +57,9 @@ export default function ImageSlider({ images, currIndex, setCurrIndex, setModal 
   useEffect(() => {
     if (thumbsRef.current && imgRef.current) {
       // setImgWidth(imgRef.current.offsetWidth)
-      setConstraints(thumbsRef.current.scrollWidth - thumbsRef.current.offsetWidth)
+      setConstraints(
+        thumbsRef.current.scrollWidth - thumbsRef.current.offsetWidth
+      )
       // setThumbsWidth({
       //   scrollWidth: thumbsRef.current.scrollWidth,
       //   offsetWidth: thumbsRef.current.offsetWidth
@@ -66,19 +72,18 @@ export default function ImageSlider({ images, currIndex, setCurrIndex, setModal 
   // let animationControls
   // useEffect(() => {
   //   if (thumbsRef.current) {
-      // thumbsWidth = thumbsRef.current.offsetWidth / 2
-      // finalPosition = (thumbsWidth.offsetWidth / 2) - (currIndex * imgWidth) - (imgWidth / 2) - ((currIndex - 1) * gapWidth)
-      // console.log(xTranslate.get(), finalPosition, imgWidth, thumbsWidth.offsetWidth)
-    // }
+  // thumbsWidth = thumbsRef.current.offsetWidth / 2
+  // finalPosition = (thumbsWidth.offsetWidth / 2) - (currIndex * imgWidth) - (imgWidth / 2) - ((currIndex - 1) * gapWidth)
+  // console.log(xTranslate.get(), finalPosition, imgWidth, thumbsWidth.offsetWidth)
+  // }
 
-    // animate(".draggable", {x: finalPosition})
-    // animationControls = animate(xTranslate, finalPosition, {
-    //   duration: 0.25
-    // })
+  // animate(".draggable", {x: finalPosition})
+  // animationControls = animate(xTranslate, finalPosition, {
+  //   duration: 0.25
+  // })
 
-    // return animationControls.stop
+  // return animationControls.stop
   // }, [currIndex])
-  
 
   function showNextImage(num) {
     setCurrIndex((currIndex + num) % images.length)
@@ -97,16 +102,16 @@ export default function ImageSlider({ images, currIndex, setCurrIndex, setModal 
     let dragged = dragInfo.offset.x
     let threshold = 45
     let draggedImageCount = Math.floor(Math.abs(dragged) / threshold)
-    
+
     if (dragged > threshold) {
-      setCurrIndex(prev => {
+      setCurrIndex((prev) => {
         if (prev - draggedImageCount <= -1) {
           return 0
         } else return prev - draggedImageCount
       })
       return
     } else if (dragged < -threshold) {
-      setCurrIndex(prev => {
+      setCurrIndex((prev) => {
         if (prev + draggedImageCount >= imagesCount) {
           return imagesCount - 1
         } else return prev + draggedImageCount
@@ -138,29 +143,41 @@ export default function ImageSlider({ images, currIndex, setCurrIndex, setModal 
 
   return (
     <Modal
-      customStyles="translate-0 inset-0 z-max rounded-0"
+      className="translate-0 inset-0 z-max rounded-0"
       setClose={() => setModal(false)}
     >
       <div className="image-slider flex-col align-center" tabIndex={0}>
         <Button
-          variants="ghost"
-          size="square-lg"
-          customStyles="absolute top-6 right-6 rounded-full transition-none"
+          variant="ghost"
+          size="lg"
+          className="absolute top-6 right-6 rounded-full transition-none"
+          isSquare
           iconOnly
           iconSize="lg"
           svg={<XMarkIcon />}
           onClick={() => setModal(false)}
         />
         <div className="selected-image-container">
-          <button className="btn prev-btn absolute-y-center" type="button" onClick={() => showPrevImage(1)}>
+          <button
+            className="btn prev-btn absolute-y-center"
+            type="button"
+            onClick={() => showPrevImage(1)}
+          >
             <i className="icon">
               <ChevronLeftIcon />
             </i>
           </button>
           <figure>
-            <img className="selected-image" src={`${IMAGES_URL}original${images[currIndex].file_path}`} />
+            <img
+              className="selected-image"
+              src={`${IMAGES_URL}original${images[currIndex].file_path}`}
+            />
           </figure>
-          <button className="btn next-btn absolute-y-center" type="button" onClick={() => showNextImage(1)}>
+          <button
+            className="btn next-btn absolute-y-center"
+            type="button"
+            onClick={() => showNextImage(1)}
+          >
             <i className="icon">
               <ChevronRightIcon />
             </i>
@@ -173,12 +190,15 @@ export default function ImageSlider({ images, currIndex, setCurrIndex, setModal 
             dragMomentum={false}
             dragElastic={0.1}
             dragSnapToOrigin={true}
-            dragConstraints={{ left: -constraints - 75, right: constraints + 75 }}
+            dragConstraints={{
+              left: -constraints - 75,
+              right: constraints + 75,
+            }}
             onDragEnd={handleDragEnd}
             // style={{ x: xTranslate }}
             animate={{ translateX: `-${currIndex * (55 + gapWidth) + 3.5}px` }}
             transition={{ duration: 0.35, ease: "circOut" }}
-            whileDrag={{cursor: "grabbing"}}
+            whileDrag={{ cursor: "grabbing" }}
           >
             {images.map((img, idx) => (
               <motion.figure
@@ -190,16 +210,19 @@ export default function ImageSlider({ images, currIndex, setCurrIndex, setModal 
                   inactive: {
                     opacity: 0.3,
                     width: 55,
-                    marginInline: 0
+                    marginInline: 0,
                   },
                   active: {
                     opacity: 1,
                     width: 70,
-                    marginInline: "7px"
-                  }
+                    marginInline: "7px",
+                  },
                 }}
               >
-                <img src={`${IMAGES_URL}w500${img.file_path}`} draggable={false} />
+                <img
+                  src={`${IMAGES_URL}w500${img.file_path}`}
+                  draggable={false}
+                />
               </motion.figure>
             ))}
           </motion.div>

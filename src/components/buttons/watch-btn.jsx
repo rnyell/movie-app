@@ -12,7 +12,7 @@ import { Button, Icon } from "@lib/ui/components"
 
 export default function WatchButton({ item, ...props }) {
   const { id, title, media } = item
-  const { text, size, iconSize, customStyles } = props
+  const { text, size, iconSize, className, isSquare } = props
   const { modalDispatch } = useAppContext()
   const { session } = useAuth()
   const navigate = useNavigate()
@@ -34,9 +34,10 @@ export default function WatchButton({ item, ...props }) {
 
   return (
     <Button
-      variants="solid-accent"
+      className={`cursor-pointer ${className ?? ""}`}
+      variant="solid-accent"
       size={size}
-      customStyles={`cursor-pointer ${customStyles}`}
+      isSquare={isSquare}
       onClick={playMovie}
     >
       <Icon svg={<PlayIcon />} size={iconSize} />

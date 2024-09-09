@@ -1,4 +1,3 @@
-import { ViewTransition } from "@lib/motion"
 import Page from "@components/layouts/page"
 import { Divider } from "@lib/ui/components"
 import Profile from "./_components/profile"
@@ -10,16 +9,14 @@ import "./page.css"
 
 export default function Account() {
   return (
-    <ViewTransition>
-      <Page className="gap-16">
-        <Profile />
-        <Divider />
-        <PlayedSection />
-        <Divider />
-        <WatchlistSection />
-        <Divider />
-        <Lists />
-      </Page>
-    </ViewTransition>
+    <Page className="gap-16" viewTransition>
+      <Profile />
+      <Divider />
+      <PlayedSection />
+      <Divider />
+      <WatchlistSection />
+      <Divider />
+      <Lists />
+    </Page>
   )
 }

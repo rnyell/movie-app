@@ -2,7 +2,6 @@ import { useRef } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { IMAGES_URL } from "@services"
 import { useMediaDetails } from "@services/hooks"
-import { ViewTransition } from "@lib/motion"
 import {
   HeartIcon,
   ChevronLeftIcon,
@@ -19,6 +18,7 @@ import {
   ArrowDownTrayIcon,
   LanguageIcon
 } from "@heroicons/solid"
+import Page from "@components/layouts/page"
 
 import "./page.css"
 
@@ -37,7 +37,7 @@ export default function Player() {
   }
 
   return (
-    <ViewTransition>
+    <Page viewTransition headless>
       <div className="player-page">
         <div className="player">
           {/* <video controls>
@@ -83,6 +83,6 @@ export default function Player() {
           </div>
         </div>
       </div>
-    </ViewTransition>
+    </Page>
   )
 }

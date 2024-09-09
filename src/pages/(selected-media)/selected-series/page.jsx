@@ -4,8 +4,8 @@ import { useWindowOffsets } from "@lib/hooks"
 import { IMAGES_URL } from "@services"
 import { useMediaDetails } from "@services/hooks"
 import { formatReleaseDate, formatRuntime } from "@services/movie-utils"
-import { ViewTransition } from "@lib/motion"
 import { Snap, Dot } from "@lib/ui/components"
+import Page from "@components/layouts/page"
 import { SelectedMovieSkeleton } from "@components/skeletons"
 import { Overview, Casts, Rates, Genres } from "@components/movie-details"
 import MovieCard from "@components/movie-cards/movie-card"
@@ -86,7 +86,7 @@ export default function SelectedSeries() {
   }
 
   return (
-    <ViewTransition>
+    <Page viewTransition headless>
       <div className="selected-media selected-series">
         <section className="poster-wrapper isolated-stack ::after-abs">
           <div className="bg-poster" style={{backgroundImage: `url(${IMAGES_URL}${imgUrl})`}} />
@@ -191,6 +191,6 @@ export default function SelectedSeries() {
           </div>
         </section>
       </div>
-    </ViewTransition>
+    </Page>
   )
 }

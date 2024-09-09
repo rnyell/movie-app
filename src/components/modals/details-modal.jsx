@@ -1,13 +1,16 @@
 import { Link } from "react-router-dom"
 import { IMAGES_URL } from "@services"
 import { useMediaDetails } from "@services/hooks"
-import { formatRuntime, formatReleaseDate, getMovieDirector } from "@services/movie-utils"
+import {
+  formatRuntime,
+  formatReleaseDate,
+  getMovieDirector,
+} from "@services/movie-utils"
 import { Modal, Button, Dot } from "@lib/ui/components"
 import { Rates, Genres, Overview, Casts } from "../movie-details"
 import { DetailsModalSkeleton } from "../skeletons"
 
 import "./details-modal.css"
-
 
 export default function DetailsModal({ result, setClose }) {
   const { mediaDetails, isLoading } = useMediaDetails("movie", result.id)
@@ -44,14 +47,24 @@ export default function DetailsModal({ result, setClose }) {
               <div className="px-6 pb-2 absolute bottom-0 w-full">
                 <div className="align-center">
                   <h4 className="title">{title}</h4>
-                  <Rates rate={vote_average} variant="square" customStyles="ml-auto mr-2" />
+                  <Rates
+                    rate={vote_average}
+                    variant="square"
+                    customStyles="ml-auto mr-2"
+                  />
                 </div>
                 <div className="main-details mt-2 align-center gap-2 fs-sm">
-                  <span className="release-date">{formatReleaseDate(release_date)}</span>
+                  <span className="release-date">
+                    {formatReleaseDate(release_date)}
+                  </span>
                   <Dot />
                   <span className="runtime">{formatRuntime(runtime)}</span>
                   <Dot />
-                  <Genres genres={genres} media="movie" customStyles="color-inherit" />
+                  <Genres
+                    genres={genres}
+                    media="movie"
+                    customStyles="color-inherit"
+                  />
                 </div>
               </div>
             </div>
@@ -76,13 +89,13 @@ export default function DetailsModal({ result, setClose }) {
         )}
         <div className="p-6 w-full align-center gap-2">
           <Button
-            variants="outline-lite"
-            customStyles="ml-auto"
+            variant="outline-lite"
+            className="ml-auto"
             onClick={setClose}
           >
             Dismiss
           </Button>
-          <Button variants="solid-accent">
+          <Button variant="solid-accent">
             <Link to={`/movies/${id}`}>More Info</Link>
           </Button>
         </div>

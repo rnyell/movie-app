@@ -29,11 +29,11 @@ export default function LoginPage() {
           {/* <h2>Welcome!</h2> */}
           <p className="mb-4 font-medium">Choose how you'd like to get started:</p>
           <div className="w-4/5 flex-col gap-3">
-            <Button size="md" customStyles="rounded-full" onClick={signInWithGoogle}>
+            <Button size="md" className="rounded-full" onClick={signInWithGoogle}>
               <Icon size="lg" svg={<GoogleIcon />} />
               <span className="text-base font-semibold">Continue with Google</span>
             </Button>
-            <Button size="md" customStyles="rounded-full" onClick={handleAnonymousLogIn}>
+            <Button size="md" className="rounded-full" onClick={handleAnonymousLogIn}>
               <Icon size="lg" svg={<DominoMaskIcon />} />
               <span className="text-base font-semibold">Explore anonymously</span>
             </Button>

@@ -9,7 +9,12 @@
   border-radius: 0.625rem; /* .rounded-md */
   transition: color var(--duration-1),
     background-color var(--duration-1),
-    border-color var(--duration-1);
+    border-color var(--duration-1),
+    scale var(--duration-1);
+
+  &:active {
+    scale: 0.98;
+  }
 
   /* if it has some child elements */
   &:has(> *) {
@@ -133,7 +138,18 @@
 }
 
 /* ----------------- */
+/* colors */
+/* .primary {}
+.secondary {}
+.accent {} */
+
+/* ----------------- */
 /* sizes */
+.xs {
+  height: 1.8rem;
+  max-height: 35px;
+}
+
 .sm {
   padding: 0.375rem 0.75rem;
   height: 2.175rem;
@@ -168,43 +184,10 @@
   max-height: 62px;
   font-size: 1.05rem;
 }
-/* isSquare instead of these classes
-[data-is-square="true"]
-*/
-.square-xs {
-  height: 1.8rem;
-  max-height: 35px;
+
+/* ----------------- */
+/* is-square */
+[data-square="true"] {
+  padding: 0;
   aspect-ratio: 1;
-}
-
-.square-sm {
-  height: 2.175rem;
-  max-height: 40px;
-  aspect-ratio: 1;
-}
-
-.square-md {
-  height: 2.625rem;
-  max-height: 46px;
-  aspect-ratio: 1;
-
-  @media (width <= 440px) {
-    height: 2.5rem;
-  }
-}
-
-.square-lg {
-  height: 3.15rem;
-  max-height: 52px;
-  aspect-ratio: 1;
-
-  @media (width <= 440px) {
-    height: 2.875rem;
-  }
-}
-
-.square-xl {
-  height: 3.5rem;
-  max-height: 62px;
-  aspect-ratio: 1;  
 }
