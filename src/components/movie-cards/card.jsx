@@ -1,22 +1,20 @@
 import { forwardRef } from "react"
 import { motion } from "framer-motion"
 import { useWindowOffsets } from "@lib/hooks"
+import { cx } from "cva"
 
-import cls from "@lib/ui/cls"
 import classes from "./card.module.css"
 import "./movie-card.css"
 
-
 export const Container = forwardRef((props, ref) => {
-  const { children, variant, isMotion, customStyles, ...rest } = props
+  const { children, variant, isMotion, className, ...rest } = props
   const DivElement = isMotion ? motion.div : "div"
-
   const { windowWidth } = useWindowOffsets()
   const isTouchDevice = windowWidth <= 520
 
   return (
     <DivElement
-      className={cls(classes, ["card"], customStyles)}
+      className={cx(classes.card, className)}
       data-variant={variant}
       data-screen={isTouchDevice ? "small" : "large"}
       ref={ref}
@@ -29,43 +27,39 @@ export const Container = forwardRef((props, ref) => {
 
 export function Figure({
   children,
+  className,
   src,
-  customStyles,
   isMotion,
   ...props
 }) {
   const DivElement = isMotion ? motion.div : "div"
 
   return (
-    <DivElement className={cls(classes, ["cardFigure"], customStyles)} {...props}>
+    <DivElement className={cx(classes.cardFigure, className)} {...props}>
       <figure>
-        <img
-          className={cls(classes, ["poster"])}
-          src={src}
-          draggable={false}
-        />
+        <img className={classes.poster} src={src} draggable={false} />
       </figure>
       {children}
     </DivElement>
   )
 }
 
-export function Body({ children, customStyles }) {
+export function Body({ children, className }) {
   return (
-    <div className={cls(classes, ["cardBody"], customStyles)}>
+    <div className={cx(classes.cardBody, className)}>
       {children}
     </div>
   )
 }
 
 export const TouchWidget = forwardRef((props, ref) => {
-  const { children, customStyles, ...rest } = props
+  const { children, className, ...rest } = props
   const { windowWidth } = useWindowOffsets()
   const isTouchDevice = windowWidth <= 520
 
   return isTouchDevice ? (
     <div
-      className={cls(classes, ["touchWidget"], customStyles)}
+      className={cx(classes.touchWidget, className)}
       ref={ref}
       {...rest}
     >

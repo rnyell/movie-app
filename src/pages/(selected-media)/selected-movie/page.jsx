@@ -98,14 +98,13 @@ export default function SelectedMovie() {
                 genres={genres}
                 media={media}
                 shape="chip"
-                customStyles="color-neutral-300"
+                className="color-neutral-300"
               />
             </div>
             <Overview
               text={overview}
               lines="5"
-              fontSize="fs-lg"
-              customStyles="mb-8"
+              className="mb-8 text-base"
             />
             <div className="cta-btns flex">
               <WatchButton

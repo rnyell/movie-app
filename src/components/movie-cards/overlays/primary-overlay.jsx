@@ -71,14 +71,14 @@ export default function PrimaryOverlay({ result, media }) {
 
       return (
         <Overlay.Container variant="primary">
-          <Overlay.Header customStyles="flex">
+          <Overlay.Header className="flex">
             <Title title={title} size="lg" width="85%" isTruncated={false} />
             <Rates
               rate={vote_average}
               variant="star"
               color="white"
               starSize="icon-sm"
-              customStyles="ml-auto"
+              className="ml-auto"
             />
           </Overlay.Header>
           <Overlay.Details>

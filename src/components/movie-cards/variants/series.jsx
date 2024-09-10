@@ -36,9 +36,9 @@ export default function SeriesCard({ result, variant }) {
           <SeriesOverlay result={result} />
         </Presence>
       </Card.Figure>
-      <Card.Body customStyles="align-center">
+      <Card.Body className="align-center">
         <Title title={result.name} size="md" />
-        <Card.TouchWidget customStyles="ml-auto">
+        <Card.TouchWidget className="ml-auto">
           <Button
             variant="solid-blured"
             size="xs"
@@ -56,7 +56,7 @@ export default function SeriesCard({ result, variant }) {
             variant="star"
             color="white"
             starSize="icon-sm"
-            customStyles="ml-auto mr-2"
+            className="ml-auto mr-2"
           />
         )}
       </Card.Body>

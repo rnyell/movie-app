@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import { getMovieGenres, getGenresWithIds } from "@services/movie-utils"
-import cls from "@lib/ui/cls"
+import cn from "@lib/ui/cn"
 import classes from "./genres.module.css"
 
 export default function Genres({
@@ -8,14 +8,14 @@ export default function Genres({
   media,
   shape = "normal",
   isMultiline = false,
-  customStyles
+  className
 }) {
   const Element = shape === "chip" ? Link : "span"
   const result = genres[0]?.name ? getMovieGenres(genres) : getGenresWithIds(media, genres)
 
   return (
     <div
-      className={cls(classes, ["genres", shape], customStyles)}
+      className={cn(classes.genres, classes[shape], className)}
       data-multiline={isMultiline}
     >
       {result.map((genre) => (

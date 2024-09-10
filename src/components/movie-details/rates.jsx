@@ -10,8 +10,7 @@ import {
   MetacriticIcon,
   PrimeVideoIcon
 } from "@lib/ui/icons"
-
-import cls from "@lib/ui/cls"
+import cn from "@lib/ui/cn"
 import classes from "./rates.module.css"
 
 
@@ -23,8 +22,8 @@ export default function Rates({
   order = "normal",
   starSize = "icon-md",
   starSvg,
-  customStyles,
-  ...props
+  className,
+  ...rest
 }) {
   const { data, isLoading } = useLoader(getRates)
 
@@ -39,9 +38,9 @@ export default function Rates({
     case "square": {
       return (
         <div
-          className={cls(classes, ["rate", color], customStyles)}
+          className={cn(classes.rate, classes[color], className)}
           data-variant={variant}
-          {...props}
+          {...rest}
         >
           <span className={classes.number}>{formatRate(rate)}</span>
         </div>
@@ -50,9 +49,9 @@ export default function Rates({
     case "star": {
       return (
         <div
-          className={cls(classes, ["rate", color, order], customStyles)}
+          className={cn(classes.rate, classes[color], classes[order], className)}
           data-variant={variant}
-          {...props}
+          {...rest}
         >
           <i className={`icon ${classes.icon} ${starSize}`}>
             {starSvg ? starSvg : <StarIcon />}
@@ -74,9 +73,9 @@ export default function Rates({
 
       return (
         <div
-          className={cls(classes, ["rate"], customStyles)}
+          className={cn(classes.rate, className)}
           data-variant={variant}
-          {...props}
+          {...rest}
         >
           {data?.Ratings?.map((rate, idx) => (
             <div className={classes.box} key={idx}>

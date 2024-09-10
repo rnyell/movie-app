@@ -36,7 +36,7 @@ export default function SeriesOverlay({ result }) {
             genres={genres}
             media={media}
             isMultiline
-            customStyles="fs-smaller"
+            className="fs-smaller"
           />
         </div>
         <div className="flex gap-2">

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion"
-import cls from "@lib/ui/cls"
+import cn from "@lib/ui/cn"
 import classes from "./title.module.css"
 
 export default function Title({
@@ -8,17 +8,17 @@ export default function Title({
   width = "75%",
   isTruncated = true,
   isMotion = false,
-  customStyles = "",
-  ...props
+  className = "",
+  ...rest
 }) {
   const H4Element = isMotion ? motion.h4 : "h4"
 
   return (
     <H4Element
-      className={cls(classes, ["title", size], customStyles)}
+      className={cn(classes.title, classes[size], className)}
       data-truncate={isTruncated}
       style={{width: `${width}`}}
-      {...props}
+      {...rest}
     >
       {title}
     </H4Element>

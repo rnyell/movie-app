@@ -82,9 +82,9 @@ export default function BookmarkedCard({ id, media, variant, listId }) {
           }}
         />
       </Card.Figure>
-      <Card.Body customStyles="align-center gap-1">
+      <Card.Body className="align-center gap-1">
         <Title title={title} width="90%" />
-        <Card.TouchWidget customStyles="ml-auto">
+        <Card.TouchWidget className="ml-auto">
           <Button
             variant="solid-blured"
             size="xs"

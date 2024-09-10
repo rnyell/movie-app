@@ -84,7 +84,7 @@ export default function ResultCard({ result, media, variant }) {
           />
         </Presence>
       </Card.Figure>
-      <Card.Body customStyles="flex-col gap-1">
+      <Card.Body className="flex-col gap-1">
         <Title
           title={title}
           size="lg"

@@ -99,20 +99,24 @@ export default function SelectedSeries() {
                 {number_of_seasons} {`${number_of_seasons > 1 ? "Seasons" : "Season"}`}
               </span>
               <Dot />
-              <Genres genres={genres} media={media} shape="chip" customStyles="color-neutral-300" />
+              <Genres
+                genres={genres}
+                media={media}
+                shape="chip"
+                className="color-neutral-300"
+              />
             </div>
             <Overview
               text={overview}
               lines="unset"
-              fontSize="fs-lg"
-              customStyles="mb-8"
+              className="mb-8 text-base"
             />
             <div className="sm-credits">
               <Casts
                 casts={credits.cast}
-                count={5}
-                variant="list"
                 mode="names"
+                variant="list"
+                count={5}
                 withImage={false}
                 headingText="Starring:"
               />
@@ -141,9 +145,9 @@ export default function SelectedSeries() {
           </div>
           <Casts
             casts={credits.cast}
-            count={10}
-            variant="list"
             mode="profile"
+            variant="list"
+            count={10}
             headingText="Casts"
           />
           <div className="information-table">

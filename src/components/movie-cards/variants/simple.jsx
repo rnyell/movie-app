@@ -25,7 +25,7 @@ export default function SimpleCard({ result, media, variant }) {
       transition={{ type: "tween", duration: 0.15 }}
     >
       <Card.Figure src={`${IMAGES_URL}w500${backdrop_path}`} />
-      <Card.Body customStyles="flex">
+      <Card.Body className="flex">
         <Title title={title || name} width="90%" />
         <InfoButton
           className="ml-auto"

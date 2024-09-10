@@ -50,7 +50,7 @@ export default function DetailsModal({ result, setClose }) {
                   <Rates
                     rate={vote_average}
                     variant="square"
-                    customStyles="ml-auto mr-2"
+                    className="ml-auto mr-2"
                   />
                 </div>
                 <div className="main-details mt-2 align-center gap-2 fs-sm">
@@ -60,11 +60,7 @@ export default function DetailsModal({ result, setClose }) {
                   <Dot />
                   <span className="runtime">{formatRuntime(runtime)}</span>
                   <Dot />
-                  <Genres
-                    genres={genres}
-                    media="movie"
-                    customStyles="color-inherit"
-                  />
+                  <Genres genres={genres} media="movie" className="color-inherit" />
                 </div>
               </div>
             </div>
@@ -74,8 +70,8 @@ export default function DetailsModal({ result, setClose }) {
                 <div className="mt-2">
                   <Casts
                     casts={credits.cast}
-                    variant="list"
                     mode="names"
+                    variant="list"
                     withImage={false}
                   />
                   <div className="mt-2 align-center">

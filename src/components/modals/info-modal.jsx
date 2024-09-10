@@ -31,7 +31,7 @@ export default function InfoModal({ result, media, setClose }) {
         <Rates
           rate={vote_average}
           variant="square"
-          customStyles="absolute right-8 -bottom-4"
+          className="absolute right-8 -bottom-4"
           style={{ outline: "6px solid var(--color-neutral-800)" }}
         />
       </div>
@@ -49,10 +49,10 @@ export default function InfoModal({ result, media, setClose }) {
           <Genres
             genres={genre_ids}
             media={media}
-            customStyles="color-neutral-300"
+            className="color-neutral-300"
           />
         </div>
-        <Overview text={overview} lines={5} customStyles="mt-4" />
+        <Overview text={overview} lines={5} className="mt-4" />
         <div className="mt-5 flex gap-2">
           <Button
             variant="outline-lite"

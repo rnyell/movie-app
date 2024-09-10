@@ -135,7 +135,7 @@ export function SelectedMovieSkeleton() {
 
 export function PrimaryOverlaySkeleton() {
   return (
-    <Overlay.Container variant="primary" customStyles={`${shimmer} absolute`}>
+    <Overlay.Container variant="primary" className={`${shimmer} absolute`}>
       <div className="h-4 w-24 rounded-lg bg-gray-100/45" />
       <div className="mt-4 align-center gap-4">
         <div className="h-3 w-10 rounded-lg bg-gray-300/45" />
@@ -153,7 +153,7 @@ export function PrimaryOverlaySkeleton() {
 
 export function SeriesOverlaySkeleton() {
   return (
-    <Overlay.Container variant="series" customStyles={`${shimmer} absolute`}>
+    <Overlay.Container variant="series" className={`${shimmer} absolute`}>
       <div className="h-3.5 w-24 rounded-lg bg-gray-100/45" />
       <div className="my-4 align-center gap-2">
         <div className="h-10 w-10 rounded-md bg-rose-500/45" />

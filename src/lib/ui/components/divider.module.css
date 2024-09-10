@@ -24,6 +24,10 @@
   --color: var(--color-neutral-500);
 }
 
+.ghost {
+  border: 0;
+}
+
 /* width */
 .partial {
   width: 85%;
@@ -35,10 +39,6 @@
 
 .fill {
   width: 100%;
-}
-
-.ghost {
-  border: 0;
 }
 
 /* space */

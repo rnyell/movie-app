@@ -1,14 +1,13 @@
 import { motion } from "framer-motion"
 import { overlayMotion } from "@lib/motion/motions"
-
-import cls from "@lib/ui/cls"
+import { cx } from "cva"
 import classes from "./overlay.module.css"
 
 
-export function Container({ children, variant, customStyles }) {
+export function Container({ children, variant, className }) {
   return (
     <motion.div
-      className={cls(classes, ["overlay"], customStyles)}
+      className={cx(classes.overlay, className)}
       data-variant={variant}
       {...overlayMotion}
     >
@@ -17,10 +16,10 @@ export function Container({ children, variant, customStyles }) {
   )
 }
 
-export function Header({ children, customStyles }) {
+export function Header({ children, className }) {
   return (
     <motion.div
-      className={cls(classes, ["header"], customStyles)}
+      className={cx(classes.header, className)}
       initial={{y: -5}}
       animate={{y: 0}}
       exit={{y: -5}}
@@ -30,10 +29,10 @@ export function Header({ children, customStyles }) {
   )
 }
 
-export function Details({ children, customStyles }) {
+export function Details({ children, className }) {
   return (
     <motion.div
-      className={cls(classes, ["details"], customStyles)}
+      className={cx(classes.details, className)}
       initial={{y: -6.5}}
       animate={{y: 0}}
       exit={{y: -6.5}}
@@ -43,10 +42,10 @@ export function Details({ children, customStyles }) {
   )
 }
 
-export function Actions({ children, customStyles }) {
+export function Actions({ children, className }) {
   return (
     <motion.div
-      className={cls(classes, ["actions"], customStyles)}
+      className={cx(classes.actions, className)}
       initial={{y: 10}}
       animate={{y: 0}}
       exit={{y: 10}}

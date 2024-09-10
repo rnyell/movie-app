@@ -76,8 +76,8 @@ export default function CommonCard({ result, media, variant }) {
           <PrimaryOverlay result={result} media={media} />
         </Presence>
       </Card.Figure>
-      <Card.Body customStyles="absolute bottom-0 z-10 w-full">
-        <Card.TouchWidget ref={widgetRef} customStyles="align-center">
+      <Card.Body className="absolute bottom-0 z-10 w-full">
+        <Card.TouchWidget ref={widgetRef} className="align-center">
           <Title title={title} width="85%" />
           <Button
             variant="solid-blured"

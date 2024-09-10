@@ -8,13 +8,13 @@ import classes from "./casts.module.css"
 
 export default function Casts({
   casts,
-  count = 3,
-  variant,
   mode,
+  variant,
+  count = 3,
   withImage = true,
   withHeading = true,
   headingText = "Starring:",
-  customStyles = "",
+  className = "",
 }) {
   const [castsNumber, setCastsNumber] = useState(count)
   const [isOpen, setOpen] = useState(false)
@@ -70,7 +70,7 @@ export default function Casts({
     case "list": {
       return (
         <div
-          className={`${classes.casts} ${customStyles}`}
+          className={`${classes.casts} ${className}`}
           data-variant={variant}
           data-mode={mode}
         >
@@ -95,7 +95,7 @@ export default function Casts({
     case "drawer": {
       return (
         <div
-          className={`${classes.casts} ${customStyles}`}
+          className={`${classes.casts} ${className}`}
           data-variant={variant}
           data-state={isOpen ? "open" : "close"}
         >

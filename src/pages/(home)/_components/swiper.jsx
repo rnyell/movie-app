@@ -160,7 +160,7 @@ export default function Swiper({
               variant="star"
               starSize="icon-xl"
               starSvg={<IMDB2Icon />}
-              customStyles="fs-larger"
+              className="fs-larger"
             />
           </div>
         </motion.div>

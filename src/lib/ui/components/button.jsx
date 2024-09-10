@@ -1,5 +1,4 @@
 import { cva } from "cva"
-import cn from "../cn"
 import Icon from "./icon"
 
 import classes from "./button.module.css"
@@ -38,9 +37,9 @@ const styles = cva(classes.button, {
 
 export default function Button({
   children,
+  className,
   variant,
   size,
-  className,
   isSquare = false,
   iconOnly = false,
   iconSize = "md",
@@ -52,7 +51,7 @@ export default function Button({
 }) {
   return (
     <button
-      className={cn(styles({ variant, size, className }))}
+      className={styles({ variant, size, className })}
       data-square={isSquare}
       type={type}
       role="button"

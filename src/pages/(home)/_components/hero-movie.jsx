@@ -143,7 +143,7 @@ export default function HeroMovie({
                   variant="star"
                   color="white"
                   starSize="icon-md"
-                  customStyles="fs-larger"
+                  className="fs-larger"
                 />
                 <Dot scale="1.5" />
                 <Genres genres={genres} media={media} shape="chip" />

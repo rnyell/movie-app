@@ -19,7 +19,7 @@ export default function SecondaryOverlay({ result, media, variant, setModal }) {
           title={title}
           width="auto"
           isTruncated={false}
-          customStyles="box-clamp"
+          className="box-clamp"
         />
       </Overlay.Header>
       <Overlay.Details>
@@ -31,8 +31,7 @@ export default function SecondaryOverlay({ result, media, variant, setModal }) {
         <Overview
           text={result.overview}
           lines={4}
-          fontSize="fs-sm"
-          customStyles="mt-4"
+          className="mt-4 text-[0.775rem]"
         />
       </Overlay.Details>
       <Overlay.Actions>
